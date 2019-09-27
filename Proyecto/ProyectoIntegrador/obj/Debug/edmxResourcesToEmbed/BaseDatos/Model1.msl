@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities">
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="empresa" ColumnName="empresa" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="canton" ColumnName="canton" />
+          <ScalarProperty Name="distrito" ColumnName="distrito" />
+          <ScalarProperty Name="direccionExacta" ColumnName="direccionExacta" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proyecto">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Proyecto">
+        <MappingFragment StoreEntitySet="Proyecto">
+          <ScalarProperty Name="idProyectoPK" ColumnName="idProyectoPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="objetivo" ColumnName="objetivo" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+          <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
+          <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
+          <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

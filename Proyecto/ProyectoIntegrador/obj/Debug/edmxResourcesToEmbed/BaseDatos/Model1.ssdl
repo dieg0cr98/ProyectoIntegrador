@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gr03Proy2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="cedulaPK" />
+    </Key>
+    <Property Name="cedulaPK" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellido1" Type="varchar" MaxLength="30" />
+    <Property Name="apellido2" Type="varchar" MaxLength="30" />
+    <Property Name="empresa" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="provincia" Type="varchar" MaxLength="30" />
+    <Property Name="canton" Type="varchar" MaxLength="30" />
+    <Property Name="distrito" Type="varchar" MaxLength="30" />
+    <Property Name="direccionExacta" Type="varchar" MaxLength="30" />
+    <Property Name="telefono" Type="varchar" MaxLength="15" />
+    <Property Name="correo" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proyecto">
+    <Key>
+      <PropertyRef Name="idProyectoPK" />
+    </Key>
+    <Property Name="idProyectoPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="objetivo" Type="varchar" MaxLength="200" />
+    <Property Name="estado" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="duracionReal" Type="time" Precision="7" Nullable="false" />
+    <Property Name="duracionEstimada" Type="time" Precision="7" Nullable="false" />
+    <Property Name="fechaInicio" Type="date" Nullable="false" />
+    <Property Name="fechaFinalizacion" Type="date" Nullable="false" />
+    <Property Name="cedulaClienteFK" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="cantidadReq" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Proyecto__cedula__5BE2A6F2">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="cedulaPK" />
+      </Principal>
+      <Dependent Role="Proyecto">
+        <PropertyRef Name="cedulaClienteFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Gr03Proy2ModelStoreContainer">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Proyecto__cedula__5BE2A6F2" Association="Self.FK__Proyecto__cedula__5BE2A6F2">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Proyecto" EntitySet="Proyecto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
