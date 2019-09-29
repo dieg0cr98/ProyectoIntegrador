@@ -106,3 +106,4 @@ C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\Proyect
 C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csproj.CopyComplete
 C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.dll
 C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.pdb
+C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csprojAssemblyReference.cache
