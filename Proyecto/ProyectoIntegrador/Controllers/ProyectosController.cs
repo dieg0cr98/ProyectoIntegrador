@@ -48,8 +48,9 @@ namespace ProyectoIntegrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idProyectoAID,nombre,objetivo,estado,duracionReal,duracionEstimada,fechaInicio,fechaFinalizacion,cedulaClienteFK,cantidadReq")] Proyecto proyecto)
+        public ActionResult Create(Proyecto proyecto)
         {
+
             if (ModelState.IsValid)
             {
                 db.Proyecto.Add(proyecto);

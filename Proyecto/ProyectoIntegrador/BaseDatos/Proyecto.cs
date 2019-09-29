@@ -11,7 +11,10 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
+    using System.Web.Mvc;
+
     public partial class Proyecto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,14 +24,14 @@ namespace ProyectoIntegrador.BaseDatos
             this.TrabajaEn = new HashSet<TrabajaEn>();
         }
     
-        public int idProyectoAID { get; set; }
+        public int idProyectoAID { get; set; } 
         public string nombre { get; set; }
         public string objetivo { get; set; }
-        public string estado { get; set; }
-        public System.TimeSpan duracionReal { get; set; }
-        public System.TimeSpan duracionEstimada { get; set; }
-        public System.DateTime fechaInicio { get; set; }
-        public System.DateTime fechaFinalizacion { get; set; }
+        public string estado { get; set; } = "Preparacion";
+        public System.TimeSpan duracionReal { get; set; } = TimeSpan.Zero;
+        public System.TimeSpan duracionEstimada { get; set; } = TimeSpan.Zero;
+        public System.DateTime fechaInicio { get; set; } = DateTime.Now.Date;
+        public System.DateTime fechaFinalizacion { get; set; } = DateTime.Parse("1800-01-01");
         public string cedulaClienteFK { get; set; }
         public int cantidadReq { get; set; }
     

@@ -2,80 +2,119 @@
 
 @{
     ViewBag.Title = "Index";
+
 }
+
+
+    <head>
+
+        <link rel="stylesheet" href="~/Content/Site.css" />
+    </head>
+
+
 
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.objetivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionReal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionEstimada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaFinalizacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cantidadReq)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.objetivo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionReal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionEstimada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaFinalizacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cantidadReq)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idProyectoAID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idProyectoAID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idProyectoAID })
-        </td>
-    </tr>
-}
 
-</table>
+
+
+
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
+
+
+
+<div class="alert alert-secondary" role="alert">
+    A simple secondary alert—check it out!
+</div>
+
+
+<div class="container " style="max-width: 1800px" >
+    <div class="row">
+
+        <div class="col-6 col-md-4 h-25">
+
+            @*NavBar con el titulo y el input para realizar busquedas*@
+            <nav class="navbar navbar-light bg-light justify-content-between">
+                <a class="navbar-brand">ListaProyectos</a>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+
+
+
+            <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+
+
+
+                @foreach (var item in Model)
+                {
+                    <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                    { idCarta += 1; }
+                }
+
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="col-12 col-md-8">
+            <div class="tab-content w-75 h-25" id="nav-tabContent">
+
+
+                @foreach (var item in Model)
+                {
+
+                    <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.nombre)
+                                </p>
+
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.objetivo)
+                                </p>
+
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.estado)
+                                </p>
+
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+
+
+                            </div>
+                        </div>
+                    </div>
+                    //Le agrega un digito mas al idTab
+                    { idTab += 1; }
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>

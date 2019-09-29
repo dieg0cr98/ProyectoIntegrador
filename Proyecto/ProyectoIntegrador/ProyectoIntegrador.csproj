@@ -391,6 +391,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CustomAttribute\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
