@@ -177,9 +177,56 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BaseDatos\Cliente.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Empleado.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\HabilidadTecnica.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Proyecto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Prueba.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Requerimiento.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Tester.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\TrabajaEn.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\EmpleadosController.cs" />
+    <Compile Include="Controllers\HabilidadTecnicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProyectosController.cs" />
+    <Compile Include="Controllers\PruebasController.cs" />
+    <Compile Include="Controllers\RequerimientosController.cs" />
+    <Compile Include="Controllers\TestersController.cs" />
+    <Compile Include="Controllers\TrabajaEnController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,6 +237,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BaseDatos\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BaseDatos\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -222,6 +279,13 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <EntityDeploy Include="BaseDatos\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BaseDatos\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -284,10 +348,49 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Empleados\Create.cshtml" />
+    <Content Include="Views\Empleados\Delete.cshtml" />
+    <Content Include="Views\Empleados\Details.cshtml" />
+    <Content Include="Views\Empleados\Edit.cshtml" />
+    <Content Include="Views\Empleados\Index.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Create.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Delete.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Details.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Edit.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Index.cshtml" />
+    <Content Include="Views\Proyectos\Create.cshtml" />
+    <Content Include="Views\Proyectos\Delete.cshtml" />
+    <Content Include="Views\Proyectos\Details.cshtml" />
+    <Content Include="Views\Proyectos\Edit.cshtml" />
+    <Content Include="Views\Proyectos\Index.cshtml" />
+    <Content Include="Views\Pruebas\Create.cshtml" />
+    <Content Include="Views\Pruebas\Delete.cshtml" />
+    <Content Include="Views\Pruebas\Details.cshtml" />
+    <Content Include="Views\Pruebas\Edit.cshtml" />
+    <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\Requerimientos\Create.cshtml" />
+    <Content Include="Views\Requerimientos\Delete.cshtml" />
+    <Content Include="Views\Requerimientos\Details.cshtml" />
+    <Content Include="Views\Requerimientos\Edit.cshtml" />
+    <Content Include="Views\Requerimientos\Index.cshtml" />
+    <Content Include="Views\Testers\Create.cshtml" />
+    <Content Include="Views\Testers\Delete.cshtml" />
+    <Content Include="Views\Testers\Details.cshtml" />
+    <Content Include="Views\Testers\Edit.cshtml" />
+    <Content Include="Views\Testers\Index.cshtml" />
+    <Content Include="Views\TrabajaEn\Create.cshtml" />
+    <Content Include="Views\TrabajaEn\Delete.cshtml" />
+    <Content Include="Views\TrabajaEn\Details.cshtml" />
+    <Content Include="Views\TrabajaEn\Edit.cshtml" />
+    <Content Include="Views\TrabajaEn\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BaseDatos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

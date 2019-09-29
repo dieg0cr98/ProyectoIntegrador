@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities">
+  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities2">
     <EntitySetMapping Name="Cliente">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Cliente">
         <MappingFragment StoreEntitySet="Cliente">
@@ -18,10 +18,37 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Empleado">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+          <ScalarProperty Name="distrito" ColumnName="distrito" />
+          <ScalarProperty Name="canton" ColumnName="canton" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HabilidadTecnica">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.HabilidadTecnica">
+        <MappingFragment StoreEntitySet="HabilidadTecnica">
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Proyecto">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Proyecto">
         <MappingFragment StoreEntitySet="Proyecto">
-          <ScalarProperty Name="idProyectoPK" ColumnName="idProyectoPK" />
+          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="objetivo" ColumnName="objetivo" />
           <ScalarProperty Name="estado" ColumnName="estado" />
@@ -31,6 +58,58 @@
           <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
           <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
           <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prueba">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
+        <MappingFragment StoreEntitySet="Prueba">
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+          <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
+          <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+          <ScalarProperty Name="propositoPrueba" ColumnName="propositoPrueba" />
+          <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
+          <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
+          <ScalarProperty Name="flujoPrueba" ColumnName="flujoPrueba" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="descripcionError" ColumnName="descripcionError" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requerimiento">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Requerimiento">
+        <MappingFragment StoreEntitySet="Requerimiento">
+          <ScalarProperty Name="idReqPK" ColumnName="idReqPK" />
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+          <ScalarProperty Name="cedulaTesterFK" ColumnName="cedulaTesterFK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+          <ScalarProperty Name="tiempoEstimado" ColumnName="tiempoEstimado" />
+          <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="fechaDeInicio" ColumnName="fechaDeInicio" />
+          <ScalarProperty Name="fechaDeFinalizacion" ColumnName="fechaDeFinalizacion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="horas" ColumnName="horas" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tester">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Tester">
+        <MappingFragment StoreEntitySet="Tester">
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="cantidadRequerimientos" ColumnName="cantidadRequerimientos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrabajaEn">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.TrabajaEn">
+        <MappingFragment StoreEntitySet="TrabajaEn">
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="rol" ColumnName="rol" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

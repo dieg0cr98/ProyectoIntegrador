@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.objetivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duracionReal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duracionEstimada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaFinalizacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidadReq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.objetivo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.duracionReal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.duracionEstimada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaFinalizacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidadReq)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idProyectoAID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idProyectoAID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idProyectoAID })
+        </td>
+    </tr>
+}
+
+</table>

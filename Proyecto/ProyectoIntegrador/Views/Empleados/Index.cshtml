@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellido1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellido2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.distrito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.canton)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.provincia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoTrabajo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tester.idEmpleadoFK)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellido1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellido2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.distrito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.canton)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.provincia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipoTrabajo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tester.idEmpleadoFK)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idEmpleadoPK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idEmpleadoPK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idEmpleadoPK })
+        </td>
+    </tr>
+}
+
+</table>
