@@ -8,12 +8,8 @@
 
 <h2>Create</h2>
 
-@{ var cedulaLider = ""; }
 
-
-
-
-@using (Html.BeginForm("Create", "Proyectos", new { h = cedulaLider }, FormMethod.Post, null))
+@using (Html.BeginForm("Create", "Proyectos", FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
 
@@ -78,7 +74,7 @@
 
         </div>
 
-        @{cedulaLider = "888888";}
+     
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
