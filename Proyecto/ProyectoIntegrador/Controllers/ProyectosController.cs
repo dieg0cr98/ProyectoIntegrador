@@ -10,9 +10,15 @@ using ProyectoIntegrador.BaseDatos;
 
 namespace ProyectoIntegrador.Controllers
 {
+    public class OrderOperatorViewModel
+    {
+    
+    }
+
 
     public class ProyectosController : Controller
     {
+
         
 
 
@@ -51,9 +57,8 @@ namespace ProyectoIntegrador.Controllers
         // GET: Proyectos/Create
         public ActionResult Create()
         {
+            
             ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre");
-
-
             ViewBag.lider = new SelectList(db.Empleado. Where(o => o.estado == "Disponible" && o.tipoTrabajo == "Lider"), "idEmpleadoPK" , "nombre");
             return View();
         }
@@ -63,11 +68,12 @@ namespace ProyectoIntegrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Proyecto proyecto)
+        public ActionResult Create(Proyecto proyecto, string h)
         {
-          
+
             if (ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("Hola this is " + h);
                 db.Proyecto.Add(proyecto);
                 db.SaveChanges();
                 return RedirectToAction("Index");
