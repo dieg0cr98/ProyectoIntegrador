@@ -10,8 +10,20 @@ using ProyectoIntegrador.BaseDatos;
 
 namespace ProyectoIntegrador.Controllers
 {
+
     public class ProyectosController : Controller
     {
+        
+
+
+
+        //Metodo para obtener la vista principal de los clientes
+        public ActionResult IndexCliente()
+        {
+            return RedirectToAction("Index", "Clientes", null);
+        }
+
+
         private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
 
         // GET: Proyectos
@@ -40,6 +52,9 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create()
         {
             ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre");
+
+
+            ViewBag.lider = new SelectList(db.Empleado. Where(o => o.estado == "Disponible" && o.tipoTrabajo == "Lider"), "idEmpleadoPK" , "nombre");
             return View();
         }
 
@@ -50,7 +65,7 @@ namespace ProyectoIntegrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Proyecto proyecto)
         {
-
+          
             if (ModelState.IsValid)
             {
                 db.Proyecto.Add(proyecto);
