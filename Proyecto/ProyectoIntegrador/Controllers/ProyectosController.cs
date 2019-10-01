@@ -103,22 +103,16 @@ namespace ProyectoIntegrador.Controllers
 
             }
 
+            return RedirectToAction("Index");
+
+            ////Selecciona todos los Clientes
+            //ViewBag.cliente = db.Cliente.ToList();
+
+            ////Selecciona todos los empelados que esten disponible y que sean Lider
+            //ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
 
 
-
-
-
-
-
-
-            //Selecciona todos los Clientes
-            ViewBag.cliente = db.Cliente.ToList();
-
-            //Selecciona todos los empelados que esten disponible y que sean Lider
-            ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
-
-
-            return View();
+            //return View();
         }
 
 
@@ -157,7 +151,12 @@ namespace ProyectoIntegrador.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre", proyecto.cedulaClienteFK);
+
+            //Selecciona todos los Clientes
+            ViewBag.cliente = db.Cliente.ToList();
+
+            //Selecciona todos los empelados que esten disponible y que sean Lider
+            ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
             return View(proyecto);
         }
 
@@ -165,17 +164,23 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idProyectoAID,nombre,objetivo,estado,duracionReal,duracionEstimada,fechaInicio,fechaFinalizacion,cedulaClienteFK,cantidadReq")] Proyecto proyecto)
+        public ActionResult Edit(int idProyectoAID , string nombre, string objetivo, string estado, TimeSpan duracionEstimada,TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, string cedulaCliente, string cedulaLider)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(proyecto).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre", proyecto.cedulaClienteFK);
-            return View(proyecto);
+            Proyecto proyecto = db.Proyecto.Find(idProyectoAID);
+            proyecto.nombre = nombre;
+            proyecto.objetivo = objetivo;
+            proyecto.estado = estado;
+            proyecto.duracionEstimada = duracionEstimada;
+            proyecto.duracionReal = duracionReal;
+            proyecto.fechaInicio = fechaInicio;
+            proyecto.fechaFinalizacion = fechaFinalizacion;
+            proyecto.cedulaClienteFK = cedulaCliente;
+
+            db.Entry(proyecto).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+
         }
 
         // GET: Proyectos/Delete/5

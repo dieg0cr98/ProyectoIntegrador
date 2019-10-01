@@ -4,103 +4,147 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Proyecto</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idProyectoAID)
+<div class="container">
+    <h2>Edit</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+
+
+    <form class="cmxform" id="commentForm" method="post" action="Create">
+
+        <fieldset>
+            <p>
+                <label for="cnombre">Nombre</label>
+                <input id="cnombre" name="nombre" minlength="1" placeholder="@Model.nombre" maxlength="30" type="text" required>
+            </p>
+
+
+            <div class="input-group">
+                <p class="text-black">Objetivo</p>
+                <textarea class="form-control" name="objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea"></textarea>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.duracionReal, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="input-group">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.fechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fechaInicio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
+                <p class="text-black">Estado</p>
+                <select class="custom-select" name="estado">
+                    <option selected>@Model.estado</option>
+                    <option value="Preparacion">Preparacion</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Cancelado">Cancelado</option>
+                    <option value="Terminado">Terminado</option>
+                </select>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.fechaFinalizacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fechaFinalizacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fechaFinalizacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cedulaClienteFK, "cedulaClienteFK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("cedulaClienteFK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <p>
+                <label for="cde">duracionEstimada</label>
+                <input id="cde" type="time" name="duracionEstimada">
+                <small class="form-text text-muted text-danger">
+                    Formato horas:minutos 
+                </small>
+            </p>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cantidadReq, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cantidadReq, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cantidadReq, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <p>
+                <label for="cdr">duracionReal</label>
+                <input id="cdr" type="time" name="duracionReal" >
+                <small class="form-text text-muted text-danger">
+                    Formato horas:minutos
+                </small>
+            </p>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+
+            <p>
+                <label for="cfecha">FechaInicio</label>
+                <input id="cfecha" type="date" name="fechaInicio" placeholder="@Model.fechaInicio">
+            </p>
+
+            <p>
+                <label for="cfecha">FechaFinalizacion</label>
+                <input id="cfecha" type="date" name="fechaFinalizacion" placeholder="@Model.fechaFinalizacion">
+                <small class="form-text text-muted text-danger">
+                    Por defecto la fecha de finalizacion es 1800-01-01
+                </small>
+            </p>
+
+            <p>
+                <label for="cdr">Cantidad de requerimientos</label>
+                <input id="cdr" type="text" name="cantidadReq" placeholder="@Model.cantidadReq" disabled>
+
+            </p>
+
+
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
+                </div>
+                <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
+                    <option selected value="">Seleccione un Cliente</option>
+
+                    @foreach (var item in ViewBag.cliente)
+                    {
+                        <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
+
+                    }
+
+                </select>
+
+                <div class="input-group-append">
+                    <a class="btn btn-outline-primary" href="/Clientes/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                </div>
             </div>
-        </div>
+
+
+
+
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
+
+                    <option selected value="">Seleccione un Lider</option>
+
+                    @foreach (var item in ViewBag.lider)
+                    {
+                        <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
+                    }
+                </select>
+            </div>
+
+            <p>
+                <input class="submit" type="submit" value="Submit">
+            </p>
+        </fieldset>
+    </form>
+
+    <script>
+            $("#commentForm").validate();
+    </script>
+
+
+
+    <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+    </script>
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
