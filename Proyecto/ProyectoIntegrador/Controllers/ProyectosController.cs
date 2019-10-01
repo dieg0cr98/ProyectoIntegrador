@@ -59,9 +59,14 @@ namespace ProyectoIntegrador.Controllers
         // GET: Proyectos/Create
         public ActionResult Create()
         {
+
+            //Selecciona todos los Clientes
+            ViewBag.cliente = db.Cliente.ToList();     
             
-            ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre");
-            ViewBag.lider = new SelectList(db.Empleado. Where(o => o.estado == "Disponible" && o.tipoTrabajo == "Lider"), "idEmpleadoPK" , "nombre");
+            //Selecciona todos los empelados que esten disponible y que sean Lider
+            ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+                
+                
             return View();
         }
 
@@ -70,9 +75,48 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(string name,string objetivo ,string select)
+        public ActionResult Create(string nombre,string objetivo, TimeSpan duracionEstimada, string cedulaCliente, string cedulaLider)
         {
-            System.Diagnostics.Debug.WriteLine("Hola this is "+ name + select);
+            Proyecto proyecto = new Proyecto();
+            proyecto.nombre = nombre;
+            proyecto.objetivo = objetivo;
+            proyecto.duracionEstimada = duracionEstimada;
+            proyecto.cedulaClienteFK = cedulaCliente;
+
+            db.Proyecto.Add(proyecto);
+            db.SaveChanges();
+
+            if( !String.IsNullOrEmpty(cedulaLider) )
+            {
+                //Recupera el id autogenerado del proyecto creado anteriormente
+                int idProyecto = db.Proyecto.Where(p => p.nombre == nombre).Select(p => p.idProyectoAID).FirstOrDefault();
+                TrabajaEn trabaja = new TrabajaEn();
+                trabaja.idEmpleadoFK = cedulaLider;
+                trabaja.idProyectoFK = idProyecto;
+                trabaja.estado = "Activo";
+                trabaja.rol = "Lider";
+
+                db.TrabajaEn.Add(trabaja);
+                db.SaveChanges();
+
+            
+
+            }
+
+
+
+
+
+
+
+
+
+            //Selecciona todos los Clientes
+            ViewBag.cliente = db.Cliente.ToList();
+
+            //Selecciona todos los empelados que esten disponible y que sean Lider
+            ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+
 
             return View();
         }

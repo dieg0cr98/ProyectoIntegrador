@@ -6,189 +6,149 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+
+    <div class="container">
+        <h2>Create</h2>
 
 
 
-<form class="cmxform" id="commentForm" method="post" action="Create">
- 
-    <fieldset>
-        <p>
-            <label for="cnombre">Nombre</label>
-            <input id="cnombre" name="name" minlength="2" placeholder="Ingrese nombre" maxlength="20" type="text" required>
-        </p>
+        <form class="cmxform" id="commentForm" method="post" action="Create">
+
+            <fieldset>
+                <p>
+                    <label for="cnombre">Nombre</label>
+                    <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese nombre" maxlength="30" type="text" required>
+                </p>
 
 
-        <div class="input-group">
-            <p class="text-black">Objetivo</p>
-            <textarea class="form-control" name="objetivo" placeholder="Maximo 50 caracteres" maxlength="50" aria-label="With textarea"></textarea>
-        </div>
-
-
-
-        <div class="input-group">
-
-
-            <p class="text-black">Estado</p>
-            <select class="custom-select" name="estado" disabled>
-                <option selected>Preparacion</option>
-                <option value="1">Preparacion</option>
-                <option value="2">Activo</option>
-                <option value="3">Cancelado</option>
-                <option value="4">Terminado</option>
-            </select>
-        </div>
-
-
-        <p>
-            <label for="cde">duracionEstimada</label>
-            <input id="cde" type="time" name="duracionEstimada" placeholder="">
-
-        </p>
+                <div class="input-group">
+                    <p class="text-black">Objetivo</p>
+                    <textarea class="form-control" name="objetivo" placeholder="Maximo 200 caracteres" maxlength="200" aria-label="With textarea"></textarea>
+                </div>
 
 
 
-        <p>
-            <label for="cdr">duracionReal</label>
-            <input id="cdr" type="time" name="duracionReal" placeholder="@DateTime.Now.ToShortDateString()" disabled>
-
-        </p>
+                <div class="input-group">
 
 
+                    <p class="text-black">Estado</p>
+                    <select class="custom-select" name="estado" disabled>
+                        <option selected>Preparacion</option>
+                        <option value="Preparacion">Preparacion</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Cancelado">Cancelado</option>
+                        <option value="Terminado">Terminado</option>
+                    </select>
+                </div>
 
 
+                <p>
+                    <label for="cde">duracionEstimada</label>
+                    <input id="cde" type="time" name="duracionEstimada" placeholder="hh:mm">
+                    <small class="form-text text-muted text-danger">
+                        Formato horas:minutos
+                    </small>
+                </p>
+
+                <p>
+                    <label for="cdr">duracionReal</label>
+                    <input id="cdr" type="text" name="duracionReal" placeholder="00:00" disabled>
+                    <small class="form-text text-muted text-danger">
+                        Formato horas:minutos
+                    </small>
+                </p>
 
 
-        <p>
-            <label for="cfecha">FechaInicio</label>
-            <input id="cfecha" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
-            <small class="form-text text-muted text-danger">
-                La fecha de inicio se agrega de forma automatica, usando la fecha actual del sistema
-            </small>
-        </p>
+                <p>
+                    <label for="cfecha">FechaInicio</label>
+                    <input id="cfecha" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+                    <small class="form-text text-muted text-danger">
+                        La fecha de inicio se agrega de forma automatica, usando la fecha actual del sistema
+                    </small>
+                </p>
 
-        <p>
-            <label for="cfecha">FechaFinalizacion</label>
-            <input id="cfecha" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
-            <small class="form-text text-muted text-danger">
-                Por defecto la fecha de finalizacion es 1800-01-01
-            </small>
-        </p>
+                <p>
+                    <label for="cfecha">FechaFinalizacion</label>
+                    <input id="cfecha" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+                    <small class="form-text text-muted text-danger">
+                        Por defecto la fecha de finalizacion es 1800-01-01
+                    </small>
+                </p>
 
-        <p>
-            <label for="cdr">Cantidad de requerimientos</label>
-            <input id="cdr" type="text" name="duracionReal" placeholder="0" disabled>
+                <p>
+                    <label for="cdr">Cantidad de requerimientos</label>
+                    <input id="cdr" type="text" name="duracionReal" placeholder="0" disabled>
 
-        </p>
-
-
-        <div class="input-group">
-
-
-            <p class="text-black">Clientes</p>
-            <select class="custom-select" name="estado">
-                <option selected>Preparacion</option>
-                @{ int id = 1;}
-                @foreach (var item in @ViewBag.lider)
-                {
-                    <option value="@id">item.nombre</option>
-                    { id += 1; }
-                }
-
-            </select>
-        </div>
+                </p>
 
 
 
 
-        <p>
-            <input class="submit" type="submit" value="Submit">
-        </p>
-    </fieldset>
-</form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
+                    </div>
+                    <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
+                        <option selected value="">Seleccione un Cliente</option>
 
-<script>
-    $("#commentForm").validate();
-</script>
+                        @foreach (var item in ViewBag.cliente)
+                        {
+                            <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
 
+                        }
 
+                    </select>
 
-
-
-@*@using (Html.BeginForm("Create", "Proyectos", FormMethod.Post, null))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Proyecto</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cedulaClienteFK, "cedulaClienteFK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("cedulaClienteFK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
-
-
-                <div class="card mb-3 border-primary" style="max-width: 300px; background-color:transparent">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="~/Content/boss.svg" class="rounded mx-auto d-block" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">No encuetra el Cliente?</h5>
-                                <p class="card-text">Dale click al buton para agregar un nuevo cliente</p>
-                                @Html.ActionLink("Añadir", "IndexCliente", null, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
-                            </div>
-                        </div>
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-primary" href="/Clientes/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
                     </div>
                 </div>
 
-            </div>
 
 
 
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
+
+                        <option selected value="">Seleccione un Lider</option>
+
+                        @foreach (var item in ViewBag.lider)
+                        {
+                            <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
+                        }
+                    </select>
+                </div>
+
+                <p>
+                    <input class="submit" type="submit" value="Submit">
+                </p>
+            </fieldset>
+        </form>
+
+        <script>
+            $("#commentForm").validate();
+        </script>
+
+
+
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
         </div>
 
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
 
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}*@
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
