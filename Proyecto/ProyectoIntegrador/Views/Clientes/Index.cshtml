@@ -3,85 +3,55 @@
 @{
     ViewBag.Title = "Index";
 }
+<br />
+<h1 style="text-align:center">Consulta Clientes</h1>
+<br />
+<div class="consultaClientes">
+    <table class="table" >
+        <tr>
+            <th colspan="1">
+                <p id="title">
+                    Lista Clientes
+                </p>
+                <!--@Html.DisplayNameFor(model => model.nombre) @Html.DisplayNameFor(model => model.apellido1)-->
+            </th>
+            <th>
+                <input value="Ingrese Nombre Cliente" onclick="this.value=''"/>
+                &nbsp&nbsp&nbsp&nbsp
 
-<h2>Index</h2>
+                <a href="#">
+                    <img src="~/Content/lupa.png" width="35px" height="35px" />
+                </a>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.empresa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.provincia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.canton)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.distrito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.direccionExacta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.correo)
-        </th>
-        <th></th>
-    </tr>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <a href="/Clientes/Create">
+                    <img src="~/Content/mas.png" width="35px" height="35px" />
+                </a>
+            </th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apellido1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apellido2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.empresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.provincia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.canton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.distrito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.direccionExacta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.correo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.cedulaPK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.cedulaPK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.cedulaPK })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="infoCliente" colspan="1">
+                    <div>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                        @Html.DisplayFor(modelItem => item.apellido1)
+                    </div>
+                </td>
+                <td class="infoCliente" align="center">
 
-</table>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.cedulaPK }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
+
+</div>
+
+
