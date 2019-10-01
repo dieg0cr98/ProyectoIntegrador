@@ -9,7 +9,113 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm("Create", "Proyectos", FormMethod.Post, null))
+
+<form class="cmxform" id="commentForm" method="post" action="Create">
+ 
+    <fieldset>
+        <p>
+            <label for="cnombre">Nombre</label>
+            <input id="cnombre" name="name" minlength="2" placeholder="Ingrese nombre" maxlength="20" type="text" required>
+        </p>
+
+
+        <div class="input-group">
+            <p class="text-black">Objetivo</p>
+            <textarea class="form-control" name="objetivo" placeholder="Maximo 50 caracteres" maxlength="50" aria-label="With textarea"></textarea>
+        </div>
+
+
+
+        <div class="input-group">
+
+
+            <p class="text-black">Estado</p>
+            <select class="custom-select" name="estado" disabled>
+                <option selected>Preparacion</option>
+                <option value="1">Preparacion</option>
+                <option value="2">Activo</option>
+                <option value="3">Cancelado</option>
+                <option value="4">Terminado</option>
+            </select>
+        </div>
+
+
+        <p>
+            <label for="cde">duracionEstimada</label>
+            <input id="cde" type="time" name="duracionEstimada" placeholder="">
+
+        </p>
+
+
+
+        <p>
+            <label for="cdr">duracionReal</label>
+            <input id="cdr" type="time" name="duracionReal" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+
+        </p>
+
+
+
+
+
+
+        <p>
+            <label for="cfecha">FechaInicio</label>
+            <input id="cfecha" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+            <small class="form-text text-muted text-danger">
+                La fecha de inicio se agrega de forma automatica, usando la fecha actual del sistema
+            </small>
+        </p>
+
+        <p>
+            <label for="cfecha">FechaFinalizacion</label>
+            <input id="cfecha" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+            <small class="form-text text-muted text-danger">
+                Por defecto la fecha de finalizacion es 1800-01-01
+            </small>
+        </p>
+
+        <p>
+            <label for="cdr">Cantidad de requerimientos</label>
+            <input id="cdr" type="text" name="duracionReal" placeholder="0" disabled>
+
+        </p>
+
+
+        <div class="input-group">
+
+
+            <p class="text-black">Clientes</p>
+            <select class="custom-select" name="estado">
+                <option selected>Preparacion</option>
+                @{ int id = 1;}
+                @foreach (var item in @ViewBag.lider)
+                {
+                    <option value="@id">item.nombre</option>
+                    { id += 1; }
+                }
+
+            </select>
+        </div>
+
+
+
+
+        <p>
+            <input class="submit" type="submit" value="Submit">
+        </p>
+    </fieldset>
+</form>
+
+<script>
+    $("#commentForm").validate();
+</script>
+
+
+
+
+
+@*@using (Html.BeginForm("Create", "Proyectos", FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
 
@@ -63,18 +169,13 @@
                     </div>
                 </div>
 
-
-
-
-
-
             </div>
 
 
 
         </div>
 
-     
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -82,7 +183,7 @@
             </div>
         </div>
     </div>
-}
+}*@
 
 <div>
     @Html.ActionLink("Back to List", "Index")

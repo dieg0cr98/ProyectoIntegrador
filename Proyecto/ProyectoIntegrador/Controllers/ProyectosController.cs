@@ -19,8 +19,7 @@ namespace ProyectoIntegrador.Controllers
     public class ProyectosController : Controller
     {
 
-        
-
+   
 
 
         //Metodo para obtener la vista principal de los clientes
@@ -54,6 +53,9 @@ namespace ProyectoIntegrador.Controllers
             return View(proyecto);
         }
 
+
+
+
         // GET: Proyectos/Create
         public ActionResult Create()
         {
@@ -63,25 +65,41 @@ namespace ProyectoIntegrador.Controllers
             return View();
         }
 
+
         // POST: Proyectos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Proyecto proyecto, string h)
+        public ActionResult Create(string name,string objetivo ,string select)
         {
+            System.Diagnostics.Debug.WriteLine("Hola this is "+ name + select);
 
-            if (ModelState.IsValid)
-            {
-                System.Diagnostics.Debug.WriteLine("Hola this is " + h);
-                db.Proyecto.Add(proyecto);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre", proyecto.cedulaClienteFK);
-            return View(proyecto);
+            return View();
         }
+
+
+
+        //// POST: Proyectos/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(Proyecto proyecto)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine("Hola this is ");
+        //        db.Proyecto.Add(proyecto);
+
+
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.cedulaClienteFK = new SelectList(db.Cliente, "cedulaPK", "nombre", proyecto.cedulaClienteFK);
+        //    return View(proyecto);
+        //}
 
         // GET: Proyectos/Edit/5
         public ActionResult Edit(int? id)
