@@ -30,3 +30,7 @@ textarea {
     margin: 0 auto 0;
     padding-top: 0px;
 }
+
+span.field-validation-error {
+    color: red;
+}

@@ -7,19 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using ProyectoIntegrador.Models;
+
+
+
 
 namespace ProyectoIntegrador.Controllers
 {
-    public class OrderOperatorViewModel
-    {
-    
-    }
 
 
     public class ProyectosController : Controller
     {
+     
+        private  SeguridadController seguridad = new SeguridadController();
 
-   
+
+        public async System.Threading.Tasks.Task<ActionResult> Agregar()
+        {
+            //......Code........//
+            await seguridad.AgregarUsuarioAsync("test2@gmail.com", "Lider");
+            //......Code........//
+
+            return RedirectToAction("Index");
+        }
+
+
+
 
 
         //Metodo para obtener la vista principal de los clientes
@@ -29,11 +45,17 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+
         private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
 
         // GET: Proyectos
         public ActionResult Index()
         {
+
+
+         
+
+
             var proyecto = db.Proyecto.Include(p => p.Cliente);
             return View(proyecto.ToList());
         }

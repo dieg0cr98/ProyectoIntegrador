@@ -225,6 +225,8 @@
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Controllers\TestersController.cs" />
     <Compile Include="Controllers\TrabajaEnController.cs" />
     <Compile Include="Global.asax.cs">
@@ -395,6 +397,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomAttribute\" />
+    <Folder Include="Views\Role\" />
+    <Folder Include="Views\Seguridad\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
