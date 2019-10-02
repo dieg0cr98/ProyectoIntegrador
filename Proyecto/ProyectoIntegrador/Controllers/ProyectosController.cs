@@ -51,13 +51,21 @@ namespace ProyectoIntegrador.Controllers
         // GET: Proyectos
         public ActionResult Index()
         {
+          
+
+           var permisosGenerales =  seguridad.ProyectoConsultar(User);
+           ViewBag.permisosEspecificos = Tuple.Create(permisosGenerales.Item2, permisosGenerales.Item3, permisosGenerales.Item4);
+
+           if (permisosGenerales.Item1 == 1) //Puede ver todos los proyectos
+           {
+                return View(user.Identity.Name);
+
+           }
 
 
-         
 
-
-            var proyecto = db.Proyecto.Include(p => p.Cliente);
-            return View(proyecto.ToList());
+            
+            return View();
         }
 
         // GET: Proyectos/Details/5
