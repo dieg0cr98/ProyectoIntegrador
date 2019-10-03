@@ -67,19 +67,22 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // GET: Requerimientos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? idRequerimiento, int? idProyecto)
         {
-            if (id == null)
+            if (idRequerimiento == null || idProyecto == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requerimiento requerimiento = db.Requerimiento.Find(id);
+
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+
             if (requerimiento == null)
             {
                 return HttpNotFound();
             }
             ViewBag.cedulaTesterFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", requerimiento.cedulaTesterFK);
             ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", requerimiento.idProyectoFK);
+
             return View(requerimiento);
         }
 
@@ -102,26 +105,29 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // GET: Requerimientos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? idRequerimiento, int? idProyecto)
         {
-            if (id == null)
+            if (idRequerimiento == null || idProyecto == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requerimiento requerimiento = db.Requerimiento.Find(id);
+
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+
             if (requerimiento == null)
             {
                 return HttpNotFound();
             }
+
             return View(requerimiento);
         }
 
         // POST: Requerimientos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int idRequerimiento, int idProyecto)
         {
-            Requerimiento requerimiento = db.Requerimiento.Find(id);
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
             db.Requerimiento.Remove(requerimiento);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<br>
+<br/>
 <h2 align="center">Consultar Requerimientos</h2>
 
 <p>
@@ -64,7 +64,7 @@
                                 <h4>
                                     @Html.DisplayFor(modelItem => item.nombre)
                                 </h4>
-
+                                <br />
                                 <p>
                                     ID de requerimiento:
                                     <font size="+1">
@@ -74,14 +74,21 @@
 
                                 <p>
                                     ID de proyecto:
-                                    <font size="+2">
+                                    <font size="+1">
                                         @Html.DisplayFor(modelItem => item.idProyectoFK)
                                     </font>
                                 </p>
 
-                                @Html.ActionLink("Edit", "Edit", new { /*id = item.idProyectoAID*/ }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
+                                <p>
+                                    ID de proyecto:
+                                    <font size="+1">
+                                        @Html.DisplayFor(modelItem => item.Empleado.nombre)
+                                    </font>
+                                </p>
+
+                                @Html.ActionLink("Edit", "Edit", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
                                 @Html.ActionLink("Details", "Details", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
-                                @Html.ActionLink("Delete", "Delete", new {/* id = item.idProyectoAID */}, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                                @Html.ActionLink("Delete", "Delete", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
 
 
                             </div>
