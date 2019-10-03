@@ -102,6 +102,7 @@ namespace ProyectoIntegrador.Controllers
         //Devuelve una string con el id del usuario. En caso de que no exista returna una string vacia
         public string IdUsuario(System.Security.Principal.IPrincipal user)
         {
+            
             string idUsuario="";
             int rol = GetRoleUsuario(user);
 

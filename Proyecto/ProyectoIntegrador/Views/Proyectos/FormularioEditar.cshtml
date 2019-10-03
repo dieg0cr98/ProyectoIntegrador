@@ -9,7 +9,7 @@
         <form class="cmxform" id="commentForm" method="post" action="Create">
 
             <fieldset>
-
+                @*Atributo idProyecto*@
                 <p>
                     <label for="ccid">IdProyecto</label>
                     @*Puede editar*@
@@ -24,11 +24,7 @@
                     }
                 </p>
 
-
-
-
-
-
+                @*Atributo Nombre*@
                 <p>
                     <label for="cnombre">Nombre</label>
                     @if (ViewBag.permisos.Item2[1] == 1)
@@ -43,7 +39,7 @@
 
                 </p>
 
-
+                @*Atributo Objetivo*@
                 <div class="input-group">
                     <p class="text-black">Objetivo</p>
                     @if (ViewBag.permisos.Item2[2] == 1)
@@ -60,7 +56,7 @@
                 </div>
 
 
-
+                @*Atributo Estado*@
                 <div class="input-group">
 
 
@@ -87,6 +83,7 @@
                 </div>
 
 
+                @*Atributo duracionEstimada*@
                 <p>
                     <label for="cde">duracionEstimada</label>
                     @if (ViewBag.permisos.Item2[4] == 1)
@@ -106,6 +103,7 @@
 
                 </p>
 
+                @*Atributo duarcionReal*@
                 <p>
                     <label for="cdr">duracionReal</label>
                     @if (ViewBag.permisos.Item2[5] == 1)
@@ -125,7 +123,7 @@
 
                 </p>
 
-
+                @*Atributo FechaInicio*@
                 <p>
                     <label for="cfecha">FechaInicio</label>
                     @if (ViewBag.permisos.Item2[6] == 1)
@@ -139,6 +137,7 @@
 
                 </p>
 
+                @*Atributo FechaFinalizacion*@
                 <p>
                     <label for="cfecha">FechaFinalizacion</label>
                     @if (ViewBag.permisos.Item2[7] == 1)
@@ -158,6 +157,7 @@
 
                 </p>
 
+                @*Atributo Cantidad de requerimientos*@
                 <p>
                     <label for="cdr">Cantidad de requerimientos</label>
                     @if (ViewBag.permisos.Item2[8] == 1)
@@ -174,8 +174,7 @@
                 </p>
 
 
-
-
+                @*Atributo cedulaCliente*@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
@@ -186,7 +185,7 @@
                         {
 
 
-                            <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
+                             <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
 
                             foreach (var item in ViewBag.cliente)
                             {
@@ -196,18 +195,24 @@
 
 
                         }
+
                         else
                         {
-                             <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
-                        }
+                   
 
+                                <option selected value="@ViewBag.clienteActual.cedulaPK">
+                                    @ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa
+                                </option>
+       
+
+                        }
                     </select>
-                        <div class="input-group-append">
-                            <a class="btn btn-outline-primary" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
-                        </div>
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-primary" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                    </div>
 
                 </div>
-              
+
 
 
                 @*Se manda al controlador el lider actual si es que existe*@
@@ -217,12 +222,13 @@
                 }
 
 
+                @*Atributo cedulaLider*@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect01">Lideres</label>
                     </div>
 
-                   
+
 
                     <select class="custom-select" id="inputGroupSelect01" style="max-width:400px ; border-color:#76323f" name="cedulaLider">
                         @if (ViewBag.permisos.Item2[9] == 1)

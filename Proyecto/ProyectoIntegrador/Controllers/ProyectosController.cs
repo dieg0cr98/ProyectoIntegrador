@@ -141,7 +141,7 @@ namespace ProyectoIntegrador.Controllers
         // GET: Proyectos/Create
         public ActionResult Create()
         {
-
+            
             int rolUsurario = seguridad.GetRoleUsuario(User);
             //Verifica si el usuario tiene un rol valido
             if(rolUsurario >= 0)//Si tiene rol valido
@@ -168,17 +168,17 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(string nombre,string objetivo, TimeSpan duracionEstimada, Cliente cedulaCliente, string cedulaLider)
+        public ActionResult Create(string nombre,string objetivo, TimeSpan duracionEstimada, string cedulaCliente, string cedulaLider)
         {
-
+            
 
 
             Proyecto proyecto = new Proyecto();
             proyecto.nombre = nombre;
             proyecto.objetivo = objetivo;
             proyecto.duracionEstimada = duracionEstimada;
-            proyecto.cedulaClienteFK = cedulaCliente.cedulaPK;
-            System.Diagnostics.Debug.WriteLine(cedulaCliente.cedulaPK + "");
+            proyecto.cedulaClienteFK = cedulaCliente;
+        
 
             db.Proyecto.Add(proyecto);
             db.SaveChanges();
@@ -260,6 +260,9 @@ namespace ProyectoIntegrador.Controllers
                     {
                         //Selecciona el cliente actual
                         ViewBag.clienteActual = db.Cliente.Find(proyecto.cedulaClienteFK);
+
+                        //Case null 
+
 
                         //Selecciona todos los Clientes
                         ViewBag.cliente = db.Cliente.Where(c => c.cedulaPK != proyecto.cedulaClienteFK).ToList();
@@ -456,7 +459,7 @@ namespace ProyectoIntegrador.Controllers
             }
 
 
-           
+
             //Actualiza los datos del proyecto
             proyecto.nombre = nombre;
             proyecto.objetivo = objetivo;
@@ -504,15 +507,12 @@ namespace ProyectoIntegrador.Controllers
            
         }
 
-        // POST: Proyectos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Eliminar(int id)
         {
             Proyecto proyecto = db.Proyecto.Find(id);
             db.Proyecto.Remove(proyecto);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return  RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
