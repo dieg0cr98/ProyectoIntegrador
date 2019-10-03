@@ -3,91 +3,178 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
+<br>
+<h2 align="center">Consultar Requerimientos</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.complejidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tiempoEstimado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tiempoReal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaDeInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaDeFinalizacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.horas)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Empleado.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Proyecto.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.complejidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tiempoEstimado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tiempoReal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaDeInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaDeFinalizacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.horas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Empleado.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
 
-</table>
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
+
+
+<div class="container " style="max-width: 1800px">
+    <div class="row">
+
+        <div class="col-6 col-md-4 h-25">
+
+            @*NavBar con el titulo y el input para realizar busquedas*@
+            <nav class="navbar navbar-light bg-light justify-content-between">
+                <a class="navbar-brand">Lista de requerimientos</a>
+                @*
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                *@
+            </nav>
+
+
+
+            <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+
+
+
+                @foreach (var item in Model)
+                {
+                    <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                    { idCarta += 1; }
+                }
+
+
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8">
+            <div class="tab-content w-75 h-25" id="nav-tabContent">
+
+
+                @foreach (var item in Model)
+                {
+
+                    <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>
+                                    @Html.DisplayFor(modelItem => item.nombre)
+                                </h4>
+
+                                <p>
+                                    ID de requerimiento:
+                                    <font size="+1">
+                                        @Html.DisplayFor(modelItem => item.idReqPK)
+                                    </font>
+                                </p>
+
+                                <p>
+                                    ID de proyecto:
+                                    <font size="+2">
+                                        @Html.DisplayFor(modelItem => item.idProyectoFK)
+                                    </font>
+                                </p>
+
+                                @Html.ActionLink("Edit", "Edit", new { /*id = item.idProyectoAID*/ }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
+                                @Html.ActionLink("Details", "Details", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
+                                @Html.ActionLink("Delete", "Delete", new {/* id = item.idProyectoAID */}, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+
+
+                            </div>
+                        </div>
+                    </div>
+                    //Le agrega un digito mas al idTab
+                    { idTab += 1; }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@*
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.complejidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiempoEstimado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tiempoReal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaDeInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaDeFinalizacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.horas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empleado.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proyecto.nombre)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.complejidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiempoEstimado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiempoReal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaDeInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaDeFinalizacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empleado.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto.nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+    </table>
+*@

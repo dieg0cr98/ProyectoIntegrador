@@ -22,17 +22,20 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // GET: Requerimientos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? idRequerimiento, int? idProyecto)
         {
-            if (id == null)
+            if (idRequerimiento == null || idProyecto == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requerimiento requerimiento = db.Requerimiento.Find(id);
+
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+
             if (requerimiento == null)
             {
                 return HttpNotFound();
             }
+
             return View(requerimiento);
         }
 
