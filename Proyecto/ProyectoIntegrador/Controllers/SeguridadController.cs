@@ -84,7 +84,7 @@ namespace ProyectoIntegrador.Controllers
                     }
                     else
                     {
-                        if (user.IsInRole("Soporte") || (User.IsInRole("Calidad")))
+                        if (user.IsInRole("Soporte") || (user.IsInRole("Calidad")))
                         {
                             rol = 0;
                         }
@@ -105,7 +105,7 @@ namespace ProyectoIntegrador.Controllers
             string idUsuario="";
             int rol = GetRoleUsuario(user);
 
-            if(rol > 0) // Revisa si el usuario tiene un rol asignado
+            if(rol >= 0) // Revisa si el usuario tiene un rol asignado
             {
                 if (rol == 3)//Si es un cliente
                 {
@@ -170,7 +170,7 @@ namespace ProyectoIntegrador.Controllers
           /*duracionEstimada*/                              {1,0,0,0},
           /*duracionReal*/                                  {0,0,0,0},
           /*FechaInicio*/                                   {0,0,0,0},
-          /*FechaFinalizacion*/                             {0,1,0,0},
+          /*FechaFinalizacion*/                             {0,0,0,0},
           /*Cantidad de requerimiento*/                     {0,0,0,0},
           /*cedulaCliente*/                                 {1,0,0,0},
           /*cedulaLider*/                                   {1,0,0,0}
@@ -180,14 +180,16 @@ namespace ProyectoIntegrador.Controllers
 
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
          * Retorna una Tuple<int,string,int,int,int>, con los valores:
+         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
          *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
          *              cedulaUsuario
          *              permisoEditar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
          *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
          *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
         */
-        public Tuple<int,string,int,int,int> ProyectoConsultar(System.Security.Principal.IPrincipal user)
+        public Tuple<int,int,string,int,int,int> ProyectoConsultar(System.Security.Principal.IPrincipal user)
         {
+            
             int permisoConsultar = 3; //Por defecto no puede consultar
             string cedulaUsuario = "";
             int permisoEditar = 2;   //Por defecto no puede editar
@@ -198,7 +200,7 @@ namespace ProyectoIntegrador.Controllers
                 //Obtiene el rol del usuario
                 int rol = GetRoleUsuario(user);
 
-                if (rol > 0)// Si el usuario tiene un rol asignado
+                if (rol >= 0)// Si el usuario tiene un rol asignado
                 {
                     //Obtine los permisos de la tabla de Seguridad
                     permisoConsultar = tablaSeguridadProyectoGeneral[0, rol];
@@ -214,8 +216,34 @@ namespace ProyectoIntegrador.Controllers
 
                 }
 
-            return Tuple.Create(permisoConsultar, cedulaUsuario, permisoEditar, permisoAgregar, permisoBorrar);
+            return Tuple.Create(rol,permisoConsultar, cedulaUsuario, permisoEditar, permisoAgregar, permisoBorrar);
         }
+
+        public Tuple<int,List<int>> ProyectoAgregar(int rol)
+        {
+            List<int> permisos = new List<int>();
+            for (int i = 0; i < 11; i++)
+            {
+                permisos.Add(tablaSeguridadProyectoAgregar[i, rol]);
+            }
+
+            return Tuple.Create(tablaSeguridadProyectoGeneral[1,rol],permisos);
+        }
+
+
+        public Tuple<int, List<int>> ProyectoEditar(int rol)
+        {
+            List<int> permisos = new List<int>();
+            for (int i = 0; i < 11; i++)
+            {
+                permisos.Add(tablaSeguridadProyectoEditar[i, rol]);
+            }
+
+            return  Tuple.Create(tablaSeguridadProyectoGeneral[1,rol],permisos);
+        }
+
+
+
 
     }
 

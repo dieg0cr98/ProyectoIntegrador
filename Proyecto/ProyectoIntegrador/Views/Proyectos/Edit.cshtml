@@ -15,14 +15,21 @@
 
         <fieldset>
             <p>
+                <label for="id">IdProyecto</label>
+                <input id="id" type="text" value="@Model.idProyectoAID" name="id">
+
+            </p>
+
+
+            <p>
                 <label for="cnombre">Nombre</label>
-                <input id="cnombre" name="nombre" minlength="1" placeholder="@Model.nombre" maxlength="30" type="text" required>
+                <input id="cnombre" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" required>
             </p>
 
 
             <div class="input-group">
                 <p class="text-black">Objetivo</p>
-                <textarea class="form-control" name="objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea"></textarea>
+                <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea"></textarea>
             </div>
 
 
@@ -32,7 +39,7 @@
 
                 <p class="text-black">Estado</p>
                 <select class="custom-select" name="estado">
-                    <option selected>@Model.estado</option>
+                    <option value="@Model.estado" selected>@Model.estado</option>
                     <option value="Preparacion">Preparacion</option>
                     <option value="Activo">Activo</option>
                     <option value="Cancelado">Cancelado</option>
@@ -43,15 +50,15 @@
 
             <p>
                 <label for="cde">duracionEstimada</label>
-                <input id="cde" type="time" name="duracionEstimada">
+                <input id="cde" type="time" value="@Model.duracionEstimada" name="duracionEstimada">
                 <small class="form-text text-muted text-danger">
-                    Formato horas:minutos 
+                    Formato horas:minutos
                 </small>
             </p>
 
             <p>
                 <label for="cdr">duracionReal</label>
-                <input id="cdr" type="time" name="duracionReal" >
+                <input id="cdr" type="time" value="@Model.duracionReal" name="duracionReal">
                 <small class="form-text text-muted text-danger">
                     Formato horas:minutos
                 </small>
@@ -60,12 +67,13 @@
 
             <p>
                 <label for="cfecha">FechaInicio</label>
-                <input id="cfecha" type="date" name="fechaInicio" placeholder="@Model.fechaInicio">
+                <input id="cfecha" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio">
             </p>
 
             <p>
                 <label for="cfecha">FechaFinalizacion</label>
-                <input id="cfecha" type="date" name="fechaFinalizacion" placeholder="@Model.fechaFinalizacion">
+
+                <input id="cfecha" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion">
                 <small class="form-text text-muted text-danger">
                     Por defecto la fecha de finalizacion es 1800-01-01
                 </small>
@@ -73,7 +81,7 @@
 
             <p>
                 <label for="cdr">Cantidad de requerimientos</label>
-                <input id="cdr" type="text" name="cantidadReq" placeholder="@Model.cantidadReq" disabled>
+                <input id="cdr" type="text" name="cantidadReq" value="@Model.cantidadReq" disabled>
 
             </p>
 
@@ -85,7 +93,7 @@
                     <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
                 </div>
                 <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
-                    <option selected value="">Seleccione un Cliente</option>
+                    <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
 
                     @foreach (var item in ViewBag.cliente)
                     {
@@ -96,28 +104,38 @@
                 </select>
 
                 <div class="input-group-append">
-                    <a class="btn btn-outline-primary" href="/Clientes/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                    <a class="btn btn-outline-primary" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
                 </div>
             </div>
 
 
 
-
-
+            @*Se manda al controlador el lider actual*@
+            <input type="hidden" id="custId" name="cedulaLiderActual" value="@ViewBag.liderActual.idEmpleadoPK">
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                    <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect01">Lideres</label>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
+                <select class="custom-select" id="inputGroupSelect01" style="max-width:400px ; border-color:#76323f" name="cedulaLider">
+                    @if (ViewBag.liderActual != null)
+                    {
+                        <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+                    }
+                    else
+                    {
+                        <option selected value="">Seleccione un Lider</option>
+                    }
 
-                    <option selected value="">Seleccione un Lider</option>
 
                     @foreach (var item in ViewBag.lider)
                     {
                         <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
                     }
                 </select>
+                <div class="input-group-append">
+                    <a class="btn btn-outline-primary" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del empleado">Ver empleados</a>
+                </div>
             </div>
 
             <p>

@@ -7,13 +7,15 @@
 
 
 
-@ViewBag.permisosEspecificos
 
-@Html.ActionLink("AgregarUsuario", "Agregar")
+
+
 
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
+
+
 
 
 
@@ -23,10 +25,17 @@
 
     <h2>Index</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-
+    //Revisa si tiene permisos para agregar proyectos
+    if (ViewBag.permisosEspecificos.Item5 == 1)
+    {
+        <p>
+            @Html.ActionLink("AgregarUsuario", "Agregar")
+        </p>
+       
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
 
     <div class="container " style="max-width: 1800px">
         <div class="row">
@@ -46,7 +55,7 @@
 
                 <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
 
-
+                    
 
                     @foreach (var item in Model)
                     {
@@ -87,10 +96,22 @@
                                         @Html.DisplayFor(modelItem => item.estado)
                                     </p>
 
+                                    @if (ViewBag.permisosEspecificos.Item4 == 1)
+                                    {
 
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                                    }
+
+
+                                    @if (ViewBag.permisosEspecificos.Item6 == 1)
+                                    {
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+
+
+                                    }
+
+
+
 
 
                                 </div>
@@ -116,7 +137,10 @@
 
 
 }
-
+else
+{
+    <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los proyectos</div>
+}
 
 
 
