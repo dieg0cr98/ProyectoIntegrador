@@ -305,7 +305,7 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(string id,string nombre, string objetivo, string estado, TimeSpan duracionEstimada,TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
+        public ActionResult Edit(string id,string nombre, string objetivo, string estado, TimeSpan duracionEstimada,TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
         {
 
            int inProyectoAID = Int32.Parse(id);
@@ -465,6 +465,7 @@ namespace ProyectoIntegrador.Controllers
             proyecto.duracionReal = duracionReal;
             proyecto.fechaInicio = fechaInicio;
             proyecto.fechaFinalizacion = fechaFinalizacion;
+            proyecto.cantidadReq = cantidadReq;
             proyecto.cedulaClienteFK = cedulaCliente;
 
 

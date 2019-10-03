@@ -64,7 +64,7 @@ namespace ProyectoIntegrador.Controllers
         public int GetRoleUsuario(System.Security.Principal.IPrincipal user)
         {
 
-       
+
             int rol = -1;
             if (user.IsInRole("Lider"))
             {
@@ -95,7 +95,7 @@ namespace ProyectoIntegrador.Controllers
             return rol;
 
         }
-
+        
 
         //Metodo para recuperar el id del usuario registrado actualmente
         //Recibe como parametro un objeto tipo System.Security.Principal.IPrincipal con los datos del usuario logueado                      
@@ -179,7 +179,7 @@ namespace ProyectoIntegrador.Controllers
 
 
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
-         * Retorna una Tuple<int,string,int,int,int>, con los valores:
+         * Retorna un Tuple<int,string,int,int,int>, con los valores:
          *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
          *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
          *              cedulaUsuario
@@ -219,6 +219,9 @@ namespace ProyectoIntegrador.Controllers
             return Tuple.Create(rol,permisoConsultar, cedulaUsuario, permisoEditar, permisoAgregar, permisoBorrar);
         }
 
+        //Returna un Tuple <int,list<int>>
+        //                  int = permiso de agregar
+        //                  list<int> = permisos por cada atributo
         public Tuple<int,List<int>> ProyectoAgregar(int rol)
         {
             List<int> permisos = new List<int>();

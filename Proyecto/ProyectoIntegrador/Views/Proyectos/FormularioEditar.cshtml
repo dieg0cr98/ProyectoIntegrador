@@ -1,4 +1,6 @@
 ﻿
+
+
     <div class="container">
         <h2>Edit</h2>
 
@@ -7,22 +9,54 @@
         <form class="cmxform" id="commentForm" method="post" action="Create">
 
             <fieldset>
+
                 <p>
                     <label for="ccid">IdProyecto</label>
-                    <input id="ccid" type="text" value="@Model.idProyectoAID" name="id" readonly>
+                    @*Puede editar*@
+                    @if (ViewBag.permisos.Item2[0] == 1)
+                    {
+                        <input id="ccid" type="text" value="@Model.idProyectoAID" name="id">
+                    }
+                    else
+                    {
+                        <input id="ccid" type="text" value="@Model.idProyectoAID" name="id" readonly>
 
+                    }
                 </p>
+
+
+
+
 
 
                 <p>
                     <label for="cnombre">Nombre</label>
-                    <input id="cnombre" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" required>
+                    @if (ViewBag.permisos.Item2[1] == 1)
+                    {
+                        <input id="cnombre" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" required>
+
+                    }
+                    else
+                    {
+                        <input id="cnombre" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" readonly>
+                    }
+
                 </p>
 
 
                 <div class="input-group">
                     <p class="text-black">Objetivo</p>
-                    <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea"></textarea>
+                    @if (ViewBag.permisos.Item2[2] == 1)
+                    {
+                        <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea"></textarea>
+
+                    }
+                    else
+                    {
+                        <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea" readonly></textarea>
+
+                    }
+
                 </div>
 
 
@@ -31,50 +65,111 @@
 
 
                     <p class="text-black">Estado</p>
-                    <select class="custom-select" name="estado">
-                        <option value="@Model.estado" selected>@Model.estado</option>
-                        <option value="Preparacion">Preparacion</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Cancelado">Cancelado</option>
-                        <option value="Terminado">Terminado</option>
-                    </select>
+
+                    @if (ViewBag.permisos.Item2[3] == 1)
+                    {
+                        <select class="custom-select" name="estado">
+                            <option value="@Model.estado" selected>@Model.estado</option>
+                            <option value="Preparacion">Preparacion</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Cancelado">Cancelado</option>
+                            <option value="Terminado">Terminado</option>
+                        </select>
+
+                    }
+                    else
+                    {
+                        <input id="cnombre" value="@Model.estado" name="estado" minlength="1" maxlength="30" type="text" readonly>
+
+                    }
+
+
                 </div>
 
 
                 <p>
                     <label for="cde">duracionEstimada</label>
-                    <input id="cde" type="time" value="@Model.duracionEstimada" name="duracionEstimada">
-                    <small class="form-text text-muted text-danger">
-                        Formato horas:minutos
-                    </small>
+                    @if (ViewBag.permisos.Item2[4] == 1)
+                    {
+                        <input id="cde" type="time" value="@Model.duracionEstimada" name="duracionEstimada">
+                        <small class="form-text text-muted text-danger">
+                            Formato horas:minutos
+                        </small>
+                    }
+                    else
+                    {
+                        <input id="cde" type="time" value="@Model.duracionEstimada" name="duracionEstimada" readonly>
+                        <small class="form-text text-muted text-danger">
+                            Formato horas:minutos
+                        </small>
+                    }
+
                 </p>
 
                 <p>
                     <label for="cdr">duracionReal</label>
-                    <input id="cdr" type="time" value="@Model.duracionReal" name="duracionReal">
-                    <small class="form-text text-muted text-danger">
-                        Formato horas:minutos
-                    </small>
+                    @if (ViewBag.permisos.Item2[5] == 1)
+                    {
+                        <input id="cdr" type="time" value="@Model.duracionReal" name="duracionReal">
+                        <small class="form-text text-muted text-danger">
+                            Formato horas:minutos
+                        </small>
+                    }
+                    else
+                    {
+                        <input id="cdr" type="time" value="@Model.duracionReal" name="duracionReal" readonly>
+                        <small class="form-text text-muted text-danger">
+                            Formato horas:minutos
+                        </small>
+                    }
+
                 </p>
 
 
                 <p>
                     <label for="cfecha">FechaInicio</label>
-                    <input id="cfecha" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio">
+                    @if (ViewBag.permisos.Item2[6] == 1)
+                    {
+                        <input id="cfecha" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio">
+                    }
+                    else
+                    {
+                        <input id="cfecha" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+                    }
+
                 </p>
 
                 <p>
                     <label for="cfecha">FechaFinalizacion</label>
+                    @if (ViewBag.permisos.Item2[7] == 1)
+                    {
+                        <input id="cfecha" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion">
+                        <small class="form-text text-muted text-danger">
+                            Por defecto la fecha de finalizacion es 1800-01-01
+                        </small>
+                    }
+                    else
+                    {
+                        <input id="cfecha" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+                        <small class="form-text text-muted text-danger">
+                            Por defecto la fecha de finalizacion es 1800-01-01
+                        </small>
+                    }
 
-                    <input id="cfecha" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion">
-                    <small class="form-text text-muted text-danger">
-                        Por defecto la fecha de finalizacion es 1800-01-01
-                    </small>
                 </p>
 
                 <p>
                     <label for="cdr">Cantidad de requerimientos</label>
-                    <input id="cdr" type="text" name="cantidadReq" value="@Model.cantidadReq" disabled>
+                    @if (ViewBag.permisos.Item2[8] == 1)
+                    {
+                        <input id="cdr" type="number" name="cantidadReq" value="@Model.cantidadReq">
+                    }
+                    else
+                    {
+                        <input id="cdr" type="number" name="cantidadReq" value="@Model.cantidadReq" readonly>
+                    }
+
+
 
                 </p>
 
@@ -85,22 +180,34 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
                     </div>
+
                     <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
-                        <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
-
-                        @foreach (var item in ViewBag.cliente)
+                        @if (ViewBag.permisos.Item2[8] == 1)
                         {
-                            <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
 
+
+                            <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
+
+                            foreach (var item in ViewBag.cliente)
+                            {
+                                <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
+
+                            }
+
+
+                        }
+                        else
+                        {
+                             <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
                         }
 
                     </select>
+                        <div class="input-group-append">
+                            <a class="btn btn-outline-primary" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                        </div>
 
-                    <div class="input-group-append">
-                        <a class="btn btn-outline-primary" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
-                    </div>
                 </div>
-
+              
 
 
                 @*Se manda al controlador el lider actual si es que existe*@
@@ -114,25 +221,32 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect01">Lideres</label>
                     </div>
+
+                   
+
                     <select class="custom-select" id="inputGroupSelect01" style="max-width:400px ; border-color:#76323f" name="cedulaLider">
-                        @if (ViewBag.liderActual != null)
+                        @if (ViewBag.permisos.Item2[9] == 1)
                         {
-                            <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
-                            <option value="-1">Ninguno</option>
+                            if (ViewBag.liderActual != null)
+                            {
+                                <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+                                <option value="-1">Ninguno</option>
+                            }
+                            else
+                            {
+                                <option selected value="">Seleccione un Lider</option>
+                            }
+
+
+                            foreach (var item in ViewBag.lider)
+                            {
+                                <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
+                            }
                         }
                         else
                         {
-                            <option selected value="">Seleccione un Lider</option>
+                            <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
                         }
-
-
-                        @foreach (var item in ViewBag.lider)
-                        {
-                            <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
-                        }
-
-
-
 
                     </select>
                     <div class="input-group-append">
