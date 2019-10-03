@@ -210,7 +210,7 @@ namespace ProyectoIntegrador.Controllers
 
                     if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
                     {
-                        //Para que el controlador hace un filtro se ocupa pasar la cedula del usuario
+                        //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
                         cedulaUsuario = IdUsuario(user);
                     }
 
@@ -239,7 +239,7 @@ namespace ProyectoIntegrador.Controllers
                 permisos.Add(tablaSeguridadProyectoEditar[i, rol]);
             }
 
-            return  Tuple.Create(tablaSeguridadProyectoGeneral[1,rol],permisos);
+            return  Tuple.Create(tablaSeguridadProyectoGeneral[2,rol],permisos);
         }
 
 

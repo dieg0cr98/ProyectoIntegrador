@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto>
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Consulta";
 
 }
 
@@ -23,7 +23,7 @@
 {
 
 
-    <h2>Index</h2>
+    <h2>Consulta</h2>
 
     //Revisa si tiene permisos para agregar proyectos
     if (ViewBag.permisosEspecificos.Item5 == 1)
@@ -96,14 +96,14 @@
                                         @Html.DisplayFor(modelItem => item.estado)
                                     </p>
 
-                                    @if (ViewBag.permisosEspecificos.Item4 == 1)
+                                    @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                     {
 
                                         @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
                                     }
 
 
-                                    @if (ViewBag.permisosEspecificos.Item6 == 1)
+                                    @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                     {
                                         @Html.ActionLink("Delete", "Delete", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
 

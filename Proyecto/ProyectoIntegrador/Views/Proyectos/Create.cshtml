@@ -7,6 +7,10 @@
 }
 
 
+
+@if (Request.IsAuthenticated)
+{
+
     <div class="container">
         <h2>Create</h2>
 
@@ -92,10 +96,10 @@
                         <option selected value="">Seleccione un Cliente</option>
 
                         @foreach (var item in ViewBag.cliente)
-                        {
+{
                             <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
 
-                        }
+}
 
                     </select>
 
@@ -118,10 +122,10 @@
                         <option selected value="">Seleccione un Lider</option>
 
                         @foreach (var item in ViewBag.lider)
-                        {
-                            
+{
+
                             <option value="@item"> @item.nombre @item.apellido1 </option>
-                        }
+}
                     </select>
                 </div>
 
@@ -152,4 +156,10 @@
             @Scripts.Render("~/bundles/jqueryval")
         }
 
-</div>
+    </div>
+
+}
+else
+{
+<div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder crear proyectos</div>
+}
