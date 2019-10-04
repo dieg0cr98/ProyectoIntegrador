@@ -258,7 +258,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\boss.svg" />
+    <Content Include="Content\buscar.svg" />
+    <Content Include="Content\delete.svg" />
+    <Content Include="Content\folder.svg" />
     <Content Include="Content\Paleta.css" />
+    <Content Include="Content\edit.svg" />
+    <Content Include="Content\power-off.svg" />
+    <Content Include="Content\searching-magnifying-glass.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -394,7 +400,7 @@
     <Content Include="Views\TrabajaEn\Edit.cshtml" />
     <Content Include="Views\TrabajaEn\Index.cshtml" />
     <Content Include="Views\Proyectos\FormularioEditar.cshtml" />
-    <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
+    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
