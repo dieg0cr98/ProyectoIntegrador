@@ -6,52 +6,129 @@
 <br />
 <h1 style="text-align:center">Consulta Clientes</h1>
 <br />
-<div class="consultaClientes">
-    <table class="table" >
-        <tr>
-            <th colspan="1">
-                <p id="title">
-                    Lista Clientes
-                </p>
-                <!--@Html.DisplayNameFor(model => model.nombre) @Html.DisplayNameFor(model => model.apellido1)-->
-            </th>
-            <th>
-                <input value="Ingrese Nombre Cliente" onclick="this.value=''"/>
-                &nbsp&nbsp&nbsp&nbsp
 
-                <a href="#">
-                    <img src="~/Content/lupa.png" width="35px" height="35px" />
-                </a>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <a href="/Clientes/Create">
-                    <img src="~/Content/mas.png" width="35px" height="35px" />
-                </a>
-            </th>
-        </tr>
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
+<!---->
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="infoCliente" colspan="1">
-                    <div>
-                        @Html.DisplayFor(modelItem => item.nombre)
-                        @Html.DisplayFor(modelItem => item.apellido1)
+<div class="container " style="max-width: 1800px;">
+    <div class="row">
+        <div class="col-6 col-md-5 h-25" id="consultaClientes">
+            <p id="title" style="font-size:25px">
+                Lista Clientes
+            </p>
+            @*form input para realizar busquedas*@
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!--Imagen para realizar consulta-->
+                <button type="button" class="btn btn-light">
+                    <a href="#">
+                        <img src="~/Content/lupa.png" style="width:35px; height:35px" />
+                    </a>
+                </button>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!--Imagen para crear cliente-->
+                <button type="button" class="btn btn-light">
+                    <a href="/Clientes/Create/">
+                        <img src="~/Content/mas.png" style="width:35px; height:35px" />
+                    </a>
+                </button>
+            </form>
+            <br />
+            <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+                <!--Listado de clientes almacenados en BD-->
+                @foreach (var item in Model)
+                {
+                    <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">Nombre Cliente: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1)  |   Empresa: @Html.DisplayFor(modelItem => item.empresa)</a>
+                    { idCarta += 1; }
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-7">
+            <div class="tab-content w-auto h-auto" id="nav-tabContent">
+                @foreach (var item in Model)
+                {
+                    <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                        <div class="card">
+                            <div class="card-body" id="consultaClientes">
+                                <div style="margin-left:75%;">
+                                    <!--Imagen para editar cliente-->
+                                    <button type="button" class="btn btn-light">
+                                        <a href="/Clientes/Edit/@Html.DisplayFor(modelItem => item.cedulaPK)">
+                                            <img src="~/Content/edit.png" style="width:35px; height:35px;" />
+                                        </a>
+                                    </button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <!--Imagen para eliminar cliente-->
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.cedulaPK">
+                                        <img src="~/Content/papelera.png" style="width:35px; height:35px;" />
+                                    </button>
+                                </div>
+
+                                <p style="font-size: 22px">
+                                    Empresa: @Html.DisplayFor(modelItem => item.empresa)<br><br>
+                                    Nombre Completo: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null)
+                                    {@Html.DisplayFor(modelItem => item.apellido2)}<br><br>
+                                    Cedula: @Html.DisplayFor(modelItem => item.cedulaPK)<br><br>
+                                    Correo: @Html.DisplayFor(modelItem => item.correo)<br><br>
+                                    Telefono: @Html.DisplayFor(modelItem => item.telefono)<br><br>
+                                    Lugar: @Html.DisplayFor(modelItem => item.provincia) @if (item.canton != null)
+                                    {@Html.DisplayFor(modelItem => item.canton)} @if (item.distrito != null)
+                                    {@Html.DisplayFor(modelItem => item.distrito)}<br><br>
+                                    Direccion: @Html.DisplayFor(modelItem => item.direccionExacta)<br><br>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </td>
-                <td class="infoCliente" align="center">
+                    //Le agrega un digito mas al idTab
+                    { idTab += 1; }
 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.cedulaPK }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK })
-                </td>
-            </tr>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Cliente?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Realmente desea eliminar los datos del Cliente? Esta operacion es irreversible.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <div id="pager"><a href="/Clientes/Eliminar/">Acceptar</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        var a = document.getElementById('pager').getElementsByTagName('a'),
+            length = a.length;
+        for (var i = 0; i < length; i++) {
+            a[i].href += recipient;
         }
-    </table>
-</div>
-
-<div>
-
-</div>
-
-
+    })
+</script>

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using ProyectoIntegrador.Models;
+using ProyectoIntegrador.ViewModels;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -122,6 +124,34 @@ namespace ProyectoIntegrador.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //Metodo para realizar consultas sobre clientes.
+        //El parametro es el nombre que se busca.
+        public ActionResult consulta(string nombreBuscado)
+        {
+            //string[] clientesConsulta = db.Cliente.Where(Cliente.nombre
+            string sqlCommando = "SELECT Nombre FROM Cliente WHERE nombre LIKE '%"+nombreBuscado+"%'";
+            List<string> clientesConsulta = db.Database.SqlQuery<string>(sqlCommando).ToList();
+
+            int cantidadClientes = clientesConsulta.Count();
+
+            //Se crea el objeto con los datos obtenidos para enviarle a la vista
+            var ClienteViewModel = new ClienteViewModel
+            {
+                resultadoConsulta = clientesConsulta,
+                cantidadEncontrados = cantidadClientes
+             };
+            //Se retorna la vista con el resultado del search
+            return View(ClienteViewModel);
+        }
+
+        public ActionResult Eliminar(string id)
+        {
+            Cliente cliente = db.Cliente.Find(id);
+            db.Cliente.Remove(cliente);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
