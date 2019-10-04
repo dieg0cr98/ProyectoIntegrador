@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto>
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Consulta";
+    ViewBag.Title = "Proyectos";
 
 }
 
@@ -13,6 +13,15 @@
     <head>
         <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+       .list-group-item.active,.list-group-item.active:hover, .list-group-item.active:focus {
+              color:#ffffff;
+              background-color:#76323f;
+              border-color:none;
+}
+        </style>
+
     </head>
 
 
@@ -22,84 +31,77 @@
         {
 
 
-            <h2>Consulta</h2>
 
-            //Revisa si tiene permisos para agregar proyectos
-            if (ViewBag.permisosEspecificos.Item5 == 1)
-            {
-                <p>
-                    @Html.ActionLink("AgregarUsuario", "Agregar")
-                </p>
 
-                <p>
-                    @Html.ActionLink("Create New", "Create")
-                </p>
-            }
+
+            <br />
+
+            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Proyectos</p>
+
+            <hr>
+
+
+
 
             <div class="container " style="max-width: 1800px">
                 <div class="row">
 
-                    <div class="col-6 col-md-4 h-25">
+                    <div class="col-6 col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                        @*NavBar con el titulo y el input para realizar busquedas*@
-                        <nav class="navbar navbar-light bg-light justify-content-between">
-                            <a class="navbar-brand">ListaProyectos</a>
-                            <form class="form-inline">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
+                        <!-- Image and text -->
+                        <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
+                            <a class="navbar-brand">
+                                <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                                Lista de Proyectos
+                            </a>
+                            <span>
+                                <button type="button" class="btn"><img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-height:30px"></button>
+
+                                <!--Revisa si tiene permisos para agregar proyectos-->
+                                @if (ViewBag.permisosEspecificos.Item5 == 1)
+                                {
+
+                                    <a class="btn" href="/Proyectos/Create"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-height:30px"></a>
+                                }
+
+                            </span>
                         </nav>
 
+                        <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                            <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
 
 
-                        <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+                                @foreach (var item in Model)
+                                {
+                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                                    { idCarta += 1; }
+                                }
 
 
-
-                            @foreach (var item in Model)
-                            {
-                                <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
-                                { idCarta += 1; }
-                            }
-
+                            </div>
 
                         </div>
+
                     </div>
 
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-12 col-md-8  " style="width:auto; height:600px; ">
+                             <div class="tab-pane fade overflow-auto  bg-secondary" style="width:auto ;  height:600px  ;border-radius:20px 20px 20px 20px"  id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                                <div class="tab-content   mx-4 mt-1" style="width:1100px" id="nav-tabContent">
 
-                    <div class="col-12 col-md-8">
-                        <div class="tab-content w-75 h-25" id="nav-tabContent">
+                                    <div class="row " style="height:45px">
+                                        <div class="col-10 ">
+                                            <p class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:40px">Nombre del Proyectos</p>
+                                        </div>
 
+                                        <!-- Botones de Editar y Borrar  -->
+                                        <div class="col">
 
-                            @foreach (var item in Model)
-                            {
-
-                                <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-
-
-
-                                    <div class="card" style="border-radius: 30px ; background-color:#C09F80">
-                                        <div class="card-body">
-                                            <p>
-                                                @Html.DisplayFor(modelItem => item.nombre)
-                                            </p>
-
-                                            <p>
-                                                @Html.DisplayFor(modelItem => item.objetivo)
-                                            </p>
-
-                                            <p>
-                                                @Html.DisplayFor(modelItem => item.estado)
-                                            </p>
-                                            
                                             @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                             {
+                                                <a href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
-                                        <p>
-
-
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
-                                        </p>
                                             }
 
 
@@ -108,16 +110,8 @@
                                             @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                             {
 
-                                        <p>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID">
-                                                Eliminar
-                                            </button>
-
-                                        </p>
-                                                
-                                            }
-
+                                                <!-- Button trigger modal -->
+                                                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                                         <p>
 
@@ -130,21 +124,112 @@
                                             @Html.ActionLink("Equipo" ,"Index", "TrabajaEn", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
 
 
-                                        </p>
+                                        </div>
 
+                                    </div>
 
+                                    <hr />
 
+                                     <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
                                         </div>
                                     </div>
+
+                                     <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                     </div>
+
+
+                                    <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                    </div>
+
+
+                                   <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                   </div>
+
+
+                                    <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row " style="height:100px">
+                                        <div class="col-6 ">
+                                            One of three columns
+
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                        <div class="col ">
+                                            One of three columns
+                                        </div>
+                                    </div>
+
+
+                                    <a class="btn" href="/Requerimientos/Index/@item.idProyectoAID"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
+
+
+                                    <a class="btn" href="/TrabajaEn/Index/@item.idProyectoAID"><img src="~/Content/team.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
+
                                 </div>
-                                //Le agrega un digito mas al idTab
-                                { idTab += 1; }
-                            }
-
-
-
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
 
@@ -154,28 +239,33 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Esta seguro que quiere eliminar el Proyecto</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Esta seguro que quiere eliminar el Proyecto?</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <!--Cancelar-->
+                                    <div class="col text-center">
+                                        <a href="#" data-dismiss="modal" class="btn d-inline-block"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                    </div>
+
+                                    <!--Aceptar-->
+                                    <div class="col text-center">
+                                        <a id="pager" aria-pressed="true" href="/Proyectos/Eliminar/" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+
+                                    </div>
+
+
                                 </div>
-                                <div class="col">
-                                    <a id="pager" href="/Proyectos/Eliminar/" class="btn btn-primary" role="button" aria-pressed="true">Acceptar</a>
-                                </div>
-                                
-                              
-                            </div>
                             </div>
 
 
-                                       
-                          
+
+
                         </div>
                     </div>
                 </div>
@@ -199,18 +289,10 @@
 
                 var a = document.getElementById('pager')
                 a.href += recipient;
-      
+
             })
         </script>
 
 
+
     </body>
-
-
-
-
-
-
-
-
-

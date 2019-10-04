@@ -1,0 +1,121 @@
+﻿  
+
+
+  <form class="cmxform" id="commentForm" method="post" action="Create">
+
+        <fieldset>
+            <p>
+                <label for="cnombre">Nombre</label>
+                <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese nombre" maxlength="30" type="text" required>
+            </p>
+
+
+            <div class="input-group">
+                <p class="text-black">Objetivo</p>
+                <textarea class="form-control" name="objetivo" placeholder="Maximo 200 caracteres" maxlength="200" aria-label="With textarea"></textarea>
+            </div>
+
+
+
+            <div class="input-group">
+
+
+                <p class="text-black">Estado</p>
+                <select class="custom-select" name="estado" disabled>
+                    <option selected>Preparacion</option>
+                    <option value="Preparacion">Preparacion</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Cancelado">Cancelado</option>
+                    <option value="Terminado">Terminado</option>
+                </select>
+            </div>
+
+
+            <p>
+                <label for="cde">duracionEstimada</label>
+                <input id="cde" type="time" name="duracionEstimada" placeholder="hh:mm">
+                <small class="form-text text-muted text-danger">
+                    Formato horas:minutos
+                </small>
+            </p>
+
+            <p>
+                <label for="cdr">duracionReal</label>
+                <input id="cdr" type="text" name="duracionReal" placeholder="00:00" disabled>
+                <small class="form-text text-muted text-danger">
+                    Formato horas:minutos
+                </small>
+            </p>
+
+
+            <p>
+                <label for="cfecha">FechaInicio</label>
+                <input id="cfecha" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+                <small class="form-text text-muted text-danger">
+                    La fecha de inicio se agrega de forma automatica, usando la fecha actual del sistema
+                </small>
+            </p>
+
+            <p>
+                <label for="cfecha">FechaFinalizacion</label>
+                <input id="cfecha" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+                <small class="form-text text-muted text-danger">
+                    Por defecto la fecha de finalizacion es 1800-01-01
+                </small>
+            </p>
+
+            <p>
+                <label for="cdr">Cantidad de requerimientos</label>
+                <input id="cdr" type="text" name="duracionReal" placeholder="0" disabled>
+
+            </p>
+
+
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
+                </div>
+                <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
+                    <option selected value="">Seleccione un Cliente</option>
+
+                    @foreach (var item in ViewBag.cliente)
+                    {
+                        <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
+
+                    }
+
+                </select>
+
+                <div class="input-group-append">
+                    <a class="btn btn-outline-primary" href="/Clientes/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
+
+                    <option selected value="">Seleccione un Lider</option>
+
+                    @foreach (var item in ViewBag.lider)
+                    {
+
+                        <option value="@item"> @item.nombre @item.apellido1 </option>
+                    }
+                </select>
+            </div>
+
+            <p>
+                <input class="submit" type="submit" value="Submit">
+            </p>
+        </fieldset>
+    </form>
