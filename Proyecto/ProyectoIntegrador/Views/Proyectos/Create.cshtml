@@ -10,156 +10,288 @@
 
 @if (Request.IsAuthenticated)
 {
+    //TIene permisos para crear proyectos
+    if (ViewBag.permisos.Item1 != 0)
+    {
 
-    <div class="container">
-        <h2>Create</h2>
-
-
-
-        <form class="cmxform" id="commentForm" method="post" action="Create">
-
-            <fieldset>
-                <p>
-                    <label for="cnombre">Nombre</label>
-                    <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese nombre" maxlength="30" type="text" required>
-                </p>
-                
-
-                <div class="input-group">
-                    <p class="text-black">Objetivo</p>
-                    <textarea class="form-control" name="objetivo" placeholder="Maximo 200 caracteres" maxlength="200" aria-label="With textarea"></textarea>
-                </div>
+        <div class="container">
+            <h2>Create</h2>
 
 
 
-                <div class="input-group">
+            <form class="cmxform" id="commentForm" method="post" action="Create">
 
+                <fieldset>
 
-                    <p class="text-black">Estado</p>
-                    <select class="custom-select" name="estado" disabled>
-                        <option selected>Preparacion</option>
-                        <option value="Preparacion">Preparacion</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Cancelado">Cancelado</option>
-                        <option value="Terminado">Terminado</option>
-                    </select>
-                </div>
+                    <p>
+                        <label for="ccid">IdProyecto</label>
+                        @*Puede editar*@
+                        @if (ViewBag.permisos.Item2[0] == 1)
+                        {
+                            <input id="ccid" type="text" value="@Model.idProyectoAID" name="id" required>
+                        }
+                        else
+                        {
+                            <input id="ccid" type="text" value="Autogenerado" name="id" readonly>
 
-
-                <p>
-                    <label for="cde">duracionEstimada</label>
-                    <input id="cde" type="time" name="duracionEstimada" placeholder="hh:mm">
-                    <small class="form-text text-muted text-danger">
-                        Formato horas:minutos
-                    </small>
-                </p>
-
-                <p>
-                    <label for="cdr">duracionReal</label>
-                    <input id="cdr" type="text" name="duracionReal" placeholder="00:00" disabled>
-                    <small class="form-text text-muted text-danger">
-                        Formato horas:minutos
-                    </small>
-                </p>
-
-
-                <p>
-                    <label for="cfecha">FechaInicio</label>
-                    <input id="cfecha" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
-                    <small class="form-text text-muted text-danger">
-                        La fecha de inicio se agrega de forma automatica, usando la fecha actual del sistema
-                    </small>
-                </p>
-
-                <p>
-                    <label for="cfecha">FechaFinalizacion</label>
-                    <input id="cfecha" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
-                    <small class="form-text text-muted text-danger">
-                        Por defecto la fecha de finalizacion es 1800-01-01
-                    </small>
-                </p>
-
-                <p>
-                    <label for="cdr">Cantidad de requerimientos</label>
-                    <input id="cdr" type="text" name="duracionReal" placeholder="0" disabled>
-
-                </p>
+                        }
+                    </p>
 
 
 
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
+                    <p>
+                        <label for="cnombre">Nombre</label>
+
+                        <!--Puede editar el nombre-->
+                        @if (ViewBag.permisos.Item2[1] == 1)
+                        {
+                            <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese nombre" maxlength="30" type="text" required>
+                        }
+                        else
+                        {
+                            <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese nombre" maxlength="30" type="text" disabled>
+                        }
+
+                    </p>
+
+
+                    <div class="input-group">
+                        <p class="text-black">Objetivo</p>
+
+                        <!--Puede editar el objetivo-->
+                        @if (ViewBag.permisos.Item2[2] == 1)
+                        {
+                            <textarea class="form-control" name="objetivo" placeholder="Maximo 200 caracteres" maxlength="200" aria-label="With textarea"></textarea>
+                        }
+                        else
+                        {
+                            <textarea class="form-control" name="objetivo" placeholder="Maximo 200 caracteres" maxlength="200" aria-label="With textarea" disabled></textarea>
+                        }
+
                     </div>
-                    <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
-                        <option selected value="">Seleccione un Cliente</option>
 
-                        @foreach (var item in ViewBag.cliente)
-{
-                            <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
 
-}
 
-                    </select>
+                    <div class="input-group">
 
-                    <div class="input-group-append">
-                        <a class="btn btn-outline-primary" href="/Clientes/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+
+                        <p class="text-black">Estado</p>
+
+                        @if (ViewBag.permisos.Item2[3] == 1)
+                        {
+                            <select class="custom-select" name="estado" required>
+                                <option selected>Preparacion</option>
+                                <option value="Preparacion">Preparacion</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Cancelado">Cancelado</option>
+                                <option value="Terminado">Terminado</option>
+                            </select>
+                        }
+                        else
+                        {
+
+                            <select class="custom-select" name="estado" disabled>
+                                <option selected>Preparacion</option>
+                                <option value="Preparacion">Preparacion</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Cancelado">Cancelado</option>
+                                <option value="Terminado">Terminado</option>
+                            </select>
+                        }
+
                     </div>
-                </div>
+
+
+                    <p>
+                        <label for="cde">duracionEstimada</label>
+                        @if (ViewBag.permisos.Item2[4] == 1)
+                        {
+                            <input id="cde" type="time" name="duracionEstimada" placeholder="hh:mm" required>
+
+
+                        }
+                        else
+                        {
+                            <input id="cde" type="time" name="duracionEstimada" placeholder="hh:mm" disabled>
+
+                        }
+                        <small class="form-text text-muted text-danger">
+                            Formato horas:minutos
+                        </small>
+                    </p>
+
+                    <p>
+                        <label for="cdr">duracionReal</label>
+
+                        @if (ViewBag.permisos.Item2[5] == 1)
+                        {
+                            <input id="cdr" type="text" name="duracionReal" placeholder="00:00">
+                        }
+                        else
+                        {
+                            <input id="cdr" type="text" name="duracionReal" placeholder="00:00" disabled>
+                        }
+                        <small class="form-text text-muted text-danger">
+                            Formato horas:minutos
+                        </small>
+                    </p>
+
+
+                    <p>
+                        <label for="cfecha">FechaInicio</label>
+                        @if (ViewBag.permisos.Item2[6] == 1)
+                        {
+                            <input id="cfecha" type="date" name="date" required>
+                        }
+                        else
+                        {
+                            <input id="cfecha" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+                        }
+                        <small class="form-text text-muted text-danger">
+                            La fecha de inicio se agrega de forma automatica, usando la fecha actual del sistema
+                        </small>
+                    </p>
+
+                    <p>
+                        <label for="cfecha">FechaFinalizacion</label>
+                        @if (ViewBag.permisos.Item2[7] == 1)
+                        {
+                            <input id="cfecha" type="text" name="fin">
+
+                        }
+                        else
+                        {
+                            <input id="cfecha" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+                        }
+
+                        <small class="form-text text-muted text-danger">
+                            Por defecto la fecha de finalizacion es 1800-01-01
+                        </small>
+                    </p>
+
+                    <p>
+                        <label for="cdr">Cantidad de requerimientos</label>
+                        @if (ViewBag.permisos.Item2[8] == 1)
+                        {
+
+                            <input id="cdr" type="text" name="duracionReal" placeholder="0">
+                        }
+                        else
+                        {
+                            <input id="cdr" type="text" name="duracionReal" placeholder="0" disabled>
+                        }
+
+                    </p>
 
 
 
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
+                        </div>
 
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                        @if (ViewBag.permisos.Item2[9] == 1)
+                        {
+                            <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
+                                <option selected value="">Seleccione un Cliente</option>
+
+                                @foreach (var item in ViewBag.cliente)
+                                {
+                                    <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
+
+                                }
+
+                            </select>
+
+                        }
+                        else
+                        {
+                            <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03" disabled>
+                                <option selected value="">Seleccione un Cliente</option>
+
+                            </select>
+
+                        }
+
+
+                        <div class="input-group-append">
+                            <a class="btn btn-outline-primary" href="/Clientes/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                        </div>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
-
-                        <option selected value="">Seleccione un Lider</option>
-
-                        @foreach (var item in ViewBag.lider)
-{
-
-                            <option value="@item"> @item.nombre @item.apellido1 </option>
-}
-                    </select>
-                </div>
-
-                <p>
-                    <input class="submit" type="submit" value="Submit">
-                </p>
-            </fieldset>
-        </form>
-
-        <script>
-            $("#commentForm").validate();
-        </script>
 
 
 
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
 
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                        </div>
+
+                        @if (ViewBag.permisos.Item2[10] == 1)
+                        {
+                            <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
+
+                                <option selected value="">Seleccione un Lider</option>
+
+                                @foreach (var item in ViewBag.lider)
+                                {
+
+                                    <option value="@item"> @item.nombre @item.apellido1 </option>
+                                }
+                            </select>
+
+                        }
+                        else
+
+                        {
+                            <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider" disabled>
+
+                                <option selected value="">Seleccione un Lider</option>
+                            </select>
+
+                        }
+                    </div>
+
+                    <p>
+                        <input class="submit" type="submit" value="Submit">
+                    </p>
+                </fieldset>
+            </form>
+
+            <script>
+                $("#commentForm").validate();
+            </script>
+
+
+
+            <script>
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            </script>
+
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+
         </div>
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-
-    </div>
-
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted no tiene permisos crear proyectos</div>
+    }
 }
 else
 {
-<div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder crear proyectos</div>
+    <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder crear proyectos</div>
 }

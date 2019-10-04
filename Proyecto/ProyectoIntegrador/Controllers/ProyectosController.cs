@@ -142,25 +142,36 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create()
         {
             
-            int rolUsurario = seguridad.GetRoleUsuario(User);
-            //Verifica si el usuario tiene un rol valido
-            if(rolUsurario >= 0)//Si tiene rol valido
+            var permisos = seguridad.ProyectoAgregar(User);
+            
+            if(permisos != null)
             {
-                //Selecciona todos los Clientes
-                ViewBag.cliente = db.Cliente.ToList();
 
-                //Selecciona todos los empelados que esten disponible y que sean Lider
-                ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+                ViewBag.permisos = permisos;
+                //Verifica si el usuario tiene permisos para crear
+                if (permisos.Item1 != 0)
+                {
+                    //Selecciona todos los Clientes
+                    ViewBag.cliente = db.Cliente.ToList();
+
+                    //Selecciona todos los empelados que esten disponible y que sean Lider
+                    ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
 
 
-                return View();
+                    return View();
+                }
+                else
+                {
+                    return View();
+                }
+
             }
+
             else
             {
                 return View();
             }
 
-           
         }
 
 
@@ -480,32 +491,7 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-        // GET: Proyectos/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            int rolUsurario = seguridad.GetRoleUsuario(User);
-            //Verifica si el usuario tiene un rol valido
-            if (rolUsurario < 0)//Si tiene rol invalido
-            {
-                return View();
-            }
-            else
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Proyecto proyecto = db.Proyecto.Find(id);
-                if (proyecto == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(proyecto);
-            }
 
-
-           
-        }
 
         public ActionResult Eliminar(int id)
         {
