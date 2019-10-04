@@ -91,28 +91,46 @@
                                             <p>
                                                 @Html.DisplayFor(modelItem => item.estado)
                                             </p>
-
+                                            
                                             @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                             {
 
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                                        <p>
+
+
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                                        </p>
                                             }
+
+
 
 
                                             @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                             {
 
+                                        <p>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID">
+                                                Eliminar
+                                            </button>
 
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID">
-                                                    Eliminar
-                                                </button>
-
-
-
+                                        </p>
+                                                
                                             }
 
 
+                                        <p>
+
+                                            @Html.ActionLink("Requerimientos","Index","Requerimientos", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+
+                                        </p>
+
+
+                                        <p>
+                                            @Html.ActionLink("Equipo" ,"Index", "TrabajaEn", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+
+
+                                        </p>
 
 
 
