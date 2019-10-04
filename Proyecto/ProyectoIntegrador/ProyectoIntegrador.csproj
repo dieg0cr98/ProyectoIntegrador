@@ -262,6 +262,7 @@
     <Content Include="Content\clipboard %281%29.svg" />
     <Content Include="Content\clipboard.svg" />
     <Content Include="Content\delete.svg" />
+    <Content Include="Content\cancelar.svg" />
     <Content Include="Content\folder.svg" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\Paleta.css" />
@@ -269,6 +270,7 @@
     <Content Include="Content\plus.svg" />
     <Content Include="Content\power-off.svg" />
     <Content Include="Content\searching-magnifying-glass.svg" />
+    <Content Include="Content\aceptar.svg" />
     <Content Include="Content\team.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
