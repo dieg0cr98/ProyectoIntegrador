@@ -1,0 +1,59 @@
+﻿
+<!-- Despliega el modal -->
+<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+
+
+        var a = document.getElementById('pager')
+        a.href += recipient;
+
+    })
+</script>
+
+<!--Agrega un loading al Edit-->
+<script>
+    function my_loading(elemt) {
+      elemt.disabled=true; 
+      elemt.innerHTML='<div class="spinner-border text-black" role="status"><span class="sr-only">Loading...</span></div>';
+    }
+           
+</script>
+
+<!-- Busca en la lista de proyectos por la string del input -->
+<script>
+            function myFunction() {
+                // Declare variables
+                var input, filter, div, li, a, i, txtValue;
+                input = document.getElementById('myInput');
+                filter = input.value.toUpperCase();
+                div = document.getElementById("list-tab");
+                a = div.getElementsByTagName('a');
+
+                // Loop through all list items, and hide those who don't match the search query
+                for (i = 0; i < a.length; i++) {
+                    txtValue = a.textContent || a[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        a[i].style.display = "";
+                    } else {
+                        a[i].style.display = "none";
+                    }
+                }
+            }
+
+
+
+</script>
+
+
+
+<!-- Agrega Tooltips a los elementos -->
+<script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+</script>

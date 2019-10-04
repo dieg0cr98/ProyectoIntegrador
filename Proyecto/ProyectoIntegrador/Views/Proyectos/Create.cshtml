@@ -10,81 +10,37 @@
 
 @if (Request.IsAuthenticated)
 {
-    //TIene permisos para crear proyectos
-    if (ViewBag.permisos.Item1 != 0)
-    {
 
-        <div class="container">
-            <h2>Create</h2>
+    <div class="container">
+        <h2>Create</h2>
 
 
 
         @Html.Partial("FormularioAñadir")
 
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
-                        </div>
-
-                        @if (ViewBag.permisos.Item2[10] == 1)
-                        {
-                            <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider">
-
-                                <option selected value="">Seleccione un Lider</option>
-
-                                @foreach (var item in ViewBag.lider)
-                                {
-
-                                    <option value="@item"> @item.nombre @item.apellido1 </option>
-                                }
-                            </select>
-
-                        }
-                        else
-
-                        {
-                            <select class="custom-select" id="inputGroupSelect01" style="max-width:400px" name="cedulaLider" disabled>
-
-                                <option selected value="">Seleccione un Lider</option>
-                            </select>
-
-                        }
-                    </div>
-
-                    <p>
-                        <input class="submit" type="submit" value="Submit">
-                    </p>
-                </fieldset>
-            </form>
-
-            <script>
-                $("#commentForm").validate();
-            </script>
+        <script>
+            $("#commentForm").validate();
+        </script>
 
 
 
-            <script>
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
 
 
-            <div>
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-
-            @section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-            }
-
+        <div>
+            @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-    else
-    {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted no tiene permisos crear proyectos</div>
-    }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+
+    </div>
+
 }
 else
 {

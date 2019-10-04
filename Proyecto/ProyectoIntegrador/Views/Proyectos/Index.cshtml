@@ -15,11 +15,17 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <style>
+        /*Cambia los colores de las listas activas*/
        .list-group-item.active,.list-group-item.active:hover, .list-group-item.active:focus {
               color:#ffffff;
               background-color:#76323f;
               border-color:none;
 }
+
+         /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {background-color: #76323f; color:white;}
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before,.bs-tooltip-bottom .arrow::before { border-bottom-color: #76323f; } .bs-tooltip-auto[x-placement^=top] .arrow::before,.bs-tooltip-top .arrow::before { border-top-color: #76323f; } .bs-tooltip-auto[x-placement^=left] .arrow::before,.bs-tooltip-left .arrow::before { border-left-color: #76323f } .bs-tooltip-auto[x-placement^=right] .arrow::before,.bs-tooltip-right .arrow::before { border-right-color: #76323f }
+
         </style>
 
     </head>
@@ -40,31 +46,22 @@
 
             <hr>
 
-
-
-
             <div class="container " style="max-width: 1800px">
                 <div class="row">
 
-                    <div class="col-6 col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+                    <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
                         <!-- Image and text -->
-                        <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
+
+                        <nav class="navbar navbar-light bg-secondary">
                             <a class="navbar-brand">
                                 <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                                 Lista de Proyectos
                             </a>
-                            <span>
-                                <button type="button" class="btn"><img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-height:30px"></button>
 
-                                <!--Revisa si tiene permisos para agregar proyectos-->
-                                @if (ViewBag.permisosEspecificos.Item5 == 1)
-                                {
+                            <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder=" Buscar por Proyectos">
+                            <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
-                                    <a class="btn" href="/Proyectos/Create"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-height:30px"></a>
-                                }
-
-                            </span>
                         </nav>
 
                         <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
@@ -81,18 +78,19 @@
                             </div>
 
                         </div>
-
                     </div>
 
-                    @foreach (var item in Model)
-                    {
-                        <div class="col-12 col-md-8  " style="width:auto; height:600px; ">
-                             <div class="tab-pane fade overflow-auto  bg-secondary" style="width:auto ;  height:600px  ;border-radius:20px 20px 20px 20px"  id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                                <div class="tab-content   mx-4 mt-1" style="width:1100px" id="nav-tabContent">
+                        <div class="col-12 col-md-8">
+                            <div class="tab-content d-block bg-secondary overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                                @foreach (var item in Model)
+                                {
 
-                                    <div class="row " style="height:45px">
-                                        <div class="col-10 ">
-                                            <p class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:40px">Nombre del Proyectos</p>
+                                <div class="tab-pane fade  " style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+
+                                    <div class="row mx-4 mt-4 md-0" style="height:30px">
+
+                                        <div class="col-10 " style="max-height:30px">
+                                            <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">@item.nombre</p>
                                         </div>
 
                                         <!-- Botones de Editar y Borrar  -->
@@ -100,176 +98,56 @@
 
                                             @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                             {
-                                                <a href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                                <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                                             }
+                                        </div>
 
-
-
+                                        <div class="col" style="max-height:30px">
 
                                             @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                             {
 
                                                 <!-- Button trigger modal -->
                                                 <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-
-                                        <p>
-
-                                            @Html.ActionLink("Requerimientos","Index","Requerimientos", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
-
-                                        </p>
-
-
-                                        <p>
-                                            @Html.ActionLink("Equipo" ,"Index", "TrabajaEn", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
-
+                                            }
 
                                         </div>
+
+
 
                                     </div>
 
                                     <hr />
 
-                                     <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
+                                    <div class="row justify-content-center" style="max-width:1150px">
+                                        <div class="col-4  text-center">
+                                            <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="/Requerimientos/Index/@item.idProyectoAID"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
                                         </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                    </div>
-
-                                     <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                     </div>
-
-
-                                    <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                    </div>
-
-
-                                   <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                   </div>
-
-
-                                    <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row " style="height:100px">
-                                        <div class="col-6 ">
-                                            One of three columns
+                                        <div class="col-4  text-center">
+                                            <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="/TrabajaEn/Index/@item.idProyectoAID"><img src="~/Content/team.svg" class="rounded float-right" style="height:150px ; width:150px"></a>
 
                                         </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                        <div class="col ">
-                                            One of three columns
-                                        </div>
-                                    </div>
-
-
-                                    <a class="btn" href="/Requerimientos/Index/@item.idProyectoAID"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
-
-
-                                    <a class="btn" href="/TrabajaEn/Index/@item.idProyectoAID"><img src="~/Content/team.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
-
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Esta seguro que quiere eliminar el Proyecto?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <div class="row">
-
-                                    <!--Cancelar-->
-                                    <div class="col text-center">
-                                        <a href="#" data-dismiss="modal" class="btn d-inline-block"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                                    </div>
-
-                                    <!--Aceptar-->
-                                    <div class="col text-center">
-                                        <a id="pager" aria-pressed="true" href="/Proyectos/Eliminar/" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-
                                     </div>
 
 
                                 </div>
+
+                                 //Le agrega un digito mas al idTab
+                                 { idTab += 1; }
+                                }
+
+
+
                             </div>
-
-
-
-
                         </div>
-                    </div>
+                  
+
                 </div>
             </div>
+
+
+        @Html.Partial("ModalEliminar")
 
         }
         else
@@ -277,22 +155,8 @@
             <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los proyectos</div>
         }
 
-
-        <script>
-            $('#exampleModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget) // Button that triggered the modal
-                var recipient = button.data('whatever') // Extract info from data-* attributes
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                var modal = $(this)
-
-
-                var a = document.getElementById('pager')
-                a.href += recipient;
-
-            })
-        </script>
-
+        <!--Carga todos los scripts-->
+        @Html.Partial("Scripts")
 
 
     </body>
