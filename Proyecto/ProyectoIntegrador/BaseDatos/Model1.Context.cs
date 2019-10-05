@@ -13,10 +13,10 @@ namespace ProyectoIntegrador.BaseDatos
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Gr03Proy2Entities2 : DbContext
+    public partial class Gr03Proy2Entities3 : DbContext
     {
-        public Gr03Proy2Entities2()
-            : base("name=Gr03Proy2Entities2")
+        public Gr03Proy2Entities3()
+            : base("name=Gr03Proy2Entities3")
         {
         }
     

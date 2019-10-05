@@ -10,15 +10,15 @@ using ProyectoIntegrador.BaseDatos;
 
 namespace ProyectoIntegrador.Controllers
 {
-    public class TestersController : Controller
+    public class TesterController : Controller
     {
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
         // GET: Testers
         public ActionResult Index()
         {
-            var tester = db.Tester.Include(t => t.Empleado);
-            return View(tester.ToList());
+            var testers = db.Tester.Include(t => t.Empleado);
+            return View(testers.ToList());
         }
 
         // GET: Testers/Details/5

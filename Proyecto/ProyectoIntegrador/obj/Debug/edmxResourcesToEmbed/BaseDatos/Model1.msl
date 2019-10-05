@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities2">
-    <EntitySetMapping Name="Cliente">
+  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities3">
+    <EntitySetMapping Name="Clientes">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Cliente">
         <MappingFragment StoreEntitySet="Cliente">
           <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
@@ -18,7 +18,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Empleado">
+    <EntitySetMapping Name="Empleadoes">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Empleado">
         <MappingFragment StoreEntitySet="Empleado">
           <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
@@ -37,7 +37,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HabilidadTecnica">
+    <EntitySetMapping Name="HabilidadTecnicas">
       <EntityTypeMapping TypeName="Gr03Proy2Model.HabilidadTecnica">
         <MappingFragment StoreEntitySet="HabilidadTecnica">
           <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
@@ -45,7 +45,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Proyecto">
+    <EntitySetMapping Name="Proyectoes">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Proyecto">
         <MappingFragment StoreEntitySet="Proyecto">
           <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
@@ -61,7 +61,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Prueba">
+    <EntitySetMapping Name="Pruebas">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
         <MappingFragment StoreEntitySet="Prueba">
           <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
@@ -77,7 +77,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Requerimiento">
+    <EntitySetMapping Name="Requerimientoes">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Requerimiento">
         <MappingFragment StoreEntitySet="Requerimiento">
           <ScalarProperty Name="idReqPK" ColumnName="idReqPK" />
@@ -95,7 +95,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tester">
+    <EntitySetMapping Name="Testers">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Tester">
         <MappingFragment StoreEntitySet="Tester">
           <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
@@ -103,7 +103,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TrabajaEn">
+    <EntitySetMapping Name="TrabajaEns">
       <EntityTypeMapping TypeName="Gr03Proy2Model.TrabajaEn">
         <MappingFragment StoreEntitySet="TrabajaEn">
           <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />

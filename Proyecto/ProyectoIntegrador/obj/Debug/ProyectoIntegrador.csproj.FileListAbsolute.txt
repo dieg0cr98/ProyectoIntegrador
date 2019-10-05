@@ -216,7 +216,6 @@ C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\
 C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csproj.CopyComplete
-C:\Users\dieg0\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csprojAssemblyReference.cache
 C:\Users\dieg0\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.dll
 C:\Users\dieg0\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.pdb
 C:\Users\dieg0\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\bin\ProyectoIntegrador.dll.config
@@ -433,3 +432,4 @@ C:\Users\Javier Padilla\Documents\PROJECTS\ProyectoIntegrador\Proyecto\ProyectoI
 C:\Users\Javier Padilla\Documents\PROJECTS\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csproj.CopyComplete
 C:\Users\Javier Padilla\Documents\PROJECTS\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.dll
 C:\Users\Javier Padilla\Documents\PROJECTS\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.pdb
+C:\Users\dieg0\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csprojAssemblyReference.cache

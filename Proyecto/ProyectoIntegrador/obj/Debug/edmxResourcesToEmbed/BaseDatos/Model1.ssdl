@@ -54,7 +54,7 @@
     <Property Name="duracionEstimada" Type="time" Precision="7" Nullable="false" />
     <Property Name="fechaInicio" Type="date" Nullable="false" />
     <Property Name="fechaFinalizacion" Type="date" Nullable="false" />
-    <Property Name="cedulaClienteFK" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="cedulaClienteFK" Type="varchar" MaxLength="20" />
     <Property Name="cantidadReq" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Prueba">
@@ -124,7 +124,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Proyecto_Cliente">
-    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
     <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cliente">

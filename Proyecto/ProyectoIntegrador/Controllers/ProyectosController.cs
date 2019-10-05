@@ -19,10 +19,10 @@ namespace ProyectoIntegrador.Controllers
 
     public class ProyectosController : Controller
     {
-     
-        private  SeguridadController seguridad = new SeguridadController();
 
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+        private SeguridadController seguridad = new SeguridadController();
+
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
 
 
@@ -48,10 +48,10 @@ namespace ProyectoIntegrador.Controllers
         //              rol = 3 Cliente
         //       string idUsuario (Es la cedula o identificador de un usuario) 
         //Devuelve una lista IEnumerable con los proyectos. Null en caso de que no puede ver ninguno
-        public IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto> GetProyectosUsuario(int permiso  , int rol, string idUsuario)
+        public IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto> GetProyectosUsuario(int permiso, int rol, string idUsuario)
         {
             //Puede ver todos los proyectos
-            if(permiso == 1)
+            if (permiso == 1)
             {
                 return db.Proyecto.ToList();
             }
@@ -87,7 +87,7 @@ namespace ProyectoIntegrador.Controllers
             }
 
 
-          
+
 
 
 
@@ -258,7 +258,7 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-    
+
 
         // GET: Proyectos
         public ActionResult Index()
@@ -268,7 +268,7 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.permisosEspecificos = permisosGenerales;
 
 
-            return View(GetProyectosUsuario(permisosGenerales.Item2 , permisosGenerales.Item1, permisosGenerales.Item3));
+            return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3));
 
         }
 
@@ -293,10 +293,10 @@ namespace ProyectoIntegrador.Controllers
         // GET: Proyectos/Create
         public ActionResult Create()
         {
-            
+
             var permisos = seguridad.ProyectoAgregar(User);
-            
-            if(permisos != null)
+
+            if (permisos != null)
             {
 
                 ViewBag.permisos = permisos;
@@ -331,9 +331,9 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(string nombre,string objetivo, TimeSpan duracionEstimada, string cedulaCliente, string cedulaLider)
+        public ActionResult Create(string nombre, string objetivo, TimeSpan duracionEstimada, string cedulaCliente, string cedulaLider)
         {
-            
+
 
 
             Proyecto proyecto = new Proyecto();
@@ -341,7 +341,7 @@ namespace ProyectoIntegrador.Controllers
             proyecto.objetivo = objetivo;
             proyecto.duracionEstimada = duracionEstimada;
             proyecto.cedulaClienteFK = cedulaCliente;
-        
+
 
             db.Proyecto.Add(proyecto);
             db.SaveChanges();
@@ -350,7 +350,7 @@ namespace ProyectoIntegrador.Controllers
 
             if (!String.IsNullOrEmpty(cedulaLider))
             {
-                
+
                 //Recupera el id autogenerado del proyecto creado anteriormente
                 int idProyecto = db.Proyecto.Where(p => p.nombre == nombre).Select(p => p.idProyectoAID).FirstOrDefault();
                 TrabajaEn trabaja = new TrabajaEn();
@@ -369,13 +369,13 @@ namespace ProyectoIntegrador.Controllers
 
             }
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
 
         }
 
 
 
-   
+
         // GET: Proyectos/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -420,7 +420,7 @@ namespace ProyectoIntegrador.Controllers
                 }
 
                 //Si tiene un cliente asignado al proyecto
-                if(proyecto.cedulaClienteFK != null)
+                if (proyecto.cedulaClienteFK != null)
                 {
                     //Selecciona el cliente actual
                     ViewBag.clienteActual = db.Cliente.Find(proyecto.cedulaClienteFK);
@@ -464,11 +464,11 @@ namespace ProyectoIntegrador.Controllers
             {
                 return View();
             }
-            
 
 
 
-           
+
+
 
         }
 
@@ -476,10 +476,10 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(string id, string nombre, string objetivo, string estado, TimeSpan duracionEstimada,TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
+        public ActionResult Edit(string id, string nombre, string objetivo, string estado, TimeSpan duracionEstimada, TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
         {
 
-           int inProyectoAID = Int32.Parse(id);
+            int inProyectoAID = Int32.Parse(id);
 
 
             Proyecto proyecto = db.Proyecto.Find(inProyectoAID);
@@ -497,11 +497,7 @@ namespace ProyectoIntegrador.Controllers
             proyecto.fechaInicio = fechaInicio;
             proyecto.fechaFinalizacion = fechaFinalizacion;
             proyecto.cantidadReq = cantidadReq;
-            if(cedulaCliente == "")
-            {
-                proyecto.cedulaClienteFK = null;
-            }
-            proyecto.cedulaClienteFK = cedulaCliente;
+            proyecto.cedulaClienteFK = null;
 
 
             //Guarda el proyecto con los nuevos valores
@@ -519,7 +515,7 @@ namespace ProyectoIntegrador.Controllers
             Proyecto proyecto = db.Proyecto.Find(id);
             db.Proyecto.Remove(proyecto);
             db.SaveChanges();
-            return  RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

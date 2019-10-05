@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,24 +18,24 @@ namespace ProyectoIntegrador.Controllers
 {
     public class SeguridadController : Controller
     {
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
         /*Metodo que inserta el usario con un rol a las tabla de seguridad
          * Falta agregar algun tipo de control de errores
          * La clase es de tipo async porque los metodos son async. Los hilos ejecutan el metodo y no esperan a que este termine
          * El await significa que tiene que esperar a que este metodo termine para continuar
         */
-        public async System.Threading.Tasks.Task AgregarUsuarioAsync(string correo, string rol, string contraseña = "Admin1$")
+        public async System.Threading.Tasks.Task AgregarUsuarioAsync(string correo, string rol, string contraseÃ±a = "Admin1$")
         {
             //Crea una varia de contexto Owin
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             //Tomado de https://stackoverflow.com/questions/24001245/cant-get-usermanager-from-owincontext-in-apicontroller
 
-            //Se crea un objeto RegisterViewModel el cual contiene los datos del correo y contraseña
+            //Se crea un objeto RegisterViewModel el cual contiene los datos del correo y contraseÃ±a
             RegisterViewModel model = new RegisterViewModel
             {
                 Email = correo,
-                Password = contraseña //La contraseña por defecto es Admin1$
+                Password = contraseÃ±a //La contraseÃ±a por defecto es Admin1$
             };
 
             //Luego hay que insertar el usuario a las tablas
@@ -95,21 +95,22 @@ namespace ProyectoIntegrador.Controllers
             return rol;
 
         }
-        
+
 
         //Metodo para recuperar el id del usuario registrado actualmente
         //Recibe como parametro un objeto tipo System.Security.Principal.IPrincipal con los datos del usuario logueado                      
         //Devuelve una string con el id del usuario. En caso de que no exista returna una string vacia
         public string IdUsuario(System.Security.Principal.IPrincipal user)
         {
-            
-            string idUsuario="";
+
+            string idUsuario = "";
             int rol = GetRoleUsuario(user);
 
-            if(rol >= 0) // Revisa si el usuario tiene un rol asignado
+            if (rol >= 0) // Revisa si el usuario tiene un rol asignado
             {
                 if (rol == 3)//Si es un cliente
                 {
+                    
                     idUsuario = db.Cliente.Where(p => p.correo == user.Identity.Name).FirstOrDefault().cedulaPK;
 
                 }
@@ -120,7 +121,7 @@ namespace ProyectoIntegrador.Controllers
 
             }
 
- 
+
 
             return idUsuario;
         }
@@ -188,9 +189,9 @@ namespace ProyectoIntegrador.Controllers
          *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
          *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
         */
-        public Tuple<int,int,string,int,int,int> ProyectoConsultar(System.Security.Principal.IPrincipal user)
+        public Tuple<int, int, string, int, int, int> ProyectoConsultar(System.Security.Principal.IPrincipal user)
         {
-            
+
             int permisoConsultar = 3; //Por defecto no puede consultar
             string cedulaUsuario = "";
             int permisoEditar = 2;   //Por defecto no puede editar
@@ -198,26 +199,26 @@ namespace ProyectoIntegrador.Controllers
             int permisoBorrar = 2;   //Por defecto no puede editar
 
 
-                //Obtiene el rol del usuario
-                int rol = GetRoleUsuario(user);
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
 
-                if (rol >= 0)// Si el usuario tiene un rol asignado
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadProyectoGeneral[0, rol];
+                permisoAgregar = tablaSeguridadProyectoGeneral[1, rol]; ;
+                permisoEditar = tablaSeguridadProyectoGeneral[2, rol]; ;
+                permisoBorrar = tablaSeguridadProyectoGeneral[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
                 {
-                    //Obtine los permisos de la tabla de Seguridad
-                    permisoConsultar = tablaSeguridadProyectoGeneral[0, rol];
-                    permisoAgregar = tablaSeguridadProyectoGeneral[1, rol]; ;
-                    permisoEditar = tablaSeguridadProyectoGeneral[2, rol]; ;
-                    permisoBorrar = tablaSeguridadProyectoGeneral[3, rol]; ;
-
-                    if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
-                    {
-                        //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
-                        cedulaUsuario = IdUsuario(user);
-                    }
-
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
                 }
 
-            return Tuple.Create(rol,permisoConsultar, cedulaUsuario, permisoEditar, permisoAgregar, permisoBorrar);
+            }
+
+            return Tuple.Create(rol, permisoConsultar, cedulaUsuario, permisoEditar, permisoAgregar, permisoBorrar);
         }
 
         //Returna un Tuple <itn,int,list<int>> o Null en caso de que el rol no sea valido
@@ -225,7 +226,7 @@ namespace ProyectoIntegrador.Controllers
         //                  int = permiso de agregar
         //                  list<int> = permisos por cada atributo
         //
-        public Tuple<int,List<int>> ProyectoAgregar(System.Security.Principal.IPrincipal user)
+        public Tuple<int, List<int>> ProyectoAgregar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
             if (rol >= 0)
@@ -241,7 +242,7 @@ namespace ProyectoIntegrador.Controllers
 
             }
             else return null;
- 
+
         }
 
 
@@ -251,7 +252,7 @@ namespace ProyectoIntegrador.Controllers
         //                  int = permiso de agregar
         //                  list<int> = permisos por cada atributo
         //
-        public Tuple<int,int, List<int>> ProyectoEditar(System.Security.Principal.IPrincipal user)
+        public Tuple<int, int, List<int>> ProyectoEditar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
             //Si tiene un rol asignado
@@ -274,4 +275,4 @@ namespace ProyectoIntegrador.Controllers
 
     }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+}
