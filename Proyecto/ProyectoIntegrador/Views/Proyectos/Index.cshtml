@@ -77,7 +77,7 @@
                         </a>
 
                         <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder=" Buscar por Proyectos">
-                        <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                     </nav>
 
@@ -98,11 +98,11 @@
                 </div>
 
                 <div class="col-12 col-md-8">
-                    <div class="tab-content d-block bg-secondary overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                    <div class="tab-content d-block  overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px" id="nav-tabContent">
                         @foreach (var item in Model)
                         {
 
-                            <div class="tab-pane fade  " style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                            <div class="tab-pane fade bg-secondary " style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
 
                                 <div class="row mx-4 mt-4 md-0" style="height:30px">
 
@@ -115,12 +115,12 @@
 
                                         @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                         {
-                                            <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                                         }
                                     </div>
 
-                                    <div class="col" style="max-height:30px">
+                                    <div class="col " style="max-height:30px">
 
                                         @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                         {
@@ -139,10 +139,10 @@
 
                                 <div class="row justify-content-center" style="max-width:1150px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="/Requerimientos/Index/@item.idProyectoAID"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
+                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="/Requerimientos/Index/@item.idProyectoAID"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
                                     </div>
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="/TrabajaEn/Index/@item.idProyectoAID"><img src="~/Content/team.svg" class="rounded float-right" style="height:150px ; width:150px"></a>
+                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="/TrabajaEn/Index/@item.idProyectoAID"><img src="~/Content/team.svg" class="rounded float-right" style="height:150px ; width:150px"></a>
 
                                     </div>
                                 </div>

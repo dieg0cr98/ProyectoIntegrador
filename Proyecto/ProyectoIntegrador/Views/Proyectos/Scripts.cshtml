@@ -16,9 +16,12 @@
 
 <!--Agrega un loading al Edit-->
 <script>
-    function my_loading(elemt) {
-      elemt.disabled=true;
-      elemt.innerHTML='<div class="spinner-border text-black" role="status"><span class="sr-only">Loading...</span></div>';
+    function my_loading(elemt,w,h) {
+        var i = '<div class="spinner-border text-black" role="status" style=""';
+        i += 'height: ' + w + 'px ; width:' + h + 'px"' + '></div>';
+        var t = '<div class="spinner-border text-black" role="status" style="height:'+ w + '; width: '+ h +' "></div>'
+        elemt.disabled = true;
+        elemt.innerHTML = t ;
     }
 
 </script>
