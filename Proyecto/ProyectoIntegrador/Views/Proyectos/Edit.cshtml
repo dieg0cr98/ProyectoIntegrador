@@ -10,39 +10,15 @@
 
 
     //Si no tiene permisos para acceder a la vista editar
-    if (ViewBag.permisos.Item1 == 3)
+    if (Model == null)
     {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted No tiene permisos para editar proyectos</div>
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted No tiene permisos para editar este proyecto</div>
 
     }
     else
     {
-
-        //Solo puede editar los proyectos a los cuales pertenece
-        if (ViewBag.permisos.Item1 == 2)
-        {
-            //Revisa si puede editar este proyecto
-            if (Model != null)
-            {
-                @Html.Partial("FormularioEditar")
-
-            }
-            else
-            {
-                <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted No tiene permisos para editar este proyecto</div>
-
-            }
-
-
-        }
-        else
-        {
-
-            @Html.Partial("FormularioEditar")
-
-        }
-
-
+        @Html.Partial("FormularioEditar")
+    }
 
 
 
@@ -53,11 +29,6 @@
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
         }
-
-
-
-    }
-
 
 
 }

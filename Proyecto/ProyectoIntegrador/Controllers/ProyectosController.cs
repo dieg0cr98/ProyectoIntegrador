@@ -22,6 +22,9 @@ namespace ProyectoIntegrador.Controllers
      
         private  SeguridadController seguridad = new SeguridadController();
 
+        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+
+
 
         public async System.Threading.Tasks.Task<ActionResult> Agregar()
         {
@@ -38,7 +41,7 @@ namespace ProyectoIntegrador.Controllers
         //           permiso = 1 Puede ver todos los proyectos
         //           permiso = 2 Solo puede ver los proyectos en los que participa
         //           permiso = 3 No puede ver ninguno
-        //       string rol (El usuario tiene que tener un rol asignado antes de llamar a este metodo)
+        //       int rol (El usuario tiene que tener un rol asignado antes de llamar a este metodo)
         //              rol = 0 Soporte/Calidad
         //              rol = 1 Lider
         //              rol = 2 Tester
@@ -92,6 +95,155 @@ namespace ProyectoIntegrador.Controllers
 
 
 
+        public void ActualizarTrabajaEN(Proyecto proyecto, string cedulaLider, string cedulaLiderActual)
+        {
+            int inProyectoAID = proyecto.idProyectoAID;
+            //Si selecciona un nuevo lider o eliminar al actual. Hay que actualizar datos
+            if (!String.IsNullOrEmpty(cedulaLider))
+            {
+
+                //Si no existe un lider 
+                if (String.IsNullOrEmpty(cedulaLiderActual))
+                {
+                    //Se selecciono un nuevo lider
+                    if (cedulaLider != "-1")
+                    {
+
+                        //Verifica si el empleado ya trabajo en el proyecto
+                        TrabajaEn lider = db.TrabajaEn.Find(inProyectoAID, cedulaLider);
+                        if (lider == null)//Si aun no ha trabajado lo agrega
+                        {
+                            TrabajaEn trabaja = new TrabajaEn();
+                            trabaja.idEmpleadoFK = cedulaLider;
+                            trabaja.idProyectoFK = inProyectoAID;
+                            trabaja.estado = "Activo";
+                            trabaja.rol = "Lider";
+
+                            db.TrabajaEn.Add(trabaja);
+                            db.SaveChanges();
+
+                        }
+                        else //Si ya trabajo, actualiza el estado
+                        {
+                            lider.estado = "Activo";
+                            db.Entry(lider).State = EntityState.Modified;
+                        }
+
+
+
+                        //Actualiza el estado del empleado a trabajando
+                        Empleado empleado2 = db.Empleado.Find(cedulaLider);
+                        empleado2.estado = "Trabajando";
+                        db.Entry(empleado2).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+                //Ya existe un lider
+                else
+                {
+                    //hay que cambiar al lider
+                    if (cedulaLider != cedulaLiderActual)
+                    {
+                        //Si aun no empieza el proyecto cambie el lider
+                        if (proyecto.estado == "Preparacion")
+                        {
+
+                            //Elimina el empleado anterior
+                            db.TrabajaEn.Remove(db.TrabajaEn.Find(inProyectoAID, cedulaLiderActual));
+                            db.SaveChanges();
+
+                            //Actualiza los datos del empleado
+                            Empleado empleado = db.Empleado.Find(cedulaLiderActual);
+                            empleado.estado = "Disponible";
+                            db.Entry(empleado).State = EntityState.Modified;
+                            db.SaveChanges();
+
+
+                            //Se selecciono un nuevo lider
+                            if (cedulaLider != "-1")
+                            {
+                                //Agrega un nuevo Empleado
+                                TrabajaEn trabaja = new TrabajaEn();
+                                trabaja.idEmpleadoFK = cedulaLider;
+                                trabaja.idProyectoFK = inProyectoAID;
+                                trabaja.estado = "Activo";
+                                trabaja.rol = "Lider";
+
+                                db.TrabajaEn.Add(trabaja);
+                                db.SaveChanges();
+
+
+                                Empleado empleado2 = db.Empleado.Find(cedulaLider);
+                                empleado2.estado = "Trabajando";
+                                db.Entry(empleado2).State = EntityState.Modified;
+                                db.SaveChanges();
+                            }
+
+                        }
+                        //Si el proyecto ya esta activo, se guarda el lider actual con estado "Inactivo"
+                        else
+                        {
+
+                            //Actualiza los datos del empleado en la tabla TrabajaEn
+                            TrabajaEn liderAnterior = db.TrabajaEn.Find(inProyectoAID, cedulaLiderActual);
+                            liderAnterior.estado = "Inactivo";
+                            db.Entry(liderAnterior).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            //Actualiza los datos del empleado en la tabla de empleados
+                            Empleado empleado = db.Empleado.Find(cedulaLiderActual);
+                            empleado.estado = "Disponible";
+                            db.Entry(empleado).State = EntityState.Modified;
+                            db.SaveChanges();
+
+
+                            //Se selecciono un nuevo lider
+                            if (cedulaLider != "-1")
+                            {
+                                //Agrega un nuevo Empleado
+                                //Verifica si el empleado ya trabajo en el proyecto
+                                TrabajaEn lider = db.TrabajaEn.Find(inProyectoAID, cedulaLider);
+                                if (lider == null)//Si aun no ha trabajado lo agrega
+                                {
+                                    TrabajaEn trabaja = new TrabajaEn();
+                                    trabaja.idEmpleadoFK = cedulaLider;
+                                    trabaja.idProyectoFK = inProyectoAID;
+                                    trabaja.estado = "Activo";
+                                    trabaja.rol = "Lider";
+
+                                    db.TrabajaEn.Add(trabaja);
+                                    db.SaveChanges();
+
+                                }
+                                else //Si ya trabajo, actualiza el estado
+                                {
+                                    lider.estado = "Activo";
+                                    db.Entry(lider).State = EntityState.Modified;
+                                }
+
+                                //Actualiza el estado del empleado a trabajando
+                                Empleado empleado2 = db.Empleado.Find(cedulaLider);
+                                empleado2.estado = "Trabajando";
+                                db.Entry(empleado2).State = EntityState.Modified;
+                                db.SaveChanges();
+                            }
+
+
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+        }
+
+
+
         //Metodo para obtener la vista principal de los clientes
         public ActionResult IndexCliente()
         {
@@ -106,7 +258,7 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+    
 
         // GET: Proyectos
         public ActionResult Index()
@@ -229,87 +381,92 @@ namespace ProyectoIntegrador.Controllers
         {
 
 
-            int rolUsurario = seguridad.GetRoleUsuario(User);
-            //Verifica si el usuario tiene un rol valido
-            if (rolUsurario < 0)//Si tiene rol invalido
+
+            //Revisa si el proyecto con el id ingresado existe
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else
+            Proyecto proyecto = db.Proyecto.Find(id);
+            if (proyecto == null)
             {
-                if (id == null)
+                return HttpNotFound();
+            }
+
+
+
+            var permisos = seguridad.ProyectoEditar(User);
+
+            //Si tiene un rol permitido y puede editar
+            if (permisos != null && permisos.Item2 != 3)
+            {
+
+                ViewBag.permisos = permisos;
+
+                //Puede editar solo en los que el participa
+                if (permisos.Item2 == 2)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                    //Regresa una lista de los proyectos en los que participa el usuario
+                    var proyectosList = GetProyectosUsuario(permisos.Item2, permisos.Item1, seguridad.IdUsuario(User));
+
+                    //Busca si el proyecto que se quiere editar pertenece a esta persona
+                    if (proyectosList.Where(p => p.idProyectoAID == proyecto.idProyectoAID).Any())
+                    {
+                        //Si no pertenece devuelve a la vista un null
+                        return View();
+                    }
+
                 }
-                Proyecto proyecto = db.Proyecto.Find(id);
-                if (proyecto == null)
+
+                //Si tiene un cliente asignado al proyecto
+                if(proyecto.cedulaClienteFK != null)
                 {
-                    return HttpNotFound();
-                }
+                    //Selecciona el cliente actual
+                    ViewBag.clienteActual = db.Cliente.Find(proyecto.cedulaClienteFK);
 
 
-                var permisosGenerales = seguridad.ProyectoEditar(rolUsurario);
-                ViewBag.permisos = permisosGenerales;
-
-                //Si no tiene permisos para acceder a la vista editar
-                if(permisosGenerales.Item1 == 3)
-                {
-                    return View();
+                    //Selecciona todos los Clientes (Sin tomar en cuenta al actual)
+                    ViewBag.cliente = db.Cliente.Where(c => c.cedulaPK != proyecto.cedulaClienteFK).ToList();
 
                 }
                 else
                 {
+                    ViewBag.clienteActual = null;
 
-                    //Regresa una lista de los proyectos en los que participa el usuario
-                    var proyectos = GetProyectosUsuario(permisosGenerales.Item1, rolUsurario , seguridad.IdUsuario(User));
-
-                    //Busca si el proyecto que se quiere editar pertenece a esta persona
-                    var verificacion = proyectos.Where(p => p.idProyectoAID == proyecto.idProyectoAID);
-
-                    //Si tiene acceso a ese proyecto
-                    if (verificacion.Any())
-                    {
-                        //Selecciona el cliente actual
-                        ViewBag.clienteActual = db.Cliente.Find(proyecto.cedulaClienteFK);
-
-                        //Case null 
-
-
-                        //Selecciona todos los Clientes
-                        ViewBag.cliente = db.Cliente.Where(c => c.cedulaPK != proyecto.cedulaClienteFK).ToList();
-
-
-                        
-
-                        //Busca la cedula lider actual del proyecto
-                        TrabajaEn cedulaLider = db.TrabajaEn.Where(p => p.idProyectoFK == id && p.rol == "Lider" && p.estado == "Activo").FirstOrDefault();
-
-                        ViewBag.liderActual = null;
-
-                        if (cedulaLider != null)
-                        {
-                            ViewBag.liderActual = cedulaLider.Empleado;
-                            //Selecciona todos los empelados que esten disponible y que sean Lider (Menos el lider actual) 
-                            ViewBag.lider = db.Empleado.Where(p => p.idEmpleadoPK != cedulaLider.Empleado.idEmpleadoPK && p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
-
-                        }
-                        else
-                        {
-                            ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
-                        }
-                        return View(proyecto);
-
-                    }
-                    else
-                    {
-                        return View();
-                    }
-
-                  
+                    //Selecciona todos los Clientes (Sin tomar en cuenta al actual)
+                    ViewBag.cliente = db.Cliente.ToList();
 
                 }
-                
+
+
+                //Busca la cedula lider actual del proyecto
+                TrabajaEn cedulaLider = db.TrabajaEn.Where(p => p.idProyectoFK == id && p.rol == "Lider" && p.estado == "Activo").FirstOrDefault();
+
+                ViewBag.liderActual = null;
+
+                if (cedulaLider != null)
+                {
+                    ViewBag.liderActual = cedulaLider.Empleado;
+                    //Selecciona todos los empelados que esten disponible y que sean Lider (Menos el lider actual) 
+                    ViewBag.lider = db.Empleado.Where(p => p.idEmpleadoPK != cedulaLider.Empleado.idEmpleadoPK && p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+
+                }
+                else
+                {
+                    ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+                }
+                return View(proyecto);
+
+
             }
+            else
+            {
+                return View();
+            }
+            
+
+
 
            
 
@@ -319,7 +476,7 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(string id,string nombre, string objetivo, string estado, TimeSpan duracionEstimada,TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
+        public ActionResult Edit(string id, string nombre, string objetivo, string estado, TimeSpan duracionEstimada,TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
         {
 
            int inProyectoAID = Int32.Parse(id);
@@ -327,148 +484,8 @@ namespace ProyectoIntegrador.Controllers
 
             Proyecto proyecto = db.Proyecto.Find(inProyectoAID);
 
-            //Si selecciona un nuevo lider o eliminar al actual. Hay que actualizar datos
-            if( !String.IsNullOrEmpty(cedulaLider))
-            {
-
-                //Si no existe un lider 
-                if (String.IsNullOrEmpty(cedulaLiderActual))
-                {
-                    //Se selecciono un nuevo lider
-                    if(cedulaLider != "-1")
-                    {
-
-                        //Verifica si el empleado ya trabajo en el proyecto
-                        TrabajaEn lider = db.TrabajaEn.Find(inProyectoAID, cedulaLider);
-                        if (lider == null)//Si aun no ha trabajado lo agrega
-                        {
-                            TrabajaEn trabaja = new TrabajaEn();
-                            trabaja.idEmpleadoFK = cedulaLider;
-                            trabaja.idProyectoFK = inProyectoAID;
-                            trabaja.estado = "Activo";
-                            trabaja.rol = "Lider";
-
-                            db.TrabajaEn.Add(trabaja);
-                            db.SaveChanges();
-
-                        }
-                        else //Si ya trabajo, actualiza el estado
-                        {
-                            lider.estado = "Activo";
-                            db.Entry(lider).State = EntityState.Modified;
-                        }
-
-
-
-                        //Actualiza el estado del empleado a trabajando
-                        Empleado empleado2 = db.Empleado.Find(cedulaLider);
-                        empleado2.estado = "Trabajando";
-                        db.Entry(empleado2).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                }
-                //Ya existe un lider
-                else
-                {
-                    //hay que cambiar al lider
-                    if (cedulaLider != cedulaLiderActual)
-                    {
-                        //Si aun no empieza el proyecto cambie el lider
-                        if (proyecto.estado == "Preparacion")
-                        {
-
-                            //Elimina el empleado anterior
-                            db.TrabajaEn.Remove(db.TrabajaEn.Find(inProyectoAID, cedulaLiderActual));
-                            db.SaveChanges();
-
-                            //Actualiza los datos del empleado
-                            Empleado empleado = db.Empleado.Find(cedulaLiderActual);
-                            empleado.estado = "Disponible";
-                            db.Entry(empleado).State = EntityState.Modified;
-                            db.SaveChanges();
-
-
-                            //Se selecciono un nuevo lider
-                            if(cedulaLider != "-1")
-                            {
-                                //Agrega un nuevo Empleado
-                                TrabajaEn trabaja = new TrabajaEn();
-                                trabaja.idEmpleadoFK = cedulaLider;
-                                trabaja.idProyectoFK = inProyectoAID;
-                                trabaja.estado = "Activo";
-                                trabaja.rol = "Lider";
-
-                                db.TrabajaEn.Add(trabaja);
-                                db.SaveChanges();
-
-
-                                Empleado empleado2 = db.Empleado.Find(cedulaLider);
-                                empleado2.estado = "Trabajando";
-                                db.Entry(empleado2).State = EntityState.Modified;
-                                db.SaveChanges();
-                            }                       
-
-                        }
-                        //Si el proyecto ya esta activo, se guarda el lider actual con estado "Inactivo"
-                        else
-                        {
-
-                            //Actualiza los datos del empleado en la tabla TrabajaEn
-                            TrabajaEn liderAnterior = db.TrabajaEn.Find(inProyectoAID, cedulaLiderActual);
-                            liderAnterior.estado = "Inactivo";
-                            db.Entry(liderAnterior).State = EntityState.Modified;
-                            db.SaveChanges();
-
-                            //Actualiza los datos del empleado en la tabla de empleados
-                            Empleado empleado = db.Empleado.Find(cedulaLiderActual);
-                            empleado.estado = "Disponible";
-                            db.Entry(empleado).State = EntityState.Modified;
-                            db.SaveChanges();
-
-
-                            //Se selecciono un nuevo lider
-                            if (cedulaLider != "-1")
-                            {
-                                //Agrega un nuevo Empleado
-                                //Verifica si el empleado ya trabajo en el proyecto
-                                TrabajaEn lider = db.TrabajaEn.Find(inProyectoAID, cedulaLider);
-                                if (lider == null)//Si aun no ha trabajado lo agrega
-                                {
-                                    TrabajaEn trabaja = new TrabajaEn();
-                                    trabaja.idEmpleadoFK = cedulaLider;
-                                    trabaja.idProyectoFK = inProyectoAID;
-                                    trabaja.estado = "Activo";
-                                    trabaja.rol = "Lider";
-
-                                    db.TrabajaEn.Add(trabaja);
-                                    db.SaveChanges();
-
-                                }
-                                else //Si ya trabajo, actualiza el estado
-                                {
-                                    lider.estado = "Activo";
-                                    db.Entry(lider).State = EntityState.Modified;
-                                }
-
-                                //Actualiza el estado del empleado a trabajando
-                                Empleado empleado2 = db.Empleado.Find(cedulaLider);
-                                empleado2.estado = "Trabajando";
-                                db.Entry(empleado2).State = EntityState.Modified;
-                                db.SaveChanges();
-                            }
-
-   
-
-                        }
-
-                    }
-
-                }
-
-
-
-            }
-
+            //Actualiza/Agrega el lider al proyecto
+            ActualizarTrabajaEN(proyecto, cedulaLider, cedulaLiderActual);
 
 
             //Actualiza los datos del proyecto
@@ -480,6 +497,10 @@ namespace ProyectoIntegrador.Controllers
             proyecto.fechaInicio = fechaInicio;
             proyecto.fechaFinalizacion = fechaFinalizacion;
             proyecto.cantidadReq = cantidadReq;
+            if(cedulaCliente == "")
+            {
+                proyecto.cedulaClienteFK = null;
+            }
             proyecto.cedulaClienteFK = cedulaCliente;
 
 

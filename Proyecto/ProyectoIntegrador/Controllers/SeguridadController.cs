@@ -220,9 +220,11 @@ namespace ProyectoIntegrador.Controllers
             return Tuple.Create(rol,permisoConsultar, cedulaUsuario, permisoEditar, permisoAgregar, permisoBorrar);
         }
 
-        //Returna un Tuple <int,list<int>>
+        //Returna un Tuple <itn,int,list<int>> o Null en caso de que el rol no sea valido
+        //                  int = rol
         //                  int = permiso de agregar
         //                  list<int> = permisos por cada atributo
+        //
         public Tuple<int,List<int>> ProyectoAgregar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
@@ -243,15 +245,28 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        public Tuple<int, List<int>> ProyectoEditar(int rol)
-        {
-            List<int> permisos = new List<int>();
-            for (int i = 0; i < 11; i++)
-            {
-                permisos.Add(tablaSeguridadProyectoEditar[i, rol]);
-            }
 
-            return  Tuple.Create(tablaSeguridadProyectoGeneral[2,rol],permisos);
+        //Returna un Tuple <itn,int,list<int>> o Null en caso de que el rol no sea valido
+        //                  int = rol
+        //                  int = permiso de agregar
+        //                  list<int> = permisos por cada atributo
+        //
+        public Tuple<int,int, List<int>> ProyectoEditar(System.Security.Principal.IPrincipal user)
+        {
+            int rol = GetRoleUsuario(user);
+            //Si tiene un rol asignado
+            if (rol >= 0)
+            {
+                List<int> permisos = new List<int>();
+                for (int i = 0; i < 11; i++)
+                {
+                    permisos.Add(tablaSeguridadProyectoEditar[i, rol]);
+                }
+
+                return Tuple.Create(rol, tablaSeguridadProyectoGeneral[2, rol], permisos);
+
+            }
+            else return null;
         }
 
 
