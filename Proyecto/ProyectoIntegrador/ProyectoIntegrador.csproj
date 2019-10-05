@@ -389,6 +389,8 @@
     <Content Include="Views\TrabajaEn\Details.cshtml" />
     <Content Include="Views\TrabajaEn\Edit.cshtml" />
     <Content Include="Views\TrabajaEn\Index.cshtml" />
+    <Content Include="Views\Clientes\modalEliminar.cshtml" />
+    <Content Include="Views\Clientes\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
