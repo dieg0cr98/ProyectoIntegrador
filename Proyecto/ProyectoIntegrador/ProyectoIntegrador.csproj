@@ -413,6 +413,8 @@
     <Content Include="Views\HabilidadTecnica\Index.cshtml" />
     <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
     <Content Include="Views\Requerimientos\Scripts.cshtml" />
+    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
