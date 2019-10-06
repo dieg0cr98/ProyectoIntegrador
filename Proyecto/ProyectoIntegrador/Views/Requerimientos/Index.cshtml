@@ -6,101 +6,140 @@
 <br />
 <h2 align="center">Consultar Requerimientos</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { idProyecto = ViewBag.idProyecto })
-</p>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
+
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+
+</head>
+
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create", new { idProyecto = ViewBag.idProyecto })
+    </p>
 
 
-@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
-@{ var idCarta = "#a"; }
-@{ var idTab = "a"; }
+    @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+    @{ var idCarta = "#a"; }
+    @{ var idTab = "a"; }
 
 
-<div class="container " style="max-width: 1800px">
-    <div class="row">
+    <div class="container " style="max-width: 1800px">
+        <div class="row">
 
-        <div class="col-6 col-md-4 h-25">
+            <div class="col-6 col-md-4 h-25">
 
-            @*NavBar con el titulo y el input para realizar busquedas*@
-            <nav class="navbar navbar-light bg-light justify-content-between">
-                <a class="navbar-brand">Lista de requerimientos</a>
-                @*
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                *@
-            </nav>
-
-
-
-            <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+                @*NavBar con el titulo y el input para realizar busquedas*@
+                <nav class="navbar navbar-light bg-light justify-content-between">
+                    <a class="navbar-brand">Lista de requerimientos</a>
+                    @*
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    *@
+                </nav>
 
 
 
-                @foreach (var item in Model)
-                {
-                    <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
-                    { idCarta += 1; }
-                }
+                <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
 
 
+
+                    @foreach (var item in Model)
+                    {
+                        <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                        { idCarta += 1; }
+                    }
+
+
+                </div>
             </div>
-        </div>
 
-        <div class="col-12 col-md-8">
-            <div class="tab-content w-75 h-25" id="nav-tabContent">
-
-
-                @foreach (var item in Model)
-                {
-
-                    <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+            <div class="col-12 col-md-8">
+                <div class="tab-content w-75 h-25" id="nav-tabContent">
 
 
+                    @foreach (var item in Model)
+                    {
 
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>
-                                    @Html.DisplayFor(modelItem => item.nombre)
-                                </h4>
-                                <br />
-                                <p>
-                                    ID de requerimiento:
-                                    <font size="+1">
-                                        @Html.DisplayFor(modelItem => item.idReqPK)
-                                    </font>
-                                </p>
+                        <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
 
-                                <p>
-                                    ID de proyecto:
-                                    <font size="+1">
-                                        @Html.DisplayFor(modelItem => item.idProyectoFK)
-                                    </font>
-                                </p>
 
-                                <p>
-                                    ID de proyecto:
-                                    <font size="+1">
-                                        @Html.DisplayFor(modelItem => item.Empleado.nombre)
-                                    </font>
-                                </p>
 
-                                @Html.ActionLink("Edit", "Edit", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
-                                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>
+                                        @Html.DisplayFor(modelItem => item.nombre)
+                                    </h4>
+                                    <br />
+                                    <p>
+                                        ID de requerimiento:
+                                        <font size="+1">
+                                            @Html.DisplayFor(modelItem => item.idReqPK)
+                                        </font>
+                                    </p>
+
+                                    <p>
+                                        ID de proyecto:
+                                        <font size="+1">
+                                            @Html.DisplayFor(modelItem => item.idProyectoFK)
+                                        </font>
+                                    </p>
+
+                                    <p>
+                                        ID de proyecto:
+                                        <font size="+1">
+                                            @Html.DisplayFor(modelItem => item.Empleado.nombre)
+                                        </font>
+                                    </p>
+
+                                    @Html.ActionLink("Edit", "Edit", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    //Le agrega un digito mas al idTab
-                    { idTab += 1; }
-                }
+                        //Le agrega un digito mas al idTab
+                        { idTab += 1; }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@Html.Partial("ModalEliminar")
-@Html.Partial("Scripts")
+    @Html.Partial("ModalEliminar")
+    @Html.Partial("Scripts")
+</body>
 @*
     @model IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento>
 
