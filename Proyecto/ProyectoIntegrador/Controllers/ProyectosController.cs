@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProyectoIntegrador.Models;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -23,6 +24,108 @@ namespace ProyectoIntegrador.Controllers
         private SeguridadController seguridad = new SeguridadController();
 
         private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+
+
+        //Metodo que regresa el contexto de la tabla proyectos, para poder realizar joins
+        //Retorna el contexto de la base de datos
+        public DbSet<Proyecto> GetTablaProyecto()
+        {
+            return db.Proyecto;
+
+        }
+
+
+
+        //Metodo que guarda/Eliminar en la tabla Proyecto 
+        //Recibe Proyecto proyecto, con los datos para guardar
+        //       int  tipo, flag para saber el tipo de accion
+        //            tipo 0 = nuevo proyecto
+        //            tipo 1 = actualizar proyecto
+        //            tipo 2 = borrar proyecto
+        //Returna un bool, flag para saber si la operacion se pudo completar
+        //           bool = false no se pudo realizar la operacion
+        //           bool = true se pudo realizar la operacion
+        public bool SetProyecto(Proyecto proyecto, int tipo)
+        {
+
+            try
+            {
+
+                switch(tipo)
+                {
+
+                    case 0:
+                        {
+                            db.Proyecto.Add(proyecto);
+                            db.SaveChanges();
+                            break;
+                        }
+                    case 1:
+                        {
+                            db.Entry(proyecto).State = EntityState.Modified;
+                            db.SaveChanges();
+                            break;
+                        }
+                    case 2:
+                        {
+                            db.Proyecto.Remove(proyecto);
+                            db.SaveChanges();
+                            break;
+                        }
+
+                }
+
+                if(tipo == 0)
+                {
+                  
+
+                }
+                else
+                {
+                   
+                }
+
+
+                return true;
+
+            }
+            catch (SqlException ex)
+            {
+                List<string> errorMessages = new List<string>();
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                   
+                    errorMessages.Append("Index #" + i + "\n" +
+                        "Message: " + ex.Errors[i].Message + "\n" +
+                        "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                        "Source: " + ex.Errors[i].Source + "\n" +
+                        "Procedure: " + ex.Errors[i].Procedure + "\n");
+                }
+                Console.WriteLine(errorMessages.ToString());
+
+                return false;
+            }
+
+
+
+   
+        }
+
+
+        //Metodo que retorna todos los proyectos
+        //Retorna una lista con los proyectos, de no tener la lista queda vacia
+        public IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto> GetProyectos()
+        {
+            return db.Proyecto.ToList();
+
+        }
+
+        //Metodo que retorna un proyecto especifico
+        //Recibe un int idProyectoAID, llave primaria del proyecto
+        public Proyecto GetProyecto(int idProyectoAID)
+        {
+            return db.Proyecto.Find(idProyectoAID);
+        }
 
 
 
@@ -50,6 +153,7 @@ namespace ProyectoIntegrador.Controllers
         //Devuelve una lista IEnumerable con los proyectos. Null en caso de que no puede ver ninguno
         public IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto> GetProyectosUsuario(int permiso, int rol, string idUsuario)
         {
+
             //Puede ver todos los proyectos
             if (permiso == 1)
             {
@@ -95,6 +199,12 @@ namespace ProyectoIntegrador.Controllers
 
 
 
+
+
+        //Metodo que actualiza el lider de un proyecto
+        //Recibe Proyecto proyecto, con los datos del proyecto
+        //       string cedulaLider, llave primaria del nuevo lider
+        //       string cedulaLiderActual, llave primaria del lider actual
         public void ActualizarTrabajaEN(Proyecto proyecto, string cedulaLider, string cedulaLiderActual)
         {
             int inProyectoAID = proyecto.idProyectoAID;
@@ -243,6 +353,61 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+        //Metodo para llenar los viewbag de edit con los datos de los clientes
+        //Recibe un Proyecto proyecto, con los datos para realizar las busquedas
+        private void CargarDatosClientesEdit(Proyecto proyecto)
+        {
+            //Si tiene un cliente asignado al proyecto
+            if (proyecto.cedulaClienteFK != null)
+            {
+                //Selecciona el cliente actual
+                ViewBag.clienteActual = db.Cliente.Find(proyecto.cedulaClienteFK);
+
+
+                //Selecciona todos los Clientes (Sin tomar en cuenta al actual)
+                ViewBag.cliente = db.Cliente.Where(c => c.cedulaPK != proyecto.cedulaClienteFK).ToList();
+
+            }
+            else
+            {
+                ViewBag.clienteActual = null;
+
+                //Selecciona todos los Clientes (Sin tomar en cuenta al actual)
+                ViewBag.cliente = db.Cliente.ToList();
+
+            }
+
+        }
+
+
+        //Metodo para llenar los viewbag de edit con los datos de los lideres
+        //Recibe un Proyecto proyecto, con los datos para realizar las busquedas
+        private void CargarDatosLiderEdit(Proyecto proyecto)
+        {
+
+            //Busca la cedula lider actual del proyecto
+            TrabajaEn cedulaLiderA = db.TrabajaEn.Where(p => p.idProyectoFK == proyecto.idProyectoAID && p.rol == "Lider" && p.estado == "Activo").FirstOrDefault();
+
+            ViewBag.liderActual = null;
+
+            if (cedulaLiderA != null)
+            {
+                ViewBag.liderActual = cedulaLiderA.Empleado;
+                //Selecciona todos los empelados que esten disponible y que sean Lider (Menos el lider actual) 
+                ViewBag.lider = db.Empleado.Where(p => p.idEmpleadoPK != cedulaLiderA.Empleado.idEmpleadoPK && p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+
+            }
+            else
+            {
+                ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+            }
+
+        }
+
+
+
+
+
 
         //Metodo para obtener la vista principal de los clientes
         public ActionResult IndexCliente()
@@ -260,14 +425,15 @@ namespace ProyectoIntegrador.Controllers
 
 
 
+        //------------- ActionsResults -------------//
+
+
         // GET: Proyectos
         public ActionResult Index()
         {
 
             var permisosGenerales = seguridad.ProyectoConsultar(User);
             ViewBag.permisosEspecificos = permisosGenerales;
-
-
             return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3));
 
         }
@@ -301,7 +467,7 @@ namespace ProyectoIntegrador.Controllers
 
                 ViewBag.permisos = permisos;
                 //Verifica si el usuario tiene permisos para crear
-                if (permisos.Item1 != 0)
+                if (permisos.Item2 != 0)
                 {
                     //Selecciona todos los Clientes
                     ViewBag.cliente = db.Cliente.ToList();
@@ -337,37 +503,42 @@ namespace ProyectoIntegrador.Controllers
 
 
             Proyecto proyecto = new Proyecto();
-            proyecto.nombre = nombre;
+
             proyecto.objetivo = objetivo;
             proyecto.duracionEstimada = duracionEstimada;
             proyecto.cedulaClienteFK = cedulaCliente;
 
 
-            db.Proyecto.Add(proyecto);
-            db.SaveChanges();
 
-
-
-            if (!String.IsNullOrEmpty(cedulaLider))
+            //Verifica si el usuario cambio el nombre, ya que es unique
+            if (nombre != proyecto.nombre)
             {
 
-                //Recupera el id autogenerado del proyecto creado anteriormente
-                int idProyecto = db.Proyecto.Where(p => p.nombre == nombre).Select(p => p.idProyectoAID).FirstOrDefault();
-                TrabajaEn trabaja = new TrabajaEn();
-                trabaja.idEmpleadoFK = cedulaLider;
-                trabaja.idProyectoFK = idProyecto;
-                trabaja.estado = "Activo";
-                trabaja.rol = "Lider";
+                //Hay que verificar si el nuevo nombre ya existe en la base de datos
+                if (db.Proyecto.Where(p => p.nombre == nombre).FirstOrDefault() != null)
+                {
+                    //Existe un proyecto con ese nombre
+                    ViewBag.error = "Ya existe un proyecto llamado: " + nombre;
+                    ViewBag.permisos = seguridad.ProyectoAgregar(User);
 
-                db.TrabajaEn.Add(trabaja);
-                db.SaveChanges();
+                    //Selecciona todos los Clientes
+                    ViewBag.cliente = db.Cliente.ToList();
 
-                Empleado empleado = db.Empleado.Find(cedulaLider);
-                empleado.estado = "Trabajando";
-                db.Entry(empleado).State = EntityState.Modified;
-                db.SaveChanges();
+                    //Selecciona todos los empelados que esten disponible y que sean Lider
+                    ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+
+                    return View(proyecto);
+                }
 
             }
+
+
+            proyecto.nombre = nombre;
+
+            //Agrega el proyecto
+            SetProyecto(proyecto, 0);
+
+            ActualizarTrabajaEN(proyecto, cedulaLider, null);
 
             return RedirectToAction("Index");
 
@@ -419,43 +590,12 @@ namespace ProyectoIntegrador.Controllers
 
                 }
 
-                //Si tiene un cliente asignado al proyecto
-                if (proyecto.cedulaClienteFK != null)
-                {
-                    //Selecciona el cliente actual
-                    ViewBag.clienteActual = db.Cliente.Find(proyecto.cedulaClienteFK);
+
+                //Llena los view bag
+                CargarDatosClientesEdit(proyecto);
+                CargarDatosLiderEdit(proyecto);
 
 
-                    //Selecciona todos los Clientes (Sin tomar en cuenta al actual)
-                    ViewBag.cliente = db.Cliente.Where(c => c.cedulaPK != proyecto.cedulaClienteFK).ToList();
-
-                }
-                else
-                {
-                    ViewBag.clienteActual = null;
-
-                    //Selecciona todos los Clientes (Sin tomar en cuenta al actual)
-                    ViewBag.cliente = db.Cliente.ToList();
-
-                }
-
-
-                //Busca la cedula lider actual del proyecto
-                TrabajaEn cedulaLider = db.TrabajaEn.Where(p => p.idProyectoFK == id && p.rol == "Lider" && p.estado == "Activo").FirstOrDefault();
-
-                ViewBag.liderActual = null;
-
-                if (cedulaLider != null)
-                {
-                    ViewBag.liderActual = cedulaLider.Empleado;
-                    //Selecciona todos los empelados que esten disponible y que sean Lider (Menos el lider actual) 
-                    ViewBag.lider = db.Empleado.Where(p => p.idEmpleadoPK != cedulaLider.Empleado.idEmpleadoPK && p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
-
-                }
-                else
-                {
-                    ViewBag.lider = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
-                }
                 return View(proyecto);
 
 
@@ -472,6 +612,9 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+
+        
+
         // POST: Proyectos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -481,15 +624,9 @@ namespace ProyectoIntegrador.Controllers
 
             int inProyectoAID = Int32.Parse(id);
 
-
             Proyecto proyecto = db.Proyecto.Find(inProyectoAID);
 
-            //Actualiza/Agrega el lider al proyecto
-            ActualizarTrabajaEN(proyecto, cedulaLider, cedulaLiderActual);
-
-
             //Actualiza los datos del proyecto
-            proyecto.nombre = nombre;
             proyecto.objetivo = objetivo;
             proyecto.estado = estado;
             proyecto.duracionEstimada = duracionEstimada;
@@ -497,14 +634,40 @@ namespace ProyectoIntegrador.Controllers
             proyecto.fechaInicio = fechaInicio;
             proyecto.fechaFinalizacion = fechaFinalizacion;
             proyecto.cantidadReq = cantidadReq;
-            proyecto.cedulaClienteFK = null;
+            proyecto.cedulaClienteFK = cedulaCliente;
+
+          
+           
+            //Verifica si el usuario cambio el nombre, ya que es unique
+            if (nombre != proyecto.nombre)
+            {
+                
+                //Hay que verificar si el nuevo nombre ya existe en la base de datos
+                if(db.Proyecto.Where(p => p.nombre == nombre).FirstOrDefault() != null )
+                {
+                    //Existe un proyecto con ese nombre
+                    ViewBag.error = "Ya existe un proyecto llamado: " + nombre;
+                    ViewBag.permisos = seguridad.ProyectoEditar(User);
+
+                    //Llena los view bag
+                    CargarDatosClientesEdit(proyecto);
+                    CargarDatosLiderEdit(proyecto);
+
+                    return View(proyecto);
+                }
+            
+            }
+
+            proyecto.nombre = nombre;
+
+            //Actualiza los datos del proyecto en la base de datos
+            SetProyecto(proyecto, 1);
+
+            //Actualiza/Agrega el lider al proyecto
+            ActualizarTrabajaEN(proyecto, cedulaLider, cedulaLiderActual);
 
 
-            //Guarda el proyecto con los nuevos valores
-            db.Entry(proyecto).State = EntityState.Modified;
-            db.SaveChanges();
             return RedirectToAction("Index");
-
 
         }
 
@@ -512,9 +675,10 @@ namespace ProyectoIntegrador.Controllers
 
         public ActionResult Eliminar(int id)
         {
-            Proyecto proyecto = db.Proyecto.Find(id);
-            db.Proyecto.Remove(proyecto);
-            db.SaveChanges();
+            //Busca el proyecto
+            Proyecto proyecto = GetProyecto(id);
+            //Elimina el proyecto
+            SetProyecto(proyecto, 2);
             return RedirectToAction("Index");
         }
 

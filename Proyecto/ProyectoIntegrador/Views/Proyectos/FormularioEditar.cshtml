@@ -1,76 +1,67 @@
 ﻿
-   
-        <br />
-
-        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Proyectos</p>
-
-        <hr>
 
 
-
-        <form class="cmxform" id="commentForm" method="post" action="Create">
+        <form class="cmxform" id="commentForm" method="post" action="Edit">
 
             <fieldset>
 
-                <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px">
+                <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px;">
 
-                    <!--  Atributo IdProyecto -->
-                    <div class="input-group mb-3 pt-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">IdProyecto</span>
+
+
+                    <div class="form-row pt-4">
+                        <div class="form-group col-md-6">
+                            @*Atributo IdProyecto*@
+                            <label for="input1">IdProyecto</label>
+
+                            @if (ViewBag.permisos.Item3[0] == 1)
+                            {
+                                <input id="input1" class="form-control" type="text" style="text-align:center" value="@Model.idProyectoAID" placeholder="hola" name="id">
+
+                            }
+                            else
+                            {
+                                <input id="input1" class="form-control" type="text" style="text-align:center" value="@Model.idProyectoAID" placeholder="hola" name="id" readonly>
+
+                            }
+
                         </div>
-                        @if (ViewBag.permisos.Item3[0] == 1)
-                        {
-                            <input id="ccid" type="text"  style="width:700px; text-align:center" value="@Model.idProyectoAID" name="id">
-                        }
-                        else
-                        {
+                        <div class="form-group col-md-6">
 
-                            <input id="ccid" type="text"  style="width:700px; text-align:center ;background-color:lightgray" value="@Model.idProyectoAID" placeholder="hola" name="id" readonly>
+                            @*Atributo Nombre*@
+                            <label for="input2">Nombre</label>
 
-                        }
+                            @if (ViewBag.permisos.Item3[1] == 1)
+                            {
+                                <input id="input2" class="form-control" value="@Model.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="30" type="text">
 
-                    <div class="input-group-append">
-                        <div class="input-group-text" style="width:80px ; border-radius:0px 25px 25px 0px">
-                            <input hidden  type="checkbox" aria-label="Checkbox for following text input">
+                            }
+                            else
+                            {
+                                <input id="input2" class="form-control" value="@Model.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="30" type="text" readonly>
+                            }
+
+
                         </div>
                     </div>
 
-                    </div>
-
-                    <!--  Atributo Nombre -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:200px ;text-align:center" id="basic-addon1">Nombre</span>
-                        </div>
-
-                        @if (ViewBag.permisos.Item3[1] == 1)
-                        {
-                            <input id="cnombre" value="@Model.nombre" style="width:700px; text-align:center" name="nombre" minlength="1" maxlength="30" type="text" required>
-
-                        }
-                        else
-                        {
-                            <input id="cnombre" value="@Model.nombre" style="width:700px;text-align:center" name="nombre" minlength="1" maxlength="30" type="text" readonly>
-                        }
-
-                    </div>
-
-
-
-
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+                    }
 
 
                     @*Atributo Objetivo*@
 
 
-                    <div class="input-group mb-3">
+
+                    <div class="input-group mb-3 ">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Objetivo</span>
                         </div>
                         @if (ViewBag.permisos.Item3[2] == 1)
                         {
-                            <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
+                            <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea" cols="0" id="comment" ></textarea>
 
                         }
                         else
@@ -102,7 +93,7 @@
                         }
                         else
                         {
-                            <input id="cnombre"  style="text-align:center" value="@Model.estado" name="estado" type="text" readonly>
+                            <input id="cnombre" style="text-align:center" value="@Model.estado" name="estado" type="text" readonly>
 
                         }
 
@@ -110,240 +101,248 @@
 
 
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Duracion Estimada</span>
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-6">
+                            @*Atributo duracionEstimada*@
+                            <label for="input4">duracionEstimada</label>
+
+                            @if (ViewBag.permisos.Item3[4] == 1)
+                            {
+                                <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@Model.duracionEstimada" name="duracionEstimada">
+
+                            }
+                            else
+                            {
+                                <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@Model.duracionEstimada" name="duracionEstimada" readonly>
+                            }
+                            <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
                         </div>
-                        @if (ViewBag.permisos.Item3[4] == 1)
-                        {
-                            <input id="cde" type="time"  style="width:700px;text-align:center" value="@Model.duracionEstimada" name="duracionEstimada">
+                        <div class="form-group col-md-6">
 
-                        }
-                        else
-                        {
-                            <input id="cde" type="time" style="width:700px;text-align:center"  value="@Model.duracionEstimada" name="duracionEstimada" readonly>
-                        }
+                            @*Atributo duarcionReal*@
+                            <label for="input5" style="text-align:center">duracionReal</label>
 
-                        <small class="form-text text-muted text-danger">
-                            Formato horas:minutos
-                        </small>
-                    </div>
-
-
-                        </p>
-
-                        @*Atributo duarcionReal*@
-                        <p>
-                            <label for="cdr">duracionReal</label>
                             @if (ViewBag.permisos.Item3[5] == 1)
                             {
-                                <input id="cdr" type="time" value="@Model.duracionReal" name="duracionReal">
-                                <small class="form-text text-muted text-danger">
-                                    Formato horas:minutos
-                                </small>
+                                <input id="input5" class="form-control" type="time" style="text-align:center" value="@Model.duracionReal" name="duracionReal">
+
                             }
                             else
                             {
-                                <input id="cdr" type="time" value="@Model.duracionReal" name="duracionReal" readonly>
-                                <small class="form-text text-muted text-danger">
-                                    Formato horas:minutos
-                                </small>
+                                <input id="input5" class="form-control" type="time" style="text-align:center" value="@Model.duracionReal" name="duracionReal" readonly>
                             }
+                            <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
 
-                        </p>
 
-                        @*Atributo FechaInicio*@
-                        <p>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-6">
+                            @*Atributo FechaInicio*@
                             <label for="cfecha">FechaInicio</label>
+
                             @if (ViewBag.permisos.Item3[6] == 1)
                             {
-                                <input id="cfecha" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio">
+                                <input id="cfecha" class="form-control text-center" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio">
                             }
                             else
                             {
-                                <input id="cfecha" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+                                <input id="cfecha" class="form-control text-center" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
                             }
 
-                        </p>
+                            <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
 
-                        @*Atributo FechaFinalizacion*@
-                        <p>
-                            <label for="cfecha">FechaFinalizacion</label>
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            @*Atributo fechaFinalizacion*@
+                            <label for="cfecha2" style="text-align:center">duracionReal</label>
+
                             @if (ViewBag.permisos.Item3[7] == 1)
                             {
-                                <input id="cfecha" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion">
-                                <small class="form-text text-muted text-danger">
-                                    Por defecto la fecha de finalizacion es 1800-01-01
-                                </small>
+                                <input id="cfecha2" class="form-control text-center" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion">
                             }
                             else
                             {
-                                <input id="cfecha" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
-                                <small class="form-text text-muted text-danger">
-                                    Por defecto la fecha de finalizacion es 1800-01-01
-                                </small>
+                                <input id="cfecha2" class="form-control text-center" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
                             }
 
-                        </p>
+                            <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
 
-                        @*Atributo Cantidad de requerimientos*@
-                        <p>
-                            <label for="cdr">Cantidad de requerimientos</label>
+                        </div>
+                    </div>
+
+
+                    @*Atributo Cantidad de requerimientos*@
+                    <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Cantidad de Requerimientos</span>
+                            </div>
                             @if (ViewBag.permisos.Item3[8] == 1)
                             {
-                                <input id="cdr" type="number" name="cantidadReq" value="@Model.cantidadReq">
+                                <input id="cdr" class="form-control" type="number" name="cantidadReq" value="@Model.cantidadReq">
                             }
                             else
                             {
-                                <input id="cdr" type="number" name="cantidadReq" value="@Model.cantidadReq" readonly>
+                                <input id="cdr" class="form-control" type="number" name="cantidadReq" value="@Model.cantidadReq" readonly>
                             }
 
+                    </div>
 
 
-                        </p>
 
 
-                        @*Atributo cedulaCliente*@
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect03">Clientes</label>
-                            </div>
-
-                            <select class="custom-select" style="border-color:#76323f" name="cedulaCliente" id="inputGroupSelect03">
-                                @if (ViewBag.permisos.Item3[9] == 1)
-                                {
-
-                                    if (ViewBag.clienteActual != null)
-                                    {
-                                        <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
-                                        <option value=null>Ninguno</option>
-                                    }
-                                    else
-                                    {
-                                        <option selected value=null>Ninguno</option>
-                                    }
-
-
-                                    foreach (var item in ViewBag.cliente)
-                                    {
-                                        <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
-
-                                    }
-
-
-                                }
-
-                                else
-                                {
-
-
-                                    if (ViewBag.clienteActual != null)
-                                    {
-                                        <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
-                                    }
-                                    else
-                                    {
-                                        <option selected value="">Ninguno</option>
-                                    }
-
-
-                                }
-                            </select>
-                            <div class="input-group-append">
-                                <a class="btn btn-outline-primary" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
-                            </div>
-
+                    @*Atributo cedulaCliente*@
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect03">Clientes</label>
                         </div>
 
+                        <select class="custom-select"  name="cedulaCliente" id="inputGroupSelect03">
+                            @if (ViewBag.permisos.Item3[9] == 1)
+                            {
 
-
-                        @*Se manda al controlador el lider actual si es que existe*@
-                        @if (@ViewBag.liderActual != null)
-                        {
-                            <input type="hidden" id="custId" name="cedulaLiderActual" value="@ViewBag.liderActual.idEmpleadoPK">
-                        }
-
-
-                        @*Atributo cedulaLider*@
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" style="border-color:#76323f" for="inputGroupSelect01">Lideres</label>
-                            </div>
-
-
-
-                            <select class="custom-select" id="inputGroupSelect01" style="max-width:400px ; border-color:#76323f" name="cedulaLider">
-                                @if (ViewBag.permisos.Item3[10] == 1)
+                                if (ViewBag.clienteActual != null)
                                 {
-                                    if (ViewBag.liderActual != null)
-                                    {
-                                        <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
-                                        <option value="-1">Ninguno</option>
-                                    }
-                                    else
-                                    {
-                                        <option selected value="">Seleccione un Lider</option>
-                                    }
-
-
-                                    foreach (var item in ViewBag.lider)
-                                    {
-                                        <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
-                                    }
+                                    <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
+                                    <option value=null>Ninguno</option>
                                 }
                                 else
                                 {
-                                    <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+                                    <option selected value=null>Ninguno</option>
                                 }
 
-                            </select>
-                            <div class="input-group-append">
-                                <a class="btn btn-outline-primary" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del empleado">Ver empleados</a>
-                            </div>
+
+                                foreach (var item in ViewBag.cliente)
+                                {
+                                    <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
+
+                                }
+
+
+                            }
+
+                            else
+                            {
+
+
+                                if (ViewBag.clienteActual != null)
+                                {
+                                    <option selected value="@ViewBag.clienteActual.cedulaPK">@ViewBag.clienteActual.nombre @ViewBag.clienteActual.apellido1 @ViewBag.clienteActual.empresa</option>
+                                }
+                                else
+                                {
+                                    <option selected value="">Ninguno</option>
+                                }
+
+
+                            }
+                        </select>
+                        <div class="input-group-append">
+                            <a class="btn btn-danger" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
                         </div>
-
-                        <p>
-
-
-
-
-
-                            <div class="row justify-content-center" style="max-width:1150px">
-                                <div class="col-4  text-center">
-                                    <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Proyectos/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                                </div>
-                                <div class="col-4  text-center">
-
-                                    <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                    </button>
-
-                                </div>
-                            </div>
-
-
-
-
-
-
-                        </p>
-
-
-
-
-
-
-
-
 
                     </div>
+
+
+
+                    @*Se manda al controlador el lider actual si es que existe*@
+                    @if (@ViewBag.liderActual != null)
+                    {
+                        <input type="hidden" id="custId" name="cedulaLiderActual" value="@ViewBag.liderActual.idEmpleadoPK">
+                    }
+
+
+                    @*Atributo cedulaLider*@
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"  for="inputGroupSelect01">Lideres</label>
+                        </div>
+
+
+
+                        <select class="custom-select w-100" id="inputGroupSelect01"  name="cedulaLider">
+                            @if (ViewBag.permisos.Item3[10] == 1)
+                            {
+                                if (ViewBag.liderActual != null)
+                                {
+                                    <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+                                    <option value="-1">Ninguno</option>
+                                }
+                                else
+                                {
+                                    <option selected value="">Seleccione un Lider</option>
+                                }
+
+
+                                foreach (var item in ViewBag.lider)
+                                {
+                                    <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
+                                }
+                            }
+                            else
+                            {
+                                <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+                            }
+
+                        </select>
+                        <div class="input-group-append">
+                            <a class="btn btn-danger" href="/Proyectos/IndexEmpleado"   role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del empleado">Ver empleados</a>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="row justify-content-center" style="max-width:1150px">
+                        <div class="col-4  text-center">
+                            <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Proyectos/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+                        <div class="col-4  text-center">
+
+                            <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
 
 </fieldset>
             
         </form>
 
+
+
+
+
         <script>
-            $("#commentForm").validate();
+           
+             $("#commentForm").validate(
+
+            );
+          
         </script>
 
 
