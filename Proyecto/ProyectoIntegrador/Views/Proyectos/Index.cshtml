@@ -81,7 +81,7 @@
 
                     </nav>
 
-                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
                         <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
 
 
@@ -98,13 +98,13 @@
                 </div>
 
                 <div class="col-12 col-md-8">
-                    <div class="tab-content d-block  overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                    <div class="tab-content d-block  overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
                         @foreach (var item in Model)
                         {
 
-                            <div class="tab-pane fade bg-secondary " style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                             <div class="tab-pane fade bg-secondary " style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
 
-                                <div class="row mx-4 mt-4 md-0" style="height:30px">
+                                 <div class="row mx-4 mt-4 md-0" style="height:30px">
 
                                     <div class="col-10 " style="max-height:30px">
                                         <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">@item.nombre</p>
@@ -126,18 +126,140 @@
                                         {
 
                                             <!-- Button trigger modal -->
-                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID"  data-whatever2=""  ><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                         }
 
                                     </div>
 
 
 
+                                 </div>
+
+                                 <hr />
+
+                                <div class="container justify-content-center">
+
+                                    <div class="form-row pt-4 mx-6">
+                                        <div class="form-group col-md-6">
+                                            @*Atributo IdProyecto*@
+                                            <label for="input1">IdProyecto</label>
+
+                                            <input id="input1" class="form-control" type="text" style="text-align:center" value="@item.idProyectoAID" placeholder="hola" name="id" readonly>
+
+
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+
+                                            @*Atributo Nombre*@
+                                            <label for="input2">Nombre</label>
+                                            <input id="input2" class="form-control" value="@item.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="30" type="text" readonly>
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    @*Atributo Objetivo*@
+
+
+
+                                    <div class="input-group mb-3  mx-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Objetivo</span>
+                                        </div>
+
+                                        <textarea class="form-control" name="objetivo" value="@item.objetivo" placeholder="@item.objetivo" maxlength="200" aria-label="With textarea" style="width:700px" id="comment" readonly></textarea>
+
+
+                                    </div>
+
+
+                                    @*Atributo Estado*@
+                                    <div class="input-group mb-3  mx-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Estado</span>
+                                        </div>
+
+                                        <input id="cnombre" style="text-align:center" value="@item.estado" name="estado" type="text" readonly>
+
+
+                                    </div>
+
+
+
+                                    <div class="form-row mb-3  mx-6">
+                                        <div class="form-group col-md-6">
+                                            @*Atributo duracionEstimada*@
+                                            <label for="input4">duracionEstimada</label>
+
+
+                                            <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@item.duracionEstimada" name="duracionEstimada" readonly>
+
+                                            <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                                        </div>
+                                        <div class="form-group col-md-6">
+
+                                            @*Atributo duarcionReal*@
+                                            <label for="input5" style="text-align:center">duracionReal</label>
+
+
+                                            <input id="input5" class="form-control" type="time" style="text-align:center" value="@item.duracionReal" name="duracionReal" readonly>
+
+                                            <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mb-3  mx-6">
+                                        <div class="form-group col-md-6">
+                                            @*Atributo FechaInicio*@
+                                            <label for="cfecha">FechaInicio</label>
+
+
+
+                                            <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+
+
+                                            <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+
+                                            @*Atributo fechaFinalizacion*@
+                                            <label for="cfecha2" style="text-align:center">duracionReal</label>
+
+
+                                            <input id="cfecha2" class="form-control text-center" type="date" value="@item.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+
+
+                                            <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
+
+                                        </div>
+                                    </div>
+
+
+                                    @*Atributo Cantidad de requerimientos*@
+                                    <div class="input-group mb-3  mx-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Cantidad de Requerimientos</span>
+                                        </div>
+
+                                        <input id="cdr" class="form-control" type="number" name="cantidadReq" value="@item.cantidadReq" readonly>
+
+
+                                    </div>
+
+
                                 </div>
 
-                                <hr />
+                                <hr/>
 
-                                <div class="row justify-content-center" style="max-width:1150px">
+                                <div class="row justify-content-center" style="max-width:1000px">
                                     <div class="col-4  text-center">
                                         <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
                                     </div>
@@ -152,11 +274,11 @@
 
                             //Le agrega un digito mas al idTab
                             { idTab += 1; }
-                        }
+                         }
 
 
 
-                    </div>
+                        </div>
                 </div>
 
 
