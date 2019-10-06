@@ -225,12 +225,15 @@
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
-    <Compile Include="Controllers\TestersController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
+    <Compile Include="Controllers\TesterController.cs" />
     <Compile Include="Controllers\TrabajaEnController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\OrderOperatorViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -247,13 +250,28 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Content\add_circle_outline-24px.svg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\boss.svg" />
+    <Content Include="Content\buscar.svg" />
+    <Content Include="Content\clipboard %281%29.svg" />
+    <Content Include="Content\clipboard.svg" />
+    <Content Include="Content\delete.svg" />
+    <Content Include="Content\cancelar.svg" />
+    <Content Include="Content\folder.svg" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\Paleta.css" />
+    <Content Include="Content\edit.svg" />
+    <Content Include="Content\plus.svg" />
+    <Content Include="Content\power-off.svg" />
+    <Content Include="Content\searching-magnifying-glass.svg" />
+    <Content Include="Content\aceptar.svg" />
+    <Content Include="Content\team.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -279,6 +297,8 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\PlayfairDisplay-Regular.ttf" />
+    <Content Include="Content\PlayfairDisplay-Bold.ttf" />
     <EntityDeploy Include="BaseDatos\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -348,50 +368,59 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Proyectos\Delete.cshtml" />
+    <Content Include="Views\Proyectos\Details.cshtml" />
+    <Content Include="Views\Proyectos\Edit.cshtml" />
+    <Content Include="Views\Proyectos\Index.cshtml" />
+    <Content Include="Views\Proyectos\Create.cshtml" />
+    <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
+    <Content Include="Views\Proyectos\Scripts.cshtml" />
+    <Content Include="Views\Proyectos\FormularioEditar.cshtml" />
     <Content Include="Views\Clientes\Create.cshtml" />
     <Content Include="Views\Clientes\Delete.cshtml" />
     <Content Include="Views\Clientes\Details.cshtml" />
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
-    <Content Include="Views\Empleados\Create.cshtml" />
-    <Content Include="Views\Empleados\Delete.cshtml" />
-    <Content Include="Views\Empleados\Details.cshtml" />
-    <Content Include="Views\Empleados\Edit.cshtml" />
-    <Content Include="Views\Empleados\Index.cshtml" />
-    <Content Include="Views\HabilidadTecnica\Create.cshtml" />
-    <Content Include="Views\HabilidadTecnica\Delete.cshtml" />
-    <Content Include="Views\HabilidadTecnica\Details.cshtml" />
-    <Content Include="Views\HabilidadTecnica\Edit.cshtml" />
-    <Content Include="Views\HabilidadTecnica\Index.cshtml" />
-    <Content Include="Views\Proyectos\Create.cshtml" />
-    <Content Include="Views\Proyectos\Delete.cshtml" />
-    <Content Include="Views\Proyectos\Details.cshtml" />
-    <Content Include="Views\Proyectos\Edit.cshtml" />
-    <Content Include="Views\Proyectos\Index.cshtml" />
-    <Content Include="Views\Pruebas\Create.cshtml" />
-    <Content Include="Views\Pruebas\Delete.cshtml" />
-    <Content Include="Views\Pruebas\Details.cshtml" />
-    <Content Include="Views\Pruebas\Edit.cshtml" />
-    <Content Include="Views\Pruebas\Index.cshtml" />
-    <Content Include="Views\Requerimientos\Create.cshtml" />
-    <Content Include="Views\Requerimientos\Delete.cshtml" />
-    <Content Include="Views\Requerimientos\Details.cshtml" />
-    <Content Include="Views\Requerimientos\Edit.cshtml" />
-    <Content Include="Views\Requerimientos\Index.cshtml" />
-    <Content Include="Views\Testers\Create.cshtml" />
-    <Content Include="Views\Testers\Delete.cshtml" />
-    <Content Include="Views\Testers\Details.cshtml" />
-    <Content Include="Views\Testers\Edit.cshtml" />
-    <Content Include="Views\Testers\Index.cshtml" />
     <Content Include="Views\TrabajaEn\Create.cshtml" />
     <Content Include="Views\TrabajaEn\Delete.cshtml" />
     <Content Include="Views\TrabajaEn\Details.cshtml" />
     <Content Include="Views\TrabajaEn\Edit.cshtml" />
     <Content Include="Views\TrabajaEn\Index.cshtml" />
+    <Content Include="Views\Empleados\Create.cshtml" />
+    <Content Include="Views\Empleados\Delete.cshtml" />
+    <Content Include="Views\Empleados\Details.cshtml" />
+    <Content Include="Views\Empleados\Edit.cshtml" />
+    <Content Include="Views\Empleados\Index.cshtml" />
+    <Content Include="Views\Testers\Create.cshtml" />
+    <Content Include="Views\Testers\Delete.cshtml" />
+    <Content Include="Views\Testers\Details.cshtml" />
+    <Content Include="Views\Testers\Edit.cshtml" />
+    <Content Include="Views\Testers\Index.cshtml" />
+    <Content Include="Views\Requerimientos\Create.cshtml" />
+    <Content Include="Views\Requerimientos\Delete.cshtml" />
+    <Content Include="Views\Requerimientos\Details.cshtml" />
+    <Content Include="Views\Requerimientos\Edit.cshtml" />
+    <Content Include="Views\Requerimientos\Index.cshtml" />
+    <Content Include="Views\Pruebas\Create.cshtml" />
+    <Content Include="Views\Pruebas\Delete.cshtml" />
+    <Content Include="Views\Pruebas\Details.cshtml" />
+    <Content Include="Views\Pruebas\Edit.cshtml" />
+    <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Create.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Delete.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Details.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Edit.cshtml" />
+    <Content Include="Views\HabilidadTecnica\Index.cshtml" />
+    <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
+    <Content Include="Views\Requerimientos\Scripts.cshtml" />
+    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomAttribute\" />
+    <Folder Include="Views\Role\" />
+    <Folder Include="Views\Seguridad\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

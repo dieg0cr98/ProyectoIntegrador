@@ -15,7 +15,7 @@
     <Property Name="direccionExacta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Proyecto" Relationship="Self.FK_Proyecto_Cliente" FromRole="Cliente" ToRole="Proyecto" />
+    <NavigationProperty Name="Proyectoes" Relationship="Self.FK_Proyecto_Cliente" FromRole="Cliente" ToRole="Proyecto" />
   </EntityType>
   <EntityType Name="Empleado">
     <Key>
@@ -34,10 +34,10 @@
     <Property Name="direccion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="tipoTrabajo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="HabilidadTecnica" Relationship="Self.FK_HabilidadTecnica_Empleado" FromRole="Empleado" ToRole="HabilidadTecnica" />
-    <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Req_CedulaTester" FromRole="Empleado" ToRole="Requerimiento" />
+    <NavigationProperty Name="HabilidadTecnicas" Relationship="Self.FK_HabilidadTecnica_Empleado" FromRole="Empleado" ToRole="HabilidadTecnica" />
+    <NavigationProperty Name="Requerimientoes" Relationship="Self.FK_Req_CedulaTester" FromRole="Empleado" ToRole="Requerimiento" />
     <NavigationProperty Name="Tester" Relationship="Self.FK_Tester_Empleado" FromRole="Empleado" ToRole="Tester" />
-    <NavigationProperty Name="TrabajaEn" Relationship="Self.FK_TrabajaEn_e" FromRole="Empleado" ToRole="TrabajaEn" />
+    <NavigationProperty Name="TrabajaEns" Relationship="Self.FK_TrabajaEn_e" FromRole="Empleado" ToRole="TrabajaEn" />
   </EntityType>
   <EntityType Name="HabilidadTecnica">
     <Key>
@@ -60,11 +60,11 @@
     <Property Name="duracionEstimada" Type="Time" Nullable="false" Precision="7" />
     <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="fechaFinalizacion" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="cedulaClienteFK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cedulaClienteFK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="cantidadReq" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Cliente" Relationship="Self.FK_Proyecto_Cliente" FromRole="Proyecto" ToRole="Cliente" />
-    <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Proyecto" ToRole="Requerimiento" />
-    <NavigationProperty Name="TrabajaEn" Relationship="Self.FK_TrabajaEn_p" FromRole="Proyecto" ToRole="TrabajaEn" />
+    <NavigationProperty Name="Requerimientoes" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Proyecto" ToRole="Requerimiento" />
+    <NavigationProperty Name="TrabajaEns" Relationship="Self.FK_TrabajaEn_p" FromRole="Proyecto" ToRole="TrabajaEn" />
   </EntityType>
   <EntityType Name="Prueba">
     <Key>
@@ -103,7 +103,7 @@
     <Property Name="horas" Type="Time" Nullable="false" Precision="7" />
     <NavigationProperty Name="Empleado" Relationship="Self.FK_Req_CedulaTester" FromRole="Requerimiento" ToRole="Empleado" />
     <NavigationProperty Name="Proyecto" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Requerimiento" ToRole="Proyecto" />
-    <NavigationProperty Name="Prueba" Relationship="Self.FK_Prueba_Proyecto_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
+    <NavigationProperty Name="Pruebas" Relationship="Self.FK_Prueba_Proyecto_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
   </EntityType>
   <EntityType Name="Tester">
     <Key>
@@ -126,7 +126,7 @@
     <NavigationProperty Name="Proyecto" Relationship="Self.FK_TrabajaEn_p" FromRole="TrabajaEn" ToRole="Proyecto" />
   </EntityType>
   <Association Name="FK_Proyecto_Cliente">
-    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
     <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cliente">
@@ -233,46 +233,46 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Gr03Proy2Entities2" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-    <EntitySet Name="Empleado" EntityType="Self.Empleado" />
-    <EntitySet Name="HabilidadTecnica" EntityType="Self.HabilidadTecnica" />
-    <EntitySet Name="Proyecto" EntityType="Self.Proyecto" />
-    <EntitySet Name="Prueba" EntityType="Self.Prueba" />
-    <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" />
-    <EntitySet Name="Tester" EntityType="Self.Tester" />
-    <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" />
+  <EntityContainer Name="Gr03Proy2Entities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+    <EntitySet Name="HabilidadTecnicas" EntityType="Self.HabilidadTecnica" />
+    <EntitySet Name="Proyectoes" EntityType="Self.Proyecto" />
+    <EntitySet Name="Pruebas" EntityType="Self.Prueba" />
+    <EntitySet Name="Requerimientoes" EntityType="Self.Requerimiento" />
+    <EntitySet Name="Testers" EntityType="Self.Tester" />
+    <EntitySet Name="TrabajaEns" EntityType="Self.TrabajaEn" />
     <AssociationSet Name="FK_Proyecto_Cliente" Association="Self.FK_Proyecto_Cliente">
-      <End Role="Cliente" EntitySet="Cliente" />
-      <End Role="Proyecto" EntitySet="Proyecto" />
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Proyecto" EntitySet="Proyectoes" />
     </AssociationSet>
     <AssociationSet Name="FK_HabilidadTecnica_Empleado" Association="Self.FK_HabilidadTecnica_Empleado">
-      <End Role="Empleado" EntitySet="Empleado" />
-      <End Role="HabilidadTecnica" EntitySet="HabilidadTecnica" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+      <End Role="HabilidadTecnica" EntitySet="HabilidadTecnicas" />
     </AssociationSet>
     <AssociationSet Name="FK_Req_CedulaTester" Association="Self.FK_Req_CedulaTester">
-      <End Role="Empleado" EntitySet="Empleado" />
-      <End Role="Requerimiento" EntitySet="Requerimiento" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+      <End Role="Requerimiento" EntitySet="Requerimientoes" />
     </AssociationSet>
     <AssociationSet Name="FK_Tester_Empleado" Association="Self.FK_Tester_Empleado">
-      <End Role="Empleado" EntitySet="Empleado" />
-      <End Role="Tester" EntitySet="Tester" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+      <End Role="Tester" EntitySet="Testers" />
     </AssociationSet>
     <AssociationSet Name="FK_TrabajaEn_e" Association="Self.FK_TrabajaEn_e">
-      <End Role="Empleado" EntitySet="Empleado" />
-      <End Role="TrabajaEn" EntitySet="TrabajaEn" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+      <End Role="TrabajaEn" EntitySet="TrabajaEns" />
     </AssociationSet>
     <AssociationSet Name="FK_Requerimiento_IdProy" Association="Self.FK_Requerimiento_IdProy">
-      <End Role="Proyecto" EntitySet="Proyecto" />
-      <End Role="Requerimiento" EntitySet="Requerimiento" />
+      <End Role="Proyecto" EntitySet="Proyectoes" />
+      <End Role="Requerimiento" EntitySet="Requerimientoes" />
     </AssociationSet>
     <AssociationSet Name="FK_TrabajaEn_p" Association="Self.FK_TrabajaEn_p">
-      <End Role="Proyecto" EntitySet="Proyecto" />
-      <End Role="TrabajaEn" EntitySet="TrabajaEn" />
+      <End Role="Proyecto" EntitySet="Proyectoes" />
+      <End Role="TrabajaEn" EntitySet="TrabajaEns" />
     </AssociationSet>
     <AssociationSet Name="FK_Prueba_Proyecto_Requerimiento" Association="Self.FK_Prueba_Proyecto_Requerimiento">
-      <End Role="Requerimiento" EntitySet="Requerimiento" />
-      <End Role="Prueba" EntitySet="Prueba" />
+      <End Role="Requerimiento" EntitySet="Requerimientoes" />
+      <End Role="Prueba" EntitySet="Pruebas" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

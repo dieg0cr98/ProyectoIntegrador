@@ -26,6 +26,9 @@ namespace ProyectoIntegrador.Controllers
             SignInManager = signInManager;
         }
 
+
+
+        
         public ApplicationSignInManager SignInManager
         {
             get
@@ -112,6 +115,8 @@ namespace ProyectoIntegrador.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
+           
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -230,6 +235,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 return View(model);
             }
+            
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {

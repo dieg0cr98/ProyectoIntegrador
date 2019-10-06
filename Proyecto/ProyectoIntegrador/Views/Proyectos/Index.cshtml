@@ -1,107 +1,179 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto>
-
+@using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Proyectos";
 
 }
-
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-
-
-
 
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
 
 
-<div class="container " style="max-width: 1800px" >
-    <div class="row">
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <div class="col-6 col-md-4 h-25">
+    <style>
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
 
-            @*NavBar con el titulo y el input para realizar busquedas*@
-            <nav class="navbar navbar-light bg-light justify-content-between">
-                <a class="navbar-brand">ListaProyectos</a>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </nav>
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
 
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
 
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
 
-            <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
 
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
 
-
-                @foreach (var item in Model)
-                {
-                    <a class="list-group-item list-group-item-action overflow-auto " id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
-                    { idCarta += 1; }
-                }
-
-
-            </div>
-        </div>
-
-
-
-
-
-        <div class="col-12 col-md-8">
-            <div class="tab-content w-75 h-25" id="nav-tabContent">
-
-
-                @foreach (var item in Model)
-                {
-
-                    <div class="tab-pane fade " id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+</head>
 
 
+<body>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <p>
-                                    @Html.DisplayFor(modelItem => item.nombre)
-                                </p>
-
-                                <p>
-                                    @Html.DisplayFor(modelItem => item.objetivo)
-                                </p>
-
-                                <p>
-                                    @Html.DisplayFor(modelItem => item.estado)
-                                </p>
+    @if (Request.IsAuthenticated)
+    {
 
 
-                                @Html.ActionLink("Edit", "Edit", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.idProyectoAID }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+
+
+
+        <br />
+
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Proyectos</p>
+
+        <hr>
+
+        <div class="container " style="max-width: 1800px">
+            <div class="row">
+
+                <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                    <!-- Image and text -->
+
+                    <nav class="navbar navbar-light bg-secondary">
+                        <a class="navbar-brand">
+                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Lista de Proyectos
+                        </a>
+
+                        <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder=" Buscar por Proyectos">
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+
+                    </nav>
+
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                        <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
+
+
+                            @foreach (var item in Model)
+                            {
+                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                                { idCarta += 1; }
+                            }
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8">
+                    <div class="tab-content d-block  overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                        @foreach (var item in Model)
+                        {
+
+                            <div class="tab-pane fade bg-secondary " style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+
+                                <div class="row mx-4 mt-4 md-0" style="height:30px">
+
+                                    <div class="col-10 " style="max-height:30px">
+                                        <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">@item.nombre</p>
+                                    </div>
+
+                                    <!-- Botones de Editar y Borrar  -->
+                                    <div class="col">
+
+                                        @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
+                                        {
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+
+                                        }
+                                    </div>
+
+                                    <div class="col " style="max-height:30px">
+
+                                        @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
+                                        {
+
+                                            <!-- Button trigger modal -->
+                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID"  data-whatever2=""  ><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                        }
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <hr />
+
+                                <div class="row justify-content-center" style="max-width:1150px">
+                                    <div class="col-4  text-center">
+                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
+                                    </div>
+                                    <div class="col-4  text-center">
+                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:150px ; width:150px"></a>
+
+                                    </div>
+                                </div>
 
 
                             </div>
-                        </div>
-                    </div>
-                    //Le agrega un digito mas al idTab
-                    { idTab += 1; }
-                }
 
+                            //Le agrega un digito mas al idTab
+                            { idTab += 1; }
+                        }
+
+
+
+                    </div>
+                </div>
 
 
             </div>
         </div>
-    </div>
 
 
+        @Html.Partial("ModalEliminar")
+
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los proyectos</div>
+    }
+
+    <!--Carga todos los scripts-->
+    @Html.Partial("Scripts")
 
 
-
-
-</div>
+</body>

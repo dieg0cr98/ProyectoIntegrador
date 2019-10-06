@@ -12,13 +12,13 @@ namespace ProyectoIntegrador.Controllers
 {
     public class PruebasController : Controller
     {
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
         // GET: Pruebas
         public ActionResult Index()
         {
-            var prueba = db.Prueba.Include(p => p.Requerimiento);
-            return View(prueba.ToList());
+            var pruebas = db.Prueba.Include(p => p.Requerimiento);
+            return View(pruebas.ToList());
         }
 
         // GET: Pruebas/Details/5

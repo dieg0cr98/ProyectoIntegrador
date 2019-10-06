@@ -12,7 +12,7 @@ namespace ProyectoIntegrador.Controllers
 {
     public class ClientesController : Controller
     {
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
         // GET: Clientes
         public ActionResult Index()
@@ -20,7 +20,7 @@ namespace ProyectoIntegrador.Controllers
             return View(db.Cliente.ToList());
         }
 
-        // GET: Clientes/Details/5
+        // GET: Cliente/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)

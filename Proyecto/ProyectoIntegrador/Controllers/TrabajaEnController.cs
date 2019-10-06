@@ -12,13 +12,13 @@ namespace ProyectoIntegrador.Controllers
 {
     public class TrabajaEnController : Controller
     {
-        private Gr03Proy2Entities2 db = new Gr03Proy2Entities2();
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
         // GET: TrabajaEn
         public ActionResult Index()
         {
-            var trabajaEn = db.TrabajaEn.Include(t => t.Empleado).Include(t => t.Proyecto);
-            return View(trabajaEn.ToList());
+            var trabajaEns = db.TrabajaEn.Include(t => t.Empleado).Include(t => t.Proyecto);
+            return View(trabajaEns.ToList());
         }
 
         // GET: TrabajaEn/Details/5
