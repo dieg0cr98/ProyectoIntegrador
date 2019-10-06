@@ -226,7 +226,7 @@ namespace ProyectoIntegrador.Controllers
         //                  int = permiso de agregar
         //                  list<int> = permisos por cada atributo
         //
-        public Tuple<int, List<int>> ProyectoAgregar(System.Security.Principal.IPrincipal user)
+        public Tuple<int,int, List<int>> ProyectoAgregar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
             if (rol >= 0)
@@ -238,7 +238,7 @@ namespace ProyectoIntegrador.Controllers
                     permisos.Add(tablaSeguridadProyectoAgregar[i, rol]);
                 }
 
-                return Tuple.Create(tablaSeguridadProyectoGeneral[1, rol], permisos);
+                return Tuple.Create(rol,tablaSeguridadProyectoGeneral[1, rol], permisos);
 
             }
             else return null;

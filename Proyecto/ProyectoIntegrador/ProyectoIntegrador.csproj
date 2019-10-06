@@ -411,6 +411,7 @@
     <Content Include="Views\HabilidadTecnica\Details.cshtml" />
     <Content Include="Views\HabilidadTecnica\Edit.cshtml" />
     <Content Include="Views\HabilidadTecnica\Index.cshtml" />
+    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
