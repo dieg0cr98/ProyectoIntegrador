@@ -139,7 +139,7 @@
 
                                 <div class="row justify-content-center" style="max-width:1150px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="/Requerimientos/Index/@item.idProyectoAID"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
+                                        <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
                                     </div>
                                     <div class="col-4  text-center">
                                         <a onclick="my_loading(this)" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="/TrabajaEn/Index/@item.idProyectoAID"><img src="~/Content/team.svg" class="rounded float-right" style="height:150px ; width:150px"></a>
