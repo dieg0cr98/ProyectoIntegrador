@@ -8,21 +8,6 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
-        #consultaClientes {
-            height: auto;
-            overflow-y: scroll;
-            /*border: 2px solid black;*/
-            margin-left: 0%;
-            border-radius: 0%;
-            background-color: #c6ae98;
-        }
-        .infoCliente {
-            background-color: #C09F80;
-        }
-        #title {
-            font-size: 17px;
-            font-style: italic;
-        }
         /*Cambia los colores de las listas activas*/
         .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
             color: #ffffff;
@@ -101,7 +86,7 @@
                                 </div>
                                 <!-- Button trigger modal para Borrar-->
                                 <div class="col" style="width:auto; height:auto;">
-                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.cedulaPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.cedulaPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                 </div>
                             </div>
                             <hr />

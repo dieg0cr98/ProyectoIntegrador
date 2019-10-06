@@ -1,114 +1,143 @@
 ﻿@model ProyectoIntegrador.BaseDatos.Cliente
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Cliente";
 }
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
 
-<h2>Edit</h2>
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
 
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+</head>
+
+<h2 style="text-align:center">Editar Cliente  <img src="~/Content/boss.svg" width="70" height="70"></h2>
+
+
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Cliente</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.cedulaPK)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.apellido1, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="container" style="max-width: 1800px; padding-left:25%;">
+        <div class="row">
+            <div class="col-8">
+                <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; border-radius:20px 20px 20px 20px;" id="nav-tabContent">
+                    <!--Despliegue del formulario-->
+                    <div style="padding-left:20px; padding-top:20px;">
+                        <div class="form-horizontal" id="clientForm">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="nombre">Nombre:</span>
+                                </div>
+                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="apellido1">Primer Apellido:</span>
+                                </div>
+                                @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="apellido2">Segundo Apellido:</span>
+                                </div>
+                                @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="cedulaPK">Cedula:</span>
+                                </div>
+                                @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="empresa">Empresa:</span>
+                                </div>
+                                @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="correo">Correo:</span>
+                                </div>
+                                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="telefono">Telefono:</span>
+                                </div>
+                                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="provincia">Provincia:</span>
+                                </div>
+                                @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="canton">Canton:</span>
+                                </div>
+                                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="distrito">Distrito:</span>
+                                </div>
+                                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="direccionExacta">Direccion Exacta:</span>
+                                </div>
+                                    @Html.TextAreaFor(model => model.direccionExacta, new { htmlAttributes = new { @type="textarea", @class = "form-control" } })
+                                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.apellido2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.apellido2, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.empresa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.empresa, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.direccionExacta, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.direccionExacta, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                            <div class="col text-center">
+                                <!--Cancelar-->
+                                <a href="#" data-toggle="modal" data-target="#modalSalir" title="Cancelar" class="btn"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                                <!--Aceptar-->
+                                <input type="image" title="Aceptar" src="~/Content/aceptar.svg" alt="Submit Form" class="btn d-inline-block" style="height:80px ; width:80px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    @Html.Partial("ModalCancelar")
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 }

@@ -235,7 +235,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ClienteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BaseDatos\Model1.Context.tt">
@@ -391,6 +390,7 @@
     <Content Include="Views\TrabajaEn\Index.cshtml" />
     <Content Include="Views\Clientes\modalEliminar.cshtml" />
     <Content Include="Views\Clientes\Scripts.cshtml" />
+    <Content Include="Views\Clientes\ModalCancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
