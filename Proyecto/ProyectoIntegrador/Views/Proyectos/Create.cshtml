@@ -11,35 +11,49 @@
 @if (Request.IsAuthenticated)
 {
 
-    <div class="container">
-        <h2>Create</h2>
+
+    <br />
+
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Proyecto</p>
+
+    <hr>
 
 
-
+    if (ViewBag.permisos.Item2 != 0)
+    {
         @Html.Partial("FormularioAñadir")
+    }
+    else
+    {
 
-        <script>
-            $("#commentForm").validate();
-        </script>
-
-
-
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
-
-
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted no tiene permisos para crear proyectos</div>
         <div>
             @Html.ActionLink("Back to List", "Index")
         </div>
+    }
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
 
-    </div>
+
+    <script>
+        $("#commentForm").validate();
+    </script>
+
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
 
 }
 else
