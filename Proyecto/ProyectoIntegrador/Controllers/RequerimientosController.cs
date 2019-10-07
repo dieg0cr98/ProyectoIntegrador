@@ -53,28 +53,24 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
             TimeSpan duracionEstimada, DateTime fechai, DateTime fechaf, int idProyecto, string idTester)
         {
-            if (true)
-            {
-                Requerimiento requerimiento = new Requerimiento();
-                requerimiento.cedulaTesterFK = idTester;
-                requerimiento.complejidad = complejidad;
-                requerimiento.descripcion = descripcion;
-                requerimiento.estado = estado;
-                requerimiento.fechaDeFinalizacion = fechaf;
-                requerimiento.fechaDeInicio = fechai;
-                requerimiento.horas = TimeSpan.Parse("00:00");
-                requerimiento.idProyectoFK = idProyecto;
-                requerimiento.idReqPK = idRequerimiento;
-                requerimiento.nombre = nombre;
-                requerimiento.tiempoEstimado = duracionEstimada;
-                requerimiento.tiempoReal = TimeSpan.Parse("00:00");
+            Requerimiento requerimiento = new Requerimiento();
+            requerimiento.cedulaTesterFK = idTester;
+            requerimiento.complejidad = complejidad;
+            requerimiento.descripcion = descripcion;
+            requerimiento.estado = estado;
+            requerimiento.fechaDeFinalizacion = fechaf;
+            requerimiento.fechaDeInicio = fechai;
+            requerimiento.horas = TimeSpan.Parse("00:00");
+            requerimiento.idProyectoFK = idProyecto;
+            requerimiento.idReqPK = idRequerimiento;
+            requerimiento.nombre = nombre;
+            requerimiento.tiempoEstimado = duracionEstimada;
+            requerimiento.tiempoReal = TimeSpan.Parse("00:00");
 
-                db.Requerimiento.Add(requerimiento);
-                db.SaveChanges();
+            db.Requerimiento.Add(requerimiento);
+            db.SaveChanges();
 
-                return RedirectToAction("Index", new { idProyecto = idProyecto });
-
-            }
+            return RedirectToAction("Index", new { idProyecto = idProyecto });
             /*
             else {
                 var requerimiento = db.Requerimiento.ToList();
@@ -86,19 +82,22 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // GET: Requerimientos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? idRequerimiento, int? idProyecto)
         {
-            if (id == null)
+            if (idRequerimiento == null || idProyecto == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requerimiento requerimiento = db.Requerimiento.Find(id);
+
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+
             if (requerimiento == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.cedulaTesterFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", requerimiento.cedulaTesterFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", requerimiento.idProyectoFK);
+            //ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", requerimiento.idProyectoFK);
             return View(requerimiento);
         }
 
@@ -106,9 +105,30 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idReqPK,idProyectoFK,cedulaTesterFK,nombre,complejidad,tiempoEstimado,tiempoReal,descripcion,fechaDeInicio,fechaDeFinalizacion,estado,horas")] Requerimiento requerimiento)
+        public ActionResult Edit(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
+            TimeSpan duracionEstimada, DateTime fechai, DateTime fechaf, int idProyecto, string idTester)
         {
+
+            Requerimiento requerimiento = new Requerimiento();
+            requerimiento.cedulaTesterFK = idTester;
+            requerimiento.complejidad = complejidad;
+            requerimiento.descripcion = descripcion;
+            requerimiento.estado = estado;
+            requerimiento.fechaDeFinalizacion = fechaf;
+            requerimiento.fechaDeInicio = fechai;
+            requerimiento.horas = TimeSpan.Parse("00:00");
+            requerimiento.idProyectoFK = idProyecto;
+            requerimiento.idReqPK = idRequerimiento;
+            requerimiento.nombre = nombre;
+            requerimiento.tiempoEstimado = duracionEstimada;
+            requerimiento.tiempoReal = TimeSpan.Parse("00:00");
+
+            db.Entry(requerimiento).State = EntityState.Modified;
+            //db.Requerimiento.Add(requerimiento);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { idProyecto = idProyecto });
+            /*
             if (ModelState.IsValid)
             {
                 db.Entry(requerimiento).State = EntityState.Modified;
@@ -118,6 +138,7 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.cedulaTesterFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", requerimiento.cedulaTesterFK);
             ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", requerimiento.idProyectoFK);
             return View(requerimiento);
+            */
         }
 
         // GET: Requerimientos/Delete/5
