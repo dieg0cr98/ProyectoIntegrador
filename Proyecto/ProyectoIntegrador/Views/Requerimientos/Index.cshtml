@@ -5,6 +5,7 @@
 }
 <br />
 <h2 align="center">Consultar Requerimientos</h2>
+<hr />
 
 <head>
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -118,14 +119,14 @@
                                     </p>
 
                                     <p>
-                                        ID de proyecto:
+                                        Nombre del empleado:
                                         <font size="+1">
                                             @Html.DisplayFor(modelItem => item.Empleado.nombre)
                                         </font>
                                     </p>
 
                                     @Html.ActionLink("Edit", "Edit", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
-                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                    @*<a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>*@
                                 </div>
                             </div>
                         </div>
@@ -137,7 +138,7 @@
         </div>
     </div>
 
-    @Html.Partial("ModalEliminar")
+    @*@Html.Partial("ModalEliminar")*@
     @Html.Partial("Scripts")
 </body>
 @*

@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 <br />
-<h2 align="center">Editar Requerimiento: </h2>
+<h2 align="center">Editar Requerimiento </h2>
 <hr />
 
 <div class="container" align="center">
@@ -12,30 +12,35 @@
         <fieldset>
             <p>
                 <label for="creq">ID del Requerimiento: </label>
-                <input id="creq" name="idRequerimiento" placeholder="Ingrese el id del req" digits type="number" required />
+                <input id="creq" name="idRequerimiento" value="@Model.idReqPK" readonly />
+            </p>
+
+            <p>
+                <label for="cproy">ID del Requerimiento: </label>
+                <input id="cproy" name="idProyecto" value="@Model.idProyectoFK" readonly />
             </p>
 
             <p>
                 <label for="cnombre">Nombre: </label>
-                <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese el nombre" maxlength="20" type="text" required />
+                <input id="cnombre" name="nombre" minlength="1" value="@Model.nombre" maxlength="20" type="text" />
             </p>
 
             <p>
                 <label for="cdesc">Descripción: </label>
-                <input id="cdesc" name="descripcion" minlength="1" placeholder="Ingrese las descripción del sistema" maxlength="100" type="text" style="width = 300px" />
+                <input id="cdesc" name="descripcion" minlength="1" value="@Model.descripcion" maxlength="100" type="text" style="width = 300px" />
             </p>
 
             <p>
                 <label for="cde">Duración estimada:</label>
-                <input id="cde" type="time" name="duracionEstimada" value="@TimeSpan.Parse("00:00")" placeholder="HH:MM">
+                <input id="cde" type="time" name="duracionEstimada" value="@Model.tiempoEstimado" placeholder="HH:MM">
                 <small class="form-text text-muted text-danger">
-
+                    Formato hh:mm
                 </small>
             </p>
 
             <p>
                 <label for="cfechai">Fecha de inicio: </label>
-                <input id="cfechai" type="text" name="fechai" value="@DateTime.Today" placeholder="DD-MM-AAAA">
+                <input id="cfechai" type="text" name="fechai" value="@Model.fechaDeInicio" placeholder="DD-MM-AAAA">
                 <small class="form-text text-muted text-danger">
                     Si no hay cambios, la fecha de inicio es la fecha actual del sistema.
                 </small>
@@ -43,7 +48,7 @@
 
             <p>
                 <label for="cfechaf">Fecha de fin: </label>
-                <input id="cfechaf" type="text" name="fechaf" value="@DateTime.Parse("01-01-1800")" placeholder="DD-MM-AAAA">
+                <input id="cfechaf" type="text" name="fechaf" value="@Model.fechaDeFinalizacion" placeholder="DD-MM-AAAA">
                 <small class="form-text text-muted text-danger">
                     Si no hay cambios, la fecha será el 01-01-1800.
                 </small>
@@ -52,8 +57,8 @@
             <div class="input-group">
                 <p class="text-black">Complejidad: </p>
                 <select class="custom-select" name="complejidad">
-                    <option selected>Medio</option>
                     <option value="Facil">Fácil</option>
+                    <option selected>Medio</option>
                     <option value="Dificil">Difícil</option>
                 </select>
             </div>
@@ -61,12 +66,11 @@
             <div class="input-group" align="center">
                 <p class="text-black">Estado: </p>
                 <select class="custom-select" name="estado">
-                    <option selected>Preparación</option>
                     <option value="Activo">Activo</option>
+                    <option selected>Preparación</option>
                     <option value="Terminado">Terminado</option>
                 </select>
             </div>
-            <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
             <br />
             <div class="input-group mb-3" align="center">
                 <div class="input-group-prepend" align="center">
@@ -86,6 +90,7 @@
             </p>
         </fieldset>
     </form>
+
     <script>
         $("#commentForm").validate();
     </script>
@@ -99,7 +104,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { idProyecto = ViewBag.idProyecto })
+    @Html.ActionLink("Back to List", "Index", new { idProyecto = Model.idProyectoFK })
 </div>
 
 @section Scripts {

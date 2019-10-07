@@ -96,8 +96,8 @@ namespace ProyectoIntegrador.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.cedulaTesterFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", requerimiento.cedulaTesterFK);
-            //ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", requerimiento.idProyectoFK);
+            ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.tipoTrabajo == "Tester");
+            //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
             return View(requerimiento);
         }
 
