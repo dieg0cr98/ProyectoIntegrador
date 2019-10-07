@@ -117,7 +117,6 @@ namespace ProyectoIntegrador.Controllers
         public IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto> GetProyectos()
         {
             return db.Proyecto.ToList();
-
         }
 
         //Metodo que retorna un proyecto especifico

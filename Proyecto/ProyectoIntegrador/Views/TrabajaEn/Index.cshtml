@@ -1,51 +1,70 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.TrabajaEn>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Equipo del Proyecto";
 }
 
-<h2>Index</h2>
+    <head>
+        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.rol)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Empleado.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Proyecto.nombre)
-        </th>
-        <th></th>
-    </tr>
+        <style>
+            /*Cambia estilo/color de los tooltips*/
+            .tooltip > .tooltip-inner {
+                background-color: #76323f;
+                color: white;
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.rol)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Empleado.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+            .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+                border-bottom-color: #76323f;
+            }
 
-</table>
+            .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+                border-top-color: #76323f;
+            }
+
+            .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+                border-left-color: #76323f
+            }
+
+            .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+                border-right-color: #76323f
+            }
+        </style>
+    </head>
+
+    <body>
+        <br>
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto</p>
+        <hr> <!-- ??-->
+
+        <div class="container " style="max-width: 1800px">
+            <div class="row">
+                <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                    <!--Navbar inside the col-->
+                    <nav class="navbar navbar-light bg-secondary">
+                        <a class="navbar-brand">
+                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Lista de Integrantes
+                        </a>
+
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Integrante" href="/TrabajaEn/Add" class="btn">
+                            <img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                        </a>
+                    </nav>
+
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                        <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
+
+                            <!--Mostrar empleados del equipo aquí-->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>>
+
+        @{ Html.RenderPartial("ScriptsEquipo"); }
+    </body>

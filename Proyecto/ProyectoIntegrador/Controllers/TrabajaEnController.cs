@@ -14,11 +14,44 @@ namespace ProyectoIntegrador.Controllers
     {
         private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
-        // GET: TrabajaEn
+
+
+
+
+        //-------------------------ActionResults--------------------------//
+        /*
+         * Efecto: Mustra la vista principal del equipo.
+         * Requiere: --
+         * Modifica: --
+         */
+
         public ActionResult Index()
         {
             var trabajaEns = db.TrabajaEn.Include(t => t.Empleado).Include(t => t.Proyecto);
             return View(trabajaEns.ToList());
+        }
+
+        /*
+         * Efecto: Muestra la vista para agregar empleados al equipo del proyecto.
+         * Requiere: --
+         * Modifica: --
+         */
+        public ActionResult Add()
+        {
+            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre");
+            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre");
+            return View();
+        }
+
+
+        //---------------------------------------------------------------------------//
+        //-----------------------------Rutinas del controlador-----------------------//
+
+        /*Donde debería ir esto? 
+        */
+        public List<Empleado> GetEmpleados()
+        {
+            return db.Empleado.ToList();
         }
 
         // GET: TrabajaEn/Details/5
@@ -36,94 +69,7 @@ namespace ProyectoIntegrador.Controllers
             return View(trabajaEn);
         }
 
-        // GET: TrabajaEn/Create
-        public ActionResult Create()
-        {
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre");
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre");
-            return View();
-        }
-
-        // POST: TrabajaEn/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idProyectoFK,idEmpleadoFK,rol,estado")] TrabajaEn trabajaEn)
-        {
-            if (ModelState.IsValid)
-            {
-                db.TrabajaEn.Add(trabajaEn);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", trabajaEn.idEmpleadoFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", trabajaEn.idProyectoFK);
-            return View(trabajaEn);
-        }
-
-        // GET: TrabajaEn/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            if (trabajaEn == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", trabajaEn.idEmpleadoFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", trabajaEn.idProyectoFK);
-            return View(trabajaEn);
-        }
-
-        // POST: TrabajaEn/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idProyectoFK,idEmpleadoFK,rol,estado")] TrabajaEn trabajaEn)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(trabajaEn).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", trabajaEn.idEmpleadoFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", trabajaEn.idProyectoFK);
-            return View(trabajaEn);
-        }
-
-        // GET: TrabajaEn/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            if (trabajaEn == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trabajaEn);
-        }
-
-        // POST: TrabajaEn/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            db.TrabajaEn.Remove(trabajaEn);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+   
         protected override void Dispose(bool disposing)
         {
             if (disposing)

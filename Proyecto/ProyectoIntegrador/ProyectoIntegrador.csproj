@@ -381,10 +381,7 @@
     <Content Include="Views\Clientes\Details.cshtml" />
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
-    <Content Include="Views\TrabajaEn\Create.cshtml" />
-    <Content Include="Views\TrabajaEn\Delete.cshtml" />
-    <Content Include="Views\TrabajaEn\Details.cshtml" />
-    <Content Include="Views\TrabajaEn\Edit.cshtml" />
+    <Content Include="Views\TrabajaEn\Add.cshtml" />
     <Content Include="Views\TrabajaEn\Index.cshtml" />
     <Content Include="Views\Empleados\Create.cshtml" />
     <Content Include="Views\Empleados\Delete.cshtml" />
@@ -414,7 +411,7 @@
     <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
     <Content Include="Views\Requerimientos\Scripts.cshtml" />
     <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
-
+    <Content Include="Views\TrabajaEn\ScriptsEquipo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.TrabajaEn>
+
+
+@{
+    ViewBag.Title = "Agregar Integrante";
+}
+
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
+
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        /*Cambia estilo/color de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
+
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto</p>
+    <hr> <!-- ??-->
+
+    <div class="container " style="max-width: 1800px">
+        <div class="row">
+            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                <!--Navbar inside the col-->
+                <nav class="navbar navbar-light bg-secondary">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Lista de Empleados
+                    </a>
+
+                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleado">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
+                        <img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                </nav>
+
+                <!---->
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
+
+
+                        <!--Mostrar empleados del equipo aquí-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @{ Html.RenderPartial("ScriptsEquipo"); }
+</body>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
