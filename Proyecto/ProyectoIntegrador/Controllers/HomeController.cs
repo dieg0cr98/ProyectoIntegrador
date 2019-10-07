@@ -15,6 +15,18 @@ namespace ProyectoIntegrador.Controllers
 
 
         private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+
+
+
+        public ActionResult getDepartment()
+        {
+            System.Diagnostics.Debug.WriteLine("asdasdadaddasdasd");
+            return Json(db.Empleado.Select(x => new
+            {
+                DepartmentID = x.idEmpleadoPK,
+                DepartmentName = x.nombre
+            }).ToList(), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index()
         {
             return View();
