@@ -1,7 +1,111 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿
+<div class="container-fluid text-center">
 
-<p>Use this area to provide additional information.</p>
+    <div class="row">
+        <div class="col">
+            @* <a href="#" id="enlaceajax">Obtener provincias</a>*@
+            <button type="button" onclick="getProvincias()">Obtener Provincias</button>
+            <br>
+            <div id="destino"></div>
+
+
+
+        </div>
+
+        <div class="col">
+            <button type="button" onclick="getCanton()">Obtener Canton</button>
+            <br>
+
+            <div id="destino2"></div>
+        </div>
+
+
+        <div class="col">
+            <button type="button" onclick="getDistrito()">Obtener Canton</button>
+            <br>
+
+            <div id="destino3"></div>
+
+
+        </div>
+
+
+    </div>
+
+</div> 
+
+<script>
+
+    function getProvincias() {
+
+            $.ajax({
+                dataType: "json",
+                url: "https://ubicaciones.paginasweb.cr/provincias.json",
+                data: {},
+                success: function (data) {
+                    var html = "<select id='abc'>";
+                    for (key in data) {
+                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                    }
+                    html += "</select";
+                    $('#destino').html(html);
+                }
+            });
+
+
+    }
+
+
+
+    function getCanton() {
+        var selected_option = $("#abc option:selected").val();
+
+        
+
+            $.ajax({
+                dataType: "json",
+                url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option +  "/cantones.json",
+                data: {},
+                success: function (data) {
+                    var html = "<select id='abc2'>";
+                    for (key in data) {
+                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                    }
+                    html += "</select";
+                    $('#destino2').html(html);
+                }
+            });
+
+
+    }
+
+
+    function getDistrito() {
+        var provincia = $("#abc option:selected").val();
+        var canton = $("#abc2 option:selected").val();
+
+        
+
+            $.ajax({
+                dataType: "json",
+                url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
+                data: {},
+                success: function (data) {
+                    var html = "<select id='abc3'>";
+                    for (key in data) {
+                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                    }
+                    html += "</select";
+                    $('#destino3').html(html);
+                }
+            });
+
+
+    }
+
+  
+
+</script>
+
+
+
