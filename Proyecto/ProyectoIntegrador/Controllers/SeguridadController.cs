@@ -270,9 +270,21 @@ namespace ProyectoIntegrador.Controllers
             else return null;
         }
 
+        public int ProyectoEliminar(System.Security.Principal.IPrincipal user)
+        {
+            int rol = GetRoleUsuario(user);
+            return (tablaSeguridadProyectoGeneral[3, rol]);
 
+        }
 
 
     }
+
+
+   
+
+
+
+
 
 }

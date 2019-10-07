@@ -45,7 +45,7 @@
                 success: function (data) {
                     var html = "<select id='abc'>";
                     for (key in data) {
-                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                        html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
                     }
                     html += "</select";
                     $('#destino').html(html);
@@ -58,9 +58,10 @@
 
 
     function getCanton() {
-        var selected_option = $("#abc option:selected").val();
+        var selected_option = $("#abc option:selected").data("t");
+ 
 
-        
+            
 
             $.ajax({
                 dataType: "json",
@@ -69,7 +70,7 @@
                 success: function (data) {
                     var html = "<select id='abc2'>";
                     for (key in data) {
-                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                        html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
                     }
                     html += "</select";
                     $('#destino2').html(html);
@@ -81,8 +82,8 @@
 
 
     function getDistrito() {
-        var provincia = $("#abc option:selected").val();
-        var canton = $("#abc2 option:selected").val();
+        var provincia = $("#abc option:selected").data('t');
+        var canton = $("#abc2 option:selected").data('t');
 
         
 
@@ -93,7 +94,7 @@
                 success: function (data) {
                     var html = "<select id='abc3'>";
                     for (key in data) {
-                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                        html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
                     }
                     html += "</select";
                     $('#destino3').html(html);
