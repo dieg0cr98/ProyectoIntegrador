@@ -97,24 +97,34 @@
                                 </div>
                                 <input class="form-control" id="telefono" name="telefono" type="text" />
                             </div>
+
+
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="provincia">Provincia:</span>
                                 </div>
-                                <input class="form-control" id="provincia" name="provincia" type="text" />
+                                <select class="form-control" id="provincia" name="provincia" onchange="$('#canton1').show()" onclick="getCanton(this.options[ this.options.selectedIndex ].value)"></select>
                             </div>
-                            <div class="input-group mb-3">
+
+                            <div class="input-group mb-3" id="canton1" style="display:none;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="canton">Canton:</span>
                                 </div>
-                                <input class="form-control" id="canton" name="canton" type="text" />
+                                <select class="form-control" id="canton" name="canton" onchange="$('#distrito1').show()"></select>
                             </div>
-                            <div class="input-group mb-3">
+
+                            <div class="input-group mb-3" id="distrito1" style="display:none;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="distrito">Distrito:</span>
                                 </div>
-                                <input class="form-control" id="distrito" name="distrito" type="text" />
+                                <select class="form-control" id="distrito" name="distrito"></select>
+                                <input class="form-control" id="distrito" name="distrito" type="text"/>
                             </div>
+
+
+
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="direccionExacta">Direccion Exacta:</span>
@@ -135,6 +145,7 @@
         </div>
     </div>
     @Html.Partial("ModalCancelar")
+
 }
 
 @section Scripts {
