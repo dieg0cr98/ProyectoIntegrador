@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using ProyectoIntegrador.Models;
+
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -127,6 +129,14 @@ namespace ProyectoIntegrador.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Eliminar(string id)
+        {
+            Empleado empleado = db.Empleado.Find(id);
+            db.Empleado.Remove(empleado);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
