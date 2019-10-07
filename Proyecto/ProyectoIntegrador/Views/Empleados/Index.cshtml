@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Empleado>
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Index";
@@ -42,36 +43,47 @@
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
 <!---->
+
 <body>
     <br />
+
     <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Empleados</p>
+
     <hr>
     <div class="container " style="max-width: 1800px">
         <div class="row">
+
             <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px">
+
                 <!-- Image and text -->
+
                 <nav class="navbar navbar-light bg-secondary">
-                    <!--Imagen Empleado + titulo lista de empleados-->
+
+                    <!--Imagen Empleados + titulo lista de empleados-->
                     <a class="navbar-brand">
-                        <img src="~/Content/boss.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        <img src="~/Content/team.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                         Lista de Empleados
                     </a>
+
                     <!--Inputa para realizar busquedas de empleado-->
-                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleado">
-                    <!--Imagen de agregar empleado-->
+                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleados">
+
+                    <!--Imagen de agregar Empleado-->
                     <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                 </nav>
+
                 <!--Tab izquierdo donde se muestran los empleados con el nombre en la BD-->
-                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
                     <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
                         @foreach (var item in Model)
                         {
-                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
+                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">Empleado: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
                             { idCarta += 1; }
                         }
                     </div>
                 </div>
             </div>
+
             <!--Se crean tabs con la info empleado-->
             <div class="col-12 col-md-8">
                 <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
@@ -82,34 +94,140 @@
                                 <div class="col-8" style="max-height:30px">
                                     <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Empleado</p>
                                 </div>
+
                                 <!-- Botones de Editar -->
                                 <div class="col" style="margin-left: 10%;">
                                     <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                 </div>
+
                                 <!-- Button trigger modal para Borrar-->
                                 <div class="col" style="width:auto; height:auto;">
                                     <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                 </div>
                             </div>
                             <hr />
+
                             <!--Informacion del empleado que se selecciona-->
+
                             <div style="max-width:1150px; height:auto;">
                                 <p style="font-size: 22px; text-align:center;">
-                                    Nombre Completo: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null)
-                                    {@Html.DisplayFor(modelItem => item.apellido2)}<br><br>
-                                    Cedula: @Html.DisplayFor(modelItem => item.idEmpleadoPK)<br><br>
-                                    Estado: @Html.DisplayFor(modelItem => item.estado)<br><br>
-                                    Puesto: @Html.DisplayFor(modelItem => item.tipoTrabajo)<br><br>
-                                    Fecha de nacimiento: @Html.DisplayFor(modelItem => item.fechaNacimiento)<br><br>
-                                    Correo: @Html.DisplayFor(modelItem => item.correo)<br><br>
-                                    Telefono: @Html.DisplayFor(modelItem => item.telefono)<br><br>
-                                    Lugar: @Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
-                                    {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
-                                    {@Html.DisplayFor(modelItem => item.distrito)}<br><br>
-                                    Direccion: @Html.DisplayFor(modelItem => item.direccion)<br><br>
-                                </p>
+
+                                    <div class="container justify-content-center">
+
+                                        <div class="form-row pt-4 mx-6">
+                                            <div class="form-group col-md-6">
+                                                @*Atributo Nombre*@
+                                                <label for="input1">Nombre</label>
+
+                                                <input id="input1" class="form-control" type="text" style="text-align:center" value="@item.nombre" placeholder="hola" name="nombre" readonly>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                @*Atributo Apellidos*@
+                                                <label for="input2">Apellidos</label>
+                                                <input id="input2" class="form-control" value="@item.apellido1  @item.apellido2" style="text-align:center" name="apellidos" minlength="1" maxlength="30" type="text" readonly>
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-row pt-4 mx-6">
+                                            <div class="form-group col-md-6">
+                                                @*Atributo ID*@
+                                                <label for="input1">ID Empleado</label>
+
+                                                <input id="input1" class="form-control" type="text" style="text-align:center" value="@item.idEmpleadoPK" placeholder="hola" name="id" readonly>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                @*Atributo Correo*@
+                                                <label for="input2">Correo</label>
+                                                <input id="input2" class="form-control" value="@item.correo" style="text-align:center" name="correo" minlength="1" maxlength="30" type="text" readonly>
+
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="form-row pt-4 mx-6">
+                                            <div class="form-group col-md-6">
+                                                @*Atributo Puesto*@
+                                                <label for="input1"> Puesto </label>
+
+                                                <<input id="input1" class="form-control" value="@item.tipoTrabajo" style="text-align:center" name="puesto" minlength="1" maxlength="30" type="text" readonly>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                @*Atributo Estado*@
+                                                <label for="input2">Estado</label>
+                                                <input id="input2" class="form-control" value="@item.estado" style="text-align:center" name="Estado" minlength="1" maxlength="30" type="text" readonly>
+
+
+
+                                            </div>
+                                        </div>
+
+                                        @*Habilidades*@
+                                        <div class="input-group mb-3  mx-6">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Habilidades Tecnicas</span>
+                                            </div>
+
+                                            <textarea class="form-control" name="objetivo" value="@item.HabilidadTecnicas" placeholder="" maxlength="200" aria-label="With textarea" style="width:700px" id="comment" readonly></textarea>
+
+
+
+                                        </div>
+
+                                        <div class="form-row pt-4 mx-6">
+                                            <div class="form-group col-md-6">
+                                                @*Atributo Fecha*@
+                                                <label for="input1">Fecha de nacimiento</label>
+
+                                                <input id="input1" class="form-control" value="@item.fechaNacimiento" style="text-align:center" name="fecha" minlength="1" maxlength="30" type="text" readonly>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                @*Atributo Telefono*@
+                                                <label for="input2">Telefono</label>
+                                                <input id="input2" class="form-control" value="@item.telefono" style="text-align:center" name="telefono" minlength="1" maxlength="30" type="text" readonly>
+
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row pt-4 mx-6">
+                                            <div class="form-group col-md-6">
+                                                @*Atributo Lugar*@
+                                                <label for="input1"> Lugar </label>
+                                                <<input id="input1" class="form-control" value="@item.provincia | @item.canton | @item.distrito" style="text-align:center" name="lugar" minlength="1" maxlength="50" type="text" readonly>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                @*Atributo Direccion*@
+                                                <label for="input2">Direccion</label>
+                                                <input id="input2" class="form-control" value="@item.direccion" style="text-align:center" name="direccion" minlength="1" maxlength="30" type="text" readonly>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                  </p>
                             </div>
                         </div>
+
                         //Le agrega un digito mas al idTab
                         { idTab += 1; }
                     }
@@ -120,5 +238,4 @@
     <!--Carga todos los scripts-->
     @Html.Partial("ModalEliminar")
     @Html.Partial("Scripts")
-
 </body>
