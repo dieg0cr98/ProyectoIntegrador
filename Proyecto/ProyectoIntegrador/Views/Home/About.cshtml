@@ -1,7 +1,149 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿
 
-<p>Use this area to provide additional information.</p>
+
+
+<style>
+    #sortable1, #sortable2 {
+        border: 1px solid #eee;
+        width: 142px;
+        min-height: 20px;
+        list-style-type: none;
+        margin: 0;
+        padding: 5px 0 0 0;
+        float: left;
+        margin-right: 10px;
+        background-color:antiquewhite;
+       
+    }
+
+        #sortable1 li, #sortable2 li {
+            margin: 0 5px 5px 5px;
+            padding: 5px;
+            font-size: 1.2em;
+            color:white;
+            width: 120px;
+             background-color:#76323f;
+        }
+</style>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<br/>
+
+<br />
+
+<br />
+
+<p>
+
+    Empleados
+    <ul id="sortable1" class="connectedSortable">
+
+        @foreach (var item in ViewBag.empleados)
+        {
+            <li class="ui-state-default" value="@item.nombre"> @item.nombre @item.apellido1 </li>
+        }
+
+    </ul>
+
+</p>
+
+
+
+
+<p>
+    Equipo
+
+    <ul id="sortable2" class="connectedSortable "  style="min-height:100px">
+    </ul>
+
+</p>
+
+
+
+
+
+<button type="button" id="tr" onclick="su()" class="btn btn-primary">Primary</button>
+
+
+
+<script>
+    $(function () {
+        $("#sortable1, #sortable2").sortable({
+
+   
+            connectWith: ".connectedSortable",
+
+            stop: function (event, ui) {
+
+
+               
+                
+               
+            },
+
+            update: function (event, ui) {
+                 //alert(ui.item.attr('value'));
+
+            },
+
+
+
+
+
+        })
+
+
+        $("#sortable2").sortable({
+
+        
+            receive: function (event, ui) {
+
+
+                if ($("#sortable2 li").length > 2) {
+                    alert("Max por equipo es de 2");
+                     $(ui.sender).sortable('cancel');
+                }
+               
+
+            },
+        })
+
+
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+    
+    function su()
+    {
+
+        var t = $("#sortable2 li");
+
+        //Recorre la lista de personas
+        for (let i = 0; i < t.length; ++i) {
+
+            alert(t[i].innerText);
+        }
+
+
+    }
+
+</script>
