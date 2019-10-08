@@ -70,7 +70,7 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create(int idProyecto)
         {
             //ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.estado == "Disponible" && e.tipoTrabajo == "Tester");
-            ViewBag.cedulaTesterFK = getTesters(idProyecto).ToList();
+            ViewBag.testers = getTesters(idProyecto).ToList();
             ViewBag.idProyectoFK = idProyecto;
             return View();
         }
@@ -80,7 +80,7 @@ namespace ProyectoIntegrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
-            TimeSpan duracionEstimada, DateTime fechai, DateTime fechaf, int idProyecto, string idTester)
+            TimeSpan duracionEstimada, TimeSpan duracionReal, DateTime fechai, DateTime fechaf, int idProyecto, string idTester)
         {
             //Crea la instancia de requerimiento que será agregada si pasa las pruebas necesarias.
             Requerimiento requerimiento = new Requerimiento();
@@ -93,7 +93,8 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.horas = TimeSpan.Parse("00:00");
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
-            requerimiento.tiempoReal = TimeSpan.Parse("00:00");
+            requerimiento.tiempoReal = duracionReal;
+
             /*
             //Actualiza la cantidad de requerimientos que el tester tiene asignados para 
             actualiceTester(0, idTester, "");
