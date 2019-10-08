@@ -70,7 +70,7 @@
 
                     <!-- Image and text -->
 
-                    <nav class="navbar navbar-light bg-secondary">
+                    <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
                         <a class="navbar-brand">
                             <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                             Lista de Proyectos
@@ -97,36 +97,36 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-8 bg-primary">
-                    <div class="tab-content d-block bg-white" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
+                <div class="col-12 col-md-8">
+                    <div class="tab-content d-block" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
                         @foreach (var item in Model)
                         {
 
                              <div class="tab-pane fade bg-secondary " style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
 
-                                 <div class="row mx-4 mt-0 md-0" style="height:48px">
+                                 <div class="row mx-4 mt-0 md-0 " style="height:48px">
 
-                                    <div class="col-10 " style="max-height:48px">
+                                    <div class="col-10" style="max-height:48px">
                                         <p class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@item.nombre</p>
                                     </div>
 
                                     <!-- Botones de Editar y Borrar  -->
-                                    <div class="col bg-white">
+                                    <div class="col">
 
                                         @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                         {
-                                            <a data-toggle="tooltip" onclick="my_loading(this,'35px','35px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:35px ; max-width:35px"></a>
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'35px','35px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                                         }
                                     </div>
 
-                                    <div class="col " style="max-height:48px">
+                                    <div class="col">
 
                                         @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                         {
 
                                             <!-- Button trigger modal -->
-                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:35px"></a>
+                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                         }
 
                                     </div>
@@ -137,113 +137,115 @@
 
                                  <hr />
 
-                                <div class="container justify-content-center overflow-auto"  style="max-height:350px">
-
-    
-
-
-                                    @*Atributo Objetivo*@
+                                 <div class="container justify-content-center overflow-auto" style="max-height:390px">
 
 
 
-                                    <div class="input-group mb-3  mx-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Objetivo</span>
-                                        </div>
 
-                                        <textarea class="form-control" name="objetivo" value="@item.objetivo" placeholder="@item.objetivo" maxlength="200" aria-label="With textarea" style="width:700px" id="comment" readonly></textarea>
+                                     @*Atributo Objetivo*@
 
 
-                                    </div>
+                                     <textarea class="form-control" name="objetivo" value="@item.objetivo" placeholder="@item.objetivo" maxlength="200" aria-label="With textarea" style="width:1000px" id="comment" readonly></textarea>
 
 
-                                    @*Atributo Estado*@
-                                    <div class="input-group mb-3  mx-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Estado</span>
-                                        </div>
+                                     <div class="input-group mb-3  mx-6">
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Objetivo</span>
+                                         </div>
 
-                                        <input id="cnombre" style="text-align:center" value="@item.estado" name="estado" type="text" readonly>
-
-
-                                    </div>
+                                         <textarea class="form-control" name="objetivo" value="@item.objetivo" placeholder="@item.objetivo" maxlength="200" aria-label="With textarea" style="width:700px" id="comment" readonly></textarea>
 
 
-
-                                    <div class="form-row mb-3  mx-6">
-                                        <div class="form-group col-md-6">
-                                            @*Atributo duracionEstimada*@
-                                            <label for="input4">duracionEstimada</label>
+                                     </div>
 
 
-                                            <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@item.duracionEstimada" name="duracionEstimada" readonly>
+                                     @*Atributo Estado*@
+                                     <div class="input-group mb-3  mx-6">
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Estado</span>
+                                         </div>
 
-                                            <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
-                                        </div>
-                                        <div class="form-group col-md-6">
-
-                                            @*Atributo duarcionReal*@
-                                            <label for="input5" style="text-align:center">duracionReal</label>
-
-
-                                            <input id="input5" class="form-control" type="time" style="text-align:center" value="@item.duracionReal" name="duracionReal" readonly>
-
-                                            <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                                         <input id="cnombre" style="text-align:center" value="@item.estado" name="estado" type="text" readonly>
 
 
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row mb-3  mx-6">
-                                        <div class="form-group col-md-6">
-                                            @*Atributo FechaInicio*@
-                                            <label for="cfecha">FechaInicio</label>
+                                     </div>
 
 
 
-                                            <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+                                     <div class="form-row mb-3  mx-6">
+                                         <div class="form-group col-md-6">
+                                             @*Atributo duracionEstimada*@
+                                             <label for="input4">duracionEstimada</label>
 
 
-                                            <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
+                                             <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@item.duracionEstimada" name="duracionEstimada" readonly>
 
-                                        </div>
-                                        <div class="form-group col-md-6">
+                                             <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                                         </div>
+                                         <div class="form-group col-md-6">
 
-                                            @*Atributo fechaFinalizacion*@
-                                            <label for="cfecha2" style="text-align:center">duracionReal</label>
-
-
-                                            <input id="cfecha2" class="form-control text-center" type="date" value="@item.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+                                             @*Atributo duarcionReal*@
+                                             <label for="input5" style="text-align:center">duracionReal</label>
 
 
-                                            <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
+                                             <input id="input5" class="form-control" type="time" style="text-align:center" value="@item.duracionReal" name="duracionReal" readonly>
 
-                                        </div>
-                                    </div>
-
-
-                                    @*Atributo Cantidad de requerimientos*@
-                                    <div class="input-group mb-3  mx-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Cantidad de Requerimientos</span>
-                                        </div>
-
-                                        <input id="cdr" class="form-control" type="number" name="cantidadReq" value="@item.cantidadReq" readonly>
+                                             <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
 
 
-                                    </div>
+                                         </div>
+                                     </div>
+
+                                     <div class="form-row mb-3  mx-6">
+                                         <div class="form-group col-md-6">
+                                             @*Atributo FechaInicio*@
+                                             <label for="cfecha">FechaInicio</label>
 
 
-                                </div>
+
+                                             <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+
+
+                                             <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
+
+                                         </div>
+                                         <div class="form-group col-md-6">
+
+                                             @*Atributo fechaFinalizacion*@
+                                             <label for="cfecha2" style="text-align:center">duracionReal</label>
+
+
+                                             <input id="cfecha2" class="form-control text-center" type="date" value="@item.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+
+
+                                             <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
+
+                                         </div>
+                                     </div>
+
+
+                                     @*Atributo Cantidad de requerimientos*@
+                                     <div class="input-group mb-3  mx-6">
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text" id="basic-addon1">Cantidad de Requerimientos</span>
+                                         </div>
+
+                                         <input id="cdr" class="form-control" type="number" name="cantidadReq" value="@item.cantidadReq" readonly>
+
+
+                                     </div>
+
+
+                                 </div>
 
                                 <hr/>
 
-                                <div class="row justify-content-center" style="width:1150px ; height:140px">
+                                <div class="row justify-content-center" style="width:1150px ; height:100px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
+                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                     </div>
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
+                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
 
                                     </div>
                                 </div>
