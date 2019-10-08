@@ -4,6 +4,7 @@
     ViewBag.Title = "Edit Cliente";
 }
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
@@ -51,83 +52,104 @@
     <div class="container" style="max-width: 1800px; padding-left:25%;">
         <div class="row">
             <div class="col-8">
-                <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; border-radius:20px 20px 20px 20px;" id="nav-tabContent">
+                <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
                     <!--Despliegue del formulario-->
-                    <div style="padding-left:20px; padding-top:20px;">
+                    <div style="padding-left:20px; padding-top:20px; overflow-x:hidden">
                         <div class="form-horizontal" id="clientForm">
+                            <!--Campo Nombre-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="nombre">Nombre:</span>
                                 </div>
                                 @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Primero Apellido-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="apellido1">Primer Apellido:</span>
                                 </div>
                                 @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Segundo Apellido-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="apellido2">Segundo Apellido:</span>
                                 </div>
                                 @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Cedula-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="cedulaPK">Cedula:</span>
                                 </div>
                                 @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Empresa-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="empresa">Empresa:</span>
                                 </div>
                                 @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Email-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="correo">Correo:</span>
                                 </div>
                                 @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Telefono-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="telefono">Telefono:</span>
                                 </div>
                                 @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Provincia-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="provincia">Provincia:</span>
                                 </div>
                                 @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Canton-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="canton">Canton:</span>
                                 </div>
                                 @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Distrito-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="distrito">Distrito:</span>
                                 </div>
                                 @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
+                            <!--Campo Direccion Exacta-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" for="direccionExacta">Direccion Exacta:</span>
                                 </div>
-                                    @Html.TextAreaFor(model => model.direccionExacta, new { htmlAttributes = new { @type="textarea", @class = "form-control" } })
+                                @Html.TextAreaFor(model => model.direccionExacta, new { htmlAttributes = new { @type = "textarea", @class = "form-control" } })
+                            </div>
+
+                            <!--Campo Para botones aceptar y cancelar-->
+                            <div class="row justify-content-center" style="max-width:1150px">
+
+                                <!--Boton Cancelar-->
+                                <div class="col-3  text-center">
+                                    <a onclick="my_loading(this,'80px','80px')" data-toggle="modal" data-target="#modalSalir" data-placement="left" title="Cancelar" class="btn d-inline-block" href="#"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                 </div>
 
-                            <div class="col text-center">
-                                <!--Cancelar-->
-                                <a href="#" data-toggle="modal" data-target="#modalSalir" title="Cancelar" class="btn"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-                                <!--Aceptar-->
-                                <input type="image" title="Aceptar" src="~/Content/aceptar.svg" alt="Submit Form" class="btn d-inline-block" style="height:80px ; width:80px" />
+                                <!--Boton Aceptar-->
+                                <div class="col-3  text-center">
+                                    <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

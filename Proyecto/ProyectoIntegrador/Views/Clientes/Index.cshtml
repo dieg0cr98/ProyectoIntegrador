@@ -5,6 +5,7 @@
 }
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
@@ -19,9 +20,11 @@
             background-color: #76323f;
             color: white;
         }
+
         .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
             border-bottom-color: #76323f;
         }
+
         .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
             border-top-color: #76323f;
         }
@@ -77,8 +80,9 @@
                     {
                         <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
                             <div class="row mx-4 mt-4 md-0" style="height:30px">
+                                <!--Titulo de informacion cliente-->
                                 <div class="col-8" style="max-height:30px">
-                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Cliente</p>
+                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Información Cliente</p>
                                 </div>
                                 <!-- Botones de Editar -->
                                 <div class="col" style="margin-left: 10%;">
@@ -91,18 +95,25 @@
                             </div>
                             <hr />
                             <!--Informacion del cliente que se selecciona-->
-                            <div style="max-width:1150px; height:auto;">
-                                <p style="font-size: 22px; text-align:center;">
-                                    Empresa: @Html.DisplayFor(modelItem => item.empresa)<br><br>
-                                    Nombre Completo: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null)
-                                    {@Html.DisplayFor(modelItem => item.apellido2)}<br><br>
-                                    Cedula: @Html.DisplayFor(modelItem => item.cedulaPK)<br><br>
-                                    Correo: @Html.DisplayFor(modelItem => item.correo)<br><br>
-                                    Telefono: @Html.DisplayFor(modelItem => item.telefono)<br><br>
-                                    Lugar: @Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
+                            <div style="max-width:1150px; height:auto;" class="form-inline col-6">
+                                <p style="font-size: 22px; text-align:left; padding-left: 20px;">
+                                    Nombre Completo Cliente:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" readonly class="form-control">
+                                    <br>
+                                    Cédula Cliente:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.cedulaPK)" readonly class="form-control"><br>
+                                    Correo Cliente:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.correo)" readonly class="form-control"><br>
+                                    Teléfono:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.telefono)" readonly class="form-control"><br>
+                                    Empresa:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.empresa)" readonly class="form-control"><br>
+                                    Lugar de la Empresa:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
                                     {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
-                                    {@Html.DisplayFor(modelItem => item.distrito)}<br><br>
-                                    Direccion: @Html.DisplayFor(modelItem => item.direccionExacta)<br><br>
+                                    {@Html.DisplayFor(modelItem => item.distrito)}" readonly class="form-control col-6" style="width: 900px;"><br>
+                                    Dirección Exacta de la Empresa:<br>
+                                    <input placeholder="@Html.DisplayFor(modelItem => item.direccionExacta)" readonly class="form-control col-6" style="width: 900px; height:100px">
                                 </p>
                             </div>
                         </div>
