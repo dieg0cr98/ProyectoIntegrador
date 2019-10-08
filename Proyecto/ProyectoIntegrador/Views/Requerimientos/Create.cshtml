@@ -52,9 +52,10 @@
             <div class="input-group">
                 <p class="text-black">Complejidad: </p>
                 <select class="custom-select" name="complejidad">
-                    <option value="Facil">Fácil</option>
+                    <option value="Simple">Simple</option>
                     <option selected>Medio</option>
-                    <option value="Dificil">Difícil</option>
+                    <option value="Complejo">Complejo</option>
+                    <option value="Muy Complejo">Muy Complejo</option>
                 </select>
             </div>
             <br />
@@ -99,7 +100,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { idProyecto = ViewBag.idProyecto })
+    @Html.ActionLink("Back to List", "Index", new { idProyecto = ViewBag.idProyectoFK })
 </div>
 
 @section Scripts {

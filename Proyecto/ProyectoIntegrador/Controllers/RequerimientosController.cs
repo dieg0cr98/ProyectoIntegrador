@@ -19,6 +19,8 @@ namespace ProyectoIntegrador.Controllers
         {
             var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
             ViewBag.idProyecto = idProyecto;
+            ViewBag.datosProyecto = db.Proyecto.Where(N => N.idProyectoAID == idProyecto);
+                                    
             return View(requerimiento.ToList());
         }
 
@@ -92,10 +94,10 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = TimeSpan.Parse("00:00");
-
+            /*
             //Actualiza la cantidad de requerimientos que el tester tiene asignados para 
             actualiceTester(0, idTester, "");
-
+            */
             //Revisa que no exista un requerimiento con el id ingresado por el usuario
             if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null) {
                 ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento;
@@ -161,12 +163,13 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = TimeSpan.Parse("00:00");
-
+            /*
+            //Método utilzado para quitarle un requerimiento a un tester y asignarselo a otro, en terminos de cantidad de requerimientos por tester.
             if (requerimiento.cedulaTesterFK != idTester)
             {
                 actualiceTester(1, idTester, requerimiento.cedulaTesterFK);
             }
-
+            */
             requerimiento.cedulaTesterFK = idTester;
 
             if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null)
@@ -202,10 +205,10 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Eliminar(int idRequerimiento, int idProyecto)
         {
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
-            actualiceTester(2, "", requerimiento.cedulaTesterFK);
+            //actualiceTester(2, "", requerimiento.cedulaTesterFK);
             db.Requerimiento.Remove(requerimiento);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { idProyecto = idProyecto });
         }
 
         protected override void Dispose(bool disposing)
