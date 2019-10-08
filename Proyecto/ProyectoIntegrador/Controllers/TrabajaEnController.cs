@@ -25,10 +25,10 @@ namespace ProyectoIntegrador.Controllers
          * Modifica: --
          */
 
-        public ActionResult Index()
+        public ActionResult Index(int? idProyecto)
         {
-            var trabajaEns = db.TrabajaEn.Include(t => t.Empleado).Include(t => t.Proyecto);
-            return View(trabajaEns.ToList());
+            var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
+            return View(trabajaEn.ToList());
         }
 
         /*
