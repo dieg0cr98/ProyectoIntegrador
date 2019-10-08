@@ -26,3 +26,29 @@
         }
     }
 </script>
+
+<!--Script del drag and drop-->
+<script>
+    $(function () {
+        $("#sortable1, #sortable2").sortable({
+
+
+            connectWith: ".connectedSortable",
+
+            stop: function (event, ui) {
+            },
+            update: function (event, ui) {
+                //alert(ui.item.attr('value'));
+
+            },
+        })
+        $("#sortable2").sortable({
+            receive: function (event, ui) {
+                if ($("#sortable2 li").length > 2) {
+                    alert("Max por equipo es de 2");
+                    $(ui.sender).sortable('cancel');
+                }
+            },
+        })
+    });
+</script>

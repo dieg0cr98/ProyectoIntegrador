@@ -13,10 +13,25 @@ namespace ProyectoIntegrador.Controllers
     public class TrabajaEnController : Controller
     {
         private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+        private SeguridadController seguridad = new SeguridadController();
 
 
-
-
+        /*
+         * Efecto: Obtiene todos los valores requeridos en la vista de equipo y los añade al viewbag.
+         * Requiere: Un id de proyecto valido
+         * Modifica: Agrega variables al ViewBag
+         */
+        private void GetDatosVistaEquipo(int idProyecto)
+        {
+            ViewBag.proyectoActual = db.Proyecto.Find(idProyecto);
+            //Query para seleccionar integrantes del equipo asociados al proyecto
+            var equipo = from P in db.Proyecto
+                         join TB in db.TrabajaEn on P.idProyectoAID equals TB.idProyectoFK
+                         join E in db.Empleado on TB.idEmpleadoFK equals E.idEmpleadoPK
+                         where P.idProyectoAID == idProyecto
+                         select E.nombre + " " + E.apellido1;
+            ViewBag.equipoActual = equipo;
+        }
 
         //-------------------------ActionResults--------------------------//
         /*
@@ -27,8 +42,18 @@ namespace ProyectoIntegrador.Controllers
 
         public ActionResult Index(int? idProyecto)
         {
-            var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
-            return View(trabajaEn.ToList());
+            if (idProyecto == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                int id = idProyecto ?? default(int);
+                GetDatosVistaEquipo(id);
+                var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
+                return View(trabajaEn.ToList());
+            }
+          
         }
 
         /*
@@ -47,8 +72,9 @@ namespace ProyectoIntegrador.Controllers
         //---------------------------------------------------------------------------//
         //-----------------------------Rutinas del controlador-----------------------//
 
-        /*Donde debería ir esto? 
-        */
+        /*
+         * 
+         */
         public List<Empleado> GetEmpleados()
         {
             return db.Empleado.ToList();

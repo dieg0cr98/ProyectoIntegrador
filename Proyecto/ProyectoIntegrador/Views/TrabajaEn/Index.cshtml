@@ -4,184 +4,125 @@
     ViewBag.Title = "Equipo del Proyecto";
 }
 
-    <head>
-        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
 
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <style>
+        /*Estilo del drag and drop*/
+        #sortable1, #sortable2 {
+            border: 1px solid #eee;
+            width: 142px;
+            min-height: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 5px 0 0 0;
+            float: left;
+            margin-right: 10px;
+            background-color: antiquewhite;
+        }
 
-
-        <style>
-            #sortable1, #sortable2 {
-                border: 1px solid #eee;
-                width: 142px;
-                min-height: 20px;
-                list-style-type: none;
-                margin: 0;
-                padding: 5px 0 0 0;
-                float: left;
-                margin-right: 10px;
-                background-color: antiquewhite;
-            }
-
-                #sortable1 li, #sortable2 li {
-                    margin: 0 5px 5px 5px;
-                    padding: 5px;
-                    font-size: 1.2em;
-                    color: white;
-                    width: 120px;
-                    background-color: #76323f;
-                }
-        </style>
-
-
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-
-
-
-        <style>
-            /*Cambia estilo/color de los tooltips*/
-            .tooltip > .tooltip-inner {
-                background-color: #76323f;
+            #sortable1 li, #sortable2 li {
+                margin: 0 5px 5px 5px;
+                padding: 5px;
+                font-size: 1.2em;
                 color: white;
+                width: 120px;
+                background-color: #76323f;
+            }
+    </style>
+
+    <style>
+        /*Estilo de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
+
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>
+        Empleados
+        <ul id="sortable1" class="connectedSortable">
+
+            @foreach (var item in Model)
+            {
+                <li class="ui-state-default" value="@item.idProyectoFK"> @item.idEmpleadoFK @item.idProyectoFK </li>
             }
 
-            .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
-                border-bottom-color: #76323f;
-            }
+        </ul>
 
-            .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
-                border-top-color: #76323f;
-            }
+    </p>
 
-            .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
-                border-left-color: #76323f
-            }
+    <p>
+        Equipo
 
-            .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-                border-right-color: #76323f
-            }
-        </style>
-    </head>
+        <ul id="sortable2" class="connectedSortable " style="min-height:100px">
+        </ul>
 
-    <body>
+    </p>
 
 
+    <br>
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
+    <hr> <!-- ??-->
 
+    <div class="container " style="max-width: 1800px">
+        <div class="row">
+            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
+                <!--Navbar inside the col-->
+                <nav class="navbar navbar-light bg-secondary">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Lista de Integrantes
+                    </a>
 
-        <p>
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Integrante" href="/TrabajaEn/Add" class="btn">
+                        <img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                </nav>
 
-            Empleados
-            <ul id="sortable1" class="connectedSortable">
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
 
-                @foreach (var item in Model)
-                {
-                    <li class="ui-state-default" value="@item.idProyectoFK"> @item.idEmpleadoFK @item.idProyectoFK </li>
-                }
-
-            </ul>
-
-        </p>
-
-
-
-
-        <p>
-            Equipo
-
-            <ul id="sortable2" class="connectedSortable " style="min-height:100px">
-            </ul>
-
-        </p>
-
-
-        <script>
-            $(function () {
-                $("#sortable1, #sortable2").sortable({
-
-
-                    connectWith: ".connectedSortable",
-
-                    stop: function (event, ui) {
-
-
-
-
-
-                    },
-
-                    update: function (event, ui) {
-                        //alert(ui.item.attr('value'));
-
-                    },
-
-
-
-
-
-                })
-
-
-                $("#sortable2").sortable({
-
-
-                    receive: function (event, ui) {
-
-
-                        if ($("#sortable2 li").length > 2) {
-                            alert("Max por equipo es de 2");
-                            $(ui.sender).sortable('cancel');
+                        <!--Mostrar empleados del equipo aquí-->
+                        @foreach (var empleado in ViewBag.equipoActual)
+                        {
+                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@empleado</a>
+                            { idCarta += 1; }
                         }
 
-
-                    },
-                })
-
-
-
-            });
-
-        </script>
-
-
-
-
-
-        <br>
-        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto</p>
-        <hr> <!-- ??-->
-
-        <div class="container " style="max-width: 1800px">
-            <div class="row">
-                <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
-
-                    <!--Navbar inside the col-->
-                    <nav class="navbar navbar-light bg-secondary">
-                        <a class="navbar-brand">
-                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                            Lista de Integrantes
-                        </a>
-
-                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Integrante" href="/TrabajaEn/Add" class="btn">
-                            <img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
-                        </a>
-                    </nav>
-
-                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
-                        <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
-
-                            <!--Mostrar empleados del equipo aquí-->
-
-                        </div>
                     </div>
                 </div>
-
             </div>
-        </div>>
 
-        @{ Html.RenderPartial("ScriptsEquipo"); }
-    </body>
+        </div>
+    </div>>
+
+    @{ Html.RenderPartial("ScriptsEquipo"); }
+</body>
