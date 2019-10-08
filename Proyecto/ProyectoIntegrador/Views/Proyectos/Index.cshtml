@@ -97,36 +97,36 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-8">
-                    <div class="tab-content d-block  overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
+                <div class="col-12 col-md-8 bg-primary">
+                    <div class="tab-content d-block bg-white" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
                         @foreach (var item in Model)
                         {
 
                              <div class="tab-pane fade bg-secondary " style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
 
-                                 <div class="row mx-4 mt-4 md-0" style="height:30px">
+                                 <div class="row mx-4 mt-0 md-0" style="height:48px">
 
-                                    <div class="col-10 " style="max-height:30px">
-                                        <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">@item.nombre</p>
+                                    <div class="col-10 " style="max-height:48px">
+                                        <p class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@item.nombre</p>
                                     </div>
 
                                     <!-- Botones de Editar y Borrar  -->
-                                    <div class="col">
+                                    <div class="col bg-white">
 
                                         @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                         {
-                                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'35px','35px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:35px ; max-width:35px"></a>
 
                                         }
                                     </div>
 
-                                    <div class="col " style="max-height:30px">
+                                    <div class="col " style="max-height:48px">
 
                                         @if (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2)
                                         {
 
                                             <!-- Button trigger modal -->
-                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:35px"></a>
                                         }
 
                                     </div>
@@ -137,30 +137,9 @@
 
                                  <hr />
 
-                                <div class="container justify-content-center">
+                                <div class="container justify-content-center overflow-auto"  style="max-height:350px">
 
-                                    <div class="form-row pt-4 mx-6">
-                                        <div class="form-group col-md-6">
-                                            @*Atributo IdProyecto*@
-                                            <label for="input1">IdProyecto</label>
-
-                                            <input id="input1" class="form-control" type="text" style="text-align:center" value="@item.idProyectoAID" placeholder="hola" name="id" readonly>
-
-
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-
-                                            @*Atributo Nombre*@
-                                            <label for="input2">Nombre</label>
-                                            <input id="input2" class="form-control" value="@item.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="30" type="text" readonly>
-
-
-
-                                        </div>
-                                    </div>
-
-
+    
 
 
                                     @*Atributo Objetivo*@
@@ -259,12 +238,12 @@
 
                                 <hr/>
 
-                                <div class="row justify-content-center" style="max-width:1000px">
+                                <div class="row justify-content-center" style="width:1150px ; height:140px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
+                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
                                     </div>
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:150px ; width:150px"></a>
+                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:100px ; width:100px"></a>
 
                                     </div>
                                 </div>

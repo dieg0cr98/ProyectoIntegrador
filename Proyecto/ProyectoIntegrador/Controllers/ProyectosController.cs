@@ -50,7 +50,7 @@ namespace ProyectoIntegrador.Controllers
 
             try
             {
-
+                
                 switch(tipo)
                 {
 
@@ -68,6 +68,8 @@ namespace ProyectoIntegrador.Controllers
                         }
                     case 2:
                         {
+                            
+                            
                             db.Proyecto.Remove(proyecto);
                             db.SaveChanges();
                             break;
@@ -678,10 +680,22 @@ namespace ProyectoIntegrador.Controllers
             int p = seguridad.ProyectoEliminar(User);
             if(p == 1)
             {
+
+
+                
                 //Busca el proyecto
                 Proyecto proyecto = GetProyecto(id);
-                //Elimina el proyecto
-                SetProyecto(proyecto, 2);
+                System.Diagnostics.Debug.WriteLine("got id: " + proyecto.idProyectoAID);
+                
+
+                //Verifica si el proyecto existe
+                if(proyecto != null)
+                {
+                    //Elimina el proyecto
+                    SetProyecto(proyecto, 2);
+
+                }
+
                 return RedirectToAction("Index");
 
             }
