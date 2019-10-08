@@ -249,10 +249,10 @@
                 @*Atributo cedulaCliente*@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect03">Clientes</label>
+                        <label class="input-group-text" for="inputGroupSelect03" style="width:200px">Cliente</label>
                     </div>
 
-                    <select class="custom-select" name="cedulaCliente" id="inputGroupSelect03">
+                    <select class="custom-select" name="cedulaCliente" style="max-width:395px" id="inputGroupSelect03">
                         @if (ViewBag.permisos.Item3[9] == 1)
                         {
 
@@ -292,8 +292,8 @@
 
                         }
                     </select>
-                    <div class="input-group-append">
-                        <a class="btn btn-danger" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del Cliente">Ver clientes</a>
+                    <div class="input-group-append" style="max-width:none; width:180px">
+                        <a class="btn btn-danger" style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los Clientes">Clientes</a>
                     </div>
 
                 </div>
@@ -310,12 +310,12 @@
                 @*Atributo cedulaLider*@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Lideres</label>
+                        <label class="input-group-text" for="inputGroupSelect01" style="width:200px">Lider</label>
                     </div>
 
 
 
-                    <select class="custom-select w-100" id="inputGroupSelect01" name="cedulaLider">
+                    <select class="custom-select w-100" id="inputGroupSelect01" style="max-width:395px" name="cedulaLider">
                         @if (ViewBag.permisos.Item3[10] == 1)
                         {
                             if (ViewBag.liderActual != null)
@@ -340,12 +340,14 @@
                         }
 
                     </select>
-                    <div class="input-group-append">
-                        <a class="btn btn-danger" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles del empleado">Ver empleados</a>
+                    <div class="input-group-append"  style="max-width:none; width:180px">
+                        <a class="btn btn-danger"  style="max-width:none; width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
                     </div>
                 </div>
 
 
+
+                <h5> * Campos requeridos</h5>
 
 
 
@@ -389,7 +391,6 @@
 
 
     <script>
-
         $(function()
         {
             $("#commentForm").validate(
@@ -400,13 +401,14 @@
                         {
                             required: true,
                             minlength: 1
-                      },
-                      objetivo:
-                      {
+                        },
+                        objetivo:
+                        {
                           
-                          rangelength: [1, 200]
+                              rangelength: [1, 200]
 
-                      }
+                        },
+     
 
 
                     },
