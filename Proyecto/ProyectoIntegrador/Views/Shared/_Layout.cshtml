@@ -55,7 +55,7 @@
 
 
 
-    <div class="container body-content" style="max-width: 1800px ; position:relative">
+    <div class="container-fluid body-content" style="position:relative">
 
         @RenderBody()
         <hr />
@@ -74,6 +74,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
