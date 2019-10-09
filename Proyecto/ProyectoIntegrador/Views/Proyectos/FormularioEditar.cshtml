@@ -12,9 +12,12 @@
         }
 
         .error {
-            color: red;
+            color: white;
+            background-color:red;
             font-family: verdana, Helvetica;
         }
+
+
     </style>
 
 
@@ -237,7 +240,7 @@
 
 
 
-              
+
 
 
 
@@ -340,8 +343,8 @@
                         }
 
                     </select>
-                    <div class="input-group-append"  style="max-width:none; width:180px">
-                        <a class="btn btn-danger"  style="max-width:none; width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
+                    <div class="input-group-append" style="max-width:none; width:180px">
+                        <a class="btn btn-danger" style="max-width:none; width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
                     </div>
                 </div>
 
@@ -352,16 +355,17 @@
 
 
 
-                <hr/>
+                <hr />
 
                 <div class="row justify-content-center" style="max-width:1150px">
                     <div class="col-4  text-center">
-                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Proyectos/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Proyectos/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                     </div>
                     <div class="col-4  text-center">
 
-                        <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
-                            <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                        <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
+                            <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            <div id="loading" style="width:80px;height:80px"  class="spinner-border text-black" role="status"></div>
                         </button>
 
                     </div>
@@ -389,12 +393,37 @@
     </form>
 
 
+<script>
+
+    $('document').ready(function () {
+
+
+         $('#loading').hide();
+
+
+
+    });
+
+
+
+    $('#btnsubmit').on('click',function()
+    {
+        $('#acceptar').hide('fast');
+
+
+        $('#loading').show('fast');
+
+    
+  });
+
+</script>
+
+
 
     <script>
-        $(function()
-        {
+        $(function () {
             $("#commentForm").validate(
-              {
+                {
                     rules:
                     {
                         nombre:
@@ -404,11 +433,11 @@
                         },
                         objetivo:
                         {
-                          
-                              rangelength: [1, 200]
+
+                            rangelength: [1, 200]
 
                         },
-     
+
 
 
                     },
@@ -419,28 +448,35 @@
 
 
                     },
-                    
+
                     errorPlacement: function (error, element) {
-                       if((element.attr('name') === 'nombre')){
-                            error.insertAfter( $('#errorNombre') );   
+                        if ((element.attr('name') === 'nombre')) {
+                            error.insertAfter($('#errorNombre'));
                         }
-                        if((element.attr('name') === 'objetivo')){
-                            error.insertAfter( $('#errorObjetivo') );   
+                        if ((element.attr('name') === 'objetivo')) {
+                            error.insertAfter($('#errorObjetivo'));
                         }
-                           
-                         
 
 
-                    }
-                   
-              });	
+
+
+                    },
+                    invalidHandler: function (form, validator) {
+    
+                        $('#loading').hide('fast');
+                        $('#acceptar').show('fast');
+                       
+                    },
+
+
+
+                });
         });
 
 
     </script>
 
-
-
+ 
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()

@@ -115,7 +115,7 @@
 
                                         @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                         {
-                                            <a data-toggle="tooltip" onclick="my_loading(this,'35px','35px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                                         }
                                     </div>
@@ -126,7 +126,7 @@
                                         {
 
                                             <!-- Button trigger modal -->
-                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a href="#"   class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                         }
 
                                     </div>
@@ -137,7 +137,7 @@
 
                                  <hr />
 
-                                 <div class="container justify-content-center overflow-auto" style="max-height:390px">
+                                 <div class="container justify-content-center overflow-auto" style="max-height:390px; height:390px">
 
 
 
@@ -155,63 +155,37 @@
                                      </div>
 
 
-                                     @*Atributo Estado*@
-                                     <div class="input-group mb-3  mx-6">
-                                         <div class="input-group-prepend">
-                                             <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Estado</span>
-                                         </div>
-
-                                         <input id="cnombre" style="text-align:center" value="@item.estado" name="estado" type="text" readonly>
-
-
-                                     </div>
 
 
 
-                                     <div class="form-row mb-3  mx-6">
-                                         <div class="form-group col-md-6">
-                                             @*Atributo duracionEstimada*@
-                                             <label for="input4">duracionEstimada</label>
+                                     @* Fechas   *@
+                                     <div class="form-row mb-2">
+                                         <div class="col">
+                                             @* Fecha Inicio   *@
+                                             <div class="input-group">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
+                                                 </div>
 
 
-                                             <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@item.duracionEstimada" name="duracionEstimada" readonly>
-
-                                             <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
-                                         </div>
-                                         <div class="form-group col-md-6">
-
-                                             @*Atributo duarcionReal*@
-                                             <label for="input5" style="text-align:center">duracionReal</label>
+                                                 <input id="cfecha" class="form-control text-center" style="max-width:none" type="date" value="@item.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
 
 
-                                             <input id="input5" class="form-control" type="time" style="text-align:center" value="@item.duracionReal" name="duracionReal" readonly>
-
-                                             <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
-
-
-                                         </div>
-                                     </div>
-
-                                     <div class="form-row mb-3  mx-6">
-                                         <div class="form-group col-md-6">
-                                             @*Atributo FechaInicio*@
-                                             <label for="cfecha">FechaInicio</label>
-
-
-
-                                             <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
-
-
+                                             </div>
                                              <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
 
                                          </div>
-                                         <div class="form-group col-md-6">
+                                         <div class="col">
 
-                                             @*Atributo fechaFinalizacion*@
-                                             <label for="cfecha2" style="text-align:center">duracionReal</label>
+                                             @* Fecha Fin   *@
+                                             <div class="input-group">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha Finalizacion</span>
+                                                 </div>
 
+                                                 <input id="cfecha2" class="form-control text-center" style="max-width:none" type="date" value="@item.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
 
-                                             <input id="cfecha2" class="form-control text-center" type="date" value="@item.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+                                             </div>
 
 
                                              <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
@@ -220,16 +194,56 @@
                                      </div>
 
 
-                                     @*Atributo Cantidad de requerimientos*@
-                                     <div class="input-group mb-3  mx-6">
-                                         <div class="input-group-prepend">
-                                             <span class="input-group-text" id="basic-addon1">Cantidad de Requerimientos</span>
+
+                                     @* Duraciones  *@
+                                     <div class="form-row mb-2">
+                                         <div class="col">
+
+                                             @* Duraciones Estimada *@
+                                             <div class="input-group">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada</span>
+                                                 </div>
+
+                                                 <input id="input4" class="form-control" type="time" style=" max-width:none" value="@item.duracionEstimada" name="duracionEstimada" readonly>
+
+
+                                             </div>
+
+                                             <small class="form-text text-center" style="color:black">Formato horas:minutos (hh:mm) </small>
+
                                          </div>
+                                         <div class="col">
 
-                                         <input id="cdr" class="form-control" type="number" name="cantidadReq" value="@item.cantidadReq" readonly>
+                                             @* Duracione Real *@
+                                             <div class="input-group">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Duracion Real</span>
+                                                 </div>
 
 
+
+                                                 <input id="input5" class="form-control" type="time" style="text-align:center; max-width:none" value="@item.duracionReal" name="duracionReal" readonly>
+
+                                             </div>
+
+                                             <small class="form-text text-center" style="color:black">Formato horas:minutos (hh:mm) </small>
+
+                                         </div>
                                      </div>
+
+
+
+                                     @* Estado*@
+                                 <div class="input-group ">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Estado</span>
+                                     </div>
+
+                                     <input class="input-group-text" style="max-width:none;width:356px" value="@item.estado" name="estado" type="text" readonly>
+
+                                 </div>
+
 
 
                                  </div>
@@ -238,10 +252,10 @@
 
                                 <div class="row justify-content-center" style="width:1150px ; height:100px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                        <a onclick="my_loading(this,'10px','10px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                     </div>
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                        <a onclick="my_loading(this,'70px','70px')" data-toggle="tooltip" data-placement="right" title="Administrar Equipo" class="btn d-inline-block" href="@Url.Action("IndexTrabajaEn", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
 
                                     </div>
                                 </div>
