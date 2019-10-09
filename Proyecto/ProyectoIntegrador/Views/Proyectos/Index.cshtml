@@ -1,81 +1,168 @@
-﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto>
+﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.objetivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionReal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionEstimada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaFinalizacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cantidadReq)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.objetivo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionReal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionEstimada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaFinalizacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cantidadReq)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idProyectoAID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idProyectoAID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idProyectoAID })
-        </td>
-    </tr>
-}
+<!--Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id-->
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
 
-</table>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
+
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+
+</head>
+
+<body>
+    <br />
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos</p>
+    <hr>
+    <div class="container " style="max-width: 1800px">
+        <div class="row">
+            <div class="col col-md-4 h-25" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                @*NavBar con el titulo y el input para realizar busquedas*@
+                <nav class="navbar navbar-light bg-secondary">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Lista de requerimientos
+                    </a>
+
+                    <!--<input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder=" Buscar por Proyectos">-->
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </nav>
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                    <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+                        @foreach (var item in Model)
+                        {
+                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                            { idCarta += 1; }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8">
+                <div class="tab-content d-block  overflow-auto" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
+                    @foreach (var item in Model)
+                    {
+                        <div class="tab-pane fade bg-secondary" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                            <div class="row mx-4 mt-4 md-0" style="height:30px">
+                                <div class="col-10 " style="max-height:30px">
+                                    <!--Nombre del requerimiento-->
+                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">@item.nombre</p>
+                                </div>
+
+                                <!-- Botones de Editar y Borrar  -->
+                                <div class="col">
+                                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Requerimientos", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                </div>
+
+                                <div class="col " style="max-height:30px">
+                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                </div>
+
+
+
+                            </div>
+
+                            <hr />
+
+                            <div class="container justify-content-center">
+                                <div class="form-row pt-4 mx-6">
+                                    <div class="form-group col-md-6">
+                                        @*Atributo Complejidad*@
+                                        <label for="input3">Complejidad:</label>
+                                        <input id="input3" class="form-control" type="text" style="text-align:center" value="@item.complejidad" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @*Atributo Estado*@
+                                        <label for="input2">Estado:</label>
+                                        <input id="input2" class="form-control" value="@item.estado" style="text-align:center" type="text" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-row mb-3 mx-6">
+                                    <div class="form-group col-md-6">
+                                        @*Atributo FechaInicio*@
+                                        <label for="cfecha">Fecha de Inicio:</label>
+                                        <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @*Atributo fechaFinalizacion*@
+                                        <label for="cfecha2" style="text-align:center">duracionReal</label>
+                                        <input id="cfecha2" class="form-control text-center" type="date" value="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd"); } }" name="Fecha de Finalizacion" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row mb-3  mx-6">
+                                    <div class="form-group col-md-6">
+                                        @*Atributo duracionEstimada*@
+                                        <label for="input4">Duración Estimada:</label>
+                                        <input id="input4" class="form-control" type="time" style="width:700px;text-align:center" value="@item.tiempoEstimado" name="Duracion Estimada" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @*Atributo duarcionReal*@
+                                        <label for="input5" style="text-align:center">Duración Real:</label>
+                                        <input id="input5" class="form-control" type="time" style="text-align:center" value="@item.tiempoReal" name="Duracion Real" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-row mb-3  mx-6">
+                                    <label for="desc" style="text-align:center">Descripción:</label>
+                                    <textarea class="form-control rounded-0" id="desc" name="descripción" value="@item.descripcion" aria-label="With textarea" cols="15" readonly></textarea>
+                                </div>
+
+                                <hr />
+
+                                <div class="row justify-content-center" style="max-width:1000px">
+                                    <div class="col-4  text-center">
+                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="top" title="Ver Pruebas" class="btn d-inline-block" href="@Url.Action("Index", "Pruebas")"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        //Le agrega un digito mas al idTab
+                        { idTab += 1; }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("ModalEliminar")
+    @Html.Partial("Scripts")
+</body>
