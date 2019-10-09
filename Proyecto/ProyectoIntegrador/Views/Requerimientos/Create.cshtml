@@ -4,103 +4,207 @@
     ViewBag.Title = "Create";
 }
 <br />
-<h2 align="center">Crear Requerimiento</h2>
-<hr />
+<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
+<hr>
 
-<div class="container" align="center">
-    <form class="cmxform" id="commentForm" method="post" action="Create">
-        <fieldset>
-            <p>
-                <label for="creq">ID del Requerimiento: </label>
-                <input id="creq" name="idRequerimiento" placeholder="Ingrese el id del req" digits type="number" required />
-            </p>
+<form class="cmxform" id="commentForm" method="post" action="Create">
+    <fieldset>
+        <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px; box-shadow: 1px 9px 22px 12px grey">
+            @if (ViewBag.error != null)
+            {
+                <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+            }
 
-            <p>
-                <label for="cnombre">Nombre: </label>
-                <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese el nombre" maxlength="20" type="text" required />
-            </p>
-
-            <p>
-                <label for="cdesc">Descripción: </label>
-                <input id="cdesc" name="descripcion" minlength="1" placeholder="Ingrese las descripción del sistema" maxlength="100" type="text" style="width = 300px" />
-            </p>
-
-            <p>
-                <label for="cde">Duración estimada:</label>
-                <input id="cde" type="time" name="duracionEstimada" value="@TimeSpan.Parse("00:00")" placeholder="HH:MM">
-                <small class="form-text text-muted text-danger">
-
-                </small>
-            </p>
-
-            <p>
-                <label for="cfechai">Fecha de inicio: </label>
-                <input id="cfechai" type="text" name="fechai" value="@DateTime.Today" placeholder="DD-MM-AAAA">
-                <small class="form-text text-muted text-danger">
-                    Si no hay cambios, la fecha de inicio es la fecha actual del sistema.
-                </small>
-            </p>
-
-            <p>
-                <label for="cfechaf">Fecha de fin: </label>
-                <input id="cfechaf" type="text" name="fechaf" value="@DateTime.Parse("01-01-1800")" placeholder="DD-MM-AAAA">
-                <small class="form-text text-muted text-danger">
-                    Si no hay cambios, la fecha será el 01-01-1800.
-                </small>
-            </p>
-
-            <div class="input-group">
-                <p class="text-black">Complejidad: </p>
-                <select class="custom-select" name="complejidad">
-                    <option selected>Medio</option>
-                    <option value="Facil">Fácil</option>
-                    <option value="Dificil">Difícil</option>
-                </select>
-            </div>
-            <br />
-            <div class="input-group" align="center">
-                <p class="text-black">Estado: </p>
-                <select class="custom-select" name="estado">
-                    <option selected>Preparación</option>
-                    <option value="Activo">Activo</option>
-                    <option value="Terminado">Terminado</option>
-                </select>
-            </div>
+            <!--Se pasa el id del proyecto asociado-->
             <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
-            <br />
-            <div class="input-group mb-3" align="center">
-                <div class="input-group-prepend" align="center">
-                    <label class="input-group-text" for="inputGroupSelect03">Testers disponibles:</label>
-                </div>
-                <select class="custom-select" name="idTester" id="inputGroupSelect03">
 
-                    @foreach (var item in ViewBag.cedulaTesterFK)
+            <div class="form-row pt-4">
+                <div class="form-group col-md-6">
+                    @*Atributo IdReqPK*@
+                    <label for="id">ID del requerimiento: *</label>
+                    <input id="id" class="form-control" type="text" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
+                </div>
+                <div class="form-group col-md-6">
+                    @*Atributo nombre*@
+                    <label for="nom">Nombre del requerimiento: *</label>
+                    <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="20" type="text" required>
+                </div>
+            </div>
+
+            <div class="form-row pt-4 mx-6">
+                <div class="form-group col-md-6">
+                    @*Atributo Complejidad*@
+                    <label for="comp">Complejidad:</label>
+                    <select class="custom-select" name="complejidad">
+                        <option value="Simple">Simple</option>
+                        <option selected>Medio</option>
+                        <option value="Complejo">Complejo</option>
+                        <option value="Muy Complejo">Muy Complejo</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    @*Atributo Estado*@
+                    <label for="est">Estado:</label>
+                    <select class="custom-select" name="estado">
+                        <option value="Activo">Activo</option>
+                        <option selected>Preparación</option>
+                        <option value="Terminado">Terminado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    @*Atributo duracionEstimada*@
+                    <label for="de">Duración Estimada: *</label>
+                    <input id="de" class="form-control" type="time" style="width:700px; text-align:center" name="duracionEstimada" required>
+                    <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @*Atributo duarcionReal*@
+                    <label for="dr" style="text-align:center">Duración Real: *</label>
+                    <input id="dr" class="form-control" type="time" style="text-align:center" name="duracionReal" required>
+                    <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                </div>
+            </div>
+
+            <div class="form-row mb-3">
+                <div class="form-group col-md-6">
+                    @*Atributo fechaInicio*@
+                    <label for="fi">Fecha de Inicio: *</label>
+                    <input id="fi" class="form-control text-center" type="date" value="@DateTime.Now.ToShortDateString()" name="fechai" required>
+                    <small class="form-text text-center" style="color:black">Por defecto fecha del dia creado </small>
+                </div>
+                <div class="form-group col-md-6">
+                    @*Atributo fechaFinalizacion*@
+                    <label for="fi" style="text-align:center">Fecha de Fin: *</label>
+                    <input id="fi" class="form-control text-center" type="date" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaf" required>
+                    <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
+                </div>
+            </div>
+
+            @*Atributo cedulaTester*@
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="tester">Tester Asociado: *</label>
+                <select class="custom-select" name="idTester" id="tester" required>
+                    @foreach (var item in ViewBag.testers)
                     {
                         <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 @item.apellido2 </option>
+
                     }
                 </select>
             </div>
+            @*Atributo Objetivo*@
+            <div class="input-group mb-3 ">
+                <label class="input-group-text" style="width:200px; text-align:center" id="basic-addon1">Descripcion: </label>
+                <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
+            </div>
 
-            <p>
-                <input class="submit" type="submit" value="Submit">
-            </p>
-        </fieldset>
-    </form>
-    <script>
-        $("#commentForm").validate();
-    </script>
+            <h5>* = Campo Requerido</h5>
 
-    <script>
-        $(function () {
-            $('[data-toogle="tooltip"]').tooltip()
-        }
-        )
-    </script>
-</div>
+            <div class="row justify-content-center" style="max-width:1150px">
+                <div class="col-4  text-center">
+                    <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                </div>
+                <div class="col-4  text-center">
 
-<div>
-    @Html.ActionLink("Back to List", "Index", new { idProyecto = ViewBag.idProyecto })
-</div>
+                    <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                    </button>
+                </div>
+            </div>
+        </div>
+        @*
+        <p>
+            <label for="creq">ID del Requerimiento: </label>
+            <input id="creq" name="idRequerimiento" placeholder="Ingrese el id del req" digits type="number" required />
+        </p>
+
+        <p>
+            <label for="cnombre">Nombre: </label>
+            <input id="cnombre" name="nombre" minlength="1" placeholder="Ingrese el nombre" maxlength="20" type="text" required />
+        </p>
+
+        <p>
+            <label for="cdesc">Descripción: </label>
+            <input id="cdesc" name="descripcion" minlength="1" placeholder="Ingrese las descripción del sistema" maxlength="100" type="text" style="width = 300px" />
+        </p>
+
+        <p>
+            <label for="cde">Duración estimada:</label>
+            <input id="cde" type="time" name="duracionEstimada" value="@TimeSpan.Parse("00:00")" placeholder="HH:MM">
+            <small class="form-text text-muted text-danger">
+
+            </small>
+        </p>
+
+        <p>
+            <label for="cfechai">Fecha de inicio: </label>
+            <input id="cfechai" type="text" name="fechai" value="@DateTime.Today" placeholder="DD-MM-AAAA">
+            <small class="form-text text-muted text-danger">
+                Si no hay cambios, la fecha de inicio es la fecha actual del sistema.
+            </small>
+        </p>
+
+        <p>
+            <label for="cfechaf">Fecha de fin: </label>
+            <input id="cfechaf" type="text" name="fechaf" value="@DateTime.Parse("01-01-1800")" placeholder="DD-MM-AAAA">
+            <small class="form-text text-muted text-danger">
+                Si no hay cambios, la fecha será el 01-01-1800.
+            </small>
+        </p>
+
+        <div class="input-group">
+            <p class="text-black">Complejidad: </p>
+            <select class="custom-select" name="complejidad">
+                <option value="Simple">Simple</option>
+                <option selected>Medio</option>
+                <option value="Complejo">Complejo</option>
+                <option value="Muy Complejo">Muy Complejo</option>
+            </select>
+        </div>
+        <br />
+        <div class="input-group" align="center">
+            <p class="text-black">Estado: </p>
+            <select class="custom-select" name="estado">
+                <option value="Activo">Activo</option>
+                <option selected>Preparación</option>
+                <option value="Terminado">Terminado</option>
+            </select>
+        </div>
+        <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
+        <br />
+        <div class="input-group mb-3" align="center">
+            <div class="input-group-prepend" align="center">
+
+    <label class="input-group-text" for="inputGroupSelect03">Testers disponibles:</label>
+            </div>
+            <select class="custom-select" name="idTester" id="inputGroupSelect03">
+
+                @foreach (var item in ViewBag.cedulaTesterFK)
+                {
+                    <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 @item.apellido2 </option>
+                }
+            </select>
+        </div>
+
+        <p>
+            <input class="submit" type="submit" value="Submit">
+        </p>
+        *@
+    </fieldset>
+</form>
+<script>
+    $("#commentForm").validate();
+</script>
+
+<script>
+    $(function () {
+        $('[data-toogle="tooltip"]').tooltip()
+    }
+    )
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

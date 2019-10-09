@@ -1,7 +1,224 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿
 
-<p>Use this area to provide additional information.</p>
+
+<style>
+    #sortable1, #sortable2 {
+        border: 1px solid #eee;
+        width: 142px;
+        min-height: 20px;
+        list-style-type: none;
+        margin: 0;
+        padding: 5px 0 0 0;
+        float: left;
+        margin-right: 10px;
+        background-color: antiquewhite;
+    }
+
+        #sortable1 li, #sortable2 li {
+            margin: 0 5px 5px 5px;
+            padding: 5px;
+            font-size: 1.2em;
+            color: white;
+            width: 120px;
+            background-color: #76323f;
+        }
+</style>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+<p>
+
+    Empleados
+    <ul id="sortable1" class="connectedSortable">
+
+        @foreach (var item in ViewBag.empleados)
+        {
+            <li class="ui-state-default" value="@item.nombre"> @item.nombre @item.apellido1 </li>
+        }
+
+    </ul>
+
+</p>
+
+
+
+
+<p>
+    Equipo
+
+    <ul id="sortable2" class="connectedSortable " style="min-height:100px">
+    </ul>
+
+</p>
+
+
+<script>
+    $(function () {
+        $("#sortable1, #sortable2").sortable({
+
+
+            connectWith: ".connectedSortable",
+
+            stop: function (event, ui) {
+
+
+
+
+
+            },
+
+            update: function (event, ui) {
+                //alert(ui.item.attr('value'));
+
+            },
+
+
+
+
+
+        })
+
+
+        $("#sortable2").sortable({
+
+
+            receive: function (event, ui) {
+
+
+                if ($("#sortable2 li").length > 2) {
+                    alert("Max por equipo es de 2");
+                    $(ui.sender).sortable('cancel');
+                }
+
+
+            },
+        })
+
+
+
+    });
+
+</script>
+
+
+
+
+
+
+
+<div class="container-fluid text-center">
+
+    <div class="row">
+        <div class="col">
+            @* <a href="#" id="enlaceajax">Obtener provincias</a>*@
+            <button type="button" onclick="getProvincias()">Obtener Provincias</button>
+            <br>
+            <div id="destino"></div>
+
+
+
+        </div>
+
+        <div class="col">
+            <button type="button" onclick="getCanton()">Obtener Canton</button>
+            <br>
+
+            <div id="destino2"></div>
+        </div>
+
+
+        <div class="col">
+            <button type="button" onclick="getDistrito()">Obtener Canton</button>
+            <br>
+
+            <div id="destino3"></div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+
+    function getProvincias() {
+
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincias.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino').html(html);
+            }
+        });
+
+
+    }
+
+
+
+    function getCanton() {
+        var selected_option = $("#abc option:selected").data("t");
+
+
+
+
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc2'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino2').html(html);
+            }
+        });
+
+
+    }
+
+
+    function getDistrito() {
+        var provincia = $("#abc option:selected").data('t');
+        var canton = $("#abc2 option:selected").data('t');
+
+
+
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc3'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino3').html(html);
+            }
+        });
+
+
+    }
+
+
+
+</script>
+
+
+

@@ -1,17 +1,83 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+        <style>
+
+            body {
+                font-family: Arial, Sans-serif;
+            }
+
+            .error {
+                color: red;
+                font-family: verdana, Helvetica;
+            }
+        </style>
+
+
+
+    </head>
+
+
+
+
+<form method="post" name="productform" id="productform">
+    <p>
+        <label for='prodid'>Product ID: (maxlength 10)</label><br>
+        <input type="text" name="prodid">
+    </p>
+    <p>
+        <label for='email'>Email: (minlength 10)</label><br>
+        <input type="text" name="email">
+    </p>
+    <p>
+        <label for='address'>Address( length between 10 and 250)</label><br>
+        <input type="text" name="address">
+    </p>
+    <p>
+        <label for='message'>Message:( length between 50 and 1050)</label> <br>
+        <textarea name="message"></textarea>
+    </p>
+
+    <input type="submit" name='submit' value="Post it !">
+</form>
+
+
+<script>
+
+    $(function()
+{
+    $("#productform").validate(
+      {
+        rules: 
+        {
+          prodid: 
+          {
+            required: true,
+            maxlength: 10
+          },
+          email: 
+          {
+            required: true,
+            email: true,
+            minlength:10
+          },
+          address:
+          {
+            required: true,
+            rangelength:[10,250]
+          },
+          message: 
+          {
+            rangelength:[50,1050]
+          }
+        }
+      });	
+});
+
+</script>
