@@ -16,36 +16,36 @@
 
 <!--Agrega un loading al Edit-->
 <script>
-    function my_loading(elemt,w,h) {
+    function my_loading(elemt, w, h) {
         var i = '<div class="spinner-border text-black" role="status" style=""';
         i += 'height: ' + w + 'px ; width:' + h + 'px"' + '></div>';
-        var t = '<div class="spinner-border text-black" role="status" style="height:'+ w + '; width: '+ h +' "></div>'
+        var t = '<div class="spinner-border text-black" role="status" style="height:' + w + '; width: ' + h + ' "></div>'
         elemt.disabled = true;
-        elemt.innerHTML = t ;
+        elemt.innerHTML = t;
     }
 
 </script>
 
 <!-- Busca en la lista de proyectos por la string del input -->
 <script>
-            function myFunction() {
-                // Declare variables
-                var input, filter, div, li, a, i, txtValue;
-                input = document.getElementById('myInput');
-                filter = input.value.toUpperCase();
-                div = document.getElementById("list-tab");
-                a = div.getElementsByTagName('a');
+    function myFunction() {
+        // Declare variables
+        var input, filter, div, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        div = document.getElementById("list-tab");
+        a = div.getElementsByTagName('a');
 
-                // Loop through all list items, and hide those who don't match the search query
-                for (i = 0; i < a.length; i++) {
-                    txtValue = a.textContent || a[i].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        a[i].style.display = "";
-                    } else {
-                        a[i].style.display = "none";
-                    }
-                }
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < a.length; i++) {
+            txtValue = a.textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
             }
+        }
+    }
 
 
 
@@ -55,7 +55,58 @@
 
 <!-- Agrega Tooltips a los elementos -->
 <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<script>
+    function getProvincias() {
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincias.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino').html(html);
+            }
+        });
+    }
+    function getCantones() {
+        var selected_option = $("#abc option:selected").data("t");
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino2').html(html);
+            }
+        });
+    }
+    function getDistritos() {
+        var provincia = $("#abc option:selected").data('t');
+        var canton = $("#abc2 option:selected").data('t');
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc3' class='form-control' name='distrito'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino3').html(html);
+            }
+        });
+    }
 </script>
