@@ -409,7 +409,7 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-
+        //-----Metodos de controlador a controlador-----//
 
         //Metodo para obtener la vista principal de los clientes
         public ActionResult IndexCliente()
@@ -423,6 +423,22 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index", "Empleados", null);
         }
 
+
+        //Metodo para obtener la vista principal del equipo
+        public ActionResult IndexTrabajaEn(int? idProyecto)
+        {
+           
+            return RedirectToAction("Index", "TrabajaEn", new { idProyecto });
+
+        }
+
+
+        //Metodo para obtener la vista principal de los requerimientos
+        public ActionResult IndexRequerimientos(int? idProyecto)
+        {
+          return RedirectToAction("Index", "Requerimientos", new  { idProyecto });
+
+        }
 
 
 
@@ -685,7 +701,7 @@ namespace ProyectoIntegrador.Controllers
                 
                 //Busca el proyecto
                 Proyecto proyecto = GetProyecto(id);
-                System.Diagnostics.Debug.WriteLine("got id: " + proyecto.idProyectoAID);
+               
                 
 
                 //Verifica si el proyecto existe

@@ -115,7 +115,7 @@
 
                                         @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
                                         {
-                                            <a data-toggle="tooltip" onclick="my_loading(this,'35px','35px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@item.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
                                         }
                                     </div>
@@ -126,7 +126,7 @@
                                         {
 
                                             <!-- Button trigger modal -->
-                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            <a href="#"   class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                         }
 
                                     </div>
@@ -238,10 +238,10 @@
 
                                 <div class="row justify-content-center" style="width:1150px ; height:100px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="left" title="Ver Requerimientos" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                        <a onclick="my_loading(this,'10px','10px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                     </div>
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'100px','100px')" data-toggle="tooltip" data-placement="right" title="Ver Equipo" class="btn d-inline-block" href="@Url.Action("Index", "TrabajaEn", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                        <a onclick="my_loading(this,'70px','70px')" data-toggle="tooltip" data-placement="right" title="Administrar Equipo" class="btn d-inline-block" href="@Url.Action("IndexTrabajaEn", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
 
                                     </div>
                                 </div>
