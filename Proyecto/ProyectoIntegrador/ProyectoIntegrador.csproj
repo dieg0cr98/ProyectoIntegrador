@@ -221,6 +221,7 @@
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Controllers\TestersController.cs" />
     <Compile Include="Controllers\TrabajaEnController.cs" />
     <Compile Include="Global.asax.cs">
@@ -438,11 +439,16 @@
     <Content Include="Views\TrabajaEn\Details.cshtml" />
     <Content Include="Views\TrabajaEn\Edit.cshtml" />
     <Content Include="Views\TrabajaEn\Index.cshtml" />
+    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
+    <Content Include="Views\Proyectos\FormularioEditar.cshtml" />
+    <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
+    <Content Include="Views\Proyectos\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomAttribute\" />
     <Folder Include="Views\Role\" />
+    <Folder Include="Views\Seguridad\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
