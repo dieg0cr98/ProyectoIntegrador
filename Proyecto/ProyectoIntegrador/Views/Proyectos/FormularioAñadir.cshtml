@@ -219,6 +219,8 @@
                     </div>
 
                     <select class="custom-select" name="cedulaCliente" style="max-width:395px" id="inputGroupSelect03">
+
+
                         @if (ViewBag.permisos.Item3[9] == 1)
                         {
 
@@ -243,7 +245,7 @@
 
                 </div>
 
-
+                <div id="errorCedulaCliente"></div>
 
                 @*Atributo cedulaLider*@
                 <div class="input-group mb-3">
@@ -254,9 +256,11 @@
 
 
                     <select class="custom-select w-100" id="inputGroupSelect01" style="max-width:395px" name="cedulaLider">
+
+
                         @if (ViewBag.permisos.Item3[10] == 1)
                         {
-   
+
                             <option selected value="">Seleccione un Lider</option>
 
                             foreach (var item in ViewBag.lider)
@@ -264,12 +268,14 @@
                                 <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
                             }
                         }
-  
+
                     </select>
                     <div class="input-group-append" style="max-width:none; width:180px">
                         <a class="btn btn-danger" style="max-width:none; width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
                     </div>
                 </div>
+
+
 
 
 
@@ -364,6 +370,12 @@
                             required: true
 
                         },
+                        cedulaCliente:
+                        {
+                            required: true
+
+                        }
+
 
 
 
@@ -371,7 +383,8 @@
                     messages:
                     {
                         nombre: "Inserte al menos 1 caracter",
-                        duracionEstimada: "Inserte la duracion estimada"
+                        duracionEstimada: "Inserte la duracion estimada",
+                        cedulaCliente: "Seleccione un cliente"
 
 
                     },
@@ -383,6 +396,10 @@
                         if ((element.attr('name') === 'duracionEstimada')) {
                             error.insertAfter($('#errorDuracionEstimada'));
                         }
+                        if ((element.attr('name') === 'cedulaCliente')) {
+                            error.insertAfter($('#errorCedulaCliente'));
+                        }
+
 
 
 

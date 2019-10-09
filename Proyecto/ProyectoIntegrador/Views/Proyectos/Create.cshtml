@@ -19,18 +19,10 @@
     <hr>
 
 
-    if (ViewBag.permisos.Item2 != 0)
+    if (ViewBag.permisos.Item2 == 1)
     {
 
-
-
         @Html.Partial("FormularioAñadir")
-
-
-
-
-
-
 
 
     }
@@ -39,7 +31,7 @@
 
         <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted no tiene permisos para crear proyectos</div>
         <div>
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Regresar", "Index")
         </div>
     }
 
