@@ -5,8 +5,10 @@
 }
 
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
-@{ var idCarta = "#a"; }
-@{ var idTab = "a"; }
+@{ var idCarta1 = "#a"; }
+@{ var idCarta2 = "#a"; }
+@{ var idCarta3 = "#a"; }
+
 
 <head>
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -65,34 +67,14 @@
 
 <body>
 
-    <p>
-        Empleados
-        <ul id="sortable1" class="connectedSortable">
-
-            @foreach (var item in Model)
-            {
-                <li class="ui-state-default" value="@item.idProyectoFK"> @item.idEmpleadoFK @item.idProyectoFK </li>
-            }
-
-        </ul>
-
-    </p>
-
-    <p>
-        Equipo
-
-        <ul id="sortable2" class="connectedSortable " style="min-height:100px">
-        </ul>
-
-    </p>
-
-
     <br>
     <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
     <hr> <!-- ??-->
 
     <div class="container " style="max-width: 1800px">
         <div class="row">
+
+            <!--Primera columna, contiene integrantes del equipo-->
             <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
                 <!--Navbar inside the col-->
@@ -102,25 +84,88 @@
                         Lista de Integrantes
                     </a>
 
-                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Integrante" href="/TrabajaEn/Add" class="btn">
-                        <img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Eliminar integrantes" href="#" class="btn">
+                        <img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
                     </a>
                 </nav>
 
+                <!--Carta que contiene la lista de integrantes-->
                 <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
-                    <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
+                    <ul class="list-group h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab-1" role="tablist">
 
-                        <!--Mostrar empleados del equipo aquí-->
+                        <!--Muestra los integrantes del equipo-->
                         @foreach (var empleado in ViewBag.equipoActual)
                         {
-                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@empleado</a>
-                            { idCarta += 1; }
+                            <li><a class="list-group-item list-group-item-action list-group-item-secondary my-1" draggable="false" style="border-radius:20px 20px 20px 20px" href=@idCarta1 id="list-home-list" data-toggle="list" role="tab">@empleado</a></li>
+                            { idCarta1 += 1; }
                         }
 
-                    </div>
+                    </ul>
                 </div>
             </div>
 
+
+
+
+            <!--Segunda columna, contiene la caja de drop-->
+            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                <!--Navbar inside the col-->
+                <nav class="navbar navbar-light bg-secondary">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Agregar Integrantes
+                    </a>
+                </nav>
+
+                <!--Carta que contiene el drag and drop-->
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <ul class="list-group  h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab-2" role="tablist"
+                        ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+
+            <!--Tercera columna, contiene la caja del drag-->
+            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                <!--Navbar inside the col-->
+                <nav class="navbar navbar-light bg-secondary">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Empleados disponibles
+                    </a>
+
+                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
+                        <img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                </nav>
+
+                <!--Carta que contiene el drag and drop-->
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <ul class="list-group  h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="ulCol3" role="tablist"
+                     ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+
+
+
+                        <!--Muesta los líderes-->
+                        <!--Muestra los testers-->
+                        @foreach (var testerActual in ViewBag.testers)
+                        {
+                           <li draggable="true"><a class="list-group-item list-group-item-action list-group-item-secondary my-1"  style="border-radius:20px 20px 20px 20px" href=@idCarta3 id=@testerActual.idEmpleadoPK data-toggle="list" role="tab">@testerActual.nombre @testerActual.apellido1</a></li>
+                            { idCarta3 += 1; }
+                        }
+                    </ul>
+                </div>
+
+
+            </div>
         </div>
     </div>>
 

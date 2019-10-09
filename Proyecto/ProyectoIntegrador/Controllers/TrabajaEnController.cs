@@ -23,7 +23,14 @@ namespace ProyectoIntegrador.Controllers
          */
         private void GetDatosVistaEquipo(int idProyecto)
         {
+            //Encuentra el proyecto asociado al id
             ViewBag.proyectoActual = db.Proyecto.Find(idProyecto);
+
+            //Selecciona todos los empelados que esten disponible y que sean tester
+            ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();
+            //Selecciona todos los empelados que esten disponible y que sean Lider
+            ViewBag.lideres = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+
             //Query para seleccionar integrantes del equipo asociados al proyecto
             var equipo = from P in db.Proyecto
                          join TB in db.TrabajaEn on P.idProyectoAID equals TB.idProyectoFK
@@ -106,3 +113,31 @@ namespace ProyectoIntegrador.Controllers
         }
     }
 }
+
+/*
+ 
+
+        <p>
+                            Equipo
+                            <ul id="sortable2" class="connectedSortable " style="min-height:100px">
+                            </ul>
+                        </p>
+
+
+       <p>
+                            <ul id="sortable1" class="connectedSortable">
+                                @foreach (var item in Model)
+                                {
+                                    <li class="ui-state-default" value="@item.idProyectoFK"> @item.idEmpleadoFK @item.idProyectoFK </li>
+                                }
+                            </ul>
+                        </p> 
+
+    -----------------------------------------------------
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Integrantes" href="/TrabajaEn/Add" class="btn">
+                        <img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Eliminar Integrantes" href="/TrabajaEn/Delete" class="btn">
+                        <img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+*/

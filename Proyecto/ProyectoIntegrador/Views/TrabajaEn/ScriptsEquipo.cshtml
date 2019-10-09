@@ -7,27 +7,25 @@
 
 <!-- Busca en la lista de proyectos por la string del input -->
 <script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, div, li, a, i, txtValue;
-        input = document.getElementById('myInput');
+    function filtrarEmpleados() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
-        div = document.getElementById("list-tab");
-        a = div.getElementsByTagName('a');
-
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < a.length; i++) {
-            txtValue = a.textContent || a[i].innerText;
+        ul = document.getElementById("ulCol3");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
+                li[i].style.display = "";
             } else {
-                a[i].style.display = "none";
+                li[i].style.display = "none";
             }
         }
     }
 </script>
 
-<!--Script del drag and drop-->
+<!--Script del drag and drop#1-->
 <script>
     $(function () {
         $("#sortable1, #sortable2").sortable({
@@ -51,4 +49,62 @@
             },
         })
     });
+</script>
+
+<!--Script del drag and drop con HTML5-->
+<script>
+
+
+    function dragHandler(ev) {
+        // Add the target element's id to the data transfer object
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function dragEndHandler(ev) {
+    }
+
+    function dragEnterHandler(ev) {
+
+    }
+
+    function dragExitHandler(ev) {
+
+    }
+
+    function dragLeaveHandler(ev) {
+
+    }
+
+    function dragOverHandler(ev) {
+        if (ev.preventDefault) {
+            ev.preventDefault(); // Necessary. Allows us to drop.
+        }
+        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+        return false;
+    }
+
+    /*
+     *         Set the ID of the element being dragged and make any other changes we want to apply in the drag state. 
+    */
+    function dragStartHandler(ev) {
+        this.style.opacity = '0.4';
+         dragSrcEl = this;
+        ev.dataTransfer.effectAllowed = 'move';
+        ev.dataTransfer.setData('text/html', this.innerHTML);
+    }
+
+    function dropHandler(ev) {
+        // this/e.target is current target element.
+        if (ev.stopPropagation) {
+            ev.stopPropagation(); // Stops some browsers from redirecting.
+        }
+
+        // Don't do anything if dropping the same column we're dragging.
+        if (dragSrcEl != this) {
+            // Set the source column's HTML to the HTML of the column we dropped on.
+            dragSrcEl.innerHTML = this.innerHTML;
+            this.innerHTML = e.dataTransfer.getData('text/html');
+        }
+        return false;
+    }
 </script>
