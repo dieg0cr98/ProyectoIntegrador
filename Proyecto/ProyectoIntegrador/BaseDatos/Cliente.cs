@@ -17,7 +17,7 @@ namespace ProyectoIntegrador.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.Proyectoes = new HashSet<Proyecto>();
+            this.Proyecto = new HashSet<Proyecto>();
         }
     
         public string cedulaPK { get; set; }
@@ -33,6 +33,6 @@ namespace ProyectoIntegrador.BaseDatos
         public string correo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Proyecto> Proyectoes { get; set; }
+        public virtual ICollection<Proyecto> Proyecto { get; set; }
     }
 }

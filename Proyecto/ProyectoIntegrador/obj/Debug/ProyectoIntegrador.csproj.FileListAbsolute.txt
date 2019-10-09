@@ -107,7 +107,6 @@ C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\Proyect
 C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.dll
 C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.pdb
 C:\Users\DiegoPC\Desktop\Proyecto\Integrador\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csprojAssemblyReference.cache
-C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csprojAssemblyReference.cache
 C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csproj.CoreCompileInputs.cache
 C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.dll
 C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.pdb
@@ -542,3 +541,4 @@ C:\Users\abena\Documents\PI_I-B\ProyectoIntegrador\Proyecto\ProyectoIntegrador\o
 C:\Users\abena\Documents\PI_I-B\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csproj.CopyComplete
 C:\Users\abena\Documents\PI_I-B\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.dll
 C:\Users\abena\Documents\PI_I-B\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.pdb
+C:\Users\b62074\Documents\GitHub\ProyectoIntegrador\Proyecto\ProyectoIntegrador\obj\Debug\ProyectoIntegrador.csprojAssemblyReference.cache

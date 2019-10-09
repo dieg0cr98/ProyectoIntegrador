@@ -14,28 +14,20 @@ namespace ProyectoIntegrador.BaseDatos
     
     public partial class Requerimiento
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Requerimiento()
-        {
-            this.Pruebas = new HashSet<Prueba>();
-        }
-    
         public int idReqPK { get; set; }
         public int idProyectoFK { get; set; }
         public string cedulaTesterFK { get; set; }
         public string nombre { get; set; }
         public string complejidad { get; set; }
-        public System.TimeSpan tiempoEstimado { get; set; }
-        public System.TimeSpan tiempoReal { get; set; }
+        public int tiempoEstimado { get; set; }
+        public Nullable<int> tiempoReal { get; set; }
         public string descripcion { get; set; }
         public System.DateTime fechaDeInicio { get; set; }
-        public System.DateTime fechaDeFinalizacion { get; set; }
+        public Nullable<System.DateTime> fechaDeFinalizacion { get; set; }
         public string estado { get; set; }
-        public System.TimeSpan horas { get; set; }
+        public Nullable<int> horas { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual Proyecto Proyecto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prueba> Pruebas { get; set; }
     }
 }

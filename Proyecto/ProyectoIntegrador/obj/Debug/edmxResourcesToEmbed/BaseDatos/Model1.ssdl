@@ -6,15 +6,15 @@
     </Key>
     <Property Name="cedulaPK" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="apellido1" Type="varchar" MaxLength="30" />
+    <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="apellido2" Type="varchar" MaxLength="30" />
     <Property Name="empresa" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="provincia" Type="varchar" MaxLength="30" />
-    <Property Name="canton" Type="varchar" MaxLength="30" />
-    <Property Name="distrito" Type="varchar" MaxLength="30" />
-    <Property Name="direccionExacta" Type="varchar" MaxLength="50" />
-    <Property Name="telefono" Type="varchar" MaxLength="15" />
-    <Property Name="correo" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="provincia" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="canton" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="distrito" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="direccionExacta" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Empleado">
     <Key>
@@ -50,29 +50,12 @@
     <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="objetivo" Type="varchar" MaxLength="200" />
     <Property Name="estado" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="duracionReal" Type="time" Precision="7" Nullable="false" />
-    <Property Name="duracionEstimada" Type="time" Precision="7" Nullable="false" />
+    <Property Name="duracionReal" Type="int" Nullable="false" />
+    <Property Name="duracionEstimada" Type="int" Nullable="false" />
     <Property Name="fechaInicio" Type="date" Nullable="false" />
     <Property Name="fechaFinalizacion" Type="date" Nullable="false" />
     <Property Name="cedulaClienteFK" Type="varchar" MaxLength="20" />
     <Property Name="cantidadReq" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Prueba">
-    <Key>
-      <PropertyRef Name="idProyectoFK" />
-      <PropertyRef Name="idReqFK" />
-      <PropertyRef Name="idPruebaPK" />
-    </Key>
-    <Property Name="idProyectoFK" Type="int" Nullable="false" />
-    <Property Name="idReqFK" Type="int" Nullable="false" />
-    <Property Name="idPruebaPK" Type="int" Nullable="false" />
-    <Property Name="resultadoFinal" Type="varchar" MaxLength="30" />
-    <Property Name="propositoPrueba" Type="varchar" MaxLength="50" />
-    <Property Name="entradaDatos" Type="varchar" MaxLength="30" />
-    <Property Name="resultadoEsperado" Type="varchar" MaxLength="30" />
-    <Property Name="flujoPrueba" Type="varchar" MaxLength="30" />
-    <Property Name="estado" Type="varchar" MaxLength="30" />
-    <Property Name="descripcionError" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Requerimiento">
     <Key>
@@ -81,16 +64,16 @@
     </Key>
     <Property Name="idReqPK" Type="int" Nullable="false" />
     <Property Name="idProyectoFK" Type="int" Nullable="false" />
-    <Property Name="cedulaTesterFK" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="complejidad" Type="varchar" MaxLength="6" Nullable="false" />
-    <Property Name="tiempoEstimado" Type="time" Precision="7" Nullable="false" />
-    <Property Name="tiempoReal" Type="time" Precision="7" Nullable="false" />
+    <Property Name="cedulaTesterFK" Type="varchar" MaxLength="20" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="complejidad" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="tiempoEstimado" Type="int" Nullable="false" />
+    <Property Name="tiempoReal" Type="int" />
     <Property Name="descripcion" Type="varchar" MaxLength="100" />
     <Property Name="fechaDeInicio" Type="date" Nullable="false" />
-    <Property Name="fechaDeFinalizacion" Type="date" Nullable="false" />
+    <Property Name="fechaDeFinalizacion" Type="date" />
     <Property Name="estado" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="horas" Type="time" Precision="7" Nullable="false" />
+    <Property Name="horas" Type="int" />
   </EntityType>
   <EntityType Name="Tester">
     <Key>
@@ -109,10 +92,8 @@
     <Property Name="rol" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
-  <Association Name="FK_HabilidadTecnica_Empleado">
-    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="FK__Habilidad__idEmp__00DF2177">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
     <End Role="HabilidadTecnica" Type="Self.HabilidadTecnica" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Empleado">
@@ -135,24 +116,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Prueba_Proyecto_Requerimiento">
-    <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Requerimiento">
-        <PropertyRef Name="idReqPK" />
-        <PropertyRef Name="idProyectoFK" />
-      </Principal>
-      <Dependent Role="Prueba">
-        <PropertyRef Name="idReqFK" />
-        <PropertyRef Name="idProyectoFK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Req_CedulaTester">
-    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
     <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Empleado">
@@ -191,7 +156,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TrabajaEn_e">
+  <Association Name="FK_TrabajaEn_empleado">
     <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
     <End Role="TrabajaEn" Type="Self.TrabajaEn" Multiplicity="*" />
     <ReferentialConstraint>
@@ -203,7 +168,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TrabajaEn_p">
+  <Association Name="FK_TrabajaEn_proy">
     <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -222,21 +187,16 @@
     <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HabilidadTecnica" EntityType="Self.HabilidadTecnica" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_HabilidadTecnica_Empleado" Association="Self.FK_HabilidadTecnica_Empleado">
+    <AssociationSet Name="FK__Habilidad__idEmp__00DF2177" Association="Self.FK__Habilidad__idEmp__00DF2177">
       <End Role="Empleado" EntitySet="Empleado" />
       <End Role="HabilidadTecnica" EntitySet="HabilidadTecnica" />
     </AssociationSet>
     <AssociationSet Name="FK_Proyecto_Cliente" Association="Self.FK_Proyecto_Cliente">
       <End Role="Cliente" EntitySet="Cliente" />
       <End Role="Proyecto" EntitySet="Proyecto" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Prueba_Proyecto_Requerimiento" Association="Self.FK_Prueba_Proyecto_Requerimiento">
-      <End Role="Requerimiento" EntitySet="Requerimiento" />
-      <End Role="Prueba" EntitySet="Prueba" />
     </AssociationSet>
     <AssociationSet Name="FK_Req_CedulaTester" Association="Self.FK_Req_CedulaTester">
       <End Role="Empleado" EntitySet="Empleado" />
@@ -250,11 +210,11 @@
       <End Role="Empleado" EntitySet="Empleado" />
       <End Role="Tester" EntitySet="Tester" />
     </AssociationSet>
-    <AssociationSet Name="FK_TrabajaEn_e" Association="Self.FK_TrabajaEn_e">
+    <AssociationSet Name="FK_TrabajaEn_empleado" Association="Self.FK_TrabajaEn_empleado">
       <End Role="Empleado" EntitySet="Empleado" />
       <End Role="TrabajaEn" EntitySet="TrabajaEn" />
     </AssociationSet>
-    <AssociationSet Name="FK_TrabajaEn_p" Association="Self.FK_TrabajaEn_p">
+    <AssociationSet Name="FK_TrabajaEn_proy" Association="Self.FK_TrabajaEn_proy">
       <End Role="Proyecto" EntitySet="Proyecto" />
       <End Role="TrabajaEn" EntitySet="TrabajaEn" />
     </AssociationSet>
