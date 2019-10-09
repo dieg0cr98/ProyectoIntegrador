@@ -127,6 +127,7 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+ //----------------------------------------------------------------Tablas de seguridad------------------------------------------------//
 
         /* 1 Pueder hacer la accion para todos los proyectos(crud)
          * 2 Solo a los proyectos que pertenece
@@ -177,6 +178,48 @@ namespace ProyectoIntegrador.Controllers
           /*cedulaCliente*/                                 {1,0,0,0},
           /*cedulaLider*/                                   {1,0,0,0}
         };
+
+        /*
+       * Define los permisos para acceder los cruds de los equipos.
+       * 1 = Todos los equipos.
+       * 2 = Solo los que participa.
+       * 3 = Ningún equipo.
+       * Orden de usuarios: Soporte y Calidad, Lider, Tester, Cliente
+       */
+        private int[,] tablaSeguridadEquipoGeneral = new int[,] {
+            {1,2,2,2}, //Consultar
+            {1,2,3,3}, //Agregar
+            {1,2,3,3}, //Editar
+            {1,3,3,3} //Eliminar
+        };
+
+        /*
+         * Define los permisos para agregar valores a los atributos de equipo.
+         * 0 = No puede agregar al atributo
+         * 1 = Puede agregar al atributo
+         * Orden de usuarios: {Soporte y Calidad, Lider, Tester, Cliente}
+         */
+        private int[,] tablaSeguridadEquipoAgregar = new int[,] {
+            {0,0,0,0}, //idProyectoFK
+            {0,0,0,0}, //idEmpleadoFK
+            {1,0,0,0}, //rol
+            {1,1,0,0} //estado
+        };
+
+        /*
+         * Define los permisos para editar  los valores de los atributos de equipo.
+         * 0 = No puede editar el atributo
+         * 1 = Puede editar el atributo
+         * Orden de usuarios: {Soporte y Calidad, Lider, Tester, Cliente}
+        */
+        private int[,] tablaSeguridadEquipoEditar = new int[,] {
+            {0,0,0,0}, //idProyectoFK
+            {0,0,0,0}, //idEmpleadoFK
+            {1,0,0,0}, //rol
+            {1,1,0,0} //estado
+        };
+
+//---------------------------------------------------------------------------------------------------------------------------//
 
 
 
@@ -277,6 +320,34 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+
+       /*Metodo para acceder a los permisos del usuario en la vista general de equipo.
+       * Retorna un Tuple<int,int,int,int>, con los valores:
+       *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+       *              permisoConsultar (valor recuperado en la tabla general de permisos para equipo)
+       *              permisoAgregar (valor recuperado en la tabla general de permisos para equipo)
+       *              permisoEditar  (valor recuperado en la tabla general de permisos para equipo)
+       *              permisoBorrar (valor recuperado en la tabla general de permisos para equipo)
+      */
+        public Tuple<int, int, int, int, int> EquipoConsultar(System.Security.Principal.IPrincipal user)
+        {
+            int rol = GetRoleUsuario(user);
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            int permisoAgregar = 2;   //Por defecto no puede editar
+            int permisoEditar = 2;   //Por defecto no puede editar
+            int permisoBorrar = 2;   //Por defecto no puede editar
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadEquipoGeneral[0, rol];
+                permisoAgregar = tablaSeguridadEquipoGeneral[1, rol]; ;
+                permisoEditar = tablaSeguridadEquipoGeneral[2, rol]; ;
+                permisoBorrar = tablaSeguridadEquipoGeneral[3, rol]; ;
+            }
+            return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
 
     }
 

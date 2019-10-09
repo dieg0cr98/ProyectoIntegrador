@@ -13,12 +13,78 @@ namespace ProyectoIntegrador.Controllers
     public class TrabajaEnController : Controller
     {
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+        private SeguridadController seguridad = new SeguridadController();
 
-        // GET: TrabajaEn
-        public ActionResult Index()
+
+        /*
+         * Efecto: Obtiene todos los valores requeridos en la vista de equipo y los añade al viewbag.
+         * Requiere: Un id de proyecto valido
+         * Modifica: Agrega variables al ViewBag
+         */
+        private void GetDatosVistaEquipo(int idProyecto)
         {
-            var trabajaEn = db.TrabajaEn.Include(t => t.Empleado).Include(t => t.Proyecto);
-            return View(trabajaEn.ToList());
+            //Encuentra el proyecto asociado al id
+            ViewBag.proyectoActual = db.Proyecto.Find(idProyecto);
+
+            //Selecciona todos los empelados que esten disponible y que sean tester
+            ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();
+            //Selecciona todos los empelados que esten disponible y que sean Lider
+            ViewBag.lideres = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+
+            //Query para seleccionar integrantes del equipo asociados al proyecto
+            var equipo = from P in db.Proyecto
+                         join TB in db.TrabajaEn on P.idProyectoAID equals TB.idProyectoFK
+                         join E in db.Empleado on TB.idEmpleadoFK equals E.idEmpleadoPK
+                         where P.idProyectoAID == idProyecto
+                         select E.nombre + " " + E.apellido1;
+            ViewBag.equipoActual = equipo;
+        }
+
+        //-------------------------ActionResults--------------------------//
+        /*
+         * Efecto: Mustra la vista principal del equipo.
+         * Requiere: --
+         * Modifica: --
+         */
+
+        public ActionResult Index(int? idProyecto)
+        {
+            if (idProyecto == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                int id = idProyecto ?? default(int);
+                GetDatosVistaEquipo(id);
+                var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
+                return View(trabajaEn.ToList());
+            }
+
+        }
+
+        /*
+         * Efecto: Muestra la vista para agregar empleados al equipo del proyecto.
+         * Requiere: --
+         * Modifica: --
+         */
+        public ActionResult Add()
+        {
+            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre");
+            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre");
+            return View();
+        }
+
+
+        //---------------------------------------------------------------------------//
+        //-----------------------------Rutinas del controlador-----------------------//
+
+        /*
+         * 
+         */
+        public List<Empleado> GetEmpleados()
+        {
+            return db.Empleado.ToList();
         }
 
         // GET: TrabajaEn/Details/5
@@ -36,93 +102,6 @@ namespace ProyectoIntegrador.Controllers
             return View(trabajaEn);
         }
 
-        // GET: TrabajaEn/Create
-        public ActionResult Create()
-        {
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre");
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre");
-            return View();
-        }
-
-        // POST: TrabajaEn/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idProyectoFK,idEmpleadoFK,rol,estado")] TrabajaEn trabajaEn)
-        {
-            if (ModelState.IsValid)
-            {
-                db.TrabajaEn.Add(trabajaEn);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", trabajaEn.idEmpleadoFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", trabajaEn.idProyectoFK);
-            return View(trabajaEn);
-        }
-
-        // GET: TrabajaEn/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            if (trabajaEn == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", trabajaEn.idEmpleadoFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", trabajaEn.idProyectoFK);
-            return View(trabajaEn);
-        }
-
-        // POST: TrabajaEn/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idProyectoFK,idEmpleadoFK,rol,estado")] TrabajaEn trabajaEn)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(trabajaEn).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", trabajaEn.idEmpleadoFK);
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre", trabajaEn.idProyectoFK);
-            return View(trabajaEn);
-        }
-
-        // GET: TrabajaEn/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            if (trabajaEn == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trabajaEn);
-        }
-
-        // POST: TrabajaEn/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            db.TrabajaEn.Remove(trabajaEn);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
@@ -134,3 +113,31 @@ namespace ProyectoIntegrador.Controllers
         }
     }
 }
+
+/*
+ 
+
+        <p>
+                            Equipo
+                            <ul id="sortable2" class="connectedSortable " style="min-height:100px">
+                            </ul>
+                        </p>
+
+
+       <p>
+                            <ul id="sortable1" class="connectedSortable">
+                                @foreach (var item in Model)
+                                {
+                                    <li class="ui-state-default" value="@item.idProyectoFK"> @item.idEmpleadoFK @item.idProyectoFK </li>
+                                }
+                            </ul>
+                        </p> 
+
+    -----------------------------------------------------
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Integrantes" href="/TrabajaEn/Add" class="btn">
+                        <img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Eliminar Integrantes" href="/TrabajaEn/Delete" class="btn">
+                        <img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+*/
