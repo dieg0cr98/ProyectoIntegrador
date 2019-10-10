@@ -182,6 +182,7 @@ namespace ProyectoIntegrador.Controllers
 
             if(idRequerimiento != requerimiento.idReqPK)
             {
+                System.Diagnostics.Debug.WriteLine("Wtf, idRequerimiento is " + idRequerimiento + " and idReqPK is " + requerimiento.idReqPK);
                 if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null)
                 {
                     ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento;

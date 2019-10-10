@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <form class="cmxform" id="commentForm" method="post" action="Create">
+    <form class="cmxform" id="commentForm" method="post" action="Edit">
         <fieldset>
             <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px; box-shadow: 1px 9px 22px 12px grey">
                 @if (ViewBag.error != null)
@@ -131,7 +131,7 @@
                     <div class="form-group col-md-6">
                         @*Atributo duracionEstimada*@
                         <label for="de">Duración Estimada: *</label>
-                        <input id="de" class="form-control" type="number" style="width:700px; text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada" required>
+                        <input id="de" class="form-control" type="number" style="width:700px; text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada">
                         <small class="form-text text-center" style="color:black">Formato en Horas  </small>
                     </div>
 
@@ -147,7 +147,7 @@
                     <div class="form-group col-md-6">
                         @*Atributo fechaInicio*@
                         <label for="fi">Fecha de Inicio: *</label>
-                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio" name="fechai" required>
+                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio" name="fechai">
                     </div>
                     <div class="form-group col-md-6">
                         @*Atributo fechaFinalizacion*@
