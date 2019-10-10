@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="~/Content/Site.css" />
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
 
-        <a class="navbar-brand text-secondary" href="~/Home">Quality Experts S.A</a>
+        <a class="navbar-brand text-secondary" draggable="false"  href="~/Home">Quality Experts S.A</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,16 +35,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link text-light" href="~/Proyectos">Proyectos<span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light"  draggable="false" href="~/Proyectos">Proyectos<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  text-light" href="~/Empleados">Empleados</a>
+                    <a class="nav-link  text-light" draggable="false" href="~/Empleados">Empleados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  text-light" href="~/Clientes">Clientes</a>
+                    <a class="nav-link  text-light" draggable="false" href="~/Clientes">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  text-light" href="~/Home">Consultas Avanzadas</a>
+                    <a class="nav-link  text-light" draggable="false" href="~/Home">Consultas Avanzadas</a>
                 </li>
             </ul>
             @Html.Partial("_LoginPartial")
@@ -60,7 +60,7 @@
         @RenderBody()
         <hr />
 
-        <div class="text-center">
+        <div class="text-center" draggable="false">
             <img src="~/Content/logo.png" class="rounded" style="max-height:200px ; max-width:300px">
         </div>
 

@@ -37,8 +37,8 @@ namespace ProyectoIntegrador.Controllers
             var equipo = from P in db.Proyecto
                          join TB in db.TrabajaEn on P.idProyectoAID equals TB.idProyectoFK
                          join E in db.Empleado on TB.idEmpleadoFK equals E.idEmpleadoPK
-                         where P.idProyectoAID == idProyecto
-                         select E.nombre + " " + E.apellido1;
+                         where P.idProyectoAID == idProyecto && TB.estado == "Activo"
+                         select E;
             ViewBag.equipoActual = equipo;
         }
 
