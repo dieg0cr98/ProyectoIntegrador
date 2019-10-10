@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento>
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Index";
@@ -47,203 +48,217 @@
 
 
 <body>
-    <br />
-    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos</p>
-    <hr>
-    <div class="container " style="max-width: 1800px">
-        <div class="row">
-            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+    @if (Request.IsAuthenticated)
+    {
+        <br />
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos</p>
+        <hr>
+        <div class="container " style="max-width: 1800px">
+            <div class="row">
+                <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                @*NavBar con el titulo y el input para realizar busquedas*@
-                <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
-                    <a class="navbar-brand">
-                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                        Lista de requerimientos
-                    </a>
+                    @*NavBar con el titulo y el input para realizar busquedas*@
+                    <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
+                        <a class="navbar-brand">
+                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Lista de requerimientos
+                        </a>
 
-                    <!--<input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder=" Buscar por Proyectos">-->
-                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                </nav>
-                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                    <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
-                        @foreach (var item in Model)
+                        @if (ViewBag.permisosEspecificos.Item4 == 1)
                         {
-                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
-                            { idCarta += 1; }
+                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
+
+                    </nav>
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                        <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+                            @foreach (var item in Model)
+                            {
+                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                                { idCarta += 1; }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-12 col-md-8">
-                <div class="tab-content d-block" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
+                <div class="col-12 col-md-8">
+                    <div class="tab-content d-block" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
 
 
-                    @foreach (var item in Model)
-                    {
-                        <div class="tab-pane fade bg-secondary " style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                        @foreach (var item in Model)
+                        {
+                            <div class="tab-pane fade bg-secondary " style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
 
-                            <div class="row mx-4 mt-0 md-0 " style="height:48px">
+                                <div class="row mx-4 mt-0 md-0 " style="height:48px">
 
-                                <div class="col-10 " style="max-height:48px">
-                                    <!--Nombre del requerimiento-->
-                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@item.nombre</p>
+                                    <div class="col-10 " style="max-height:48px">
+                                        <!--Nombre del requerimiento-->
+                                        <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@item.nombre</p>
+                                    </div>
+
+                                    <!-- Botones de Editar y Borrar  -->
+                                    @if (ViewBag.permisosEspecificos.Item3 == 1)
+                                    {
+                                        <div class="col">
+                                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Requerimientos", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px"></a>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.permisosEspecificos.Item5 == 1)
+                                    {
+                                        <div class="col " style="max-height = 32px">
+                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+                                        </div>
+                                    }
                                 </div>
 
-                                <!-- Botones de Editar y Borrar  -->
-                                <div class="col">
-                                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Requerimientos", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px"></a>
+                                <hr />
+
+                                <div class="container justify-content-center overflow-auto" style="max-height:390px; height:390px">
+
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+
+                                            @*Atributo Complejidad*@
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Complejidad</span>
+                                                </div>
+
+                                                <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="@item.complejidad" readonly>
+
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col">
+
+                                            @*Atributo Estado*@
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Estado</span>
+                                                </div>
+
+                                                <input id="input2" class="form-control" value="@item.estado" style="text-align:center; max-width:none" type="text" readonly>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+
+                                            @*Atributo FechaInicio*@
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
+                                                </div>
+
+                                                <input id="cfecha" class="form-control text-center" style="max-width:none" type="date" value="@item.fechaDeInicio.ToString("yyyy-MM-dd")" placeholder="@item.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
+
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col">
+
+                                            @*Atributo fechaFinalizacion*@
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha Finalizacion</span>
+                                                </div>
+
+                                                <input id="cfecha2" class="form-control text-center" style="max-width:none" type="date" value="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" placeholder="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" name="Fecha de Finalizacion" readonly>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+
+                                            @*Atributo duracionEstimada*@
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada</span>
+                                                </div>
+
+                                                <input id="input4" class="form-control" type="number" style="max-width:none;  text-align:center" value="@item.tiempoEstimado" placeholder="@item.tiempoEstimado" name="Duracion Estimada" readonly>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col">
+
+                                            @*Atributo duracion Real*@
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Duracion Real</span>
+                                                </div>
+
+                                                <input id="input5" class="form-control" type="number" style="max-width:none;   text-align:center" value="@item.tiempoReal" placeholder="@item.tiempoReal" name="Duracion Real" readonly>
+
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    @*Atributo Objetivo*@
+                                    <div class="input-group mb-4 ">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Descripcion</span>
+                                        </div>
+                                        <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
+
+
+                                    </div>
+
+
+
+
                                 </div>
 
-                                <div class="col " style="max-height = 32px">
-                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top"   src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+                                <hr />
+                                <div class="row justify-content-center" style="width:1150px ; height:100px">
+                                    <div class="col-4  text-center">
+                                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Ver Pruebas" class="btn d-inline-block" href="#"><img src="~/Content/analyze.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                    </div>
                                 </div>
-
-
 
                             </div>
-
-                            <hr />
-
-                            <div class="container justify-content-center overflow-auto" style="max-height:390px; height:390px">
-
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col">
-
-                                        @*Atributo Complejidad*@
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style="width:200px" id="basic-addon1">Complejidad</span>
-                                            </div>
-
-                                            <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="@item.complejidad" readonly>
-
-                                        </div>
-
-
-
-                                    </div>
-                                    <div class="col">
-
-                                        @*Atributo Estado*@
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Estado</span>
-                                            </div>
-
-                                            <input id="input2" class="form-control" value="@item.estado" style="text-align:center; max-width:none" type="text" readonly>
-
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col">
-
-                                        @*Atributo FechaInicio*@
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
-                                            </div>
-
-                                            <input id="cfecha" class="form-control text-center" style="max-width:none" type="date" value="@item.fechaDeInicio.ToString("yyyy-MM-dd")" placeholder="@item.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
-
-                                        </div>
-
-
-
-                                    </div>
-                                    <div class="col">
-
-                                        @*Atributo fechaFinalizacion*@
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha Finalizacion</span>
-                                            </div>
-
-                                            <input id="cfecha2" class="form-control text-center" style="max-width:none"   type="date" value="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd");}}" placeholder="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" name="Fecha de Finalizacion" readonly>
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col">
-
-                                        @*Atributo duracionEstimada*@
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada</span>
-                                            </div>
-
-                                            <input id="input4" class="form-control" type="number" style="max-width:none;  text-align:center" value="@item.tiempoEstimado" placeholder="@item.tiempoEstimado" name="Duracion Estimada" readonly>
- 
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col">
-
-                                        @*Atributo duracion Real*@
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Duracion Real</span>
-                                            </div>
-
-                                            <input id="input5" class="form-control" type="number" style="max-width:none;   text-align:center" value="@item.tiempoReal" placeholder="@item.tiempoReal" name="Duracion Real" readonly>
-
-
-                                        </div>
-
-                            
-
-                                    </div>
-                                </div>
-
-
-                                @*Atributo Objetivo*@
-                                <div class="input-group mb-4 ">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Descripcion</span>
-                                    </div>
-                                    <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
-
-
-                                </div>
-
-
-
-
-                            </div>
-
-                            <hr />
-                            <div  class="row justify-content-center" style="width:1150px ; height:100px">
-                                <div class="col-4  text-center">
-                                    <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Ver Pruebas" class="btn d-inline-block" href="#"><img src="~/Content/analyze.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                                </div>
-                            </div>
-
-                        </div>
 
 
                             //Le agrega un digito mas al idTab
                             { idTab += 1; }
-                            }
+                        }
 
-                        </div>
                     </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    @Html.Partial("ModalEliminar")
+        @Html.Partial("ModalEliminar")
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los requerimientos</div>
+    }
+
     @Html.Partial("Scripts")
 </body>

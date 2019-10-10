@@ -76,13 +76,12 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Index(int idProyecto)
         {
             var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
+            var permisosGenerales = seguridad.RequerimientosConsultar(User);
+            ViewBag.permisosEspecificos = permisosGenerales;
             ViewBag.idProyecto = idProyecto;
-            ViewBag.datosProyecto = db.Proyecto.Where(N => N.idProyectoAID == idProyecto);
-
             return View(requerimiento.ToList());
         }
 
-        // GET: Requerimientos/Create
         // GET: Requerimientos/Create
         public ActionResult Create(int idProyecto)
         {
@@ -113,10 +112,10 @@ namespace ProyectoIntegrador.Controllers
             //Actualiza la cantidad de requerimientos que el tester tiene asignados para 
             //actualiceTester(0, idTester, "");
 
-            //Revisa que no exista un requerimiento con el id ingresado por el usuario
-            if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null)
+            //Revisa que no exista un requerimiento con el id ingresado por el usuario en el mismo proyecto
+            if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
             {
-                ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento;
+                ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento + " en este proyecto";
                 //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
                 ViewBag.idProyectoFK = idProyecto;
                 return View(requerimiento);
@@ -124,10 +123,10 @@ namespace ProyectoIntegrador.Controllers
 
             requerimiento.idReqPK = idRequerimiento;
 
-            //Revisa que no exista un requerimiento con el nombre ingresado por el usuario
-            if (db.Requerimiento.Where(i => i.nombre == nombre).FirstOrDefault() != null)
+            //Revisa que no exista un requerimiento con el nombre ingresado por el usuario en el mismo proyecto
+            if (db.Requerimiento.Where(i => i.nombre == nombre && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
             {
-                ViewBag.error = "Ya existe un requerimiento llamado: " + nombre;
+                ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
                 //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
                 ViewBag.idProyectoFK = idProyecto;
                 return View(requerimiento);
@@ -181,12 +180,13 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = duracionReal;
 
+            //Revisamos que el valor ingresado para el id del requerimiento haya cambiado
             if(idRequerimientoViejo != idRequerimientoNuevo)
             {
-                System.Diagnostics.Debug.WriteLine("Wtf, idRequerimiento is " + idRequerimientoNuevo + " and idReqPK is " + requerimiento.idReqPK);
-                if (db.Requerimiento.Where(i => i.idReqPK == idRequerimientoNuevo).FirstOrDefault() != null)
+                //Si cambió, revisamos que no exista otra tupla en este proyecto con el mismo id de requerimiento
+                if (db.Requerimiento.Where(i => i.idReqPK == idRequerimientoNuevo && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
                 {
-                    ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimientoNuevo;
+                    ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimientoNuevo + " en este proyecto";
                     //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
                     //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
                     ViewBag.idProyecto = idProyecto;
@@ -196,12 +196,13 @@ namespace ProyectoIntegrador.Controllers
 
             requerimiento.idReqPK = idRequerimientoNuevo;
 
-            //Revisa que no exista un requerimiento con el nombre ingresado por el usuario
-            if(nombre != requerimiento.nombre)
+            //Revisamos que el valor ingresado para el nombre del requerimiento haya cambiado
+            if (nombre != requerimiento.nombre)
             {
-                if (db.Requerimiento.Where(i => i.nombre == nombre).FirstOrDefault() != null)
+                //Si cambió, revisamos que no exista otra tupla en este proyecto con el mismo nombre de requerimiento
+                if (db.Requerimiento.Where(i => i.nombre == nombre && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
                 {
-                    ViewBag.error = "Ya existe un requerimiento llamado: " + nombre;
+                    ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
                     //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
                     //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
                     ViewBag.idProyecto = idProyecto;
