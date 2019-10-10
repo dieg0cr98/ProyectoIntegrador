@@ -70,6 +70,10 @@
 
                 <div id="errors"></div>
                 <div class="container justify-content-center bg-secondary" style="width:800px; padding-top:20px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+                    }
 
                     @*Atributo ID*@
                     <div class="form-row mb-2">
