@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using ProyectoIntegrador.Models;
+
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -45,9 +47,16 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cedulaPK,nombre,apellido1,apellido2,empresa,provincia,canton,distrito,direccionExacta,telefono,correo")] Cliente cliente)
         {
+            //Revisa si no hay otro cliente con cedula ingresada
+            if (db.Cliente.Where(i => i.cedulaPK == cliente.cedulaPK).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un cliente con la cedula: " + cliente.cedulaPK;
+                ViewBag.cedulaPK = cliente.cedulaPK;
+                return View(cliente);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Cliente.Add(cliente);
@@ -77,9 +86,49 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "cedulaPK,nombre,apellido1,apellido2,empresa,provincia,canton,distrito,direccionExacta,telefono,correo")] Cliente cliente)
+        public ActionResult Edit(string cedulaVieja, string cedulaPK, string nombre, string apellido1, string apellido2, string empresa, string provincia,
+            string canton, string distrito, string direccionExacta, string telefono, string correo)
         {
+            Cliente cliente = db.Cliente.Find(cedulaVieja);
+            
+            cliente.nombre = nombre;
+            cliente.apellido1 = apellido1;
+            cliente.apellido2 = apellido2;
+            cliente.empresa = empresa;
+            cliente.provincia = provincia;
+            cliente.canton = canton;
+            cliente.distrito = distrito;
+            cliente.provincia = provincia;
+            cliente.direccionExacta = direccionExacta;
+            cliente.telefono = telefono;
+           
+            //Revisa si no hay otro cliente con cedula ingresada
+            if (cedulaVieja != cedulaPK)
+            {
+                System.Diagnostics.Debug.WriteLine("Wtf, cedulaNueva is " + cedulaPK + " and cedulaVieja is " + cedulaVieja);
+                if (db.Cliente.Where(i => i.cedulaPK == cedulaPK).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un cliente con la cedula: " + cedulaPK;
+                    ViewBag.cedulaPK = cedulaPK;
+                    return View(cliente);
+                }
+            }
+
+            //En caso de que no existe se hace el cambio
+            cliente.cedulaPK = cedulaPK;
+
+            if (correo != cliente.correo)
+            {
+                if (db.Cliente.Where(i => i.correo == correo).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un cliente con el correo: " + correo;
+                    ViewBag.cedulaPK = cedulaPK;
+                    return View(cliente);
+                }
+            }
+
+            cliente.correo = correo;
+
             if (ModelState.IsValid)
             {
                 db.Entry(cliente).State = EntityState.Modified;
@@ -122,6 +171,15 @@ namespace ProyectoIntegrador.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //Metodo para eliminar directamente un cliente
+        public ActionResult Eliminar(string id)
+        {
+            Cliente cliente = db.Cliente.Find(id); // Se busca el cliente en la bd
+            db.Cliente.Remove(cliente); // se elimina cliente de la bd
+            db.SaveChanges(); // se guardan los cambios
+            return RedirectToAction("Index"); // se devuelve al index.
         }
     }
 }

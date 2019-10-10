@@ -1,0 +1,325 @@
+﻿<!-- Despliega el modal -->
+<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+
+
+        var a = document.getElementById('pager')
+        a.href += recipient;
+
+    })
+</script>
+
+<!--Agrega un loading al Edit-->
+<script>
+    function my_loading(elemt) {
+        elemt.disabled = true;
+        elemt.innerHTML = '<div class="spinner-border text-black" role="status"><span class="sr-only">Loading...</span></div>';
+    }
+
+</script>
+
+<!-- Busca en la lista de clientes por la string del input -->
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, div, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        div = document.getElementById("list-tab");
+        a = div.getElementsByTagName('a');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < a.length; i++) {
+            txtValue = a.textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+
+
+
+</script>
+
+
+
+<!-- Agrega Tooltips a los elementos -->
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+
+<script>
+    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
+    function getProvincias() {
+
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincias.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()' onclick='getCantones()' style='width: 450px'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino').html(html);
+            }
+        });
+    }
+
+
+    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
+    function getCantones() {
+        var selected_option = $("#abc option:selected").data("t");
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='width: 450px'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino2').html(html);
+            }
+        });
+
+
+    }
+
+    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
+    function getDistritos() {
+        var provincia = $("#abc option:selected").data('t');
+        var canton = $("#abc2 option:selected").data('t');
+
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc3' class='form-control' style='width: 450px' name='distrito'>";
+                for (key in data) {
+                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino3').html(html);
+            }
+        });
+    }
+
+</script>
+
+<script>
+    $('document').ready(function () {
+        $('#loading').hide();
+    });
+
+    $('#btnsubmit').on('click', function () {
+        $('#acceptar').hide('fast');
+        $('#loading').show('fast');
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#clientForm").validate(
+            {
+                rules:
+                {
+                    nombre:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    apellido1:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    apellido2:
+                    {
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    cedulaPK:
+                    {
+                        required: true,
+                        minlength: 1,
+                        number: true,
+                        maxlength: 20
+                    },
+                    empresa:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    provincia:
+                    {
+                        required: true
+                    },
+                    canton:
+                    {
+                        required: true
+                    },
+                    distrito:
+                    {
+                        required: true
+                    },
+                    direccionExacta:
+                    {
+                        required: true,
+                        maxlength: 300
+                    },
+                    telefono:
+                    {
+                        required: true,
+                        number: true,
+                        maxlength: 15
+                    },
+                    correo:
+                    {
+                        required: true,
+                        maxlength: 50
+                    }
+                },
+                messages:
+                {
+                    cedulaPK: "Inserte cédula válida",
+                    nombre: "Inserte un nombre válido",
+                    apellido1: "Inserte un apellido válido",
+                    apellido1: "Inserte un apellido válido",
+                    empresa: "Inserte nombre de empresa válido",
+                    provincia: "Seleccione una provincia",
+                    canton: "Seleccione un canton",
+                    distrito: "Seleccione un distrito",
+                    direccionExacta: "Ingrese una dirección válida, rango 300 caracteres",
+                    telefono: "Ingrese número de teléfono válido",
+                    correo: "Ingrese un correo válido"
+                },
+
+                errorPlacement: function (error, element) {
+                    if ((element.attr('name') === 'nombre')) {
+                        error.insertAfter($('#errorNombre'));
+                    }
+                    if ((element.attr('name') === 'apellido1')) {
+                        error.insertAfter($('#errorApe1'));
+                    }
+                    if ((element.attr('name') === 'apellido2')) {
+                        error.insertAfter($('#errorApe2'));
+                    }
+                    if ((element.attr('name') === 'empresa')) {
+                        error.insertAfter($('#errorEmp'));
+                    }
+                    if ((element.attr('name') === 'cedulaPK')) {
+                        error.insertAfter($('#errorCed'));
+                    }
+                    if ((element.attr('name') === 'provincia')) {
+                        error.insertAfter($('#errorProv'));
+                    }
+                    if ((element.attr('name') === 'canton')) {
+                        error.insertAfter($('#errorCant'));
+                    }
+                    if ((element.attr('name') === 'distrito')) {
+                        error.insertAfter($('#errorDistr'));
+                    }
+                    if ((element.attr('name') === 'direccionExacta')) {
+                        error.insertAfter($('#errorDir'));
+                    }
+                    if ((element.attr('name') === 'correo')) {
+                        error.insertAfter($('#errorEma'));
+                    }
+                    if ((element.attr('name') === 'telefono')) {
+                        error.insertAfter($('#errorTel'));
+                    }
+                },
+                invalidHandler: function (form, validator) {
+                    $('#loading').hide('fast');
+                    $('#acceptar').show('fast');
+                },
+            });
+    });
+</script>
+
+<script>
+    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
+    function getProvinciasEdit(provDefault) {
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincias.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()' style='width: 450px'>";
+                for (key in data) {
+                    if (data[key] === provDefault)
+                        html += "<option value='" + data[key] + "' selected='selected'  data-t='" + key + "'>" + data[key] + "</option>";
+                    else
+                        html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino').html(html);
+            }
+        });
+    }
+
+    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
+    function getCantonesEdit(cantDefault) {
+
+        var selected_option = $("#abc option:selected").data("t");
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' style='width: 450px'>";
+                for (key in data) {
+                    if(data[key] === cantDefault)
+                        html += "<option value='" + data[key] + "' selected='selected' data-t='" + key + "'>" + data[key] + "</option>";
+                    else
+                        html += "<option value='" + data[key] + "' data-t='" + key + "'>" + data[key] + "</option>";
+                }
+                html += "</select";
+                $('#destino2').html(html);
+            }
+        });
+
+
+    }
+
+    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
+    function getDistritosEdit(distrDefault) {
+        var provincia = $("#abc option:selected").data('t');
+        var canton = $("#abc2 option:selected").data('t');
+
+        $.ajax({
+            dataType: "json",
+            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
+            data: {},
+            success: function (data) {
+                var html = "<select id='abc3' class='form-control' style='width: 450px' name='distrito'>";
+                for (key in data) {
+                    if(data[key] === distrDefault)
+                        html += "<option value='" + data[key] + "' selected='selected' data-t='" + key + "'>" + data[key] + "</option>";
+                    else
+                        html += "<option value='" + data[key] + "' data-t='" + key + "'>" + data[key] + "</option>";
+                }
+
+                html += "</select";
+                $('#destino3').html(html);
+            }
+        });
+    }
+</script>

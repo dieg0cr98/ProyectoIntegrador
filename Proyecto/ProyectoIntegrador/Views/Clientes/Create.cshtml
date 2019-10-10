@@ -1,115 +1,223 @@
 ﻿@model ProyectoIntegrador.BaseDatos.Cliente
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Clientes";
 }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
 
-<h2>Create</h2>
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Cliente</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.cedulaPK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cedulaPK, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.apellido1, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.apellido2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.apellido2, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.empresa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.empresa, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .error {
+            color: white;
+            background-color: red;
+            font-family: verdana, Helvetica;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        input.error, input select.error {
+            background-color: white;
+            border-color: red;
+        }
+    </style>
+</head>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<h2 class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Cliente  <img src="~/Content/boss.svg" width="70" height="70"></h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.direccionExacta, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.direccionExacta, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<hr />
+<body onload="getProvincias()">
+    <div class="container align-content-center" style="max-width: 1800px;">
+        <div class="tab-content d-block overflow-auto bg-secondary" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
+            <!--Despliegue del formulario-->
+            <div style="padding-left:30px; padding-right:30px; padding-top:20px;  overflow-x:hidden">
+                <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
+                    <fieldset>
+                        @if (ViewBag.error != null)
+                        {
+                            <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        }
+                        <div class="form-row mb-2">
+                            <div class="col">
+                                <!--Campo Nombre-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre *</span>
+                                    </div>
+                                    <input class="form-control" id="nombre" name="nombre" type="text" style="max-width:none" placeholder="Nombre" />
+                                </div>
+                                <div id="errorNombre"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Primer Apellido-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="apellido1" style="width:200px">Primer Apellido *</span>
+                                    </div>
+                                    <input class="form-control" id="apellido1" name="apellido1" type="text" style=" max-width:none" placeholder="Apellido" />
+                                </div>
+                                <div id="errorApe1"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Segundo Apellido-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="apellido2" style="width:200px">Segundo Apellido</span>
+                                    </div>
+                                    <input class="form-control" id="apellido2" name="apellido2" type="text" style="max-width:none" placeholder="Apellido" />
+                                </div>
+                                <div id="errorApe2"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col">
+                                <!--Campo Cedula-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="cedulaPK" style="width:200px">Cédula *</span>
+                                    </div>
+                                    <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style=" max-width:none" placeholder="000000000" />
+                                </div>
+                                <div id="errorCed"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Email-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="correo" style="width:200px">Correo *</span>
+                                    </div>
+                                    <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style=" max-width:none" />
+                                </div>
+                                <div id="errorEma"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Telefono-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="telefono" style="width:200px">Teléfono *</span>
+                                    </div>
+                                    <input class="form-control" id="telefono" name="telefono" type="text" style=" max-width:none" placeholder="88888888" />
+                                </div>
+                                <div id="errorTel"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-4">
+                                <!--Campo Empresa-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="empresa" style="width:200px">Empresa *</span>
+                                    </div>
+                                    <input class="form-control" id="empresa" name="empresa" type="text" style="max-width:none" placeholder="Quality Experts" />
+                                </div>
+                                <div id="errorEmp"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-4">
+                                <!--Campo Provincia-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="provincia" style="width:200px">Provincia</span>
+                                    </div>
+                                    <div id="destino"></div>
+                                </div>
+                                <div id="errorProv"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Canton-->
+                                <div class="input-group mb-3" id="canton1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="canton" style="width:200px">Cantón</span>
+                                    </div>
+                                    <div id="destino2"></div>
+                                </div>
+                                <div id="errorCant"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Distrito-->
+                                <div class="input-group mb-3" id="distrito1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="distrito" style="width:200px">Distrito</span>
+                                    </div>
+                                    <div id="destino3"></div>
+                                </div>
+                                <div id="errorDistr"></div>
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <br>
+                        <div class="form-row mb-8">
+                            <!--Campo Direccion Exacta-->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta *</span>
+                                </div>
+                                <textarea class="form-control col-sm-6" id="direccionExacta" maxlength="300" name="direccionExacta" placeholder="Dirección de la empresa" style="width:600px; height: 200px;"></textarea>
+                            </div>
+                            <div id="errorDir"></div>
+                        </div>
+                        <br><br>
+                        <h5>* Campos Requeridos</h5>
+                        <hr>
+                        <div class="row" style="max-width:1600px">
+                            <!--Boton Cancelar-->
+                            <div class="col-6  text-center" style=" padding-left:30%">
+                                <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                            </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                            <!--Boton Aceptar-->
+                            <div class="col-6  text-center" style=" padding-right:30%">
+                                <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                    <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
-}
+    @Html.Partial("ScriptsCliente")
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
