@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto>
 @using Microsoft.AspNet.Identity
+
 @{
     ViewBag.Title = "Proyectos";
 
@@ -8,7 +9,6 @@
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
-
 
 <head>
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -46,7 +46,6 @@
     </style>
 
 </head>
-
 
 <body>
 
@@ -249,7 +248,6 @@
                                 </div>
 
                                 <hr />
-
                                 <div class="row justify-content-center" style="width:1150px ; height:100px">
                                     <div class="col-4  text-center">
                                         <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
