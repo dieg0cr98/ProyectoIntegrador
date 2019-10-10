@@ -45,12 +45,12 @@
                     <div class="form-group col-md-6">
                         @*Atributo IdReqPK*@
                         <label for="id">ID del requerimiento: *</label>
-                        <input id="id" class="form-control" type="text" style="text-align:center" value="@Model.idProyectoFK" name="idRequerimiento" required>
+                        <input id="id" class="form-control" type="text" style="text-align:center" value="@Model.idReqPK" name="idRequerimiento" required>
                     </div>
                     <div class="form-group col-md-6">
                         @*Atributo nombre*@
                         <label for="nom">Nombre del requerimiento: *</label>
-                        <input id="nom" class="form-control" style="text-align:center" value="@Model.nombre" name="nombre" minlength="1" maxlength="20" type="text" required>
+                        <input id="nom" class="form-control" style="text-align:center" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" required>
                     </div>
                 </div>
 
@@ -147,7 +147,7 @@
                     <div class="form-group col-md-6">
                         @*Atributo fechaInicio*@
                         <label for="fi">Fecha de Inicio: *</label>
-                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio" name="fechai">
+                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" name="fechai">
                     </div>
                     <div class="form-group col-md-6">
                         @*Atributo fechaFinalizacion*@
@@ -166,7 +166,7 @@
 
                 <div class="row justify-content-center" style="max-width:1150px">
                     <div class="col-4  text-center">
-                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyecto })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                     </div>
                     <div class="col-4  text-center">
 

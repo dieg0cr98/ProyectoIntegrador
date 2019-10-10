@@ -167,7 +167,7 @@ namespace ProyectoIntegrador.Controllers
         // POST: Requerimientos/Edit/5
         [HttpPost]
         public ActionResult Edit(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
-            int duracionEstimada, int duracionReal, DateTime fechai, DateTime fechaf, int idProyecto)
+            int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto)
         {
 
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
