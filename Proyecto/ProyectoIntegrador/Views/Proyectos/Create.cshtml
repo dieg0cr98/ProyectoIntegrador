@@ -1,108 +1,41 @@
-﻿@model ProyectoIntegrador.BaseDatos.Requerimiento
+@model  ProyectoIntegrador.BaseDatos.Proyecto
 
 @{
     ViewBag.Title = "Create";
 }
-<br />
-<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
-<hr>
 
-<form class="cmxform" id="commentForm" method="post" action="Create">
-    <fieldset>
-        <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px; box-shadow: 1px 9px 22px 12px grey">
-            @if (ViewBag.error != null)
-            {
-                <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
-            }
+@if (Request.IsAuthenticated)
+{
 
-            @*Atributo idProyecto*@
-            <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
 
-            <div class="form-row pt-4">
-                <div class="form-group col-md-6">
-                    @*Atributo IdReqPK*@
-                    <label for="id">ID del requerimiento: *</label>
-                    <input id="id" class="form-control" type="number" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
-                </div>
-                <div class="form-group col-md-6">
-                    @*Atributo nombre*@
-                    <label for="nom">Nombre del requerimiento: *</label>
-                    <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
-                </div>
-            </div>
+    <br />
 
-            <div class="form-row pt-4 mx-6">
-                <div class="form-group col-md-6">
-                    @*Atributo Complejidad*@
-                    <label for="comp">Complejidad:</label>
-                    <select class="custom-select" name="complejidad">
-                        <option value="Simple">Simple</option>
-                        <option value="Medio" selected>Medio</option>
-                        <option value="Complejo">Complejo</option>
-                        <option value="Muy Complejo">Muy Complejo</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    @*Atributo Estado*@
-                    <label for="est">Estado:</label>
-                    <select class="custom-select" name="estado">
-                        <option value="Activo">Activo</option>
-                        <option value="Preparacion" selected>Preparación</option>
-                        <option value="Terminado">Terminado</option>
-                    </select>
-                </div>
-            </div>
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Proyecto</p>
 
-            <div class="form-row mb-3">
-                <div class="form-group col-md-6">
-                    @*Atributo duracionEstimada*@
-                    <label for="de">Duración Estimada: *</label>
-                    <input id="de" class="form-control" type="number" style="width:700px; text-align:center" name="duracionEstimada" required>
-                    <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
-                </div>
+    <hr>
 
-                <div class="form-group col-md-6">
-                    @*Atributo fechaInicio*@
-                    <label for="fi">Fecha de Inicio: *</label>
-                    <input id="fi" class="form-control text-center" type="date" value="@DateTime.Now.ToShortDateString()" name="fechai" required>
-                    <small class="form-text text-center" style="color:black">Por defecto fecha del dia creado </small>
-                </div>
-            </div>
 
-            @*Atributo Descripción*@
-            <div class="input-group mb-3 ">
-                <label class="input-group-text" style="width:200px; text-align:center" id="basic-addon1">Descripcion: </label>
-                <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" cols="0" id="comment"></textarea>
-            </div>
+    if (ViewBag.permisos.Item2 == 1)
+    {
 
-            <h6>* Campo Requerido</h6>
+        @Html.Partial("FormularioAñadir")
 
-            <div class="row justify-content-center" style="max-width:1150px">
-                <div class="col-4  text-center">
-                    <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                </div>
-                <div class="col-4  text-center">
 
-                    <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                    </button>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</form>
-
-<script>
-    $("#commentForm").validate();
-</script>
-
-<script>
-    $(function () {
-        $('[data-toogle="tooltip"]').tooltip()
     }
-    )
-</script>
+    else
+    {
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Usted no tiene permisos para crear proyectos</div>
+        <div>
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+
+
+
+
+}
+else
+{
+    <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder crear proyectos</div>
 }

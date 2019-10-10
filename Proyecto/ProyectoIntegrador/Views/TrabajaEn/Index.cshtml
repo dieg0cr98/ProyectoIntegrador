@@ -1,51 +1,145 @@
 ﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.TrabajaEn>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Equipo del Proyecto";
 }
 
-<h2>Index</h2>
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta1 = "#a"; }
+@{ var idCarta2 = "#a"; }
+@{ var idCarta3 = "#a"; }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.rol)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Empleado.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Proyecto.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.rol)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Empleado.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-</table>
+    <style>
+        /*Estilo del drag and drop*/
+        #sortable1, #sortable2 {
+            border: 1px solid #eee;
+            width: 142px;
+            min-height: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 5px 0 0 0;
+            float: left;
+            margin-right: 10px;
+            background-color: antiquewhite;
+        }
+
+            #sortable1 li, #sortable2 li {
+                margin: 0 5px 5px 5px;
+                padding: 5px;
+                font-size: 1.2em;
+                color: white;
+                width: 120px;
+                background-color: #76323f;
+            }
+    </style>
+
+    <style>
+        /*Estilo de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
+
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+</head>
+
+<body>
+
+    <br>
+    <p class="font-weight-bold text-center" draggable="false" dragstyle="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
+    <hr> <!-- ??-->
+
+    <div class="container " draggable="false" style="max-width: 1800px">
+        <div class="row">
+
+            <!--Primera columna, contiene integrantes del equipo-->
+            <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                <!--Navbar inside the col-->
+                <nav class="navbar navbar-light bg-secondary" draggable="false">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="" draggable="false">
+                        Lista de Integrantes
+                    </a>
+
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" draggable="false" data-placement="top" title="Editar estado de integrantes" href="TrabajaEn/Edit" class="btn">
+                        <img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                </nav>
+
+                <!--Carta que contiene la lista de integrantes-->
+                <div class="card" draggable="false" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <ul class="list-group h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab-1" role="tablist"
+                          ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+
+                        <!--Muestra los integrantes del equipo-->
+                        @foreach (var empleado in ViewBag.equipoActual)
+                        {
+                            <li><a class="list-group-item list-group-item-action list-group-item-secondary my-1" draggable="false" style="border-radius:20px 20px 20px 20px" href=@idCarta1 id="list-home-list" data-toggle="list" role="tab">@empleado</a></li>
+                            { idCarta1 += 1; }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <!--Segunda columna, contiene lista de empleados disponibles-->
+            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                <!--Navbar inside the col-->
+                <nav class="navbar navbar-light bg-secondary">
+                    <a class="navbar-brand">
+                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Empleados disponibles
+                    </a>
+
+                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
+                        <img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    </a>
+                </nav>
+
+                <!--Carta que contiene el drag and drop-->
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                    <ul class="list-group  h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="ulCol3" role="tablist"
+                        ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+
+                        <!--Muesta los líderes-->
+                        <!--Muestra los testers-->
+                        @foreach (var testerActual in ViewBag.testers)
+                        {
+                            <li draggable="true"><a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" href=@idCarta3 id=@testerActual.idEmpleadoPK data-toggle="list" role="tab">@testerActual.nombre @testerActual.apellido1</a></li>
+                            { idCarta3 += 1; }
+                        }
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>>
+
+    @{ Html.RenderPartial("ScriptsEquipo"); }
+</body>
