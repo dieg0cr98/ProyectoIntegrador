@@ -137,7 +137,7 @@ namespace ProyectoIntegrador.Controllers
                        /*Soporte/Calidad , Lider , Tester , Cliente*/
          /*Consultar*/                   {1,2,2,2},
          /*Agregar*/                     {1,3,3,3},
-         /*Editar*/                      {1,2,3,3},
+         /*Editar*/                      {1,1,3,3},
          /*Eliminar*/                    {1,3,3,3}
          };
 

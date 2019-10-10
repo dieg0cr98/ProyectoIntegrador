@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,18 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using ProyectoIntegrador.Models;
+
 
 namespace ProyectoIntegrador.Controllers
 {
     public class EmpleadosController : Controller
     {
-        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
 
         // GET: Empleados
         public ActionResult Index()
         {
-            var empleado = db.Empleado.Include(e => e.Tester);
-            return View(empleado.ToList());
+            var Empleado = db.Empleado.Include(e => e.Tester);
+            return View(Empleado.ToList());
         }
 
         // GET: Empleados/Details/5
@@ -49,7 +51,15 @@ namespace ProyectoIntegrador.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idEmpleadoPK,nombre,apellido1,apellido2,correo,telefono,fechaNacimiento,distrito,canton,provincia,direccion,estado,tipoTrabajo")] Empleado empleado)
-        {
+        { 
+            if(db.Empleado.Where(i => i.idEmpleadoPK == empleado.idEmpleadoPK).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un empleado con el ID: " + empleado.idEmpleadoPK + " en el sistema";
+                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
+                return View(empleado);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Empleado.Add(empleado);
@@ -84,6 +94,13 @@ namespace ProyectoIntegrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idEmpleadoPK,nombre,apellido1,apellido2,correo,telefono,fechaNacimiento,distrito,canton,provincia,direccion,estado,tipoTrabajo")] Empleado empleado)
         {
+            if (db.Empleado.Where(i => i.idEmpleadoPK == empleado.idEmpleadoPK).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un empleado con el ID: " + empleado.idEmpleadoPK + " en el sistema";
+                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
+                return View(empleado);
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(empleado).State = EntityState.Modified;
@@ -128,14 +145,13 @@ namespace ProyectoIntegrador.Controllers
             }
             base.Dispose(disposing);
         }
-        
-            public ActionResult Eliminar(string id)
+
+        public ActionResult Eliminar(string id)
         {
             Empleado empleado = db.Empleado.Find(id);
             db.Empleado.Remove(empleado);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-    
     }
 }
