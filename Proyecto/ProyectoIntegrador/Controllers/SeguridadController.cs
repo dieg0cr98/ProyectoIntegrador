@@ -360,6 +360,39 @@ namespace ProyectoIntegrador.Controllers
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
 
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
+         * Retorna un Tuple<int,string,int,int,int>, con los valores:
+         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
+         *              cedulaUsuario
+         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
+         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
+         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
+        */
+        public Tuple<int, int, int, int, int> RequerimientosConsultar(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 2; //Por defecto no puede consultar
+            int permisoEditar = 2;   //Por defecto no puede editar
+            int permisoAgregar = 2;   //Por defecto no puede agregar
+            int permisoBorrar = 2;   //Por defecto no puede eliminar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtiene los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadRequerimientosGeneral[0, rol];
+                permisoEditar = tablaSeguridadRequerimientosGeneral[2, rol]; ;
+                permisoAgregar = tablaSeguridadRequerimientosGeneral[1, rol]; ;
+                permisoBorrar = tablaSeguridadRequerimientosGeneral[3, rol]; ;
+            }
+
+            return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
+
     }
 
 
