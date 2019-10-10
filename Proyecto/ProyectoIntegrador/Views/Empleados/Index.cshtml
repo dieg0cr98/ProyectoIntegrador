@@ -89,144 +89,138 @@
                 <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
                     @foreach (var item in Model)
                     {
-                        <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                            <div class="row mx-4 mt-4 md-0" style="height:30px">
-                                <div class="col-8" style="max-height:30px">
-                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Empleado</p>
-                                </div>
-
-                                <!-- Botones de Editar -->
-                                <div class="col" style="margin-left: 10%;">
-                                    <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                                </div>
-
-                                <!-- Button trigger modal para Borrar-->
-                                <div class="col" style="width:auto; height:auto;">
-                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                                </div>
+                    <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                        <div class="row mx-4 mt-4 md-0" style="height:30px">
+                            <div class="col-8" style="max-height:30px">
+                                <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Empleado</p>
                             </div>
-                            <hr />
 
-                            <!--Informacion del empleado que se selecciona-->
+                            <!-- Botones de Editar -->
+                            <div class="col" style="margin-left: 10%;">
+                                <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            </div>
 
-                            <div style="max-width:1150px; height:auto;">
-                                <p style="font-size: 22px; text-align:center;">
-
-                                    <div class="container justify-content-center">
-
-                                        <div class="form-row pt-4 mx-6">
-                                            <div class="form-group col-md-6">
-                                                @*Atributo Nombre*@
-                                                <label for="input1">Nombre</label>
-
-                                                <input id="input1" class="form-control" type="text" style="text-align:center" value="@item.nombre" placeholder="hola" name="nombre" readonly>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-
-                                                @*Atributo Apellidos*@
-                                                <label for="input2">Apellidos</label>
-                                                <input id="input2" class="form-control" value="@item.apellido1  @item.apellido2" style="text-align:center" name="apellidos" minlength="1" maxlength="30" type="text" readonly>
-
-
-
-                                            </div>
-                                        </div>
-                                        <div class="form-row pt-4 mx-6">
-                                            <div class="form-group col-md-6">
-                                                @*Atributo ID*@
-                                                <label for="input1">ID Empleado</label>
-
-                                                <input id="input1" class="form-control" type="text" style="text-align:center" value="@item.idEmpleadoPK" placeholder="hola" name="id" readonly>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-
-                                                @*Atributo Correo*@
-                                                <label for="input2">Correo</label>
-                                                <input id="input2" class="form-control" value="@item.correo" style="text-align:center" name="correo" minlength="1" maxlength="30" type="text" readonly>
-
-
-
-                                            </div>
-
-
-                                        </div>
-
-                                        <div class="form-row pt-4 mx-6">
-                                            <div class="form-group col-md-6">
-                                                @*Atributo Puesto*@
-                                                <label for="input1"> Puesto </label>
-
-                                                <<input id="input1" class="form-control" value="@item.tipoTrabajo" style="text-align:center" name="puesto" minlength="1" maxlength="30" type="text" readonly>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-
-                                                @*Atributo Estado*@
-                                                <label for="input2">Estado</label>
-                                                <input id="input2" class="form-control" value="@item.estado" style="text-align:center" name="Estado" minlength="1" maxlength="30" type="text" readonly>
-
-
-
-                                            </div>
-                                        </div>
-
-                                        @*Habilidades*@
-                                        <div class="input-group mb-3  mx-6">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Habilidades Tecnicas</span>
-                                            </div>
-
-                                            <textarea class="form-control" name="objetivo" value="@item.HabilidadTecnicas" placeholder="" maxlength="200" aria-label="With textarea" style="width:700px" id="comment" readonly></textarea>
-
-
-
-                                        </div>
-
-                                        <div class="form-row pt-4 mx-6">
-                                            <div class="form-group col-md-6">
-                                                @*Atributo Fecha*@
-                                                <label for="input1">Fecha de nacimiento</label>
-
-                                                <input id="input1" class="form-control" value="@item.fechaNacimiento" style="text-align:center" name="fecha" minlength="1" maxlength="30" type="text" readonly>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-
-                                                @*Atributo Telefono*@
-                                                <label for="input2">Telefono</label>
-                                                <input id="input2" class="form-control" value="@item.telefono" style="text-align:center" name="telefono" minlength="1" maxlength="30" type="text" readonly>
-
-
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row pt-4 mx-6">
-                                            <div class="form-group col-md-6">
-                                                @*Atributo Lugar*@
-                                                <label for="input1"> Lugar </label>
-                                                <<input id="input1" class="form-control" value="@item.provincia | @item.canton | @item.distrito" style="text-align:center" name="lugar" minlength="1" maxlength="50" type="text" readonly>
-
-                                            </div>
-                                            <div class="form-group col-md-6">
-
-                                                @*Atributo Direccion*@
-                                                <label for="input2">Direccion</label>
-                                                <input id="input2" class="form-control" value="@item.direccion" style="text-align:center" name="direccion" minlength="1" maxlength="30" type="text" readonly>
-
-
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                  </p>
+                            <!-- Button trigger modal para Borrar-->
+                            <div class="col" style="width:auto; height:auto;">
+                                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                             </div>
                         </div>
+                        <hr />
+
+                        <!--Informacion del Empleado que se selecciona-->
+                        <div style=" height:auto;" class="col-12 align-content-center">
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <!--Campo Nombre-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Cedula-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Cedula</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.idEmpleadoPK)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Correo-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Correo</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.correo)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Telefono-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Teléfono</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.telefono)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Puesto-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Puesto</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.tipoTrabajo)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Estado-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Estado</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.estado)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Habilidades-->
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Habilidades Tecnicas</span>
+                                        </div>
+                                        <textarea disabled class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.HabilidadTecnicas)" style=" height: 200px; "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            Informacion Personal
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Fecha-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Fecha de nacimiento</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.fechaNacimiento)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Lugar-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Lugar de residencia</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
+                                    {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
+                                    {@Html.DisplayFor(modelItem => item.distrito)}" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Direccion Exacta-->
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta</span>
+                                        </div>
+                                        <textarea disabled class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.direccion)" style=" height: 200px; "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                         //Le agrega un digito mas al idTab
                         { idTab += 1; }
