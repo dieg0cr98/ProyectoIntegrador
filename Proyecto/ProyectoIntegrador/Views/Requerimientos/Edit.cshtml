@@ -30,139 +30,242 @@
 </head>
 
 <body>
+
+
     <form class="cmxform" id="commentForm" method="post" action="Edit">
         <fieldset>
-            <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px; box-shadow: 1px 9px 22px 12px grey">
+            <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+
                 @if (ViewBag.error != null)
                 {
-                    <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+                    <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
+                }
+                else
+                {
+                    <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+
                 }
 
                 <!--Se pasa el id del proyecto asociado-->
                 <input type="hidden" name="idProyecto" value="@ViewBag.idProyecto" />
                 <input type="hidden" value="@Model.idReqPK" name="idRequerimientoViejo">
-                <div class="form-row pt-4">
-                    <div class="form-group col-md-6">
-                        @*Atributo IdReqPK*@
-                        <label for="id">ID del requerimiento: *</label>
-                        <input id="id" class="form-control" type="text" style="text-align:center" value="@Model.idReqPK" name="idRequerimientoNuevo" required>
+
+
+
+
+                <div class="form-row mb-2">
+                    <div class="col">
+
+                        @*Atributo idProyecto*@
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">ID del requerimiento *</span>
+                            </div>
+                            <input id="id" class="form-control" type="number" style="text-align:center" value="@Model.idReqPK" name="idRequerimientoNuevo" required>
+
+                        </div>
+                        <div id="errorIdRequerimientoNuevo"></div>
+
+
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col">
+
                         @*Atributo nombre*@
-                        <label for="nom">Nombre del requerimiento: *</label>
-                        <input id="nom" class="form-control" style="text-align:center" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" required>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Nombre Requerimiento *</span>
+                            </div>
+
+                            <input id="nom" class="form-control" style="text-align:center" value="@Model.nombre" name="nombre" minlength="1" maxlength="30" type="text" required>
+
+
+                        </div>
+
+                        <div id="errorNombre"></div>
+
+
                     </div>
                 </div>
 
-                <div class="form-row pt-4 mx-6">
-                    <div class="form-group col-md-6">
+
+
+
+                <div class="form-row mb-2">
+                    <div class="col">
+
                         @*Atributo Complejidad*@
-                        <label for="comp">Complejidad:</label>
-                        <select class="custom-select" name="complejidad">
-                            @switch (Model.complejidad)
-                            {
-                                case "Simple":
-                                    <option value="Simple" selected>Simple</option>
-                                    <option value="Medio">Medio</option>
-                                    <option value="Complejo">Complejo</option>
-                                    <option value="Muy Complejo">Muy Complejo</option>
-                                    break;
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Complejidad</span>
+                            </div>
 
-                                case "Medio":
-                                    <option value="Simple">Simple</option>
-                                    <option value="Medio" selected>Medio</option>
-                                    <option value="Complejo">Complejo</option>
-                                    <option value="Muy Complejo">Muy Complejo</option>
-                                    break;
+                            <select class="custom-select" name="complejidad">
+                                @switch (Model.complejidad)
+                                {
+                                    case "Simple":
+                                        <option value="Simple" selected>Simple</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Complejo">Complejo</option>
+                                        <option value="Muy Complejo">Muy Complejo</option>
+                                        break;
 
-                                case "Complejo":
-                                    <option value="Simple">Simple</option>
-                                    <option value="Medio">Medio</option>
-                                    <option value="Complejo" selected>Complejo</option>
-                                    <option value="Muy Complejo">Muy Complejo</option>
-                                    break;
+                                    case "Medio":
+                                        <option value="Simple">Simple</option>
+                                        <option value="Medio" selected>Medio</option>
+                                        <option value="Complejo">Complejo</option>
+                                        <option value="Muy Complejo">Muy Complejo</option>
+                                        break;
 
-                                case "Muy Complejo":
-                                    <option value="Simple">Simple</option>
-                                    <option value="Medio">Medio</option>
-                                    <option value="Complejo">Complejo</option>
-                                    <option value="Muy Complejo" selected>Muy Complejo</option>
-                                    break;
+                                    case "Complejo":
+                                        <option value="Simple">Simple</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Complejo" selected>Complejo</option>
+                                        <option value="Muy Complejo">Muy Complejo</option>
+                                        break;
 
-                                default:
-                                    <option value="Simple">Simple</option>
-                                    <option value="Medio" selected>Medio</option>
-                                    <option value="Complejo">Complejo</option>
-                                    <option value="Muy Complejo">Muy Complejo</option>
-                                    break;
+                                    case "Muy Complejo":
+                                        <option value="Simple">Simple</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Complejo">Complejo</option>
+                                        <option value="Muy Complejo" selected>Muy Complejo</option>
+                                        break;
 
-                            }
-                        </select>
+                                    default:
+                                        <option value="Simple">Simple</option>
+                                        <option value="Medio" selected>Medio</option>
+                                        <option value="Complejo">Complejo</option>
+                                        <option value="Muy Complejo">Muy Complejo</option>
+                                        break;
+
+                                }
+                            </select>
+                        </div>
+
+
+
                     </div>
+                    <div class="col">
 
-
-                    <div class="form-group col-md-6">
                         @*Atributo Estado*@
-                        <label for="est">Estado:</label>
-                        <select class="custom-select" name="estado">
-                            @switch (Model.estado)
-                            {
-                                case "Preparacion":
-                                    <option value="Preparacion" selected>Preparación</option>
-                                    <option value="Activo">Activo</option>
-                                    <option value="Terminado">Terminado</option>
-                                    break;
-                                case "Activo":
-                                    <option value="Preparacion">Preparación</option>
-                                    <option value="Activo" selected>Activo</option>
-                                    <option value="Terminado">Terminado</option>
-                                    break;
-                                case "Terminado":
-                                    <option value="Preparacion">Preparación</option>
-                                    <option value="Activo">Activo</option>
-                                    <option value="Terminado" selected>Terminado</option>
-                                    break;
-                            }
-                        </select>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Estado</span>
+                            </div>
+
+
+                            <select class="custom-select" name="estado">
+                                @switch (Model.estado)
+                                {
+                                    case "Preparacion":
+                                        <option value="Preparacion" selected>Preparación</option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Terminado">Terminado</option>
+                                        break;
+                                    case "Activo":
+                                        <option value="Preparacion">Preparación</option>
+                                        <option value="Activo" selected>Activo</option>
+                                        <option value="Terminado">Terminado</option>
+                                        break;
+                                    case "Terminado":
+                                        <option value="Preparacion">Preparación</option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Terminado" selected>Terminado</option>
+                                        break;
+                                }
+                            </select>
+                        </div>
+
+
+
                     </div>
                 </div>
 
-                <div class="form-row mb-3">
-                    <div class="form-group col-md-6">
-                        @*Atributo duracionEstimada*@
-                        <label for="de">Duración Estimada: *</label>
-                        <input id="de" class="form-control" type="number" style="width:700px; text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada">
-                        <small class="form-text text-center" style="color:black">Formato en Horas  </small>
-                    </div>
 
-                    <div class="form-group col-md-6">
-                        @*Atributo duracionReal*@
-                        <label for="dr" style="text-align:center">Duración Real: *</label>
-                        <input id="dr" class="form-control" type="number" style="text-align:center" value="@Model.tiempoReal" name="duracionReal">
-                        <small class="form-text text-center" style="color:black">Formato en Horas  </small>
-                    </div>
-                </div>
 
-                <div class="form-row mb-3">
-                    <div class="form-group col-md-6">
+                <div class="form-row mb-2">
+                    <div class="col">
+
                         @*Atributo fechaInicio*@
-                        <label for="fi">Fecha de Inicio: *</label>
-                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" name="fechai">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
+                            </div>
+
+                            <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" name="fechai" required>
+                            <small class="form-text text-center" style="color:black">Por defecto fecha del dia creado </small>
+
+                        </div>
+                        <div id="errorFechai"></div>
+
+
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col">
+
                         @*Atributo fechaFinalizacion*@
-                        <label for="fi" style="text-align:center">Fecha de Fin: *</label>
-                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeFinalizacion" name="fechaf">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha Finalizacion</span>
+                            </div>
+
+                            <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeFinalizacion" name="fechaf">
+
+
+                        </div>
+
+                        <div id="errorFechaf"></div>
+
                     </div>
                 </div>
+
+
+
+
+                <div class="form-row mb-2">
+                    <div class="col">
+
+                        @*Atributo duracionEstimada*@
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada</span>
+                            </div>
+
+                            <input id="de" class="form-control" type="number" style="text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada" required>
+                            <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
+
+                        </div>
+                        <div id="errorDuracionEstimada"></div>
+
+
+                    </div>
+                    <div class="col">
+
+                        @*Atributo duracionReal*@
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;" id="basic-addon1">Duracion Real</span>
+                            </div>
+
+                            <input id="dr" class="form-control" type="number" style="text-align:center" value="@Model.tiempoReal" name="duracionReal">
+                            <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
+
+                        </div>
+
+                        <div id="errorDuracionReal"></div>
+
+                    </div>
+                </div>
+
+
+
 
                 @*Atributo Descripcion*@
                 <div class="input-group mb-3 ">
                     <label class="input-group-text" style="width:200px; text-align:center" id="basic-addon1">Descripcion: </label>
-                    <textarea class="form-control" name="descripcion" value="@Model.descripcion" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
+                    <textarea class="form-control" name="descripcion" value="@Model.descripcion" style="max-width:none" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
                 </div>
 
-                <h5>* = Campo Requerido</h5>
+                <h5> * Campos requeridos</h5>
+
 
                 <div class="row justify-content-center" style="max-width:1150px">
                     <div class="col-4  text-center">
@@ -175,10 +278,140 @@
                         </button>
                     </div>
                 </div>
+
+
             </div>
         </fieldset>
     </form>
+
+
+
+
+    <script>
+
+        $('document').ready(function () {
+
+
+            $('#loading').hide();
+
+
+
+        });
+
+
+
+        $('#btnsubmit').on('click', function () {
+            $('#acceptar').hide('fast');
+
+
+            $('#loading').show('fast');
+
+
+        });
+
+    </script>
+
+
+
+    <script>
+        $(function () {
+            $("#commentForm").validate(
+                {
+                    rules:
+                    {
+                        idRequerimientoNuevo:
+                        {
+                            required: true,
+                            min: 1
+                        },
+                        nombre:
+                        {
+                            required: true,
+                            minlength: 1
+
+                        },
+                        duracionEstimada:
+                        {
+                            required: true,
+                            min: 1
+
+                        },
+                        fechai:
+                        {
+                            required: true,
+
+                        },
+                        duracionReal:
+                        {
+
+                            required: true,
+                            min: 0
+
+                        }
+
+
+
+                    },
+                    messages:
+                    {
+                        idRequerimientoNuevo: "El id tiene que ser mayor de 0",
+                        nombre: "Inserte al menos 1 caracter",
+                        duracionEstimada: "Tiene que ser un numero mayor a 0",
+                        fechai: "Inserte una fecha",
+                        duracionReal: "Tiene que ser un numero positivo"
+
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if ((element.attr('name') === 'idRequerimientoNuevo')) {
+                            error.insertAfter($('#errorIdRequerimientoNuevo'));
+                        }
+                        if ((element.attr('name') === 'nombre')) {
+                            error.insertAfter($('#errorNombre'));
+                        }
+                        if ((element.attr('name') === 'fechai')) {
+                            error.insertAfter($('#errorFechai'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada')) {
+                            error.insertAfter($('#errorDuracionEstimada'));
+                        }
+                         if ((element.attr('name') === 'duracionReal')) {
+                            error.insertAfter($('#errorDuracionReal'));
+                        }
+                        
+
+
+
+
+
+                    },
+                    invalidHandler: function (form, validator) {
+
+                        $('#loading').hide('fast');
+                        $('#acceptar').show('fast');
+
+                    },
+
+
+
+                });
+        });
+
+
+    </script>
+
+
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+
+
+
 </body>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+
