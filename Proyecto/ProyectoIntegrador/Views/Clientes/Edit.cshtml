@@ -36,19 +36,28 @@
         .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
             border-right-color: #76323f
         }
+
+        .error {
+            color: white;
+            background-color: red;
+            font-family: verdana, Helvetica;
+        }
+
+        input.error, input select.error{
+            background-color: white;
+            border-color: red;
+        }
     </style>
 </head>
 
 <body onload="getProvincias()">
     <h2 style="text-align:center">Editar Cliente  <img src="~/Content/boss.svg" width="70" height="70"></h2>
     <hr />
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
         <div class="container " style="max-width: 1800px;">
             <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
                 <!--Despliegue del formulario-->
                 <div style="padding-left:20px; padding-top:20px; overflow-x:hidden" class="col-12">
+                    <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
                         <div class="form-row mb-2">
                             <div class="col">
                                 <!--Campo Nombre-->
@@ -57,8 +66,8 @@
                                         <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre</span>
                                     </div>
                                     @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.nombre)
                                 </div>
+                                <div id="errorNombre"></div>
                             </div>
                             <div class="col">
                                 <!--Campo Primer Apellido-->
@@ -67,8 +76,8 @@
                                         <span class="input-group-text" id="basic-addon1" for="apellido1" style="width:200px">Primer Apellido *</span>
                                     </div>
                                     @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.apellido1)
                                 </div>
+                                <div id="errorApe1"></div>
                             </div>
                             <div class="col">
                                 <!--Campo Segundo Apellido-->
@@ -77,9 +86,8 @@
                                         <span class="input-group-text" id="basic-addon1" for="apellido2" style="width:200px">Segundo Apellido</span>
                                     </div>
                                     @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.apellido2)
                                 </div>
-
+                                <div id="errorApe2"></div>
                             </div>
                         </div>
                         <br>
@@ -91,18 +99,18 @@
                                         <span class="input-group-text" id="basic-addon1" for="cedulaPK" style="width:200px">Cédula *</span>
                                     </div>
                                     @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.cedulaPK)
                                 </div>
+                                <div id="errorCed"></div>
                             </div>
                             <div class="col">
                                 <!--Campo Email-->
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1" for="correo" style="width:200px">Correo</span>
+                                        <span class="input-group-text" id="basic-addon1" for="correo" style="width:200px">Correo *</span>
                                     </div>
                                     @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.correo)
                                 </div>
+                                <div id="errorEma"></div>
                             </div>
                             <div class="col">
                                 <!--Campo Telefono-->
@@ -111,8 +119,8 @@
                                         <span class="input-group-text" id="basic-addon1" for="telefono" style="width:200px">Teléfono</span>
                                     </div>
                                     @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.telefono)
                                 </div>
+                                <div id="errorTel"></div>
                             </div>
                         </div>
                         <br>
@@ -124,8 +132,8 @@
                                         <span class="input-group-text" id="basic-addon1" for="empresa" style="width:200px">Empresa *</span>
                                     </div>
                                     @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control", @style = "max-width:none" } })
-                                    @Html.ValidationMessageFor(model => model.empresa)
                                 </div>
+                                <div id="errorEmp"></div>
                             </div>
                         </div>
                         <br>
@@ -187,6 +195,7 @@
                                 </div>
                                 <textarea class="form-control col-sm-6" id="direccionExacta" name="direccionExacta" style="width:600px; height: 200px;">@Model.direccionExacta</textarea>
                             </div>
+                            <div id="errorDir"></div>
                         </div>
                         <br><br>
                         <h5>* Campos Requeridos</h5>
@@ -204,12 +213,12 @@
                                 </button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
 
         @Html.Partial("Scripts")
-    }
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

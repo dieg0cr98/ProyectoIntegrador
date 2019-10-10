@@ -120,5 +120,136 @@
 
 </script>
 
+<script>
+    $('document').ready(function () {
+        $('#loading').hide();
+    });
 
+    $('#btnsubmit').on('click', function () {
+        $('#acceptar').hide('fast');
+        $('#loading').show('fast');
+    });
+</script>
 
+<script>
+    $(function () {
+        $("#clientForm").validate(
+            {
+                rules:
+                {
+                    nombre:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    apellido1:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    apellido2:
+                    {
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    cedulaPK:
+                    {
+                        required: true,
+                        minlength: 1,
+                        number: true,
+                        maxlength: 20
+                    },
+                    empresa:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    provincia:
+                    {
+                        required: true
+                    },
+                    canton:
+                    {
+                        required: true
+                    },
+                    distrito:
+                    {
+                        required: true
+                    },
+                    direccionExacta:
+                    {
+                        required: true,
+                        maxlength: 300
+                    },
+                    telefono:
+                    {
+                        required: true,
+                        number: true,
+                        maxlength: 15
+                    },
+                    correo:
+                    {
+                        required: true,
+                        maxlength: 50
+                    }
+                },
+                messages:
+                {
+                    cedulaPK: "Inserte cédula válida",
+                    nombre: "Inserte un nombre válido",
+                    apellido1: "Inserte un apellido válido",
+                    apellido1: "Inserte un apellido válido",
+                    empresa: "Inserte nombre de empresa válido",
+                    provincia: "Seleccione una provincia",
+                    canton: "Seleccione un canton",
+                    distrito: "Seleccione un distrito",
+                    direccionExacta: "Ingrese una dirección válida, rango 300 caracteres",
+                    telefono: "Ingrese número de teléfono válido",
+                    correo: "Ingrese un correo válido"
+                },
+
+                errorPlacement: function (error, element) {
+                    if ((element.attr('name') === 'nombre')) {
+                        error.insertAfter($('#errorNombre'));
+                    }
+                    if ((element.attr('name') === 'apellido1')) {
+                        error.insertAfter($('#errorApe1'));
+                    }
+                    if ((element.attr('name') === 'apellido2')) {
+                        error.insertAfter($('#errorApe2'));
+                    }
+                    if ((element.attr('name') === 'empresa')) {
+                        error.insertAfter($('#errorEmp'));
+                    }
+                    if ((element.attr('name') === 'cedulaPK')) {
+                        error.insertAfter($('#errorCed'));
+                    }
+                    if ((element.attr('name') === 'provincia')) {
+                        error.insertAfter($('#errorProv'));
+                    }
+                    if ((element.attr('name') === 'canton')) {
+                        error.insertAfter($('#errorCant'));
+                    }
+                    if ((element.attr('name') === 'distrito')) {
+                        error.insertAfter($('#errorDistr'));
+                    }
+                    if ((element.attr('name') === 'direccionExacta')) {
+                        error.insertAfter($('#errorDir'));
+                    }
+                    if ((element.attr('name') === 'correo')) {
+                        error.insertAfter($('#errorEma'));
+                    }
+                    if ((element.attr('name') === 'telefono')) {
+                        error.insertAfter($('#errorTel'));
+                    }
+                },
+                invalidHandler: function (form, validator) {
+                    $('#loading').hide('fast');
+                    $('#acceptar').show('fast');
+                },
+            });
+    });
+</script>

@@ -36,6 +36,16 @@
         .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
             border-right-color: #76323f
         }
+
+        .error {
+            color: white;
+            font-family: verdana, Helvetica;
+        }
+
+        input.error, input select.error{
+            background-color: white;
+            border-color: red;
+        }
     </style>
 </head>
 
@@ -45,159 +55,159 @@
 <hr />
 <body onload="getProvincias()">
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+
 
         <div class="container align-content-center" style="max-width: 1800px;">
-                    <div class="tab-content d-block overflow-auto bg-secondary" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
-                        <!--Despliegue del formulario-->
-                        <div style="padding-left:30px; padding-right:30px; padding-top:20px;  overflow-x:hidden">
-                            <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
-                                <div class="form-row mb-2">
-                                    <div class="col">
-                                        <!--Campo Nombre-->
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre *</span>
-                                            </div>
-                                            <input class="form-control" id="nombre" name="nombre" type="text" style="max-width:none" placeholder="Nombre" />
-                                            @Html.ValidationMessageFor(model => model.nombre)
-                                        </div>
+            <div class="tab-content d-block overflow-auto bg-secondary" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
+                <!--Despliegue del formulario-->
+                <div style="padding-left:30px; padding-right:30px; padding-top:20px;  overflow-x:hidden">
+                    <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
+                        <div class="form-row mb-2">
+                            <div class="col">
+                                <!--Campo Nombre-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre *</span>
                                     </div>
-                                    <div class="col">
-                                        <!--Campo Primer Apellido-->
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="apellido1" style="width:200px">Primer Apellido *</span>
-                                            </div>
-                                            <input class="form-control" id="apellido1" name="apellido1" type="text" style=" max-width:none" placeholder="Apellido" />
-                                            @Html.ValidationMessageFor(model => model.apellido1)
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <!--Campo Segundo Apellido-->
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="apellido2" style="width:200px">Segundo Apellido</span>
-                                            </div>
-                                            <input class="form-control" id="apellido2" name="apellido2" type="text" style="max-width:none" placeholder="Apellido" />
-                                            @Html.ValidationMessageFor(model => model.apellido2)
-                                        </div>
-                                    </div>
+                                    <input class="form-control" id="nombre" name="nombre" type="text" style="max-width:none" placeholder="Nombre" />
                                 </div>
-                                <br>
-                                <div class="form-row mb-2">
-                                    <div class="col">
-                                        <!--Campo Cedula-->
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="cedulaPK" style="width:200px">Cédula *</span>
-                                            </div>
-                                            <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style=" max-width:none" placeholder="0 0000 0000" />
-                                            @Html.ValidationMessageFor(model => model.cedulaPK)
-                                        </div>
+                                <div id="errorNombre"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Primer Apellido-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="apellido1" style="width:200px">Primer Apellido *</span>
                                     </div>
-                                    <div class="col">
-                                        <!--Campo Email-->
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="correo" style="width:200px">Correo</span>
-                                            </div>
-                                            <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style=" max-width:none" />
-                                            @Html.ValidationMessageFor(model => model.correo)
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <!--Campo Telefono-->
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="telefono" style="width:200px">Teléfono</span>
-                                            </div>
-                                            <input class="form-control" id="telefono" name="telefono" type="text" style=" max-width:none" placeholder="8888 8888" />
-                                            @Html.ValidationMessageFor(model => model.telefono)
-                                        </div>
-                                    </div>
+                                    <input class="form-control" id="apellido1" name="apellido1" type="text" style=" max-width:none" placeholder="Apellido" />
                                 </div>
-                                <br>
-                                <div class="form-row mb-2">
-                                    <div class="col-4">
-                                        <!--Campo Empresa-->
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="empresa" style="width:200px">Empresa *</span>
-                                            </div>
-                                            <input class="form-control" id="empresa" name="empresa" type="text" style="max-width:none" placeholder="Quality Experts" />
-                                            @Html.ValidationMessageFor(model => model.empresa)
-                                        </div>
+                                <div id="errorApe1"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Segundo Apellido-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="apellido2" style="width:200px">Segundo Apellido</span>
                                     </div>
+                                    <input class="form-control" id="apellido2" name="apellido2" type="text" style="max-width:none" placeholder="Apellido" />
                                 </div>
-                                <br>
-                                <div class="form-row mb-2">
-                                    <div class="col-4">
-                                        <!--Campo Provincia-->
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="provincia" style="width:200px">Provincia</span>
-                                                @Html.ValidationMessageFor(model => model.provincia)
-                                            </div>
-                                            <div id="destino"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <!--Campo Canton-->
-                                        <div class="input-group mb-3" id="canton1">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="canton" style="width:200px">Cantón</span>
-                                                @Html.ValidationMessageFor(model => model.canton)
-                                            </div>
-                                            <div id="destino2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <!--Campo Distrito-->
-                                        <div class="input-group mb-3" id="distrito1">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1" for="distrito" style="width:200px">Distrito</span>
-                                                @Html.ValidationMessageFor(model => model.distrito)
-                                            </div>
-                                            <div id="destino3"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <div class="form-row mb-8">
-                                    <!--Campo Direccion Exacta-->
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta</span>
-                                        </div>
-                                        <textarea class="form-control col-sm-6" id="direccionExacta" name="direccionExacta" placeholder="Dirección de la empresa" style="width:600px; height: 200px;"></textarea>
-                                        @Html.ValidationMessageFor(model => model.direccionExacta)
-                                    </div>
-                                </div>
-                                <br><br>
-                                <div class="row" style="max-width:1600px">
-                                    <!--Boton Cancelar-->
-                                    <div class="col-6  text-center" style=" padding-left:30%">
-                                        <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                                    </div>
-
-                                    <!--Boton Aceptar-->
-                                    <div class="col-6  text-center" style=" padding-right:30%">
-                                        <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                                             <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                        </button>
-                                     </div>
-                                </div>
-                            </form>
+                                <div id="errorApe2"></div>
+                            </div>
                         </div>
-                    </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col">
+                                <!--Campo Cedula-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="cedulaPK" style="width:200px">Cédula *</span>
+                                    </div>
+                                    <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style=" max-width:none" placeholder="0 0000 0000" />
+                                </div>
+                                <div id="errorCed"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Email-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="correo" style="width:200px">Correo *</span>
+                                    </div>
+                                    <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style=" max-width:none" />
+                                </div>
+                                <div id="errorEma"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Telefono-->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="telefono" style="width:200px">Teléfono *</span>
+                                    </div>
+                                    <input class="form-control" id="telefono" name="telefono" type="text" style=" max-width:none" placeholder="8888 8888" />
+                                </div>
+                                <div id="errorTel"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-4">
+                                <!--Campo Empresa-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="empresa" style="width:200px">Empresa *</span>
+                                    </div>
+                                    <input class="form-control" id="empresa" name="empresa" type="text" style="max-width:none" placeholder="Quality Experts" />
+                                </div>
+                                <div id="errorEmp"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-4">
+                                <!--Campo Provincia-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="provincia" style="width:200px">Provincia</span>
+                                    </div>
+                                    <div id="destino"></div>
+                                </div>
+                                <div id="errorProv"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Canton-->
+                                <div class="input-group mb-3" id="canton1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="canton" style="width:200px">Cantón</span>
+                                    </div>
+                                    <div id="destino2"></div>
+                                </div>
+                                <div id="errorCant"></div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Distrito-->
+                                <div class="input-group mb-3" id="distrito1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" for="distrito" style="width:200px">Distrito</span>
+                                    </div>
+                                    <div id="destino3"></div>
+                                </div>
+                                <div id="errorDistr"></div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-row mb-8">
+                            <!--Campo Direccion Exacta-->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta *</span>
+                                </div>
+                                <textarea class="form-control col-sm-6" id="direccionExacta" maxlength="300" name="direccionExacta" placeholder="Dirección de la empresa" style="width:600px; height: 200px;"></textarea>
+                            </div>
+                            <div id="errorDir"></div>
+                        </div>
+                        <br><br>
+                        <h5>* Campos Requeridos</h5>
+                        <hr>
+                        <div class="row" style="max-width:1600px">
+                            <!--Boton Cancelar-->
+                            <div class="col-6  text-center" style=" padding-left:30%">
+                                <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                            </div>
+
+                            <!--Boton Aceptar-->
+                            <div class="col-6  text-center" style=" padding-right:30%">
+                                <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                    <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         @Html.Partial("Scripts")
-
     }
+    
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
