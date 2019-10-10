@@ -10,112 +10,112 @@ using ProyectoIntegrador.BaseDatos;
 
 namespace ProyectoIntegrador.Controllers
 {
-    public class HabilidadTecnicaController : Controller
+    public class TestersController : Controller
     {
-        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
 
-        // GET: HabilidadTecnica
+        // GET: Testers
         public ActionResult Index()
         {
-            var habilidadTecnicas = db.HabilidadTecnica.Include(h => h.Empleado);
-            return View(habilidadTecnicas.ToList());
+            var tester = db.Tester.Include(t => t.Empleado);
+            return View(tester.ToList());
         }
 
-        // GET: HabilidadTecnica/Details/5
+        // GET: Testers/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HabilidadTecnica habilidadTecnica = db.HabilidadTecnica.Find(id);
-            if (habilidadTecnica == null)
+            Tester tester = db.Tester.Find(id);
+            if (tester == null)
             {
                 return HttpNotFound();
             }
-            return View(habilidadTecnica);
+            return View(tester);
         }
 
-        // GET: HabilidadTecnica/Create
+        // GET: Testers/Create
         public ActionResult Create()
         {
             ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre");
             return View();
         }
 
-        // POST: HabilidadTecnica/Create
+        // POST: Testers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idEmpleadoFK,habilidad")] HabilidadTecnica habilidadTecnica)
+        public ActionResult Create([Bind(Include = "idEmpleadoFK,cantidadRequerimientos")] Tester tester)
         {
             if (ModelState.IsValid)
             {
-                db.HabilidadTecnica.Add(habilidadTecnica);
+                db.Tester.Add(tester);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", habilidadTecnica.idEmpleadoFK);
-            return View(habilidadTecnica);
+            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", tester.idEmpleadoFK);
+            return View(tester);
         }
 
-        // GET: HabilidadTecnica/Edit/5
+        // GET: Testers/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HabilidadTecnica habilidadTecnica = db.HabilidadTecnica.Find(id);
-            if (habilidadTecnica == null)
+            Tester tester = db.Tester.Find(id);
+            if (tester == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", habilidadTecnica.idEmpleadoFK);
-            return View(habilidadTecnica);
+            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", tester.idEmpleadoFK);
+            return View(tester);
         }
 
-        // POST: HabilidadTecnica/Edit/5
+        // POST: Testers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idEmpleadoFK,habilidad")] HabilidadTecnica habilidadTecnica)
+        public ActionResult Edit([Bind(Include = "idEmpleadoFK,cantidadRequerimientos")] Tester tester)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(habilidadTecnica).State = EntityState.Modified;
+                db.Entry(tester).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", habilidadTecnica.idEmpleadoFK);
-            return View(habilidadTecnica);
+            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre", tester.idEmpleadoFK);
+            return View(tester);
         }
 
-        // GET: HabilidadTecnica/Delete/5
+        // GET: Testers/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HabilidadTecnica habilidadTecnica = db.HabilidadTecnica.Find(id);
-            if (habilidadTecnica == null)
+            Tester tester = db.Tester.Find(id);
+            if (tester == null)
             {
                 return HttpNotFound();
             }
-            return View(habilidadTecnica);
+            return View(tester);
         }
 
-        // POST: HabilidadTecnica/Delete/5
+        // POST: Testers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            HabilidadTecnica habilidadTecnica = db.HabilidadTecnica.Find(id);
-            db.HabilidadTecnica.Remove(habilidadTecnica);
+            Tester tester = db.Tester.Find(id);
+            db.Tester.Remove(tester);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

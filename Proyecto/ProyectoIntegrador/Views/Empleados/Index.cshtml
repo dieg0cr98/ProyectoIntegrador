@@ -1,105 +1,235 @@
-﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Empleado>
+@model IEnumerable<ProyectoIntegrador.BaseDatos.Empleado>
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.correo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaNacimiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.distrito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.canton)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.provincia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.direccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tipoTrabajo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tester.idEmpleadoFK)
-        </th>
-        <th></th>
-    </tr>
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apellido1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apellido2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.correo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaNacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.distrito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.canton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.provincia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipoTrabajo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tester.idEmpleadoFK)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idEmpleadoPK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idEmpleadoPK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idEmpleadoPK })
-        </td>
-    </tr>
-}
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
 
-</table>
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+</head>
+
+@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
+<!---->
+
+<body>
+    <br />
+
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Empleados</p>
+
+    <hr>
+    <div class="container " style="max-width: 1800px">
+        <div class="row">
+
+            <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px">
+
+                <!-- Image and text -->
+
+                <nav class="navbar navbar-light bg-secondary">
+
+                    <!--Imagen Empleados + titulo lista de empleados-->
+                    <a class="navbar-brand">
+                        <img src="~/Content/team.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                        Lista de Empleados
+                    </a>
+
+                    <!--Inputa para realizar busquedas de empleado-->
+                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleados">
+
+                    <!--Imagen de agregar Empleado-->
+                    <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </nav>
+
+                <!--Tab izquierdo donde se muestran los empleados con el nombre en la BD-->
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                    <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
+                        @foreach (var item in Model)
+                        {
+                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">Empleado: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
+                            { idCarta += 1; }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!--Se crean tabs con la info empleado-->
+            <div class="col-12 col-md-8">
+                <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                    @foreach (var item in Model)
+                    {
+                    <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                        <div class="row mx-4 mt-4 md-0" style="height:30px">
+                            <div class="col-8" style="max-height:30px">
+                                <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Empleado</p>
+                            </div>
+
+                            <!-- Botones de Editar -->
+                            <div class="col" style="margin-left: 10%;">
+                                <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            </div>
+
+                            <!-- Button trigger modal para Borrar-->
+                            <div class="col" style="width:auto; height:auto;">
+                                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <!--Informacion del Empleado que se selecciona-->
+                        <div style=" height:auto;" class="col-12 align-content-center">
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <!--Campo Nombre-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Cedula-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Cedula</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.idEmpleadoPK)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Correo-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Correo</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.correo)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Telefono-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Teléfono</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.telefono)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Puesto-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Puesto</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.tipoTrabajo)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Estado-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Estado</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.estado)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Habilidades-->
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Habilidades Tecnicas</span>
+                                        </div>
+                                        <textarea disabled class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.HabilidadTecnicas)" style=" height: 200px; "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            Informacion Personal
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Fecha-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Fecha de nacimiento</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.fechaNacimiento)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Lugar-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Lugar de residencia</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
+                                    {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
+                                    {@Html.DisplayFor(modelItem => item.distrito)}" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Direccion Exacta-->
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta</span>
+                                        </div>
+                                        <textarea disabled class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.direccion)" style=" height: 200px; "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                        //Le agrega un digito mas al idTab
+                        { idTab += 1; }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Carga todos los scripts-->
+    @Html.Partial("ModalEliminar")
+    @Html.Partial("Scripts")
+</body>

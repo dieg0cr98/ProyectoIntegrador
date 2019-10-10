@@ -12,7 +12,7 @@ namespace ProyectoIntegrador.Controllers
 {
     public class TrabajaEnController : Controller
     {
-        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
         private SeguridadController seguridad = new SeguridadController();
 
 
@@ -25,6 +25,8 @@ namespace ProyectoIntegrador.Controllers
         {
             //Encuentra el proyecto asociado al id
             ViewBag.proyectoActual = db.Proyecto.Find(idProyecto);
+            //Consigue los permisos del usuario actual.
+            ViewBag.permisosActuales = seguridad.EquipoConsultar(User);
 
             //Selecciona todos los empelados que esten disponible y que sean tester
             ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();
@@ -60,7 +62,7 @@ namespace ProyectoIntegrador.Controllers
                 var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
                 return View(trabajaEn.ToList());
             }
-          
+
         }
 
         /*
@@ -102,7 +104,7 @@ namespace ProyectoIntegrador.Controllers
             return View(trabajaEn);
         }
 
-   
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -17,25 +17,25 @@ namespace ProyectoIntegrador.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Proyecto()
         {
-            this.Requerimientoes = new HashSet<Requerimiento>();
-            this.TrabajaEns = new HashSet<TrabajaEn>();
+            this.Requerimiento = new HashSet<Requerimiento>();
+            this.TrabajaEn = new HashSet<TrabajaEn>();
         }
     
         public int idProyectoAID { get; set; }
         public string nombre { get; set; }
         public string objetivo { get; set; }
-        public string estado { get; set; } = "Preparacion";
-        public System.TimeSpan duracionReal { get; set; }= TimeSpan.Zero;
-        public System.TimeSpan duracionEstimada { get; set; } = TimeSpan.Zero;
+        public string estado { get; set; } = "Preparación";
+        public int duracionReal { get; set; } = 0;
+        public int duracionEstimada { get; set; } = 0;
         public System.DateTime fechaInicio { get; set; } = DateTime.Now.Date;
-        public System.DateTime fechaFinalizacion { get; set; }=  DateTime.Parse("1800-01-01");
+        public System.DateTime fechaFinalizacion { get; set; } = DateTime.Parse("1800-01-01");
         public string cedulaClienteFK { get; set; }
         public int cantidadReq { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Requerimiento> Requerimientoes { get; set; }
+        public virtual ICollection<Requerimiento> Requerimiento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrabajaEn> TrabajaEns { get; set; }
+        public virtual ICollection<TrabajaEn> TrabajaEn { get; set; }
     }
 }

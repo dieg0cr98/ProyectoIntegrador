@@ -23,7 +23,7 @@ namespace ProyectoIntegrador.Controllers
 
         private SeguridadController seguridad = new SeguridadController();
 
-        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
 
 
         //Metodo que regresa el contexto de la tabla proyectos, para poder realizar joins
@@ -51,7 +51,7 @@ namespace ProyectoIntegrador.Controllers
             try
             {
 
-                switch(tipo)
+                switch (tipo)
                 {
 
                     case 0:
@@ -68,6 +68,8 @@ namespace ProyectoIntegrador.Controllers
                         }
                     case 2:
                         {
+
+
                             db.Proyecto.Remove(proyecto);
                             db.SaveChanges();
                             break;
@@ -75,14 +77,14 @@ namespace ProyectoIntegrador.Controllers
 
                 }
 
-                if(tipo == 0)
+                if (tipo == 0)
                 {
-                  
+
 
                 }
                 else
                 {
-                   
+
                 }
 
 
@@ -94,7 +96,7 @@ namespace ProyectoIntegrador.Controllers
                 List<string> errorMessages = new List<string>();
                 for (int i = 0; i < ex.Errors.Count; i++)
                 {
-                   
+
                     errorMessages.Append("Index #" + i + "\n" +
                         "Message: " + ex.Errors[i].Message + "\n" +
                         "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
@@ -108,7 +110,7 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-   
+
         }
 
 
@@ -332,7 +334,7 @@ namespace ProyectoIntegrador.Controllers
 
                                 //Actualiza el estado del empleado a trabajando
                                 Empleado empleado2 = db.Empleado.Find(cedulaLider);
-                                empleado2.estado = "Trabajando";
+                                empleado2.estado = "Ocupado";
                                 db.Entry(empleado2).State = EntityState.Modified;
                                 db.SaveChanges();
                             }
@@ -406,7 +408,7 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-
+        //-----Metodos de controlador a controlador-----//
 
         //Metodo para obtener la vista principal de los clientes
         public ActionResult IndexCliente()
@@ -420,6 +422,22 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index", "Empleados", null);
         }
 
+
+        //Metodo para obtener la vista principal del equipo
+        public ActionResult IndexTrabajaEn(int? idProyecto)
+        {
+
+            return RedirectToAction("Index", "TrabajaEn", new { idProyecto });
+
+        }
+
+
+        //Metodo para obtener la vista principal de los requerimientos
+        public ActionResult IndexRequerimientos(int? idProyecto)
+        {
+            return RedirectToAction("Index", "Requerimientos", new { idProyecto });
+
+        }
 
 
 
@@ -496,7 +514,7 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(string nombre, string objetivo, TimeSpan duracionEstimada, string cedulaCliente, string cedulaLider)
+        public ActionResult Create(string nombre, string objetivo, int duracionEstimada, string cedulaCliente, string cedulaLider)
         {
 
 
@@ -612,13 +630,13 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        
+
 
         // POST: Proyectos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(string id, string nombre, string objetivo, string estado, TimeSpan duracionEstimada, TimeSpan duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
+        public ActionResult Edit(string id, string nombre, string objetivo, string estado, int duracionEstimada, int duracionReal, DateTime fechaInicio, DateTime fechaFinalizacion, int cantidadReq, string cedulaCliente, string cedulaLiderActual, string cedulaLider)
         {
 
             int inProyectoAID = Int32.Parse(id);
@@ -633,16 +651,26 @@ namespace ProyectoIntegrador.Controllers
             proyecto.fechaInicio = fechaInicio;
             proyecto.fechaFinalizacion = fechaFinalizacion;
             proyecto.cantidadReq = cantidadReq;
-            proyecto.cedulaClienteFK = cedulaCliente;
 
-          
+            //Revisa si la cedula de clinte es nula
+            if (cedulaCliente == "null")
+            {
+                proyecto.cedulaClienteFK = null;
+            }
+            else
+            {
+                proyecto.cedulaClienteFK = cedulaCliente;
+            }
            
+
+
+
             //Verifica si el usuario cambio el nombre, ya que es unique
             if (nombre != proyecto.nombre)
             {
-                
+
                 //Hay que verificar si el nuevo nombre ya existe en la base de datos
-                if(db.Proyecto.Where(p => p.nombre == nombre).FirstOrDefault() != null )
+                if (db.Proyecto.Where(p => p.nombre == nombre).FirstOrDefault() != null)
                 {
                     //Existe un proyecto con ese nombre
                     ViewBag.error = "Ya existe un proyecto llamado: " + nombre;
@@ -654,7 +682,7 @@ namespace ProyectoIntegrador.Controllers
 
                     return View(proyecto);
                 }
-            
+
             }
 
             proyecto.nombre = nombre;
@@ -675,12 +703,24 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Eliminar(int id)
         {
             int p = seguridad.ProyectoEliminar(User);
-            if(p == 1)
+            if (p == 1)
             {
+
+
+
                 //Busca el proyecto
                 Proyecto proyecto = GetProyecto(id);
-                //Elimina el proyecto
-                SetProyecto(proyecto, 2);
+
+
+
+                //Verifica si el proyecto existe
+                if (proyecto != null)
+                {
+                    //Elimina el proyecto
+                    SetProyecto(proyecto, 2);
+
+                }
+
                 return RedirectToAction("Index");
 
             }

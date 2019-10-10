@@ -7,7 +7,7 @@
 
     <span class="navbar">
 
-        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", Style = "color:White;", Class = "p-2 bd-highlight" })
+        @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", Style = "color:White;", Class = "p-2 bd-highlight" })
 
 
         <a class="nav-item"  href="javascript:document.getElementById('logoutForm').submit()"><img src="~/Content/power-off.svg" style="max-width: 30px ; max-height: 30px" class="rounded float-right" alt="LogOut"></a>
@@ -18,6 +18,6 @@
 else
 {
 
-   @Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink"  ,Style = "color:White; font-size:large " })
+   @Html.ActionLink("Ingresar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink"  ,Style = "color:White; font-size:large " })
 
 }
