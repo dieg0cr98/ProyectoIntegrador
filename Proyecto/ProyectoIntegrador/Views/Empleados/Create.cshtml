@@ -1,131 +1,365 @@
-﻿@model ProyectoIntegrador.BaseDatos.Empleado
+@model ProyectoIntegrador.BaseDatos.Empleado
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<br />
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Empleado</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.idEmpleadoPK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.idEmpleadoPK, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Empleado</p>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<hr>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.apellido1, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.apellido2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.apellido2, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <style>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .error {
+            color: white;
+            background-color: red;
+            font-family: verdana, Helvetica;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <style type="text/css">
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.fechaNacimiento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
+</head>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<hr />
+<body onload="getProvincias()">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.tipoTrabajo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tipoTrabajo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tipoTrabajo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <form class="cmxform" id="commentForm" name="commentForm" method="post" action="Create">
+            <fieldset>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+                <div id="errors"></div>
+                <div class="container justify-content-center bg-secondary" style="width:800px; padding-top:20px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+
+                    @*if (ViewBag.error != null)
+        {
+            <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
+        }
+        else
+        {
+            <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+
+        }*@
+
+
+                    @*Atributo ID*@
+                    <div class="form-row mb-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">ID *</span>
+                            </div>
+
+                            <input id="input1" class="form-control" style=" max-width:none" name="idEmpleadoPK" placeholder="ID del empleado" type="text">
+                        </div>
+                        <div id="errorID"></div>
+                    </div>
+
+                    @*Segunda fila*@
+                    <div class="form-row mb-2">
+                        @*Atributo nombre*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Primer Nombre *</span>
+                                </div>
+                                <input id="input2" class="form-control" style=" max-width:none" name="nombre" placeholder="Primer nombre" type="text">
+                            </div>
+                            <div id="errorNombre"></div>
+                        </div>
+
+                        @*Atributo apellido1*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Primer apellido</span>
+                                </div>
+                                <input id="input3" class="form-control" style=" max-width:none" name="apellido1" placeholder="Primer apellido" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Tercera fila*@
+                    <div class="form-row mb-2">
+                        @*Atributo segundo apellido*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Segundo apellido</span>
+                                </div>
+                                <input id="input4" class="form-control" type="text" style="text-align:center; max-width:none" name="apellido2">
+                            </div>
+                        </div>
+
+                        @*Atributo correo*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Email *</span>
+                                </div>
+                                <input id="input5" class="form-control" type="email" style="text-align:center; max-width:none" name="correo">
+                            </div>
+                            <div id="errorCorreo"></div>
+                        </div>
+                    </div>
+
+                    @*Cuarta fila*@
+                    <div class="form-row mb-2">
+
+                        @*Atributo telefono*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Telefono</span>
+                                </div>
+                                <input id="input6" class="form-control" type="text" style="text-align:center; max-width:none" name="telefono">
+                            </div>
+                        </div>
+
+                        @*Atributo fechaNacimiento*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha de Nacimiento *</span>
+                                </div>
+                                <input id="input7" class="form-control" type="date" style="text-align:center; max-width:none" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaNacimiento">
+                            </div>
+                        </div>
+                        <div id="errorFechaNacimiento"></div>
+                    </div>
+
+                    @*Quinta fila*@
+                    <div class="form-row mb-2">
+
+                        @*Provincia*@
+                        <div class="col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" for="provincia">Provincia:</span>
+                            </div>
+                            <div id="destino"></div>
+                        </div>
+
+                        @*Canton*@
+                        <div class="col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" for="canton">Canton:</span>
+                            </div>
+                            <div id="destino2"></div>
+                        </div>
+
+                        @*Distrito*@
+                        <div class="col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" for="distrito">Distrito:</span>
+                            </div>
+                            <div id="destino3"></div>
+                        </div>
+                    </div>
+
+                    @*Sexta fila*@
+                    @*Atributo DireccionExacta*@
+                    <div class="input-group mb-2 ">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Direccion</span>
+                        </div>
+                        <textarea class="form-control" name="direccion" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
+                    </div>
+
+                    @*Setima fila*@
+                    <div class="form-row mb-2">
+
+                        @*Estado*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Estado</span>
+                                </div>
+
+                                <select class="custom-select" style="text-align:center; max-width:none" name="estado">
+
+                                    <option value="Activo">Disponible</option>
+                                    <option value="Ocupado">Ocupado</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                            <div id="errorEstado"></div>
+                        </div>
+
+                        @*Atributo Puesto*@
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Puesto</span>
+                                </div>
+                                <select class="custom-select" style="text-align:center; max-width:none" name="tipoTrabajo">
+                                    <option value="Tester">Tester</option>
+                                    <option value="Lider">Lider</option>
+                                </select>
+                            </div>
+                            <div id="errorTipoTrabajo"></div>
+                        </div>
+
+                    </div>
+                    
+                    @*Habilidades Tecnicas*@
+                    
+
+
+                    <h5> * Campos requeridos</h5>
+
+                    <hr />
+
+                    <div class="row justify-content-center" style="max-width:1150px">
+                        <div class="col-4  text-center">
+                            <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+                        <div class="col-4  text-center">
+                            <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
+                                <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                <div id="loading" style="width:80px;height:80px" class="spinner-border text-black" role="status"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+</fieldset>
+        </form>
+        
+        <script>
+            $('document').ready(function () {
+                $('#loading').hide();
+            });
+
+            $('#btnsubmit').on('click', function () {
+                $('#acceptar').hide('fast');
+                $('#loading').show('fast');
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $("#commentForm").validate(
+                    {
+                        rules:
+                        {
+                            ID:
+                            {
+                                required: true,
+                                minlength: 8
+                            },
+                            nombre:
+                            {
+                                required: true
+                            },
+
+                            correo:
+                            {
+                                required: true
+                            },
+
+                            fechaNacimiento:
+                            {
+                                required: true
+                            },
+
+                            estado:
+                            {
+                                required: true
+                            },
+
+                            tipoTrabajo:
+                            {
+                                required: true
+                            },
+                        },
+                        messages:
+                        {
+                            idEmpleadoPK: "Se requiere un ID valido",
+                            nombre: "Se requiere un nombre de empleado valido",
+                            correo: "Se requiere un email valido, ejm: correo@email.com",
+                            fechaNacimiento: "Se requiere una fecha de nacimiento",
+                            estado: "Se requiere el estado actual del Empleado",
+                            tipoTrabajo: "Se requiere el puesto del nuevo empleado"
+                        },
+
+                        errorPlacement: function (error, element) {
+                            if ((element.attr('name') === 'idEmpleadoPK')) {
+                                error.insertAfter($('#errorID'));
+                            }
+                            if ((element.attr('name') === 'nombre')) {
+                                error.insertAfter($('#errorNombre'));
+                            }
+                            if ((element.attr('name') === 'correo')) {
+                                error.insertAfter($('#errorCorreo'));
+                            }
+                            if ((element.attr('name') === 'fechaNacimiento')) {
+                                error.insertAfter($('#errorFechaNacimiento'));
+                            }
+                            if ((element.attr('name') === 'estado')) {
+                                error.insertAfter($('#errorEstado'));
+                            }
+                            if ((element.attr('name') === 'tipoTrabajo')) {
+                                error.insertAfter($('#errorTipoTrabajo'));
+                            }
+                        },
+
+                        invalidHandler: function (form, validator) {
+                            $('#loading').hide('fast');
+                            $('#acceptar').show('fast');
+                        },
+                    });
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+        @Html.Partial("ModalCancelar")
+        @Html.Partial("Scripts")
+    }
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
