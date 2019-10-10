@@ -61,7 +61,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre *</span>
                                             </div>
-                                            <input class="form-control" id="nombre" name="nombre" type="text" style="max-width:none" placeholder="Nombre"/>
+                                            <input class="form-control" id="nombre" name="nombre" type="text" style="max-width:none" placeholder="Nombre" />
+                                            @Html.ValidationMessageFor(model => model.nombre)
                                         </div>
                                     </div>
                                     <div class="col">
@@ -70,7 +71,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="apellido1" style="width:200px">Primer Apellido *</span>
                                             </div>
-                                            <input class="form-control" id="apellido1" name="apellido1" type="text" style=" max-width:none" placeholder="Apellido"/>
+                                            <input class="form-control" id="apellido1" name="apellido1" type="text" style=" max-width:none" placeholder="Apellido" />
+                                            @Html.ValidationMessageFor(model => model.apellido1)
                                         </div>
                                     </div>
                                     <div class="col">
@@ -79,7 +81,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="apellido2" style="width:200px">Segundo Apellido</span>
                                             </div>
-                                            <input class="form-control" id="apellido2" name="apellido2" type="text" style="max-width:none" placeholder="Apellido"/>
+                                            <input class="form-control" id="apellido2" name="apellido2" type="text" style="max-width:none" placeholder="Apellido" />
+                                            @Html.ValidationMessageFor(model => model.apellido2)
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +94,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="cedulaPK" style="width:200px">Cédula *</span>
                                             </div>
-                                            <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style=" max-width:none" placeholder="0 0000 0000"/>
+                                            <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style=" max-width:none" placeholder="0 0000 0000" />
+                                            @Html.ValidationMessageFor(model => model.cedulaPK)
                                         </div>
                                     </div>
                                     <div class="col">
@@ -101,6 +105,7 @@
                                                 <span class="input-group-text" id="basic-addon1" for="correo" style="width:200px">Correo</span>
                                             </div>
                                             <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style=" max-width:none" />
+                                            @Html.ValidationMessageFor(model => model.correo)
                                         </div>
                                     </div>
                                     <div class="col">
@@ -109,7 +114,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="telefono" style="width:200px">Teléfono</span>
                                             </div>
-                                            <input class="form-control" id="telefono" name="telefono" type="text" style=" max-width:none" placeholder="8888 8888"/>
+                                            <input class="form-control" id="telefono" name="telefono" type="text" style=" max-width:none" placeholder="8888 8888" />
+                                            @Html.ValidationMessageFor(model => model.telefono)
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +127,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="empresa" style="width:200px">Empresa *</span>
                                             </div>
-                                            <input class="form-control" id="empresa" name="empresa" type="text" style="max-width:none" placeholder="Quality Experts"/>
+                                            <input class="form-control" id="empresa" name="empresa" type="text" style="max-width:none" placeholder="Quality Experts" />
+                                            @Html.ValidationMessageFor(model => model.empresa)
                                         </div>
                                     </div>
                                 </div>
@@ -132,6 +139,7 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="provincia" style="width:200px">Provincia</span>
+                                                @Html.ValidationMessageFor(model => model.provincia)
                                             </div>
                                             <div id="destino"></div>
                                         </div>
@@ -141,6 +149,7 @@
                                         <div class="input-group mb-3" id="canton1">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="canton" style="width:200px">Cantón</span>
+                                                @Html.ValidationMessageFor(model => model.canton)
                                             </div>
                                             <div id="destino2"></div>
                                         </div>
@@ -150,6 +159,7 @@
                                         <div class="input-group mb-3" id="distrito1">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1" for="distrito" style="width:200px">Distrito</span>
+                                                @Html.ValidationMessageFor(model => model.distrito)
                                             </div>
                                             <div id="destino3"></div>
                                         </div>
@@ -164,27 +174,27 @@
                                             <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta</span>
                                         </div>
                                         <textarea class="form-control col-sm-6" id="direccionExacta" name="direccionExacta" placeholder="Dirección de la empresa" style="width:600px; height: 200px;"></textarea>
+                                        @Html.ValidationMessageFor(model => model.direccionExacta)
                                     </div>
                                 </div>
-                                    <br><br>
-                                    <div class="row" style="max-width:1600px">
-                                        <!--Boton Cancelar-->
-                                        <div class="col-6  text-center" style=" padding-left:30%">
-                                            <a data-toggle="modal" data-target="#modalCancelar" data-placement="left" title="Cancelar" class="btn d-inline-block" href="#"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px;"></a>
-                                        </div>
-
-                                        <!--Boton Aceptar-->
-                                        <div class="col-6  text-center" style=" padding-right:30%">
-                                            <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                                                <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                            </button>
-                                        </div>
+                                <br><br>
+                                <div class="row" style="max-width:1600px">
+                                    <!--Boton Cancelar-->
+                                    <div class="col-6  text-center" style=" padding-left:30%">
+                                        <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                     </div>
+
+                                    <!--Boton Aceptar-->
+                                    <div class="col-6  text-center" style=" padding-right:30%">
+                                        <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                             <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                        </button>
+                                     </div>
+                                </div>
                             </form>
                         </div>
                     </div>
         </div>
-        @Html.Partial("ModalCancelar")
         @Html.Partial("Scripts")
 
     }

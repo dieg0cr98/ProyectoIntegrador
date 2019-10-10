@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelClientes.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="cedulaPK" />
+    </Key>
+    <Property Name="cedulaPK" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellido1" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="apellido2" Type="varchar" MaxLength="30" />
+    <Property Name="empresa" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="provincia" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="canton" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="distrito" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="direccionExacta" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="ModelClientesStoreContainer">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -23,7 +23,7 @@
 
 </script>
 
-<!-- Busca en la lista de proyectos por la string del input -->
+<!-- Busca en la lista de clientes por la string del input -->
 <script>
     function myFunction() {
         // Declare variables
@@ -59,7 +59,7 @@
 
 
 <script>
-
+    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
     function getProvincias() {
 
         $.ajax({
@@ -78,7 +78,7 @@
     }
 
 
-
+    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
     function getCantones() {
         var selected_option = $("#abc option:selected").data("t");
         $.ajax({
@@ -98,7 +98,7 @@
 
     }
 
-
+    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
     function getDistritos() {
         var provincia = $("#abc option:selected").data('t');
         var canton = $("#abc2 option:selected").data('t');
@@ -116,9 +116,8 @@
                 $('#destino3').html(html);
             }
         });
-
-
     }
+
 </script>
 
 

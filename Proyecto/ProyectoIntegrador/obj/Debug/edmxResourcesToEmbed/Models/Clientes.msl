@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelClientesStoreContainer" CdmEntityContainer="Gr03Proy2Entities3">
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="ModelClientes.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="empresa" ColumnName="empresa" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="canton" ColumnName="canton" />
+          <ScalarProperty Name="distrito" ColumnName="distrito" />
+          <ScalarProperty Name="direccionExacta" ColumnName="direccionExacta" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

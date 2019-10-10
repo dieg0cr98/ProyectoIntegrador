@@ -217,6 +217,24 @@
     <Compile Include="BaseDatos\TrabajaEn.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cliente.cs">
+      <DependentUpon>Clientes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clientes.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Clientes.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clientes.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Clientes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clientes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Clientes.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
@@ -247,6 +265,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Clientes.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Clientes.edmx</DependentUpon>
+      <LastGenOutput>Clientes.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Clientes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Clientes.edmx</DependentUpon>
+      <LastGenOutput>Clientes.cs</LastGenOutput>
     </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -286,6 +314,13 @@
     </EntityDeploy>
     <Content Include="BaseDatos\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Clientes.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Clientes.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Clientes.edmx.diagram">
+      <DependentUpon>Clientes.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -391,7 +426,6 @@
     <Content Include="Views\TrabajaEn\Index.cshtml" />
     <Content Include="Views\Clientes\modalEliminar.cshtml" />
     <Content Include="Views\Clientes\Scripts.cshtml" />
-    <Content Include="Views\Clientes\ModalCancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

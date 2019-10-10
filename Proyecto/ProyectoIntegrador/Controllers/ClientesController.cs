@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
-using ProyectoIntegrador.Models;
+
 
 namespace ProyectoIntegrador.Controllers
 {
