@@ -25,6 +25,8 @@ namespace ProyectoIntegrador.Controllers
         {
             //Encuentra el proyecto asociado al id
             ViewBag.proyectoActual = db.Proyecto.Find(idProyecto);
+            //Consigue los permisos del usuario actual.
+            ViewBag.permisosActuales = seguridad.EquipoConsultar(User);
 
             //Selecciona todos los empelados que esten disponible y que sean tester
             ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();

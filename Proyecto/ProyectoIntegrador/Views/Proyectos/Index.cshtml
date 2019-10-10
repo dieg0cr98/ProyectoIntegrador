@@ -204,12 +204,12 @@
                                                     <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada</span>
                                                 </div>
 
-                                                <input id="input4" class="form-control" type="time" style=" max-width:none" value="@item.duracionEstimada" name="duracionEstimada" readonly>
+                                                <input id="input4" class="form-control text-center" type="number" style=" max-width:none; text-align:center" value="@item.duracionEstimada" name="duracionEstimada" readonly>
 
 
                                             </div>
 
-                                            <small class="form-text text-center" style="color:black">Formato horas:minutos (hh:mm) </small>
+                                            <small class="form-text text-center" style="color:black">Formato en horas</small>
 
                                         </div>
                                         <div class="col">
@@ -222,11 +222,11 @@
 
 
 
-                                                <input id="input5" class="form-control" type="time" style="text-align:center; max-width:none" value="@item.duracionReal" name="duracionReal" readonly>
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; max-width:none" value="@item.duracionReal" name="duracionReal" readonly>
 
                                             </div>
 
-                                            <small class="form-text text-center" style="color:black">Formato horas:minutos (hh:mm) </small>
+                                            <small class="form-text text-center" style="color:black">Formato en horas </small>
 
                                         </div>
                                     </div>
@@ -250,10 +250,10 @@
                                 <hr />
                                 <div class="row justify-content-center" style="width:1150px ; height:100px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'10px','10px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                     </div>
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'70px','70px')" data-toggle="tooltip" data-placement="right" title="Administrar Equipo" class="btn d-inline-block" href="@Url.Action("IndexTrabajaEn", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="right" title="Administrar Equipo" class="btn d-inline-block" href="@Url.Action("IndexTrabajaEn", "Proyectos", new { idProyecto = item.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
 
                                     </div>
                                 </div>

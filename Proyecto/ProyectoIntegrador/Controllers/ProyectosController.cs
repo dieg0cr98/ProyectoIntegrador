@@ -335,7 +335,7 @@ namespace ProyectoIntegrador.Controllers
 
                                 //Actualiza el estado del empleado a trabajando
                                 Empleado empleado2 = db.Empleado.Find(cedulaLider);
-                                empleado2.estado = "Trabajando";
+                                empleado2.estado = "Ocupado";
                                 db.Entry(empleado2).State = EntityState.Modified;
                                 db.SaveChanges();
                             }
@@ -652,7 +652,17 @@ namespace ProyectoIntegrador.Controllers
             proyecto.fechaInicio = fechaInicio;
             proyecto.fechaFinalizacion = fechaFinalizacion;
             proyecto.cantidadReq = cantidadReq;
-            proyecto.cedulaClienteFK = cedulaCliente;
+
+            //Revisa si la cedula de clinte es nula
+            if (cedulaCliente == "null")
+            {
+                proyecto.cedulaClienteFK = null;
+            }
+            else
+            {
+                proyecto.cedulaClienteFK = cedulaCliente;
+            }
+           
 
 
 
