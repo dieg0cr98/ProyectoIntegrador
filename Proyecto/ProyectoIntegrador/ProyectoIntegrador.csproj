@@ -448,6 +448,8 @@
     <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
     <Content Include="Views\Proyectos\Scripts.cshtml" />
     <Content Include="Views\TrabajaEn\ScriptsEquipo.cshtml" />
+    <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
+    <Content Include="Views\Requerimientos\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -86,7 +86,7 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create(int idProyecto)
         {
             //ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.estado == "Disponible" && e.tipoTrabajo == "Tester");
-            //ViewBag.idProyectoFK = idProyecto;
+            ViewBag.idProyectoFK = idProyecto;
             return View();
         }
 

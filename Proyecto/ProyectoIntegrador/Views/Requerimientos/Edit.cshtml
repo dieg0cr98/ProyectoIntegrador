@@ -3,109 +3,193 @@
 @{
     ViewBag.Title = "Edit";
 }
+<br />
+<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Requerimiento</p>
+<hr>
 
-<h2>Edit</h2>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Requerimiento</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idReqPK)
+    <style>
 
-        @Html.HiddenFor(model => model.idProyectoFK)
+        body {
+            font-family: Arial, Sans-serif;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cedulaTesterFK, "cedulaTesterFK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("cedulaTesterFK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.cedulaTesterFK, "", new { @class = "text-danger" })
+        .error {
+            color: white;
+            background-color: red;
+            font-family: verdana, Helvetica;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <form class="cmxform" id="commentForm" method="post" action="Create">
+        <fieldset>
+            <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px; box-shadow: 1px 9px 22px 12px grey">
+                @if (ViewBag.error != null)
+                {
+                    <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+                }
+
+                <!--Se pasa el id del proyecto asociado-->
+                <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
+
+                <div class="form-row pt-4">
+                    <div class="form-group col-md-6">
+                        @*Atributo IdReqPK*@
+                        <label for="id">ID del requerimiento: *</label>
+                        <input id="id" class="form-control" type="text" style="text-align:center" value="@Model.idProyectoFK" name="idRequerimiento" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @*Atributo nombre*@
+                        <label for="nom">Nombre del requerimiento: *</label>
+                        <input id="nom" class="form-control" style="text-align:center" value="@Model.nombre" name="nombre" minlength="1" maxlength="20" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-row pt-4 mx-6">
+                    <div class="form-group col-md-6">
+                        @*Atributo Complejidad*@
+                        <label for="comp">Complejidad:</label>
+                        <select class="custom-select" name="complejidad">
+                            @switch (Model.complejidad)
+                            {
+                                case "Simple":
+                                    <option value="Simple" selected>Simple</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Complejo">Complejo</option>
+                                    <option value="Muy Complejo">Muy Complejo</option>
+                                    break;
+
+                                case "Medio":
+                                    <option value="Simple">Simple</option>
+                                    <option value="Medio" selected>Medio</option>
+                                    <option value="Complejo">Complejo</option>
+                                    <option value="Muy Complejo">Muy Complejo</option>
+                                    break;
+
+                                case "Complejo":
+                                    <option value="Simple">Simple</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Complejo" selected>Complejo</option>
+                                    <option value="Muy Complejo">Muy Complejo</option>
+                                    break;
+
+                                case "Muy Complejo":
+                                    <option value="Simple">Simple</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Complejo">Complejo</option>
+                                    <option value="Muy Complejo" selected>Muy Complejo</option>
+                                    break;
+
+                                default:
+                                    <option value="Simple">Simple</option>
+                                    <option value="Medio" selected>Medio</option>
+                                    <option value="Complejo">Complejo</option>
+                                    <option value="Muy Complejo">Muy Complejo</option>
+                                    break;
+
+                            }
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        @*Atributo Estado*@
+                        <label for="est">Estado:</label>
+                        <select class="custom-select" name="estado">
+                            @switch (Model.estado)
+                            {
+                                case "Preparacion":
+                                    <option value="Preparacion" selected>Preparación</option>
+                                    <option value="Activo">Activo</option>
+                                    <option value="Terminado">Terminado</option>
+                                    break;
+                                case "Activo":
+                                    <option value="Preparacion">Preparación</option>
+                                    <option value="Activo" selected>Activo</option>
+                                    <option value="Terminado">Terminado</option>
+                                    break;
+                                case "Terminado":
+                                    <option value="Preparacion">Preparación</option>
+                                    <option value="Activo">Activo</option>
+                                    <option value="Terminado" selected>Terminado</option>
+                                    break;
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <div class="form-group col-md-6">
+                        @*Atributo duracionEstimada*@
+                        <label for="de">Duración Estimada: *</label>
+                        <input id="de" class="form-control" type="time" style="width:700px; text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada" required>
+                        <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @*Atributo duarcionReal*@
+                        <label for="dr" style="text-align:center">Duración Real: *</label>
+                        <input id="dr" class="form-control" type="time" style="text-align:center" value="@Model.tiempoReal" name="duracionReal" required>
+                        <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <div class="form-group col-md-6">
+                        @*Atributo fechaInicio*@
+                        <label for="fi">Fecha de Inicio: *</label>
+                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeInicio" name="fechai" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @*Atributo fechaFinalizacion*@
+                        <label for="fi" style="text-align:center">Fecha de Fin: *</label>
+                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeFinalizacion" name="fechaf" required>
+                    </div>
+                </div>
+
+                @*Atributo cedulaTester*@
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="tester">Tester Asociado: *</label>
+                    <select class="custom-select" name="idTester" id="tester" required>
+                        @*<option selected value="@ViewBag.testerAsociado.idEmpleadoPK"> @ViewBag.testerAsociado.nombre @ViewBag.testerAsociado.apellido1 @ViewBag.testerAsociado.apellido2 </option>*@
+                        @foreach (var item in ViewBag.otros)
+                        {
+                            <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 @item.apellido2 </option>
+
+                        }
+                    </select>
+                </div>
+                @*Atributo Objetivo*@
+                <div class="input-group mb-3 ">
+                    <label class="input-group-text" style="width:200px; text-align:center" id="basic-addon1">Descripcion: </label>
+                    <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
+                </div>
+
+                <h5>* = Campo Requerido</h5>
+
+                <div class="row justify-content-center" style="max-width:1150px">
+                    <div class="col-4  text-center">
+                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                    </div>
+                    <div class="col-4  text-center">
+
+                        <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                            <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.complejidad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.complejidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.complejidad, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.tiempoEstimado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tiempoEstimado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tiempoEstimado, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.tiempoReal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.tiempoReal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.tiempoReal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.fechaDeInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fechaDeInicio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fechaDeInicio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.fechaDeFinalizacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fechaDeFinalizacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fechaDeFinalizacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.horas, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.horas, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.horas, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        </fieldset>
+    </form>
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
