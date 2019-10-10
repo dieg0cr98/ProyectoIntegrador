@@ -40,12 +40,12 @@
 
                 <!--Se pasa el id del proyecto asociado-->
                 <input type="hidden" name="idProyecto" value="@ViewBag.idProyecto" />
-
+                <input type="hidden" value="@Model.idReqPK" name="idRequerimientoViejo">
                 <div class="form-row pt-4">
                     <div class="form-group col-md-6">
                         @*Atributo IdReqPK*@
                         <label for="id">ID del requerimiento: *</label>
-                        <input id="id" class="form-control" type="text" style="text-align:center" value="@Model.idReqPK" name="idRequerimiento" required>
+                        <input id="id" class="form-control" type="text" style="text-align:center" value="@Model.idReqPK" name="idRequerimientoNuevo" required>
                     </div>
                     <div class="form-group col-md-6">
                         @*Atributo nombre*@

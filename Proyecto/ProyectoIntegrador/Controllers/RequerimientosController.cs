@@ -166,11 +166,11 @@ namespace ProyectoIntegrador.Controllers
 
         // POST: Requerimientos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
-            int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto)
+        public ActionResult Edit(int idRequerimientoNuevo, string nombre, string complejidad, string descripcion, string estado,
+            int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto, int idRequerimientoViejo)
         {
 
-            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimientoViejo, idProyecto);
             requerimiento.complejidad = complejidad;
             requerimiento.descripcion = descripcion;
             requerimiento.estado = estado;
@@ -180,20 +180,20 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = duracionReal;
 
-            if(idRequerimiento != requerimiento.idReqPK)
+            if(idRequerimientoViejo != idRequerimientoNuevo)
             {
-                System.Diagnostics.Debug.WriteLine("Wtf, idRequerimiento is " + idRequerimiento + " and idReqPK is " + requerimiento.idReqPK);
-                if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null)
+                System.Diagnostics.Debug.WriteLine("Wtf, idRequerimiento is " + idRequerimientoNuevo + " and idReqPK is " + requerimiento.idReqPK);
+                if (db.Requerimiento.Where(i => i.idReqPK == idRequerimientoNuevo).FirstOrDefault() != null)
                 {
-                    ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento;
+                    ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimientoNuevo;
                     //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
                     //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
-                    ViewBag.idProyectoFK = idProyecto;
+                    ViewBag.idProyecto = idProyecto;
                     return View(requerimiento);
                 }
             }
 
-            requerimiento.idReqPK = idRequerimiento;
+            requerimiento.idReqPK = idRequerimientoNuevo;
 
             //Revisa que no exista un requerimiento con el nombre ingresado por el usuario
             if(nombre != requerimiento.nombre)
@@ -203,7 +203,7 @@ namespace ProyectoIntegrador.Controllers
                     ViewBag.error = "Ya existe un requerimiento llamado: " + nombre;
                     //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
                     //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
-                    ViewBag.idProyectoFK = idProyecto;
+                    ViewBag.idProyecto = idProyecto;
                     return View(requerimiento);
                 }
             }
