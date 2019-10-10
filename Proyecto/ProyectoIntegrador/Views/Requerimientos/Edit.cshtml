@@ -39,7 +39,7 @@
                 }
 
                 <!--Se pasa el id del proyecto asociado-->
-                <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
+                <input type="hidden" name="idProyecto" value="@ViewBag.idProyecto" />
 
                 <div class="form-row pt-4">
                     <div class="form-group col-md-6">
@@ -131,15 +131,15 @@
                     <div class="form-group col-md-6">
                         @*Atributo duracionEstimada*@
                         <label for="de">Duración Estimada: *</label>
-                        <input id="de" class="form-control" type="time" style="width:700px; text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada" required>
-                        <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                        <input id="de" class="form-control" type="number" style="width:700px; text-align:center" value="@Model.tiempoEstimado" name="duracionEstimada" required>
+                        <small class="form-text text-center" style="color:black">Formato en Horas  </small>
                     </div>
 
                     <div class="form-group col-md-6">
-                        @*Atributo duarcionReal*@
+                        @*Atributo duracionReal*@
                         <label for="dr" style="text-align:center">Duración Real: *</label>
-                        <input id="dr" class="form-control" type="time" style="text-align:center" value="@Model.tiempoReal" name="duracionReal" required>
-                        <small class="form-text text-center" style="color:black">Formato en Horas y Minutos (hh:mm)  </small>
+                        <input id="dr" class="form-control" type="number" style="text-align:center" value="@Model.tiempoReal" name="duracionReal">
+                        <small class="form-text text-center" style="color:black">Formato en Horas  </small>
                     </div>
                 </div>
 
@@ -152,26 +152,14 @@
                     <div class="form-group col-md-6">
                         @*Atributo fechaFinalizacion*@
                         <label for="fi" style="text-align:center">Fecha de Fin: *</label>
-                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeFinalizacion" name="fechaf" required>
+                        <input id="fi" class="form-control text-center" type="date" value="@Model.fechaDeFinalizacion" name="fechaf">
                     </div>
                 </div>
 
-                @*Atributo cedulaTester*@
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="tester">Tester Asociado: *</label>
-                    <select class="custom-select" name="idTester" id="tester" required>
-                        @*<option selected value="@ViewBag.testerAsociado.idEmpleadoPK"> @ViewBag.testerAsociado.nombre @ViewBag.testerAsociado.apellido1 @ViewBag.testerAsociado.apellido2 </option>*@
-                        @foreach (var item in ViewBag.otros)
-                        {
-                            <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 @item.apellido2 </option>
-
-                        }
-                    </select>
-                </div>
-                @*Atributo Objetivo*@
+                @*Atributo Descripcion*@
                 <div class="input-group mb-3 ">
                     <label class="input-group-text" style="width:200px; text-align:center" id="basic-addon1">Descripcion: </label>
-                    <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
+                    <textarea class="form-control" name="descripcion" value="@Model.descripcion" maxlength="200" aria-label="With textarea" cols="0" id="comment"></textarea>
                 </div>
 
                 <h5>* = Campo Requerido</h5>
@@ -193,3 +181,4 @@
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}

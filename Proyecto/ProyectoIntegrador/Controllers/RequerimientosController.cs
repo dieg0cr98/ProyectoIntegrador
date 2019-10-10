@@ -14,16 +14,6 @@ namespace ProyectoIntegrador.Controllers
     {
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
 
-        // GET: Requerimientos
-        public ActionResult Index(int idProyecto)
-        {
-            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
-            ViewBag.idProyecto = idProyecto;
-            ViewBag.datosProyecto = db.Proyecto.Where(N => N.idProyectoAID == idProyecto);
-
-            return View(requerimiento.ToList());
-        }
-
         //Método utilizado para obtener todos los testers disponibles en un proyecto
         private IEnumerable<Empleado> getTesters(int tipo, int idProyecto, string cedulaTester)
         {
@@ -79,6 +69,16 @@ namespace ProyectoIntegrador.Controllers
 
             db.SaveChanges();
 
+        }
+
+        // GET: Requerimientos
+        public ActionResult Index(int idProyecto)
+        {
+            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
+            ViewBag.idProyecto = idProyecto;
+            ViewBag.datosProyecto = db.Proyecto.Where(N => N.idProyectoAID == idProyecto);
+
+            return View(requerimiento.ToList());
         }
 
         // GET: Requerimientos/Create
@@ -160,6 +160,7 @@ namespace ProyectoIntegrador.Controllers
             //ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.tipoTrabajo == "Tester");
             //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
             //ViewBag.otros = getTesters(1, (int)idProyecto, requerimiento.cedulaTesterFK);
+            ViewBag.idProyecto = idProyecto;
             return View(requerimiento);
         }
 
@@ -179,25 +180,31 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = duracionReal;
 
-            if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null)
+            if(idRequerimiento != requerimiento.idReqPK)
             {
-                ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento;
-                //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
-                //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
-                ViewBag.idProyectoFK = idProyecto;
-                return View(requerimiento);
+                if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento;
+                    //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
+                    //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
+                    ViewBag.idProyectoFK = idProyecto;
+                    return View(requerimiento);
+                }
             }
 
             requerimiento.idReqPK = idRequerimiento;
 
             //Revisa que no exista un requerimiento con el nombre ingresado por el usuario
-            if (db.Requerimiento.Where(i => i.nombre == nombre).FirstOrDefault() != null)
+            if(nombre != requerimiento.nombre)
             {
-                ViewBag.error = "Ya existe un requerimiento llamado: " + nombre;
-                //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
-                //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
-                ViewBag.idProyectoFK = idProyecto;
-                return View(requerimiento);
+                if (db.Requerimiento.Where(i => i.nombre == nombre).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un requerimiento llamado: " + nombre;
+                    //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
+                    //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
+                    ViewBag.idProyectoFK = idProyecto;
+                    return View(requerimiento);
+                }
             }
 
             requerimiento.nombre = nombre;
