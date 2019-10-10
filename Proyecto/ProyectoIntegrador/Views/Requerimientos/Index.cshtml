@@ -119,7 +119,7 @@
                                     <div class="form-group col-md-6">
                                         @*Atributo FechaInicio*@
                                         <label for="cfecha">Fecha de Inicio:</label>
-                                        <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
+                                        <input id="cfecha" class="form-control text-center" type="date" value="@item.fechaDeInicio" name="Fecha De Inicio" readonly>
                                     </div>
                                     <div class="form-group col-md-6">
                                         @*Atributo fechaFinalizacion*@
@@ -149,7 +149,7 @@
                                 <hr />
                                 <div class="row justify-content-center" style="max-width:1000px">
                                     <div class="col-4  text-center">
-                                        <a onclick="my_loading(this,'150px','150px')" data-toggle="tooltip" data-placement="top" title="Ver Pruebas" class="btn d-inline-block" href="@Url.Action("Index", "Pruebas")"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:130px ; width:130px"></a>
+                                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Ver Pruebas" class="btn d-inline-block" href="#"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                                     </div>
                                 </div>
                             </div>
