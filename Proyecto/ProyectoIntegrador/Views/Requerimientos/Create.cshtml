@@ -4,106 +4,338 @@
     ViewBag.Title = "Create";
 }
 
-<br />
-<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
-<hr>
 
-<form class="cmxform" id="commentForm" method="post" action="Create">
-    <fieldset>
-        <div class="container justify-content-center bg-secondary" style="width:600px; border-radius:25px; box-shadow: 1px 9px 22px 12px grey">
-            @if (ViewBag.error != null)
-            {
-                <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+
+    <head>
+
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+        <style>
+
+            .error {
+                color: white;
+                background-color: red;
+                font-family: verdana, Helvetica;
             }
 
-            @*Atributo idProyecto*@
-            <input type="hidden" name="idProyecto" value="@ViewBag.idProyectoFK" />
+            input.error, input select.error {
+                background-color: white;
+                border-color: red;
+            }
+        </style>
 
-            <div class="form-row pt-4">
-                <div class="form-group col-md-6">
-                    @*Atributo IdReqPK*@
-                    <label for="id">ID del requerimiento: *</label>
-                    <input id="id" class="form-control" type="number" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
+
+
+
+    </head>
+
+
+
+    <body>
+
+        br />
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
+        <hr>
+
+        <form class="cmxform" id="commentForm" method="post" action="Create">
+            <fieldset>
+                <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+
+
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+
+                    }
+
+
+                    <input type="hidden" id="custId" name="idProyecto" value=@ViewBag.idProyectoFK>
+
+
+                    <div class="form-row mb-2">
+                        <div class="col">
+
+                            @*Atributo idProyecto*@
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:200px" id="basic-addon1">ID del requerimiento *</span>
+                                </div>
+
+                                <input id="id" class="form-control" type="number" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
+
+                            </div>
+                            <div id="errorIdRequerimiento"></div>
+
+
+                        </div>
+                        <div class="col">
+
+                            @*Atributo nombre*@
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Nombre Requerimiento *</span>
+                                </div>
+
+
+                                <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
+
+                            </div>
+
+                            <div id="errorNombre"></div>
+
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row mb-2">
+                        <div class="col">
+
+                            @*Atributo Complejidad*@
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Complejidad</span>
+                                </div>
+
+                                <select class="custom-select" name="complejidad">
+                                    <option value="Simple">Simple</option>
+                                    <option value="Medio" selected>Medio</option>
+                                    <option value="Complejo">Complejo</option>
+                                    <option value="Muy Complejo">Muy Complejo</option>
+                                </select>
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="col">
+
+                            @*Atributo Estado*@
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Estado</span>
+                                </div>
+
+
+                                <select class="custom-select" name="estado">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Preparacion" selected>Preparación</option>
+                                    <option value="Terminado">Terminado</option>
+                                </select>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row mb-2">
+                        <div class="col">
+
+                            @*Atributo duracionEstimada*@
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada *</span>
+                                </div>
+
+                                <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada" required>
+                                <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
+
+                            </div>
+                            <div id="errorDuracionEstimada"></div>
+
+
+                        </div>
+                        <div class="col">
+
+                            @*Atributo fechaInicio*@
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha Inicio *</span>
+                                </div>
+
+                                <input id="fi" class="form-control text-center" type="date" value="@DateTime.Now.ToShortDateString()" name="fechai" required>
+                                <small class="form-text text-center" style="color:black">Por defecto fecha del dia creado </small>
+
+                            </div>
+
+                            <div id="errorFechai"></div>
+
+                        </div>
+                    </div>
+
+
+
+                    @*Atributo Objetivo*@
+                    <div class="input-group mb-2 ">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Descripcion</span>
+                        </div>
+                        <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
+
+
+                    </div>
+
+
+                    <h5> * Campos requeridos</h5>
+
+
+
+                    <hr />
+
+
+                    <div class="row justify-content-center" style="max-width:1150px">
+                        <div class="col-4  text-center">
+                            <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+                        <div class="col-4  text-center">
+
+                            <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    @*Atributo nombre*@
-                    <label for="nom">Nombre del requerimiento: *</label>
-                    <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
-                </div>
-            </div>
+            </fieldset>
+        </form>
 
-            <div class="form-row pt-4 mx-6">
-                <div class="form-group col-md-6">
-                    @*Atributo Complejidad*@
-                    <label for="comp">Complejidad:</label>
-                    <select class="custom-select" name="complejidad">
-                        <option value="Simple">Simple</option>
-                        <option value="Medio" selected>Medio</option>
-                        <option value="Complejo">Complejo</option>
-                        <option value="Muy Complejo">Muy Complejo</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    @*Atributo Estado*@
-                    <label for="est">Estado:</label>
-                    <select class="custom-select" name="estado">
-                        <option value="Activo">Activo</option>
-                        <option value="Preparacion" selected>Preparación</option>
-                        <option value="Terminado">Terminado</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="form-row mb-3">
-                <div class="form-group col-md-6">
-                    @*Atributo duracionEstimada*@
-                    <label for="de">Duración Estimada: *</label>
-                    <input id="de" class="form-control" type="number" style="width:700px; text-align:center" name="duracionEstimada" required>
-                    <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
-                </div>
 
-                <div class="form-group col-md-6">
-                    @*Atributo fechaInicio*@
-                    <label for="fi">Fecha de Inicio: *</label>
-                    <input id="fi" class="form-control text-center" type="date" value="@DateTime.Now.ToShortDateString()" name="fechai" required>
-                    <small class="form-text text-center" style="color:black">Por defecto fecha del dia creado </small>
-                </div>
-            </div>
 
-            @*Atributo Descripción*@
-            <div class="input-group mb-3 ">
-                <label class="input-group-text" style="width:200px; text-align:center" id="basic-addon1">Descripcion: </label>
-                <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" cols="0" id="comment"></textarea>
-            </div>
+        <script>
 
-            <h6>* Campo Requerido</h6>
+            $('document').ready(function () {
 
-            <div class="row justify-content-center" style="max-width:1150px">
-                <div class="col-4  text-center">
-                    <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                </div>
-                <div class="col-4  text-center">
 
-                    <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                    </button>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</form>
+                $('#loading').hide();
 
-<script>
-    $("#commentForm").validate();
-</script>
 
-<script>
-    $(function () {
-        $('[data-toogle="tooltip"]').tooltip()
-    }
-    )
-</script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            });
+
+
+
+            $('#btnsubmit').on('click', function () {
+                $('#acceptar').hide('fast');
+
+
+                $('#loading').show('fast');
+
+
+            });
+
+        </script>
+
+
+
+        <script>
+            $(function () {
+                $("#commentForm").validate(
+                    {
+                        rules:
+                        {
+                            idRequerimiento:
+                            {
+                                required: true,
+                                min: 1
+                            },
+                            nombre:
+                            {
+                                required: true,
+                                minlength: 1
+
+                            },
+                            duracionEstimada:
+                            {
+                                required: true,
+                                min : 1
+
+                            },
+                            fechai:
+                            {
+                                required: true,
+                                
+                            },
+
+
+
+                        },
+                        messages:
+                        {
+                            idRequerimiento: "El id tiene que ser mayor de 0",
+                            nombre: "Inserte al menos 1 caracter",
+                            duracionEstimada: "Tiene que ser un numero mayor a 0",
+                            fechai: "Inserte una fecha"
+
+                        },
+
+                        errorPlacement: function (error, element) {
+                            if ((element.attr('name') === 'idRequerimiento')) {
+                                error.insertAfter($('#errorIdRequerimiento'));
+                            }
+                            if ((element.attr('name') === 'nombre')) {
+                                error.insertAfter($('#errorNombre'));
+                            }
+                            if ((element.attr('name') === 'fechai')) {
+                                error.insertAfter($('#errorFechai'));
+                            }
+                            if ((element.attr('name') === 'duracionEstimada')) {
+                                error.insertAfter($('#errorDuracionEstimada'));
+                            }
+
+
+
+
+
+                        },
+                        invalidHandler: function (form, validator) {
+
+                            $('#loading').hide('fast');
+                            $('#acceptar').show('fast');
+
+                        },
+
+
+
+                    });
+            });
+
+
+        </script>
+
+
+
+
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+
+
+
+
+
+
+
+
+
+
+    </body>
+
+
+
+
+
