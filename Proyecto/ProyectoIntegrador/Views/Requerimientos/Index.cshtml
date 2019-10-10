@@ -158,7 +158,7 @@
                                             @*Atributo FechaInicio*@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
+                                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha de Inicio</span>
                                                 </div>
 
                                                 <input id="cfecha" class="form-control text-center" style="max-width:none" type="date" value="@item.fechaDeInicio.ToString("yyyy-MM-dd")" placeholder="@item.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
@@ -173,7 +173,7 @@
                                             @*Atributo fechaFinalizacion*@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha Finalizacion</span>
+                                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha de Finalizacion</span>
                                                 </div>
 
                                                 <input id="cfecha2" class="form-control text-center" style="max-width:none" type="date" value="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" placeholder="@if (item.fechaDeFinalizacion != null) { ((DateTime)item.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" name="Fecha de Finalizacion" readonly>
@@ -219,12 +219,12 @@
                                     </div>
 
 
-                                    @*Atributo Objetivo*@
+                                    @*Atributo Descripción*@
                                     <div class="input-group mb-4 ">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Descripcion</span>
                                         </div>
-                                        <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
+                                        <textarea class="form-control" name="descripcion" placeholder="@item.descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
 
 
                                     </div>
