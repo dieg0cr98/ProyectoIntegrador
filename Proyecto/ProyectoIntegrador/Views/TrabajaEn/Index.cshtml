@@ -92,7 +92,7 @@
                 <!--Carta que contiene la lista de integrantes-->
                 <div class="card" draggable="false" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
                     <ul class="list-group h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab-1" role="tablist"
-                          ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                        ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
 
                         <!--Muestra los integrantes del equipo-->
                         @foreach (var empleado in ViewBag.equipoActual)
@@ -105,39 +105,54 @@
                 </div>
             </div>
 
-            <!--Segunda columna, contiene lista de empleados disponibles-->
-            <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+            <!--La columna con empleados disponibles solo es visible para calidad,soporte y el líder-->
+            @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
+            {
+                <!--Segunda columna, contiene lista de empleados disponibles-->
+                <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                <!--Navbar inside the col-->
-                <nav class="navbar navbar-light bg-secondary">
-                    <a class="navbar-brand">
-                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                        Empleados disponibles
-                    </a>
+                    <!--Navbar inside the col-->
+                    <nav class="navbar navbar-light bg-secondary">
+                        <a class="navbar-brand">
+                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Empleados disponibles
+                        </a>
 
-                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
-                    <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
-                        <img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
-                    </a>
-                </nav>
+                        <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
+                            <img src="~/Content/buscar.svg" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                        </a>
+                    </nav>
 
-                <!--Carta que contiene el drag and drop-->
-                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
-                    <ul class="list-group  h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="ulCol3" role="tablist"
-                        ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                    <!--Carta que contiene el drag and drop-->
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                        <ul class="list-group  h-100 w-100 mh-100 mw-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="ulCol3" role="tablist"
+                            ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
 
-                        <!--Muesta los líderes-->
-                        <!--Muestra los testers-->
-                        @foreach (var testerActual in ViewBag.testers)
-                        {
-                            <li draggable="true"><a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" href=@idCarta3 id=@testerActual.idEmpleadoPK data-toggle="list" role="tab">@testerActual.nombre @testerActual.apellido1</a></li>
-                            { idCarta3 += 1; }
-                        }
-                    </ul>
+                            <!--Muesta los líderes a los que tengan permiso de verlos-->
+                            @if (ViewBag.permisosActuales.Item1 == 0)
+                            {
+                                foreach (var liderActual in ViewBag.lideres)
+                                {
+                                    <li draggable="true"><a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" href=@idCarta3 id=@liderActual.idEmpleadoPK data-toggle="list" role="tab">@liderActual.nombre @liderActual.apellido1</a></li>
+                                    { idCarta3 += 1; }
+                                }
+
+                            }
+                            <!--Muestra los testers-->
+                            @foreach (var testerActual in ViewBag.testers)
+                            {
+                                <li draggable="true"><a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" href=@idCarta3 id=@testerActual.idEmpleadoPK data-toggle="list" role="tab">@testerActual.nombre @testerActual.apellido1</a></li>
+                                { idCarta3 += 1; }
+                            }
+                        </ul>
+                    </div>
+
+
                 </div>
+              }
 
 
-            </div>
         </div>
     </div>>
 
