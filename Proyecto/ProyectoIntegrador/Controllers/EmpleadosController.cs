@@ -128,5 +128,14 @@ namespace ProyectoIntegrador.Controllers
             }
             base.Dispose(disposing);
         }
+        
+            public ActionResult Eliminar(string id)
+        {
+            Empleado empleado = db.Empleado.Find(id);
+            db.Empleado.Remove(empleado);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
     }
 }
