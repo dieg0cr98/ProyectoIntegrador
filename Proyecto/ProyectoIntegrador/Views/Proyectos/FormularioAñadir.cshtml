@@ -113,55 +113,6 @@
 
                 </div>
 
-
-
-                <div class="form-row mb-2">
-                    <div class="col">
-
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada *</span>
-                            </div>
-
-                            @if (ViewBag.permisos.Item3[4] == 1)
-                            {
-                                <input id="input4" class="form-control" type="time" style=" max-width:none" name="duracionEstimada">
-
-                            }
-                            else
-                            {
-                                <input id="input4" class="form-control" type="time" style=" max-width:none" name="duracionEstimada" readonly>
-                            }
-
-                        </div>
-                        <small class="form-text text-center" style="color:black">Formato horas:minutos (hh:mm) </small>
-                        <div id="errorDuracionEstimada"></div>
-
-                    </div>
-                    <div class="col">
-
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Duracion Real</span>
-                            </div>
-
-
-                            @if (ViewBag.permisos.Item3[5] == 1)
-                            {
-                                <input id="input5" class="form-control" type="time" style="text-align:center; max-width:none" name="duracionReal" required>
-
-                            }
-                            else
-                            {
-                                <input id="input5" class="form-control" type="time" style="text-align:center; max-width:none" name="duracionReal" readonly>
-                            }
-                        </div>
-
-                        <small class="form-text text-center" style="color:black">Formato horas:minutos (hh:mm) </small>
-
-                    </div>
-                </div>
-
                 @*Fechas *@
                 <div class="form-row mb-2">
                     <div class="col">
@@ -191,8 +142,6 @@
                                 <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha Finalizacion</span>
                             </div>
 
-
-
                             @if (ViewBag.permisos.Item3[7] == 1)
                             {
                                 <input id="cfecha2" class="form-control text-center" type="date" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaFinalizacion" required>
@@ -208,6 +157,58 @@
 
                     </div>
                 </div>
+
+
+                @*Duraciones *@
+                <div class="form-row mb-2">
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada *</span>
+                            </div>
+
+                            @if (ViewBag.permisos.Item3[4] == 1)
+                            {
+                                <input id="input4" class="form-control" type="number" style=" max-width:none" name="duracionEstimada">
+
+                            }
+                            else
+                            {
+                                <input id="input4" class="form-control" type="number" style=" max-width:none" name="duracionEstimada" readonly>
+                            }
+
+                        </div>
+                        <small class="form-text text-center" style="color:black">Formato en horas </small>
+                        <div id="errorDuracionEstimada"></div>
+
+                    </div>
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Duracion Real</span>
+                            </div>
+
+
+                            @if (ViewBag.permisos.Item3[5] == 1)
+                            {
+                                <input id="input5" class="form-control" type="number" style="text-align:center; max-width:none" name="duracionReal" required>
+
+                            }
+                            else
+                            {
+                                <input id="input5" class="form-control" type="number" style="text-align:center; max-width:none" name="duracionReal" readonly>
+                            }
+                        </div>
+
+                        <small class="form-text text-center" style="color:black">Formato en horas </small>
+                        <div id="errorDuracionReal"></div>
+
+                    </div>
+                </div>
+
+
 
                 <input id="cdr" class="form-control" type="number" name="cantidadReq" value="0" hidden>
 
@@ -304,20 +305,6 @@
                 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
 
 
@@ -374,8 +361,14 @@
                         {
                             required: true
 
-                        }
+                        },
+                        duracionEstimada:
+                        {
+                            required: true,
+                            min: 1
 
+
+                        },
 
 
 
@@ -384,7 +377,8 @@
                     {
                         nombre: "Inserte al menos 1 caracter",
                         duracionEstimada: "Inserte la duracion estimada",
-                        cedulaCliente: "Seleccione un cliente"
+                        cedulaCliente: "Seleccione un cliente",
+                        duracionEstimada: "La duracion tiene que ser mayor que 0",
 
 
                     },
@@ -398,6 +392,9 @@
                         }
                         if ((element.attr('name') === 'cedulaCliente')) {
                             error.insertAfter($('#errorCedulaCliente'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada')) {
+                            error.insertAfter($('#errorDuracionEstimada'));
                         }
 
 
