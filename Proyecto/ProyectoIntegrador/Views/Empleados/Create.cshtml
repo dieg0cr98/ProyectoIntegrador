@@ -242,32 +242,8 @@
                     </div>
                     
                     @*Habilidades Tecnicas*@
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect03" style="width:200px">Cliente *</label>
-                        </div>
+                    
 
-                        <select class="custom-select" name="cedulaCliente" style="max-width:395px" id="inputGroupSelect03">
-
-
-                            @if (ViewBag.permisos.Item3[9] == 1)
-                            {
-                                foreach (var item in ViewBag.cliente)
-                                {
-                                    <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
-
-
-                                }
-
-
-                            }
-
-                        </select>
-                        <div class="input-group-append" style="max-width:none; width:180px">
-                            <a class="btn btn-danger" style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los Clientes">Clientes</a>
-                        </div>
-
-                    </div>
 
                     <h5> * Campos requeridos</h5>
 

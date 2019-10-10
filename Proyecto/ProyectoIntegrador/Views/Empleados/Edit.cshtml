@@ -150,39 +150,64 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha de Nacimiento *</span>
                                 </div>
-                                <input id="input7" class="form-control" type="date" value="@Model.fechaNacimiento" style="text-align:center; max-width:none" name="fechaNacimiento">
+                                <input value="@Html.DisplayFor(model => model.fechaNacimiento)" style=" max-width:none" r class="form-control">
                             </div>
                         </div>
                         <div id="errorFechaNacimiento"></div>
                     </div>
 
                     @*Quinta fila*@
+                    <br>
                     <div class="form-row mb-2">
-
-                        @*Provincia*@
                         <div class="col">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" value="@Model.provincia" for="provincia">Provincia:</span>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" for="provincia" style="width:200px">direccion del empleado:</span>
+                                </div>
+                                <input class="form-control" type="text" style=" max-width:none" value="@Model.provincia,@Model.canton,@Model.distrito" readonly />
                             </div>
-                            <div id="destino"></div>
                         </div>
-
-                        @*Canton*@
-                        <div class="col">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" value="@Model.canton" for="canton">Canton:</span>
+                        <div class="col -4">
+                            <div class="input-group">
+                                <button class="form-control" type="button" onclick="$('#prov1').show();">Cambiar</button>
                             </div>
-                            <div id="destino2"></div>
-                        </div>
-
-                        @*Distrito*@
-                        <div class="col">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" value="@Model.distrito" for="distrito">Distrito:</span>
-                            </div>
-                            <div id="destino3"></div>
                         </div>
                     </div>
+                    <br>
+                    <div style="display:none;" id="prov1">
+                        <h5>Escoja la nueva ubicación:</h5>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-4">
+                                <!--Campo Provincia-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="provincia" for="provincia" style="width:200px">Provincia</span>
+                                    </div>
+                                    <div id="destino"></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Canton-->
+                                <div class="input-group mb-3" id="canton1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="canton" for="canton" style="width:200px">Cantón</span>
+                                    </div>
+                                    <div id="destino2"></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!--Campo Distrito-->
+                                <div class="input-group mb-3" id="distrito1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="distrito" for="distrito" style="width:200px">Distrito</span>
+                                    </div>
+                                    <div id="destino3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
 
                     @*Sexta fila*@
                     @*Atributo DireccionExacta*@
@@ -232,24 +257,7 @@
 
                     @*Habilidades Tecnicas*@
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect03" style="width:200px">Habilidades tecnicas</label>
-                        </div>
 
-                        <select class="custom-select" name="habilidades" style="max-width:395px" id="inputGroupSelect03">
-
-                            foreach (var item in ViewBag.cliente)
-                            {
-                            <option value="@item.cedulaPK"> @item.nombre @item.apellido1 @item.empresa </option>
-                            }
-
-                        </select>
-                        <div class="input-group-append" style="max-width:none; width:180px">
-                            <a class="btn btn-danger" style="max-width:none; width:180px" href="/HabilidadTecnica/Index" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de las habilidades">Habilidades</a>
-                        </div>
-
-                    </div>
 
                     <h5> * Campos requeridos</h5>
 
