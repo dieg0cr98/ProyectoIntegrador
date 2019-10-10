@@ -1,4 +1,4 @@
-@model ProyectoIntegrador.BaseDatos.Empleado
+﻿@model ProyectoIntegrador.BaseDatos.Empleado
 
 @{
     ViewBag.Title = "Edit";
@@ -215,7 +215,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Direccion</span>
                         </div>
-                        <textarea class="form-control" name="direccion" value="@Model.direccion" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
+                        <textarea class="form-control" name="direccion" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment">@Model.direccion</textarea>
                     </div>
 
                     @*Setima fila*@
