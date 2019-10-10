@@ -13,6 +13,7 @@ namespace ProyectoIntegrador.Controllers
     public class RequerimientosController : Controller
     {
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+        private SeguridadController seguridad = new SeguridadController();
 
         //Método utilizado para obtener todos los testers disponibles en un proyecto
         private IEnumerable<Empleado> getTesters(int tipo, int idProyecto, string cedulaTester)

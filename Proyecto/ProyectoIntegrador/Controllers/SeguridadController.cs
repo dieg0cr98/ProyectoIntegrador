@@ -219,7 +219,18 @@ namespace ProyectoIntegrador.Controllers
             {1,1,0,0} //estado
         };
 
-//---------------------------------------------------------------------------------------------------------------------------//
+        /* 1 Pueder ver la acción para realizarla
+         * 2 No puede verla porque no la puede realizar
+        */
+        private int[,] tablaSeguridadRequerimientosGeneral = new int[,] {
+                       /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consultar*/                   {1,1,1,1},
+         /*Agregar*/                     {1,2,2,2},
+         /*Editar*/                      {1,1,1,2},
+         /*Eliminar*/                    {1,2,2,2}
+         };
+
+        //---------------------------------------------------------------------------------------------------------------------------//
 
 
 
