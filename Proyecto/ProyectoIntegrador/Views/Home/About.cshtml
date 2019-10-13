@@ -1,177 +1,92 @@
 ﻿
 
 
-<style>
-    #sortable1, #sortable2 {
-        border: 1px solid #eee;
-        width: 142px;
-        min-height: 20px;
-        list-style-type: none;
-        margin: 0;
-        padding: 5px 0 0 0;
-        float: left;
-        margin-right: 10px;
-        background-color: antiquewhite;
-    }
 
-        #sortable1 li, #sortable2 li {
-            margin: 0 5px 5px 5px;
-            padding: 5px;
-            font-size: 1.2em;
-            color: white;
-            width: 120px;
-            background-color: #76323f;
+
+    <body onload="cargarDatos('San Jose','Santa Ana','Salitral')">
+        <div class="container-fluid text-center">
+
+            <div class="row">
+                <div class="col">
+                    @* <a href="#" id="enlaceajax">Obtener provincias</a>*@
+                    <div id="destino"></div>
+
+
+
+                </div>
+
+                <div class="col">
+
+
+                    <div id="destino2"></div>
+                </div>
+
+
+                <div class="col">
+
+                    <div id="destino3"></div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </body>
+
+
+
+
+    <script>
+
+        function cargarDatos(provincia, canton, distrito) {
+            getProvincias(provincia,canton,distrito);
+
         }
-</style>
 
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-
-
-<p>
-
-    Empleados
-    <ul id="sortable1" class="connectedSortable">
-
-        @foreach (var item in ViewBag.empleados)
-        {
-            <li class="ui-state-default" value="@item.nombre"> @item.nombre @item.apellido1 </li>
-        }
-
-    </ul>
-
-</p>
-
-
-
-
-<p>
-    Equipo
-
-    <ul id="sortable2" class="connectedSortable " style="min-height:100px">
-    </ul>
-
-</p>
-
-
-<script>
-    $(function () {
-        $("#sortable1, #sortable2").sortable({
-
-
-            connectWith: ".connectedSortable",
-
-            stop: function (event, ui) {
-
-
-
-
-
-            },
-
-            update: function (event, ui) {
-                //alert(ui.item.attr('value'));
-
-            },
-
-
-
-
-
-        })
-
-
-        $("#sortable2").sortable({
-
-
-            receive: function (event, ui) {
-
-
-                if ($("#sortable2 li").length > 2) {
-                    alert("Max por equipo es de 2");
-                    $(ui.sender).sortable('cancel');
-                }
-
-
-            },
-        })
-
-
-
-    });
-
-</script>
-
-
-
-
-
-
-
-<div class="container-fluid text-center">
-
-    <div class="row">
-        <div class="col">
-            @* <a href="#" id="enlaceajax">Obtener provincias</a>*@
-            <button type="button" onclick="getProvincias()">Obtener Provincias</button>
-            <br>
-            <div id="destino"></div>
-
-
-
-        </div>
-
-        <div class="col">
-            <button type="button" onclick="getCanton()">Obtener Canton</button>
-            <br>
-
-            <div id="destino2"></div>
-        </div>
-
-
-        <div class="col">
-            <button type="button" onclick="getDistrito()">Obtener Canton</button>
-            <br>
-
-            <div id="destino3"></div>
-
-
-        </div>
-
-
-    </div>
-
-</div>
-
-<script>
-
-    function getProvincias() {
+    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
+    function getProvincias(provincia,canton,distrito) {
 
         $.ajax({
             dataType: "json",
             url: "https://ubicaciones.paginasweb.cr/provincias.json",
             data: {},
             success: function (data) {
-                var html = "<select id='abc'>";
+
+                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()' onclick='getCantones()' style='width: 450px'>";
+                
                 for (key in data) {
-                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                    if (provincia == data[key]) {
+                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                    }
+                    else
+                    {
+                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+
+                    }
+
+                   
                 }
                 html += "</select";
                 $('#destino').html(html);
+
+                if (canton != null) {
+                    getCantones(canton,distrito);
+                }
+                
             }
         });
-
-
     }
 
 
+    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
+        function getCantones(canton,distrito) {
 
-    function getCanton() {
-        var selected_option = $("#abc option:selected").data("t");
-
+            var selected_option = $("#abc option:selected").data("t");
 
 
 
@@ -180,45 +95,54 @@
             url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
             data: {},
             success: function (data) {
-                var html = "<select id='abc2'>";
+                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='width: 450px'>";
                 for (key in data) {
-                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                    if (canton == data[key]) {
+                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                    }
+                    else
+                    {
+                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+
+                    }
                 }
                 html += "</select";
                 $('#destino2').html(html);
+                if (distrito != null) {
+                    getDistritos(distrito);
+                }
+
             }
         });
 
 
     }
 
-
-    function getDistrito() {
+    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
+    function getDistritos(distrito) {
         var provincia = $("#abc option:selected").data('t');
         var canton = $("#abc2 option:selected").data('t');
-
-
 
         $.ajax({
             dataType: "json",
             url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
             data: {},
             success: function (data) {
-                var html = "<select id='abc3'>";
+                var html = "<select id='abc3' class='form-control' style='width: 450px' name='distrito'>";
                 for (key in data) {
-                    html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                    if (distrito == data[key]) {
+                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+                    }
+                    else
+                    {
+                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
+
+                    }
                 }
                 html += "</select";
                 $('#destino3').html(html);
             }
         });
-
-
     }
 
-
-
-</script>
-
-
-
+    </script>

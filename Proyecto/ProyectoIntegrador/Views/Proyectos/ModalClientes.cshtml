@@ -43,7 +43,7 @@
         <div class="modal-dialog modal-dialog-centered" style="max-width:none; width:1000px" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form class="cmxform" id="commentForm2" name="commentForm" method="post" action="Create">
+                    <form class="cmxform" id="commentForm3" name="commentForm3" method="post" action="Create">
                         <fieldset>
 
                             <div class="container justify-content-center bg-secondary" sstyle="height:800px ; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
@@ -217,14 +217,24 @@
 
         $(function () {
 
-            $("#commentForm2").validate(
+            $("#commentForm3").validate(
                 {
                     rules:
                     {
                         nombre2:
                         {
                             required: true,
-                            minlength: 1
+                            minlength: 1,
+                            remote: {
+                                url: "/Proyectos/CheckName",
+                                type: "post",
+                                delay: 1000,
+                                data: {
+                                    name: function () {
+                                        return $("#input3").val();
+                                    }
+                                }
+                            }
                         },
                         duracionEstimada2:
                         {
@@ -250,7 +260,11 @@
                     },
                     messages:
                     {
-                        nombre2: "Inserte al menos 1 caracter",
+                        nombre2:
+                        {
+                            required: "Inserte al menos 1 caracter",
+                            remote:"Ya existe un Proyecto con ese nombre"
+                        },
                         duracionEstimada2: "Inserte la duracion estimada",
                         cedulaCliente2: "Seleccione un cliente",
                         duracionEstimada2: "La duracion tiene que ser mayor que 0",
