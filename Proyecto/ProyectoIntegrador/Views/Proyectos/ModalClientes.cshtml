@@ -1,0 +1,583 @@
+﻿<!-- Modal -->
+
+
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+        <style>
+
+            .error {
+                color: white;
+                background-color: red;
+                font-family: verdana, Helvetica;
+            }
+
+            input.error, input select.error {
+                background-color: white;
+                border-color: red;
+            }
+
+            .modal-dialog,
+            .modal-content {
+                /* 80% of window height */
+                height: 80%;
+            }
+
+            .modal-body {
+                /* 100% = dialog height, 120px = header + footer */
+                max-height: calc(100% - 120px);
+                overflow-y: scroll;
+            }
+        </style>
+
+
+    </head>
+
+
+<body>
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:none; width:1000px" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="cmxform" id="commentForm2" name="commentForm" method="post" action="Create">
+                        <fieldset>
+
+                            <div class="container justify-content-center bg-secondary" sstyle="height:800px ; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+
+
+
+                                <div class="form-row mb-2">
+                                    <div class="col">
+
+                                        @*Atributo Nombre*@
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="width:200px" id="basic-addon1">Nombre *</span>
+                                            </div>
+
+                                            <input id="input3" class="form-control" style=" max-width:none" name="nombre2" type="text">
+
+                                        </div>
+                                        <div id="errorNombre2"></div>
+
+
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Estado</span>
+                                            </div>
+
+                                            <select class="custom-select" style="text-align:center; max-width:none" name="estado2">
+
+                                                <option value="Preparacion">Preparacion</option>
+
+
+                                            </select>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                                @*Atributo Objetivo*@
+                                <div class="input-group mb-2 ">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Objetivo</span>
+                                    </div>
+
+
+                                    <textarea class="form-control" name="objetivo2" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment2" readonly></textarea>
+
+
+
+                                </div>
+
+                                @*Fechas *@
+                                <div class="form-row mb-2">
+                                    <div class="col">
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
+                                            </div>
+
+                                            <input id="cfecha2" class="form-control text-center" type="text" name="date2" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+
+
+                                        </div>
+                                        <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
+
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha Finalizacion</span>
+                                            </div>
+
+                                            <input id="cfecha2" class="form-control text-center" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+
+                                        </div>
+
+
+                                        <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
+
+                                    </div>
+                                </div>
+
+
+                                @*Duraciones *@
+                                <div class="form-row mb-2">
+                                    <div class="col">
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada *</span>
+                                            </div>
+
+                                            <input id="input42" class="form-control" type="number" style=" max-width:none" name="duracionEstimada2">
+
+
+
+                                        </div>
+                                        <small class="form-text text-center" style="color:black">Formato en horas </small>
+                                        <div id="errorDuracionEstimada2"></div>
+
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Duracion Real</span>
+                                            </div>
+
+
+                                            <input id="input52" class="form-control" type="number" style="text-align:center; max-width:none" name="duracionReal2" readonly>
+
+                                        </div>
+
+                                        <small class="form-text text-center" style="color:black">Formato en horas </small>
+                                        <div id="errorDuracionReal2"></div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <input id="cdr" class="form-control" type="number" name="cantidadReq" value="0" hidden>
+
+
+
+
+
+
+
+                                <h5> * Campos requeridos</h5>
+
+
+
+
+                                <button type="submit" id="btnsubmit2" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
+                                    <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+
+                                </button>
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+
+
+
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+
+
+
+
+        $(function () {
+
+            $("#commentForm2").validate(
+                {
+                    rules:
+                    {
+                        nombre2:
+                        {
+                            required: true,
+                            minlength: 1
+                        },
+                        duracionEstimada2:
+                        {
+
+                            required: true
+
+                        },
+                        cedulaCliente2:
+                        {
+                            required: true
+
+                        },
+                        duracionEstimada2:
+                        {
+                            required: true,
+                            min: 1
+
+
+                        },
+
+
+
+                    },
+                    messages:
+                    {
+                        nombre2: "Inserte al menos 1 caracter",
+                        duracionEstimada2: "Inserte la duracion estimada",
+                        cedulaCliente2: "Seleccione un cliente",
+                        duracionEstimada2: "La duracion tiene que ser mayor que 0",
+
+
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if ((element.attr('name') === 'nombre2')) {
+                            error.insertAfter($('#errorNombre2'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada2')) {
+                            error.insertAfter($('#errorDuracionEstimada2'));
+                        }
+                        if ((element.attr('name') === 'cedulaCliente2')) {
+                            error.insertAfter($('#errorCedulaCliente2'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada2')) {
+                            error.insertAfter($('#errorDuracionEstimada2'));
+                        }
+
+
+
+
+
+                    },
+
+
+
+
+                });
+        });
+
+
+    </script>
+
+
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!----
+
+
+    <form class="cmxform" id="commentForm2" name="commentForm" method="post" action="Create">
+        <fieldset>
+
+            <div id="errors"></div>
+            <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+
+
+
+
+                <div class="form-row mb-2">
+                    <div class="col">
+
+                        @*Atributo Nombre*@
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Nombre *</span>
+                            </div>
+
+                            <input id="input3" class="form-control" style=" max-width:none" name="nombre2" type="text">
+
+                        </div>
+                        <div id="errorNombre2"></div>
+
+
+                    </div>
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Estado</span>
+                            </div>
+
+                            <select class="custom-select" style="text-align:center; max-width:none" name="estado2">
+
+                                <option value="Preparacion">Preparacion</option>
+
+
+                            </select>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                @*Atributo Objetivo*@
+                <div class="input-group mb-2 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Objetivo</span>
+                    </div>
+
+
+                    <textarea class="form-control" name="objetivo2" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment2" readonly></textarea>
+
+
+
+                </div>
+
+                @*Fechas *@
+                <div class="form-row mb-2">
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Fecha Inicio</span>
+                            </div>
+
+                            <input id="cfecha2" class="form-control text-center" type="text" name="date2" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+
+
+                        </div>
+                        <small class="form-text text-center" style="color:black">Por defecto Fecha del dia creado </small>
+
+                    </div>
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha Finalizacion</span>
+                            </div>
+
+                            <input id="cfecha2" class="form-control text-center" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+
+                        </div>
+
+
+                        <small class="form-text text-center" style="color:black">Por defecto 01-01-1800  </small>
+
+                    </div>
+                </div>
+
+
+                @*Duraciones *@
+                <div class="form-row mb-2">
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada *</span>
+                            </div>
+
+                            <input id="input42" class="form-control" type="number" style=" max-width:none" name="duracionEstimada2">
+
+
+
+                        </div>
+                        <small class="form-text text-center" style="color:black">Formato en horas </small>
+                        <div id="errorDuracionEstimada2"></div>
+
+                    </div>
+                    <div class="col">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Duracion Real</span>
+                            </div>
+
+
+                            <input id="input52" class="form-control" type="number" style="text-align:center; max-width:none" name="duracionReal2" readonly>
+
+                        </div>
+
+                        <small class="form-text text-center" style="color:black">Formato en horas </small>
+                        <div id="errorDuracionReal2"></div>
+
+                    </div>
+                </div>
+
+
+
+                <input id="cdr" class="form-control" type="number" name="cantidadReq" value="0" hidden>
+
+
+
+
+
+
+
+                <h5> * Campos requeridos</h5>
+
+
+
+
+                <hr />
+
+
+
+                <div class="row justify-content-center" style="max-width:1150px">
+                    <div class="col-4  text-center">
+                        <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" onclick="myClose()"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                    </div>
+                    <div class="col-4  text-center">
+
+                        <button type="submit" id="btnsubmit2" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
+                            <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+
+                        </button>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </fieldset>
+
+    </form>
+
+
+
+    <script>
+
+
+
+
+
+        $(function () {
+
+            $("#commentForm2").validate(
+                {
+                    rules:
+                    {
+                        nombre2:
+                        {
+                            required: true,
+                            minlength: 1
+                        },
+                        duracionEstimada2:
+                        {
+
+                            required: true
+
+                        },
+                        cedulaCliente2:
+                        {
+                            required: true
+
+                        },
+                        duracionEstimada2:
+                        {
+                            required: true,
+                            min: 1
+
+
+                        },
+
+
+
+                    },
+                    messages:
+                    {
+                        nombre2: "Inserte al menos 1 caracter",
+                        duracionEstimada2: "Inserte la duracion estimada",
+                        cedulaCliente2: "Seleccione un cliente",
+                        duracionEstimada2: "La duracion tiene que ser mayor que 0",
+
+
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if ((element.attr('name') === 'nombre2')) {
+                            error.insertAfter($('#errorNombre2'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada2')) {
+                            error.insertAfter($('#errorDuracionEstimada2'));
+                        }
+                        if ((element.attr('name') === 'cedulaCliente2')) {
+                            error.insertAfter($('#errorCedulaCliente2'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada2')) {
+                            error.insertAfter($('#errorDuracionEstimada2'));
+                        }
+
+
+
+
+
+                    },
+
+
+
+
+                });
+        });
+
+
+    </script>
+
+
+
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+
+
+  --->

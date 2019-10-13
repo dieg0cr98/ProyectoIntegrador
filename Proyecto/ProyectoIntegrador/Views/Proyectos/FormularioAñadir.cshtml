@@ -248,8 +248,8 @@
                         }
 
                     </select>
-                    <div class="input-group-append" style="max-width:none; width:180px">
-                        <a class="btn btn-danger" style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los Clientes">Clientes</a>
+                    <div class="input-group-append" style="max-width:none; width:180px">              
+                        <a class="btn btn-danger"   data-toggle="modal" data-target="#exampleModal2"  style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Añadir Cliente">Clientes</a>
                     </div>
 
                 </div>
@@ -320,7 +320,7 @@
 
     </form>
 
-
+    @Html.Partial("ModalClientes")
 
     <script>
 
@@ -332,6 +332,13 @@
 
 
         });
+
+
+        function myClose () {
+
+            alert("closing");
+            $('#exampleModal2').modal('hide');
+            }
 
 
 
@@ -426,7 +433,24 @@
     </script>
 
 
+    <!-- Despliega el modal -->
+    <script>
+        $('#exampleModal2').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
 
+
+        })
+
+        $('#exampleModal2').on('hide.bs.modal'), function (event) {
+
+            alert('Helololol');
+        } 
+
+
+    </script>
 
     <script>
         $(function () {
