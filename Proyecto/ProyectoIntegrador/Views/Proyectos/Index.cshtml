@@ -55,7 +55,7 @@
 
 
 
-
+       
         <br />
 
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Proyectos</p>
@@ -128,12 +128,26 @@
 
                                     <div class="col">
 
-                                        @if ( item.estado != "Activo" && (ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2) )
+                                        <!-- Puede Eliminar un Proyecto  -->
+                                        @if ((ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2))
                                         {
 
-                                            <!-- Button trigger modal -->
-                                            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            if (item.estado != "Activo")
+                                            {
+
+                                                <!-- Button trigger modal -->
+                                                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idProyectoAID" data-whatever2=""><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            }
+                                            else
+                                            {
+
+                                                <a href="#" class="btn" data-toggle="modal" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            }
+
                                         }
+
+
+
 
                                     </div>
 

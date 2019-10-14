@@ -14,7 +14,7 @@ namespace ProyectoIntegrador.Controllers
 {
     public class EmpleadosController : Controller
     {
-        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
 
         // GET: Empleados
         public ActionResult Index()

@@ -11,11 +11,10 @@
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
-        ul = document.getElementById("ulCol3");
-        li = ul.getElementsByTagName("li");
+        ul = document.getElementById("sortable1");
+        li = ul.getElementsByTagName("a");
         for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
+            txtValue = li.textContent || li[i].innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 li[i].style.display = "";
             } else {
@@ -28,25 +27,38 @@
 <!--Script del drag and drop#1-->
 <script>
     $(function () {
+
+        $( "#sortable1" ).sortable({
+            receive: function (event, ui) {
+            alert(ui.item.attr('value')+ 'Disponible');
+        },
+        });
+
         $("#sortable1, #sortable2").sortable({
 
 
             connectWith: ".connectedSortable",
 
-            stop: function (event, ui) {
-            },
-            update: function (event, ui) {
-                //alert(ui.item.attr('value'));
 
-            },
-        })
+        });
+
+
         $("#sortable2").sortable({
             receive: function (event, ui) {
-                if ($("#sortable2 li").length > 2) {
+                if ($("#sortable2 a").length > 2) {
                     alert("Max por equipo es de 2");
                     $(ui.sender).sortable('cancel');
                 }
+                else
+                {
+                     alert(ui.item.attr('value')+' Equipo');
+
+                }
             },
+            cancel: ".ui-state-disabled",
+
+
+
         })
     });
 </script>

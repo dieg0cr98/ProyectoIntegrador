@@ -440,6 +440,22 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+        public JsonResult CheckName(string name)
+        {
+            System.Diagnostics.Debug.WriteLine(name + "  adad");
+            //Hay que verificar si el nuevo nombre ya existe en la base de datos
+            if (db.Proyecto.Where(p => p.nombre == name).FirstOrDefault() != null)
+            {
+                //Existe un proyecto con ese nombre
+
+                return new JsonResult { Data = false};
+            }
+            else
+                return new JsonResult { Data = true };
+
+        }
+
+
 
 
         //------------- ActionsResults -------------//

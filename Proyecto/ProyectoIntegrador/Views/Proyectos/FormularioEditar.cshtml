@@ -477,41 +477,56 @@
         $(function () {
             $("#commentForm").validate(
                 {
-                            rules:
-                                {
-                                nombre:
-                                    {
-                                    required: true,
-                            minlength: 1
-                                        },
+                     rules:
+                    {
+                         nombre:
+                        {
+                             required: true,
+                             minlength: 1,
+                             remote: {
+                                url: "/Proyectos/CheckName",
+                                type: "post",
+                                delay: 1000,
+                                data: {
+                                    name: function () {
+                                        return $("#input2").val();
+                                    }
+                                }
+                            }
+                        },
                         objetivo:
-                                    {
+                        {
 
-                                    rangelength: [1, 200]
+                             rangelength: [1, 200]
 
                         },
                         duracionEstimada:
-                                    {
-                                    required: true,
-                            min: 1
+                        {
+                             required: true,
+                             min: 1
 
 
                         },
                         duracionReal:
-                                    {
-                                    required: true,
+                        {
+                            required: true,
                             min: 0
                         }
 
 
 
-                                },
-                    messages:
-                                {
-                                nombre: "Inserte al menos 1 caracter",
-                        objetivo: "Rango [1-200] caracteres",
-                        duracionEstimada: "La duracion tiene que ser mayor que 0",
-                        duracionReal: "La duracion no puede ser negativa"
+                    },
+                        messages:
+                    {
+                    nombre:
+                    {
+                          
+                        required: "Inserte al menos 1 caracter",
+                        remote: "Ya existe un Proyecto con ese nombre"
+                    },
+                    objetivo: "Rango [1-200] caracteres",
+                    duracionEstimada: "La duracion tiene que ser mayor que 0",
+                    duracionReal: "La duracion no puede ser negativa"
 
 
                     },

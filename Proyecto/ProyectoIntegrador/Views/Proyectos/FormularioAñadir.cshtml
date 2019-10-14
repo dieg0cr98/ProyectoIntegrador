@@ -58,7 +58,7 @@
 
                             @if (ViewBag.permisos.Item3[1] == 1)
                             {
-                                <input id="input2" class="form-control" style=" max-width:none" name="nombre" type="text">
+                                <input id="input2" class="form-control" style=" max-width:none" name="nombre " minlength="1" maxlength="30" type="text">
 
                             }
                             else
@@ -248,8 +248,8 @@
                         }
 
                     </select>
-                    <div class="input-group-append" style="max-width:none; width:180px">
-                        <a class="btn btn-danger" style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los Clientes">Clientes</a>
+                    <div class="input-group-append" style="max-width:none; width:180px">              
+                        <a class="btn btn-danger"   data-toggle="modal" data-target="#exampleModal2"  style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Añadir Cliente">Clientes</a>
                     </div>
 
                 </div>
@@ -320,7 +320,7 @@
 
     </form>
 
-
+    @Html.Partial("ModalClientes")
 
     <script>
 
@@ -332,6 +332,13 @@
 
 
         });
+
+
+        function myClose () {
+
+            alert("closing");
+            $('#exampleModal2').modal('hide');
+            }
 
 
 
@@ -350,14 +357,27 @@
 
     <script>
         $(function () {
+           
             $("#commentForm").validate(
                 {
                     rules:
                     {
                         nombre:
                         {
+
                             required: true,
-                            minlength: 1
+                            minlength: 1,
+                            remote: {
+                                url: "/Proyectos/CheckName",
+                                type: "post",
+                                delay: 1000,
+                                data: {
+                                    name: function () {
+                                        return $("#input2").val();
+                                    }
+                                }
+                            }
+
                         },
                         duracionEstimada:
                         {
@@ -383,7 +403,12 @@
                     },
                     messages:
                     {
-                        nombre: "Inserte al menos 1 caracter",
+                        nombre:
+                        {
+                          
+                            required: "Inserte al menos 1 caracter",
+                            remote: "Ya existe un Proyecto con ese nombre"
+                        },
                         duracionEstimada: "Inserte la duracion estimada",
                         cedulaCliente: "Seleccione un cliente",
                         duracionEstimada: "La duracion tiene que ser mayor que 0",
@@ -426,7 +451,24 @@
     </script>
 
 
+    <!-- Despliega el modal -->
+    <script>
+        $('#exampleModal2').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
 
+
+        })
+
+        $('#exampleModal2').on('hide.bs.modal'), function (event) {
+
+            alert('Helololol');
+        } 
+
+
+    </script>
 
     <script>
         $(function () {
