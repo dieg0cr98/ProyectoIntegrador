@@ -57,6 +57,14 @@ namespace ProyectoIntegrador.Controllers
                 return View(cliente);
             }
 
+            //Revisa si hay otro cliente con el mismo correo
+            if (db.Cliente.Where(i => i.correo == cliente.correo).FirstOrDefault() != null)
+            {
+                    ViewBag.cedulaPK = cliente.correo;
+                    return View(cliente);
+            }
+
+
             if (ModelState.IsValid)
             {
                 db.Cliente.Add(cliente);

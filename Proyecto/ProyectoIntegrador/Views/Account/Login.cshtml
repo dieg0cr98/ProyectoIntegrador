@@ -6,8 +6,8 @@
 <!--class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Proyecto</p>-->
 <br />
 <div class="container justify-content-center">
-    <div class="row">
-        <div class="col-md-8">
+    <div class="container justify-content-center" style="padding:30px 30px ;width:500px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color:antiquewhite">
+         
             <section id="loginForm">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -23,8 +23,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                         <label for="Name">Contraseña</label>
+                           <div class="col-md-10">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-default" />
+                            <input type="submit" value="Ingresar" class="btn btn-primary" />
                         </div>
                     </div>
 
@@ -53,7 +53,7 @@
 
     </div>
 
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
