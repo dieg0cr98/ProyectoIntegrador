@@ -452,6 +452,7 @@
     <Content Include="Views\Proyectos\Create.cshtml" />
     <Content Include="Views\Proyectos\Edit.cshtml" />
     <Content Include="Views\Proyectos\ModalClientes.cshtml" />
+    <Content Include="Views\Proyectos\FormularioIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
