@@ -123,6 +123,7 @@ namespace ProyectoIntegrador.Controllers
 
         //Metodo que retorna un proyecto especifico
         //Recibe un int idProyectoAID, llave primaria del proyecto
+        //Retorna un objecto tipo Proyecto
         public Proyecto GetProyecto(int idProyectoAID)
         {
             return db.Proyecto.Find(idProyectoAID);
@@ -462,10 +463,11 @@ namespace ProyectoIntegrador.Controllers
 
 
         // GET: Proyectos
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
 
             var permisosGenerales = seguridad.ProyectoConsultar(User);
+            ViewBag.proyectoSelec = id; //ViewBag con el proyecto seleccionada, para poder desplegarlo en la vista
             ViewBag.permisosEspecificos = permisosGenerales;
             return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3));
 
@@ -573,7 +575,7 @@ namespace ProyectoIntegrador.Controllers
 
             ActualizarTrabajaEN(proyecto, cedulaLider, null);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {id = proyecto.idProyectoAID});
 
         }
 
@@ -710,7 +712,7 @@ namespace ProyectoIntegrador.Controllers
             ActualizarTrabajaEN(proyecto, cedulaLider, cedulaLiderActual);
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = proyecto.idProyectoAID });
 
         }
 
