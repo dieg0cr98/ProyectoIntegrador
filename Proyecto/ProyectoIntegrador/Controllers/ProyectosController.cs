@@ -412,12 +412,14 @@ namespace ProyectoIntegrador.Controllers
         //-----Metodos de controlador a controlador-----//
 
         //Metodo para obtener la vista principal de los clientes
+        //Devuelve una redireccion a otra controladora
         public ActionResult IndexCliente()
         {
             return RedirectToAction("Index", "Clientes", null);
         }
 
         //Metodo para obtener la vista principal de los empleados
+        //Devuelve una redireccion a otra controladora
         public ActionResult IndexEmpleado()
         {
             return RedirectToAction("Index", "Empleados", null);
@@ -425,6 +427,7 @@ namespace ProyectoIntegrador.Controllers
 
 
         //Metodo para obtener la vista principal del equipo
+        //Devuelve una redireccion a otra controladora
         public ActionResult IndexTrabajaEn(int? idProyecto)
         {
 
@@ -434,6 +437,8 @@ namespace ProyectoIntegrador.Controllers
 
 
         //Metodo para obtener la vista principal de los requerimientos
+        //Recibe int idProyecto. Contiene el identificador del proyecto
+        //Devuelve una redireccion a otra controladora
         public ActionResult IndexRequerimientos(int? idProyecto)
         {
             return RedirectToAction("Index", "Requerimientos", new { idProyecto });
@@ -441,11 +446,14 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        public JsonResult CheckName(string name)
+        //Metodo para verificar si un nombre de proyecto ya existe
+        //Recibe string name. Contiene el nombre que se quiere verificar
+        //       string oldName. Contiene el nombre actual del proyecto (Se utiliza en caso de editar un proyecto)
+        //Devuelve un JsonResult con un True si ya existe un proyecto y un false si no
+        public JsonResult CheckName(string name, string oldName)
         {
-            System.Diagnostics.Debug.WriteLine(name + "  adad");
             //Hay que verificar si el nuevo nombre ya existe en la base de datos
-            if (db.Proyecto.Where(p => p.nombre == name).FirstOrDefault() != null)
+            if ( (name != oldName) &&  (db.Proyecto.Where(p => p.nombre == name).FirstOrDefault() != null) )
             {
                 //Existe un proyecto con ese nombre
 
@@ -462,12 +470,14 @@ namespace ProyectoIntegrador.Controllers
         //------------- ActionsResults -------------//
 
 
-        // GET: Proyectos
+        //Metodo Get para obtener la vista de consulta
+        //Recibe int id. Indentificador del proyecto que se quiere preseleccionar 
+        //Devuelve vista de consultar
         public ActionResult Index(int id)
         {
 
             var permisosGenerales = seguridad.ProyectoConsultar(User);
-            ViewBag.proyectoSelec = id; //ViewBag con el proyecto seleccionada, para poder desplegarlo en la vista
+            ViewBag.proyectoSelec = id; //ViewBag con el proyecto seleccionado, para poder desplegarlo en la vista
             ViewBag.permisosEspecificos = permisosGenerales;
             return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3));
 
@@ -739,7 +749,7 @@ namespace ProyectoIntegrador.Controllers
 
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {id = 0 } );
 
             }
             else
