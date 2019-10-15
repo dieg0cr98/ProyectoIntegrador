@@ -73,8 +73,11 @@
                 }
                 html += "</select";
                 $('#destino').html(html);
+
+                getCantones();
             }
         });
+
     }
 
 
@@ -92,6 +95,8 @@
                 }
                 html += "</select";
                 $('#destino2').html(html);
+
+                getDistritos();
             }
         });
 
@@ -252,74 +257,4 @@
                 },
             });
     });
-</script>
-
-<script>
-    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
-    function getProvinciasEdit(provDefault) {
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincias.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()' style='width: 450px'>";
-                for (key in data) {
-                    if (data[key] === provDefault)
-                        html += "<option value='" + data[key] + "' selected='selected'  data-t='" + key + "'>" + data[key] + "</option>";
-                    else
-                        html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                }
-                html += "</select";
-                $('#destino').html(html);
-            }
-        });
-    }
-
-    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
-    function getCantonesEdit(cantDefault) {
-
-        var selected_option = $("#abc option:selected").data("t");
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' style='width: 450px'>";
-                for (key in data) {
-                    if(data[key] === cantDefault)
-                        html += "<option value='" + data[key] + "' selected='selected' data-t='" + key + "'>" + data[key] + "</option>";
-                    else
-                        html += "<option value='" + data[key] + "' data-t='" + key + "'>" + data[key] + "</option>";
-                }
-                html += "</select";
-                $('#destino2').html(html);
-            }
-        });
-
-
-    }
-
-    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
-    function getDistritosEdit(distrDefault) {
-        var provincia = $("#abc option:selected").data('t');
-        var canton = $("#abc2 option:selected").data('t');
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id='abc3' class='form-control' style='width: 450px' name='distrito'>";
-                for (key in data) {
-                    if(data[key] === distrDefault)
-                        html += "<option value='" + data[key] + "' selected='selected' data-t='" + key + "'>" + data[key] + "</option>";
-                    else
-                        html += "<option value='" + data[key] + "' data-t='" + key + "'>" + data[key] + "</option>";
-                }
-
-                html += "</select";
-                $('#destino3').html(html);
-            }
-        });
-    }
 </script>
