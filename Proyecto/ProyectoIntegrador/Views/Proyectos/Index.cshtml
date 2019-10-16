@@ -87,7 +87,7 @@
 
                     </nav>
 
-                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#c09f80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
                         <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
 
 
@@ -119,13 +119,13 @@
                             //Si el item.idProyectoAID es igual al ViewBag.proyectoSelec hay que seleccionar el tab con la instruccion show active
                             if (ViewBag.proyectoSelec == item.idProyectoAID)
                             {
-                                <div class="tab-pane fade bg-secondary show active" style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                                <div class="tab-pane fade fade bg-secondary  show active" style="max-width:1150px;border-radius:20px 20px 20px 20px ; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
                                     @Html.Partial("FormularioIndex", @item  )
                                 </div>
                             }
                             else
                             {
-                                <div class="tab-pane fade bg-secondary " style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                                <div class="tab-pane fade bg-secondary" style="max-width:1150px;border-radius:20px 20px 20px 20px;  box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
                             
                                     @Html.Partial("FormularioIndex", @item  )
 

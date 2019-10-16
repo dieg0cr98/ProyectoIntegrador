@@ -24,7 +24,7 @@
 
 
 
-            <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color:white">
+            <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color: rgba(192,159,128, 0.7)">
 
 
                 @if (ViewBag.error != null)
@@ -66,12 +66,12 @@
                         <div class="input-group">
                             @if (ViewBag.permisos.Item3[1] == 1)
                             {
-                                <input id="input2" class="form-control" value="@Model.nombre" style=" max-width:none" name="nombre" type="text">
+                                <input id="input2" class="form-control" value="@Model.nombre" style=" max-width:none; background-color:#D7CEC7; border-color:transparent" name="nombre" type="text">
 
                             }
                             else
                             {
-                                <input id="input2" class="form-control" value="@Model.nombre" style=" max-width:none" name="nombre" minlength="1" maxlength="30" type="text" readonly>
+                                <input id="input2" class="form-control" value="@Model.nombre" style=" max-width:none; background-color:#D7CEC7; border-color:transparent" name="nombre" minlength="1" maxlength="30" type="text" readonly>
                             }
 
                         </div>
@@ -91,7 +91,7 @@
 
                             @if (ViewBag.permisos.Item3[3] == 1)
                             {
-                                <select class="custom-select" style="text-align:center;max-width:200px" name="estado">
+                                <select class="custom-select" style="text-align:center;max-width:200px; background-color:#D7CEC7; border-color:transparent" name="estado">
 
 
                                     @switch (Model.estado)
@@ -147,7 +147,7 @@
                             }
                             else
                             {
-                                <input id="cnombre" style="max-width:none" value="@Model.estado" name="estado" type="text" readonly>
+                                <input id="cnombre" style="max-width:none; background-color:#D7CEC7; border-color:transparent" value="@Model.estado" name="estado" type="text" readonly>
 
 
                             }
@@ -170,12 +170,12 @@
                 <div class="input-group mb-4">
                     @if (ViewBag.permisos.Item3[2] == 1)
                     {
-                        <textarea class="form-control" name="objetivo" value="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment">@Model.objetivo</textarea>
+                        <textarea class="form-control" name="objetivo" value="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:#D7CEC7; border-color:transparent" id="comment">@Model.objetivo</textarea>
 
                     }
                     else
                     {
-                        <textarea class="form-control" name="objetivo" value="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment" readonly></textarea>
+                        <textarea class="form-control" name="objetivo" value="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:#D7CEC7; border-color:transparent" id="comment" readonly></textarea>
                     }
 
 
@@ -209,11 +209,11 @@
 
                             @if (ViewBag.permisos.Item3[6] == 1)
                             {
-                                <input id="cfecha" class="form-control text-center" style="width:200px" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" required>
+                                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" required>
                             }
                             else
                             {
-                                <input id="cfecha" class="form-control text-center" style="width:200px" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+                                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
                             }
 
                         </div>
@@ -231,11 +231,11 @@
 
                             @if (ViewBag.permisos.Item3[7] == 1)
                             {
-                                <input id="cfecha2" class="form-control text-center" style="width:200px" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" required>
+                                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" required>
                             }
                             else
                             {
-                                <input id="cfecha2" class="form-control text-center" style="width:200px" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+                                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
                             }
                         </div>
 
@@ -270,12 +270,12 @@
 
                             @if (ViewBag.permisos.Item3[4] == 1)
                             {
-                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px" value="@Model.duracionEstimada" name="duracionEstimada" required>
+                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionEstimada" name="duracionEstimada" required>
 
                             }
                             else
                             {
-                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px" value="@Model.duracionEstimada" name="duracionEstimada" readonly>
+                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionEstimada" name="duracionEstimada" readonly>
                             }
 
                         </div>
@@ -298,12 +298,12 @@
 
                             @if (ViewBag.permisos.Item3[5] == 1)
                             {
-                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px" value="@Model.duracionReal" name="duracionReal" required>
+                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionReal" name="duracionReal" required>
 
                             }
                             else
                             {
-                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px" value="@Model.duracionReal" name="duracionReal" readonly>
+                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionReal" name="duracionReal" readonly>
                             }
                         </div>
                         <div id="errorDuracionReal"></div>
@@ -338,7 +338,7 @@
                 @*Atributo cedulaCliente*@
                 <div class="input-group mb-4">
 
-                    <select class="custom-select" name="cedulaCliente" style="max-width:none" id="inputGroupSelect03">
+                    <select class="custom-select" name="cedulaCliente" style="max-width:none; background-color:#D7CEC7; border-color:transparent" id="inputGroupSelect03">
                         @if (ViewBag.permisos.Item3[9] == 1)
                         {
 
@@ -406,7 +406,7 @@
                 @*Atributo cedulaLider*@
                 <div class="input-group mb-4">
 
-                    <select class="custom-select" id="inputGroupSelect01" style="max-width:none" name="cedulaLider">
+                    <select class="custom-select" id="inputGroupSelect01" style="max-width:none; background-color:#D7CEC7; border-color:transparent" name="cedulaLider">
                         @if (ViewBag.permisos.Item3[10] == 1)
                         {
                             if (ViewBag.liderActual != null)
