@@ -51,23 +51,27 @@
         <div class="row">
             <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px">
                 <!-- Image and text -->
-                <nav class="navbar navbar-light bg-secondary">
+                <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
                     <!--Imagen cliente + titulo lista de clientes-->
                     <a class="navbar-brand">
                         <img src="~/Content/boss.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                         Lista de Clientes
                     </a>
-                    <!--Inputa para realizar busquedas de clientes-->
+                    <!--Input para realizar busquedas de clientes-->
                     <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Clientes">
                     <!--Imagen de agregar cliente-->
                     <a data-toggle="tooltip" data-placement="top" title="Agregar Cliente" href="~/Clientes/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                    
+                    <a class="navbar-brand" style="font-size:18px;">
+                        Nombre Cliente | Nombre Empresa
+                    </a>
                 </nav>
                 <!--Tab izquierdo donde se muestran los clientes con el nombre y empresa existentes en la BD-->
                 <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
                     <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
                         @foreach (var item in Model)
                         {
-                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">Cliente: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) | Empresa: @Html.DisplayFor(modelItem => item.empresa)</a>
+                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) | @Html.DisplayFor(modelItem => item.empresa)</a>
                             { idCarta += 1; }
                         }
                     </div>
@@ -75,11 +79,11 @@
             </div>
             <!--Se crean tabs con la info cliente-->
             <div class="col-12 col-md-8">
-                <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                <div class="tab-content d-block overflow-auto" style="background-color:antiquewhite; height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
                     @foreach (var item in Model)
                     {
-                        <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                            <div class="row mx-4 mt-4 md-0" style="height:30px">
+                        <div class="tab-pane fade" style="max-width:1150px;" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                            <div class="row mx-4 mt-4 md-0" style="height:30px;">
                                 <!--Titulo de informacion cliente-->
                                 <div class="col-8" style="max-height:30px">
                                     <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Información Cliente</p>
@@ -102,13 +106,13 @@
                                     <div class="col-5">
                                         <!--Campo Nombre-->
                                         <h5 for="nombre" style="width:200px">Nombre:</h5>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <!--Campo Cedula-->
                                         <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.cedulaPK)" style=" max-width:none" readonly class="form-control">
+                                        <input style=" max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
                                     </div>
                                 </div>
                                 <br />
@@ -116,13 +120,13 @@
                                     <div class="col-5">
                                         <!--Campo Correo-->
                                         <h5 for="correo" style="width:200px">Correo:</h5>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.correo)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.correo)" style=" max-width:none" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <!--Campo Telefono-->
                                         <h5 for="telefono" style="width:200px">Teléfono:</h5>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.telefono)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.telefono)" style=" max-width:none" readonly class="form-control">
                                     </div>
                                 </div>
                                 <br>
@@ -130,25 +134,34 @@
                                     <div class="col-5">
                                         <!--Campo Empresa-->
                                         <h5 for="empresa" style="width:200px">Empresa:</h5>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.empresa)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.empresa)" style=" max-width:none" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
-                                        <!--Campo Lugar-->
-                                        <h5 for="Lugar" style="width:200px">Lugar:</h5>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
-                                        {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
-                                        {@Html.DisplayFor(modelItem => item.distrito)}" style=" max-width:none" readonly class="form-control">
+                                        <!--Campo Provincia-->
+                                        <h5 for="provincia" style="width:200px">Provincia:</h5>
+                                        <input value="@Html.DisplayFor(modelItem => item.provincia)" style=" max-width:none" readonly class="form-control">
                                     </div>
                                 </div>
-
                                 <br>
-
-                                <div class="form-row mb-11" style="padding-bottom:3%; margin-left:15%">
-
+                                <div class="row mb-2">
+                                    <div class="col-5">
+                                        <!--Campo Canton-->
+                                        <h5 for="canton" style="width:200px">Cantón:</h5>
+                                        <input value="@if (item.canton != null) { @Html.DisplayFor(modelItem => item.canton)  } else { @Html.Raw("No definido")  }" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                    <div class="col-2"></div>
+                                    <div class="col-5">
+                                        <!--Campo Distrito-->
+                                        <h5 for="canton" style="width:200px">Distrito:</h5>
+                                        <input value="@if (item.distrito != null) { @Html.DisplayFor(modelItem => item.distrito)  } else { @Html.Raw("No definido")  }" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row mb-12" style="padding-bottom:3%; padding-left:5px; padding-right:5px;">
                                     <!--Campo Direccion Exacta-->
-                                    <h5 for="Lugar" style="width:200px">Dirección Exacta:</h5>
-                                    <textarea class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.direccionExacta)" style=" height: 200px;"></textarea>
+                                    <h5 for="direccionExacta" style="width:200px">Dirección Exacta:</h5>
+                                    <textarea class="form-control col-12" style=" height: 100px;" readonly>@Html.DisplayFor(modelItem => item.direccionExacta)</textarea>
                                 </div>
                             </div>
                         </div>
