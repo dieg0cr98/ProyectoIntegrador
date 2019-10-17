@@ -67,7 +67,7 @@
 
                 <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                    <!-- Image and text -->
+                    <!-- Imagen y texto del navbar -->
 
                     <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
                         <a class="navbar-brand">
@@ -78,7 +78,7 @@
                         <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder=" Buscar por Proyectos">
 
 
-
+                        @*Pregunta si tiene permisos para crear*@
                         @if (ViewBag.permisosEspecificos.Item2 == 1)
                         {
                             <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
@@ -92,9 +92,11 @@
 
 
                             @foreach (var item in Model)
-                            {
+                                        {
+
+                                //Si el item.idProyectoAID es igual al ViewBag.proyectoSelec hay que seleccionar el tab con la instruccion show active
                                 if (ViewBag.proyectoSelec == item.idProyectoAID)
-                                {
+                                            {
                                     <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" style="border-radius:20px 20px 20px 20px" id="list-home-list"  data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
                                 else

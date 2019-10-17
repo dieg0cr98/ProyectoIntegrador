@@ -54,6 +54,7 @@ namespace ProyectoIntegrador.Controllers
         }
 
         /*Metodo para saber el rol del usuario logueado
+        Recibe System.Security.Principal.IPrincipal user . Con los datos del usuario registrado actualmenten 
         Retorna un int. Posible valores:
             -1 El usuario no tiene rol o tiene uno distinto a los definidos
              0 Soporte y Calidad

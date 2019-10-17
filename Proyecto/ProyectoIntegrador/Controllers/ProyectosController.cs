@@ -131,14 +131,14 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-        public async System.Threading.Tasks.Task<ActionResult> Agregar()
-        {
-            //......Code........//
-            await seguridad.AgregarUsuarioAsync("test2@gmail.com", "Lider");
-            //......Code........//
+        //public async System.Threading.Tasks.Task<ActionResult> Agregar()
+        //{
+        //    //......Code........//
+        //    await seguridad.AgregarUsuarioAsync("test2@gmail.com", "Lider");
+        //    //......Code........//
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
 
         //Metodo para recuperar los proyectos en los que participa un usuario.
@@ -483,7 +483,9 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-        // GET: Proyectos/Details/5
+        //Metodo Get para obtener la vista de Detalles
+        //Recibe int id. Indentificador del proyecto que se quiere preseleccionar 
+        //Devuelve vista de detalles
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -501,7 +503,8 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-        // GET: Proyectos/Create
+        //Metodo Get para obtener la vista de crear
+        //Devuelve vista de crear
         public ActionResult Create()
         {
 
@@ -537,6 +540,13 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+        //Metodo Post para recuperar los datos de la vista de crear
+        //Recibe string nombre. Nombre del proyecto
+        //       string objetivo. Objetivo del proyecto
+        //       int duracionEstimada. DuracionEstimada del proyecto
+        //       string cedulaCliente. Cedula del cliente asociado al proyecto
+        //       string cedulaLider . Cedula del lider asociado al proyecto
+        //Devuelve vista de consultar
 
         // POST: Proyectos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -591,6 +601,10 @@ namespace ProyectoIntegrador.Controllers
 
 
 
+
+
+        //Metodo Get para obtener la vista de editar
+        //Devuelve vista de editar
 
         // GET: Proyectos/Edit/5
         public ActionResult Edit(int? id)
@@ -657,8 +671,9 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-
-
+        //Metodo Post para recuperar los datos de la vista de editar
+        //Recibe todos los atributos de un proyecto
+        //Devuelve vista de consultar
 
         // POST: Proyectos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -727,6 +742,11 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+
+
+        //Metodo para eliminar un proyecto
+        //Recibe int id. El identificador del proyecto que se quiere eliminar 
+        //Devuelve vista de consultar
 
         public ActionResult Eliminar(int id)
         {
