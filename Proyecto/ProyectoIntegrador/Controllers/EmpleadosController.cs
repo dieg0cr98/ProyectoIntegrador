@@ -133,8 +133,8 @@ namespace ProyectoIntegrador.Controllers
 
         public ActionResult Eliminar(string id)
         {
-            Empleado empleado = db.Empleado.Find(id);
-            db.Empleado.Remove(empleado);
+           Empleado empleado = db.Empleado.Find(id);
+            empleado.estado = "Despedido";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
