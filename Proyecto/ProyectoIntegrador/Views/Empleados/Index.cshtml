@@ -107,7 +107,7 @@
                             <!-- Button trigger modal para Borrar-->
                             <div class="col" style="width:auto; height:auto;">
                                
-                                @if (item.estado != "Activo")
+                                @if (item.estado == "Disponible")
                                 {
                                 <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                 }
