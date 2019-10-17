@@ -1,18 +1,14 @@
-﻿<!-- Despliega el modal -->
+﻿<!-- Despliega el modal utilizado para eliminar -->
 <script>
     $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
-        var requerimiento = button.data('whatever') // Extract info from data-* attributes
-        var proyecto = button.data('whatever2')
+        var requerimiento = button.data('whatever') // Dato del requerimiento enviado por el modal
+        var proyecto = button.data('whatever2') // Dato del proyecto enviado por el modal
 
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
 
+        //Se contstruye el URL con el que se llama al POST de eliminar.
         var a = document.getElementById('pager')
-        @*
-        a.href = @Url.Action("Eliminar", "Requerimientos", new { idRequerimiento = @requerimiento, idProyecto = @proyecto});
-        *@
         var format_href = '@Url.Action("Eliminar", "Requerimientos")';
         format_href += '?idRequerimiento=' + requerimiento + '&idProyecto='+proyecto;
         a.href = format_href;
@@ -20,7 +16,7 @@
     })
 </script>
 
-<!--Agrega un loading al Edit-->
+<!--Agrega un loading a los elementos-->
 <script>
     function my_loading(elemt) {
         elemt.disabled = true;

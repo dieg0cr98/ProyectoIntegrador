@@ -48,28 +48,30 @@
 
 
 <body>
+    <!-- Verifica que el llamado a la vista se haya hecho por un usuario registrado a la aplicación -->-->
     @if (Request.IsAuthenticated)
     {
         <br />
-        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos</p>
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos: @ViewBag.nombre</p>
         <hr>
         <div class="container " style="max-width: 1800px">
             <div class="row">
                 <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                    @*NavBar con el titulo y el input para realizar busquedas*@
+                    @*NavBar con el titulo*@
                     <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
                         <a class="navbar-brand">
                             <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                             Lista de requerimientos
                         </a>
-
+                        <!-- Si el usuario no tiene permisos, no puede agregar requerimientos -->
                         @if (ViewBag.permisosEspecificos.Item4 == 1)
                         {
                             <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
 
                     </nav>
+                    <!-- Se crea la tabla de la izquierda con los nombres de los requerimientos -->
                     <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
                         <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
                             @foreach (var item in Model)
@@ -81,6 +83,7 @@
                     </div>
                 </div>
 
+                <!-- Se despliegan los datos de todos los requerimientos -->
                 <div class="col-12 col-md-8">
                     <div class="tab-content d-block" style="height:580px; width:1150px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
 
