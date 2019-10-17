@@ -77,8 +77,11 @@
                     <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
                         @foreach (var item in Model)
                         {
-                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">Empleado: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
-                            { idCarta += 1; }
+                            if (item.estado != "Despedido")
+                            {
+                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">Empleado: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
+                                { idCarta += 1; }
+                            }
                         }
                     </div>
                 </div>
@@ -89,6 +92,7 @@
                 <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
                     @foreach (var item in Model)
                     {
+
                     <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
                         <div class="row mx-4 mt-4 md-0" style="height:30px">
                             <div class="col-8" style="max-height:30px">
@@ -102,12 +106,22 @@
 
                             <!-- Button trigger modal para Borrar-->
                             <div class="col" style="width:auto; height:auto;">
+                               
+                                @if (item.estado != "Activo")
+                                {
                                 <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                }
+                                else
+                                {
+                                <a href="#" class="btn" data-toggle="modal" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+
+                                }
                             </div>
                         </div>
                         <hr />
 
                         <!--Informacion del Empleado que se selecciona-->
+                        Informacion Personal
                         <div style=" height:auto;" class="col-12 align-content-center">
                             <div class="row mb-2">
                                 <div class="col-6">
@@ -116,7 +130,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Nombre</span>
                                         </div>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null)
+                                        {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -126,6 +141,41 @@
                                             <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Cedula</span>
                                         </div>
                                         <input placeholder="@Html.DisplayFor(modelItem => item.idEmpleadoPK)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Fecha-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Fecha de nacimiento</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.fechaNacimiento)" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!--Campo Lugar-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Lugar de residencia</span>
+                                        </div>
+                                        <input placeholder="@Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
+                                        {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
+                            {@Html.DisplayFor(modelItem => item.distrito)}" style=" max-width:none" readonly class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <!--Campo Direccion Exacta-->
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta</span>
+                                        </div>
+                                        <textarea disabled class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.direccion)" style=" height: 200px; "></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -183,45 +233,11 @@
                                     </div>
                                 </div>
                             </div>
-                            Informacion Personal
-                            <div class="row mb-2">
-                                <div class="col">
-                                    <!--Campo Fecha-->
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Fecha de nacimiento</span>
-                                        </div>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.fechaNacimiento)" style=" max-width:none" readonly class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <!--Campo Lugar-->
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1" for="nombre" style="width:200px">Lugar de residencia</span>
-                                        </div>
-                                        <input placeholder="@Html.DisplayFor(modelItem => item.provincia), @if (item.canton != null)
-                                    {@Html.DisplayFor(modelItem => item.canton)}, @if (item.distrito != null)
-                                    {@Html.DisplayFor(modelItem => item.distrito)}" style=" max-width:none" readonly class="form-control">
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col">
-                                    <!--Campo Direccion Exacta-->
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1" for="direccionExacta" style="width:200px">Dirección Exacta</span>
-                                        </div>
-                                        <textarea disabled class="form-control col-10" placeholder="@Html.DisplayFor(modelItem => item.direccion)" style=" height: 200px; "></textarea>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
-
+                        
                         //Le agrega un digito mas al idTab
                         { idTab += 1; }
                     }
