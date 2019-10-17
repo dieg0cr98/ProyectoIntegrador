@@ -7,12 +7,11 @@
 
 
     <head>
-
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
-
+        <!-- Se define la letra y los estilos para el error y los por defecto -->
         <style>
 
             .error {
@@ -26,25 +25,20 @@
                 border-color: red;
             }
         </style>
-
-
-
-
     </head>
 
 
 
     <body>
-
-       
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
         <hr>
 
+        <!-- Se crea el formulario con el que recibiremos los datos -->
         <form class="cmxform" id="commentForm" method="post" action="Create">
             <fieldset>
                 <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
 
-
+                    <!-- Si hay un error se despliega -->
                     @if (ViewBag.error != null)
                     {
                         <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
@@ -55,145 +49,148 @@
 
                     }
 
-
+                    <!--Se pasa el id del proyecto asociado de manera oculta ya que al usuario no le interesa esto-->
                     <input type="hidden" id="custId" name="idProyecto" value=@ViewBag.idProyectoFK>
 
-
-                    <div class="form-row mb-2">
+                    @*Titulo de Atributo Descripción*@
+                    <div class="form-row">
                         <div class="col">
-
-                            @*Atributo idProyecto*@
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style="width:200px" id="basic-addon1">ID del requerimiento *</span>
-                                </div>
-
-                                <input id="id" class="form-control" type="number" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
-
-                            </div>
-                            <div id="errorIdRequerimiento"></div>
-
-
-                        </div>
-                        <div class="col">
-
-                            @*Atributo nombre*@
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Nombre Requerimiento *</span>
-                                </div>
-
-
-                                <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
-
-                            </div>
-
-                            <div id="errorNombre"></div>
-
-
+                            <h5> Descripción</h5>
                         </div>
                     </div>
 
+                    @*Atributo descripcion*@
+                    <div class="input-group mb-4  mx-6">
+                        <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
+                    </div>
 
+                    <div class="form-row">
+                        @*Título de Atributo Complejidad*@
+                        <div class="col-3 ">
+                            <h5> Complejidad </h5>
+                        </div>
 
-                    <div class="form-row mb-2">
-                        <div class="col">
+                        <div class="col-3">
 
+                        </div>
+
+                        @*Título de Atributo Estado*@
+                        <div class="col-3">
+                            <h5> Estado </h5>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-4">
+                        <div class="col-3">
                             @*Atributo Complejidad*@
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Complejidad</span>
-                                </div>
-
                                 <select class="custom-select" name="complejidad">
                                     <option value="Simple">Simple</option>
                                     <option value="Medio" selected>Medio</option>
                                     <option value="Complejo">Complejo</option>
                                     <option value="Muy Complejo">Muy Complejo</option>
                                 </select>
-
                             </div>
+                        </div>
 
-
+                        <div class="col-3">
 
                         </div>
-                        <div class="col">
+
+                        <div class="col-3">
 
                             @*Atributo Estado*@
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Estado</span>
-                                </div>
-
-
                                 <select class="custom-select" name="estado">
                                     <option value="Activo">Activo</option>
                                     <option value="Preparacion" selected>Preparación</option>
                                     <option value="Terminado">Terminado</option>
                                 </select>
-
                             </div>
-
-
-
                         </div>
                     </div>
 
+                    <div class="form-row">
+                        @*Título de Atributo id*@
+                        <div class="col-2 ">
+                            <h5> ID del requerimiento </h5>
+                        </div>
 
+                        <div class="col-4">
+
+                        </div>
+
+                        @*Título de Atributo nombre*@
+                        <div class="col-3">
+                            <h5> Nombre del requerimiento </h5>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-4">
+                        <div class="col-2">
+                            @*Atributo idProyecto*@
+                            <div class="input-group">
+                                <input id="id" class="form-control" type="number" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
+                            </div>
+                            <div id="errorIdRequerimiento"></div>
+                        </div>
+
+                        <div class="col-4">
+
+                        </div>
+
+                        <div class="col-3">
+                            @*Atributo nombre*@
+                            <div class="input-group">
+                                <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
+                            </div>
+                            <div id="errorNombre"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        @*Título de Atributo Duracion Estimada*@
+                        <div class="col-4 ">
+                            <h5> Duración Estimada </h5>
+                        </div>
+
+                        <div class="col-2 ">
+
+                        </div>
+
+                        @*Título de Atributo Fecha de Inicio*@
+                        <div class="col-4 ">
+                            <h5> Fecha de Inicio </h5>
+                        </div>
+                    </div>
 
                     <div class="form-row mb-2">
-                        <div class="col">
+                        <div class="col-2">
 
                             @*Atributo duracionEstimada*@
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Duracion Estimada *</span>
-                                </div>
-
                                 <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada" required>
-                                <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
-
                             </div>
+                            <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
                             <div id="errorDuracionEstimada"></div>
+                        </div>
 
+                        <div class="col-4">
 
                         </div>
-                        <div class="col">
 
+                        <div class="col-3">
                             @*Atributo fechaInicio*@
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;" id="basic-addon1">Fecha Inicio *</span>
-                                </div>
-
                                 <input id="cfecha" class="form-control text-center" type="date" name="fechai" required>
-
                             </div>
-
                             <div id="errorFechai"></div>
-
                         </div>
                     </div>
-
-
-
-                    @*Atributo Objetivo*@
-                    <div class="input-group mb-2 ">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Descripcion</span>
-                        </div>
-                        <textarea class="form-control" name="descripcion" placeholder="Max 100 caracteres" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
-
-
-                    </div>
-
 
                     <h5> * Campos requeridos</h5>
 
-
-
                     <hr />
-
 
                     <div class="row justify-content-center" style="max-width:1150px">
                         <div class="col-4  text-center">
@@ -261,13 +258,13 @@
                             duracionEstimada:
                             {
                                 required: true,
-                                min : 1
+                                min: 1
 
                             },
                             fechai:
                             {
                                 required: true,
-                                
+
                             },
 
                         },

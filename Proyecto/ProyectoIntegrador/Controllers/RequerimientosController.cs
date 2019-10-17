@@ -15,6 +15,7 @@ namespace ProyectoIntegrador.Controllers
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
         private SeguridadController seguridad = new SeguridadController();
 
+        /* Métodos comentados porque se utilizaran hasta el siguiente sprint
         //Método utilizado para obtener todos los testers disponibles en un proyecto
         private IEnumerable<Empleado> getTesters(int tipo, int idProyecto, string cedulaTester)
         {
@@ -43,7 +44,7 @@ namespace ProyectoIntegrador.Controllers
             return testers.ToList();
         }
 
-        //Método que se va a encargar de actualizar la cantidad de requerimientos que posee un tester
+        //Método que se encarga actualizar la cantidad de requerimientos que posee un tester
         private void actualiceTester(int tipo, string idTesterNuevo, string idTesterViejo)
         {
             if (tipo == 0)
@@ -71,28 +72,32 @@ namespace ProyectoIntegrador.Controllers
             db.SaveChanges();
 
         }
+        */
 
-        // GET: Requerimientos
+        // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto)
         {
+            //Se obtienen los datos de todos los requerimientos asociados al proyecto.
             var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
+            //Se buscan los permisos del usuario que hizo la consulta
             var permisosGenerales = seguridad.RequerimientosConsultar(User);
             ViewBag.permisosEspecificos = permisosGenerales;
             ViewBag.idProyecto = idProyecto;
+            ViewBag.nombre = db.Proyecto.Find(idProyecto).nombre;
             return View(requerimiento.ToList());
         }
 
-        // GET: Requerimientos/Create
+        //Método que despliega los datos de la vista utilizada para crear un requerimiento.
         public ActionResult Create(int idProyecto)
         {
+            //Comentado porque será utilzado para el siguiente sprint
             //ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.estado == "Disponible" && e.tipoTrabajo == "Tester");
             ViewBag.idProyectoFK = idProyecto;
             return View();
         }
 
-        // POST: Requerimientos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Este método se encarga de recibir los datos del formulario con el que se crea un requerimiento. Primero verifica que sean válidos, de ser así
+        // los envía a la BD y de no serlo, vuelve a la vista de crear con un error.
         [HttpPost]
         public ActionResult Create(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
             int duracionEstimada, DateTime fechai, int idProyecto)
@@ -109,13 +114,15 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.tiempoReal = 0;
 
 
-            //Actualiza la cantidad de requerimientos que el tester tiene asignados para 
+            //Comentado pues se usará en el siguiente sprint
+            //Actualiza la cantidad de requerimientos que el tester tiene asignados.
             //actualiceTester(0, idTester, "");
 
             //Revisa que no exista un requerimiento con el id ingresado por el usuario en el mismo proyecto
             if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
             {
                 ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento + " en este proyecto";
+                //Comentado pues se usará en el siguiente sprint
                 //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
                 ViewBag.idProyectoFK = idProyecto;
                 return View(requerimiento);
@@ -127,6 +134,7 @@ namespace ProyectoIntegrador.Controllers
             if (db.Requerimiento.Where(i => i.nombre == nombre && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
             {
                 ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
+                //Comentado pues se usará en el siguiente sprint
                 //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
                 ViewBag.idProyectoFK = idProyecto;
                 return View(requerimiento);
@@ -142,7 +150,7 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index", new { idProyecto = idProyecto });
         }
 
-        // GET: Requerimientos/Edit/5
+        // Método que llama a la vista de modificar un requerimiento
         public ActionResult Edit(int? idRequerimiento, int? idProyecto)
         {
             if (idRequerimiento == null || idProyecto == null)
@@ -157,6 +165,7 @@ namespace ProyectoIntegrador.Controllers
                 return HttpNotFound();
             }
 
+            //Comentado pues se usará en el siguiente sprint
             //ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.tipoTrabajo == "Tester");
             //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
             //ViewBag.otros = getTesters(1, (int)idProyecto, requerimiento.cedulaTesterFK);
@@ -164,7 +173,7 @@ namespace ProyectoIntegrador.Controllers
             return View(requerimiento);
         }
 
-        // POST: Requerimientos/Edit/5
+        // Método que recibe los cambios hechos a un requerimiento en el formulario de modificar y los valída antes de enviarlos a la BD.
         [HttpPost]
         public ActionResult Edit(int idRequerimientoNuevo, string nombre, string complejidad, string descripcion, string estado,
             int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto, int idRequerimientoViejo)
@@ -187,6 +196,7 @@ namespace ProyectoIntegrador.Controllers
                 if (db.Requerimiento.Where(i => i.idReqPK == idRequerimientoNuevo && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
                 {
                     ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimientoNuevo + " en este proyecto";
+                    //Comentado pues se usará en el siguiente sprint
                     //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
                     //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
                     ViewBag.idProyecto = idProyecto;
@@ -203,6 +213,7 @@ namespace ProyectoIntegrador.Controllers
                 if (db.Requerimiento.Where(i => i.nombre == nombre && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
                 {
                     ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
+                    //Comentado pues se usará en el siguiente sprint
                     //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
                     //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
                     ViewBag.idProyecto = idProyecto;
@@ -214,6 +225,7 @@ namespace ProyectoIntegrador.Controllers
 
 
             //Método utilzado para quitarle un requerimiento a un tester y asignarselo a otro, en terminos de cantidad de requerimientos por tester.
+            //Comentado pues se usará en el siguiente sprints
             //if (requerimiento.cedulaTesterFK != idTester)
             //{
             //    actualiceTester(1, idTester, requerimiento.cedulaTesterFK);
@@ -227,10 +239,11 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index", new { idProyecto = idProyecto });
         }
 
-        // POST: Requerimientos/Delete/
+        // Método que recibe la confirmación del usuario para eliminar un requerimiento.
         public ActionResult Eliminar(int idRequerimiento, int idProyecto)
         {
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+            //Comentado pues se usará en el siguiente sprint
             //actualiceTester(2, "", requerimiento.cedulaTesterFK);
             db.Requerimiento.Remove(requerimiento);
             db.SaveChanges();
