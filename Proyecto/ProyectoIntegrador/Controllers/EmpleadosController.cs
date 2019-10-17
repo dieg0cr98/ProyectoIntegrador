@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,12 +14,21 @@ namespace ProyectoIntegrador.Controllers
 {
     public class EmpleadosController : Controller
     {
-        private Gr03Proy2Entities3 db = new Gr03Proy2Entities3();
+        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+
+
 
         // GET: Empleados
         public ActionResult Index()
         {
-            var Empleado = db.Empleado.Include(e => e.Tester);
+            var Empleado =
+            from e in db.Empleado //Selecciona la tabla de Empledo
+            where e.estado != "Despedido" //Solo los empleados que no estan despedidos
+            select e; //Selecciona todo los atributos del empleado
+
+            
+
+            //= db.Empleado.Include(e => e.Tester);
             return View(Empleado.ToList());
         }
 
@@ -51,7 +60,15 @@ namespace ProyectoIntegrador.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idEmpleadoPK,nombre,apellido1,apellido2,correo,telefono,fechaNacimiento,distrito,canton,provincia,direccion,estado,tipoTrabajo")] Empleado empleado)
-        {
+        { 
+            if(db.Empleado.Where(i => i.idEmpleadoPK == empleado.idEmpleadoPK).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un empleado con el ID: " + empleado.idEmpleadoPK + " en el sistema";
+                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
+                return View(empleado);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Empleado.Add(empleado);
@@ -86,6 +103,13 @@ namespace ProyectoIntegrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idEmpleadoPK,nombre,apellido1,apellido2,correo,telefono,fechaNacimiento,distrito,canton,provincia,direccion,estado,tipoTrabajo")] Empleado empleado)
         {
+            if (db.Empleado.Where(i => i.idEmpleadoPK == empleado.idEmpleadoPK).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un empleado con el ID: " + empleado.idEmpleadoPK + " en el sistema";
+                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
+                return View(empleado);
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(empleado).State = EntityState.Modified;
@@ -133,7 +157,16 @@ namespace ProyectoIntegrador.Controllers
 
         public ActionResult Eliminar(string id)
         {
-           Empleado empleado = db.Empleado.Find(id);
+           
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Empleado empleado = db.Empleado.Find(id);
+            if (empleado == null)
+            {
+                return HttpNotFound();
+            }
             empleado.estado = "Despedido";
             db.SaveChanges();
             return RedirectToAction("Index");
