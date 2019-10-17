@@ -146,7 +146,7 @@ namespace ProyectoIntegrador.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Eliminar(string id)
+        public ActionResult Eliminar(string id) //Cambiar estado a despedido
         {
             Empleado empleado = db.Empleado.Find(id);
             db.Empleado.Remove(empleado);
