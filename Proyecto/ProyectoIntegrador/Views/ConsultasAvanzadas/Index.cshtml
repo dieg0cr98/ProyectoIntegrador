@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE HTML>
+    <html>
+    <head>
+     <style>
+            #showChart {
+                background-color: #5bb85b;
+                color: #ffffff;
+                padding: 10px;
+                border: 0px;
+                border-radius: 8px;
+                font-size: 18px;
+                outline: none;
+                cursor: pointer;
+            }
+
+            #container {
+                position: fixed;
+                top: 50%;
+                width: 100%;
+                text-align: center;
+                margin-top: -41px;
+            }
+        </style>
+
+
+
+        <script>
+    window.onload = function () {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+       // backgroundColor: "rgba(255,255,255, 0.1)",
+        backgroundColor: "white",
+        width: 500,
+        animationEnabled: true,
+        title: {
+            text: "Proyectos"
+        },
+            subtitles: [{
+            text: "Total de Proyectos: " + @ViewBag.total
+        }],
+        data: [{
+            type: "pie",
+            startAngle: 180,
+            toolTipContent: "<b>{label}</b>: {y}",
+            showInLegend: "true",
+            legendText: "{label}",
+            indexLabel: "{label} - {y}",
+            dataPoints: @Html.Raw(ViewBag.DataPoints)
+        }]
+    });
+
+        chart.render();
+
+    var chart2 = new CanvasJS.Chart("chartContainer2", {
+        backgroundColor: "white",
+        width: 500,
+        animationEnabled: true,
+        title: {
+            text: "Proyectos"
+        },
+            subtitles: [{
+            text: "Total de Proyectos: " + @ViewBag.total
+        }],
+        data: [{
+            type: "pie",
+            startAngle: 180,
+            toolTipContent: "<b>{label}</b>: {y}%",
+            showInLegend: "true",
+            legendText: "{label}",
+            indexLabel: "{label} - {y}%",
+            dataPoints: @Html.Raw(ViewBag.DataPoints2)
+        }]
+    });
+         chart2.render();
+
+
+                    var options = new CanvasJS.Chart("chartContainer3", {
+                    animationEnabled: true,
+                    title: {
+                        text: "GDP Growth Rate - 2016"
+                    },
+                    axisY: {
+                        title: "Growth Rate (in %)",
+                        suffix: "%",
+                        includeZero: false
+                    },
+                    axisX: {
+                        title: "Countries"
+                    },
+                    data: [{
+                        type: "column",
+                        yValueFormatString: "#,##0.0#" % "",
+                        dataPoints: [
+                            { label: "Iraq", y: 10.09 },
+                            { label: "T & C Islands", y: 9.40 },
+                            { label: "Nauru", y: 8.50 },
+                            { label: "Ethiopia", y: 7.96 },
+                            { label: "Uzbekistan", y: 7.80 },
+                            { label: "Nepal", y: 7.56 },
+                            { label: "Iceland", y: 7.20 }
+                        ]
+                    }]
+                });
+
+
+    $("#showChart").click(function () {
+
+                    $("#dialogBox").dialog({
+                        open: function (event, ui) {
+                            $(".ui-widget-overlay").bind("click", function (event, ui) {
+                                $("#dialogBox").dialog("close");
+                            });
+                        },
+                        closeOnEscape: true,
+                        draggable: false,
+                        resizable: false,
+                        title: "GDP Growth Rate",
+                        width: 700,
+                        modal: true,
+                        show: 500
+                    });
+                    $(".ui-widget-overlay").css({ "background-color": "#111111" });
+                    options.render();
+                    $("#chartContainer3").CanvasJSChart(options);
+                });
+
+
+    }
+        </script>
+    </head>
+    <body>
+        <div class="row mb-2">
+
+            <div id="chartContainer" style="height: 370px; width:100%"></div>
+        </div>
+
+        <div class="row mb-5">
+            <div id="chartContainer2" style="height: 370px; width:100%"></div>
+        </div>
+
+      
+
+        @*<div class="row">
+            <div id="container">
+                <button id="showChart">Click to Show Chart in a Pop-up</button>
+            </div>
+            <div id="dialogBox" style="display: none;">
+                <div id="chartContainer3" class="dialog" style="height: 300px; width: 100%;"></div>
+            </div>
+        </div>*@
+
+
+
+
+
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </body>
+    </html>
+
+
+
+    
