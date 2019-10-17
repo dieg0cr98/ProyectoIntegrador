@@ -16,10 +16,19 @@ namespace ProyectoIntegrador.Controllers
     {
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
 
+
+
         // GET: Empleados
         public ActionResult Index()
         {
-            var Empleado = db.Empleado.Include(e => e.Tester);
+            var Empleado =
+            from e in db.Empleado //Selecciona la tabla de Proyectos
+            where e.estado != "Despedido" //Solo los proyectos en donde el Empleado trabaja
+            select e; //Selecciona todo los atributos del proyecto
+
+            
+
+            //= db.Empleado.Include(e => e.Tester);
             return View(Empleado.ToList());
         }
 
@@ -146,12 +155,22 @@ namespace ProyectoIntegrador.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Eliminar(string id) //Cambiar estado a despedido
+        public ActionResult Eliminar(string id)
         {
+           
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Empleado empleado = db.Empleado.Find(id);
-            db.Empleado.Remove(empleado);
+            if (empleado == null)
+            {
+                return HttpNotFound();
+            }
+            empleado.estado = "Despedido";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
     }
 }
+
