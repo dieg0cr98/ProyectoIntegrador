@@ -22,9 +22,9 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Index()
         {
             var Empleado =
-            from e in db.Empleado //Selecciona la tabla de Proyectos
-            where e.estado != "Despedido" //Solo los proyectos en donde el Empleado trabaja
-            select e; //Selecciona todo los atributos del proyecto
+            from e in db.Empleado //Selecciona la tabla de Empledo
+            where e.estado != "Despedido" //Solo los empleados que no estan despedidos
+            select e; //Selecciona todo los atributos del empleado
 
             
 
