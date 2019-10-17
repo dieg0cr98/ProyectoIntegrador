@@ -11,6 +11,13 @@
                         Realmente desea eliminar los datos del Empleado? Esta operacion es irreversible.
                     </div>
                 </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        Este empleado tiene
+
+                        Proyectos activos
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="container-fluid">
@@ -25,6 +32,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalEliminarActivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">  NO puede eliminar un empleado que esta con proyectos activos</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col text-center">
+                            <button type="button" class="btn" data-dismiss="modal"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
