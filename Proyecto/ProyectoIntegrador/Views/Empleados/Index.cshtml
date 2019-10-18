@@ -79,7 +79,7 @@
                         {
                            
                             
-                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">Empleado: @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
+                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) </a>
                                 { idCarta += 1; }
                             
                         }
@@ -107,7 +107,7 @@
                             <!-- Button trigger modal para Borrar-->
                             <div class="col" style="width:auto; height:auto;">
 
-                                @if (item.estado == "Disponible")
+                                @if (item.estado != "Ocupado")
                                 {
                                     <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                 }
