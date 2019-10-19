@@ -14,9 +14,10 @@ namespace ProyectoIntegrador.Controllers
     {
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
         private SeguridadController seguridad = new SeguridadController();
+        private ProyectosController proyectos = new ProyectosController();
 
-        /* Métodos comentados porque se utilizaran hasta el siguiente sprint
-        //Método utilizado para obtener todos los testers disponibles en un proyecto
+        // Métodos comentados porque se utilizaran hasta el siguiente sprint
+        // Método utilizado para obtener todos los testers disponibles en un proyecto
         private IEnumerable<Empleado> getTesters(int tipo, int idProyecto, string cedulaTester)
         {
             IEnumerable<Empleado> testers = Enumerable.Empty<Empleado>();
@@ -72,7 +73,7 @@ namespace ProyectoIntegrador.Controllers
             db.SaveChanges();
 
         }
-        */
+        
 
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto)
@@ -80,21 +81,24 @@ namespace ProyectoIntegrador.Controllers
             //Se obtienen los datos de todos los requerimientos asociados al proyecto.
             var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
             //Se buscan los permisos del usuario que hizo la consulta
-            var permisosGenerales = seguridad.RequerimientosConsultar(User);
-            ViewBag.permisosEspecificos = permisosGenerales;
+            ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
+
             ViewBag.idProyecto = idProyecto;
-            ViewBag.nombre = db.Proyecto.Find(idProyecto).nombre;
+
+            ViewBag.nombre = proyectos.GetNombreProyecto(idProyecto);
             return View(requerimiento.ToList());
         }
 
         //Método que despliega los datos de la vista utilizada para crear un requerimiento.
         public ActionResult Create(int idProyecto)
         {
-            //Comentado porque será utilzado para el siguiente sprint
-            //ViewBag.cedulaTesterFK = db.Empleado.Where(e => e.estado == "Disponible" && e.tipoTrabajo == "Tester");
+            ViewBag.TestersDisponibles = getTesters(0, idProyecto, "");
             ViewBag.idProyectoFK = idProyecto;
+            ViewBag.nuevoIDRequerimiento = proyectos.GetCantidadRequerimientos(idProyecto) + 1;
+
             return View();
         }
+
 
         // Este método se encarga de recibir los datos del formulario con el que se crea un requerimiento. Primero verifica que sean válidos, de ser así
         // los envía a la BD y de no serlo, vuelve a la vista de crear con un error.
@@ -123,7 +127,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento + " en este proyecto";
                 //Comentado pues se usará en el siguiente sprint
-                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "");
                 ViewBag.idProyectoFK = idProyecto;
                 return View(requerimiento);
             }
@@ -135,7 +139,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
                 //Comentado pues se usará en el siguiente sprint
-                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "");
                 ViewBag.idProyectoFK = idProyecto;
                 return View(requerimiento);
             }

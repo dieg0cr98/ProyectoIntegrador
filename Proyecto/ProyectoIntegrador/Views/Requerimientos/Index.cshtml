@@ -65,7 +65,7 @@
                             Lista de requerimientos
                         </a>
                         <!-- Si el usuario no tiene permisos, no puede agregar requerimientos -->
-                        @if (ViewBag.permisosEspecificos.Item4 == 1)
+                        @if (ViewBag.permisosGenerales.Item4 == 1)
                         {
                             <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
@@ -100,14 +100,14 @@
                                 </div>
 
                                 <!-- Botones de Editar y Borrar  -->
-                                @if (ViewBag.permisosEspecificos.Item3 == 1)
+                                @if (ViewBag.permisosGenerales.Item3 == 1)
                                 {
                                     <div class="col">
                                         <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Requerimientos", new { idRequerimiento = item.idReqPK, idProyecto = item.idProyectoFK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px"></a>
                                     </div>
                                 }
 
-                                @if (ViewBag.permisosEspecificos.Item5 == 1)
+                                @if (ViewBag.permisosGenerales.Item5 == 1)
                                 {
                                     <div class="col " style="max-height: 32px">
                                         <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.idReqPK" data-whatever2="@item.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>

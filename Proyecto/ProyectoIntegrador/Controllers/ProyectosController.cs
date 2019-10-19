@@ -25,6 +25,24 @@ namespace ProyectoIntegrador.Controllers
 
         private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
 
+        //Método que se encarga de devolver el nombre del proyecto para ser mostrado en los módulos de requerimientos y equipo.
+        public string GetNombreProyecto(int idProyecto)
+        {
+            return db.Proyecto.Find(idProyecto).nombre;
+        }
+
+        public int GetCantidadRequerimientos(int idProyecto)
+        {
+            return db.Proyecto.Find(idProyecto).cantidadReq;
+        }
+
+        public void SetCantidadRequerimientos(int idProyecto, int nuevaCantidad)
+        {
+            Proyecto proyecto = db.Proyecto.Find(idProyecto);
+            proyecto.cantidadReq = nuevaCantidad;
+            db.Entry(proyecto).State = EntityState.Modified;
+            db.SaveChanges();
+        }
 
         //Metodo que regresa el contexto de la tabla proyectos, para poder realizar joins
         //Retorna el contexto de la base de datos
@@ -33,8 +51,6 @@ namespace ProyectoIntegrador.Controllers
             return db.Proyecto;
 
         }
-
-
 
         //Metodo que guarda/Eliminar en la tabla Proyecto 
         //Recibe Proyecto proyecto, con los datos para guardar

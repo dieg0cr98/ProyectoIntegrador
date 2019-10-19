@@ -49,8 +49,9 @@
 
                     }
 
-                    <!--Se pasa el id del proyecto asociado de manera oculta ya que al usuario no le interesa esto-->
+                    <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
                     <input type="hidden" id="custId" name="idProyecto" value=@ViewBag.idProyectoFK>
+                    <input type="hidden" id="custId" name="idRequerimiento" value=@ViewBag.nuevoIDRequerimiento>
 
                     @*Titulo de Atributo Descripción*@
                     <div class="form-row">
@@ -111,34 +112,39 @@
                     </div>
 
                     <div class="form-row">
-                        @*Título de Atributo id*@
-                        <div class="col-2 ">
-                            <h5> ID del requerimiento </h5>
-                        </div>
-
+                        @*Título de Atributo cedulaTesterFK*@
                         <div class="col-4">
-
+                            <h5> Asignar tester </h5>
                         </div>
 
-                        @*Título de Atributo nombre*@
+                        <div class="col-2">
+
+                        </div>
+                        @*Título de atributo cedulaTesterFK*@
                         <div class="col-3">
-                            <h5> Nombre del requerimiento </h5>
+                            <h5> Nombre del Requerimiento </h5>
                         </div>
                     </div>
 
                     <div class="form-row mb-4">
-                        <div class="col-2">
-                            @*Atributo idProyecto*@
-                            <div class="input-group">
-                                <input id="id" class="form-control" type="number" style="text-align:center" placeholder="Número de id" name="idRequerimiento" required>
-                            </div>
-                            <div id="errorIdRequerimiento"></div>
-                        </div>
-
+                        
                         <div class="col-4">
-
+                            @*Atributo Cédula Tester*@
+                           <div class="input-group">
+                               <select class="custom-select" name="estado">
+                                   <option value="null" selected>No Asignar</option>
+                                   @foreach (var item in ViewBag.TestersDisponibles)
+                                   {
+                                       <option value="item.idEmpleadoPK">item.nombre item.apellido1 item.apellido2</option>
+                                   }
+                               </select>
+                            </div>
                         </div>
 
+                        <div class="col-2">
+
+                        </div>
+                        
                         <div class="col-3">
                             @*Atributo nombre*@
                             <div class="input-group">
@@ -244,11 +250,6 @@
                     {
                         rules:
                         {
-                            idRequerimiento:
-                            {
-                                required: true,
-                                min: 1
-                            },
                             nombre:
                             {
                                 required: true,
@@ -270,7 +271,6 @@
                         },
                         messages:
                         {
-                            idRequerimiento: "El id tiene que ser mayor de 0",
                             nombre: "Inserte al menos 1 caracter",
                             duracionEstimada: "Tiene que ser un numero mayor a 0",
                             fechai: "Inserte una fecha"
@@ -278,9 +278,6 @@
                         },
 
                         errorPlacement: function (error, element) {
-                            if ((element.attr('name') === 'idRequerimiento')) {
-                                error.insertAfter($('#errorIdRequerimiento'));
-                            }
                             if ((element.attr('name') === 'nombre')) {
                                 error.insertAfter($('#errorNombre'));
                             }
