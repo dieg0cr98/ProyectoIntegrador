@@ -55,7 +55,7 @@
 
 
 
-       @*  Titulo del Modulo *@
+        @*  Titulo del Modulo *@
         <br />
 
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Proyectos</p>
@@ -92,18 +92,18 @@
 
 
                             @foreach (var item in Model)
-                                        {
+                            {
 
                                 //Si el item.idProyectoAID es igual al ViewBag.proyectoSelec hay que seleccionar el tab con la instruccion show active
                                 if (ViewBag.proyectoSelec == item.idProyectoAID)
-                                            {
-                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" style="border-radius:20px 20px 20px 20px" id="list-home-list"  data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                                {
+                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
                                 else
                                 {
                                     <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
-                               
+
                                 { idCarta += 1; }
                             }
 
@@ -122,14 +122,14 @@
                             if (ViewBag.proyectoSelec == item.idProyectoAID)
                             {
                                 <div class="tab-pane fade fade bg-secondary  show active" style="max-width:1150px;border-radius:20px 20px 20px 20px ; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                                    @Html.Partial("FormularioIndex", @item  )
+                                    @Html.Partial("FormularioIndex", @item)
                                 </div>
                             }
                             else
                             {
                                 <div class="tab-pane fade bg-secondary" style="max-width:1150px;border-radius:20px 20px 20px 20px;  box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                            
-                                    @Html.Partial("FormularioIndex", @item  )
+
+                                    @Html.Partial("FormularioIndex", @item)
 
                                 </div>
                             }

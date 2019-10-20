@@ -16,14 +16,10 @@ using System.Data.SqlClient;
 
 namespace ProyectoIntegrador.Controllers
 {
-
-
     public class ProyectosController : Controller
     {
-
         private SeguridadController seguridad = new SeguridadController();
-
-        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+        private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
 
         //Método que se encarga de devolver el nombre del proyecto para ser mostrado en los módulos de requerimientos y equipo.
         public string GetNombreProyecto(int idProyecto)
@@ -469,11 +465,11 @@ namespace ProyectoIntegrador.Controllers
         public JsonResult CheckName(string name, string oldName)
         {
             //Hay que verificar si el nuevo nombre ya existe en la base de datos
-            if ( (name != oldName) &&  (db.Proyecto.Where(p => p.nombre == name).FirstOrDefault() != null) )
+            if ((name != oldName) && (db.Proyecto.Where(p => p.nombre == name).FirstOrDefault() != null))
             {
                 //Existe un proyecto con ese nombre
 
-                return new JsonResult { Data = false};
+                return new JsonResult { Data = false };
             }
             else
                 return new JsonResult { Data = true };
@@ -611,7 +607,7 @@ namespace ProyectoIntegrador.Controllers
 
             ActualizarTrabajaEN(proyecto, cedulaLider, null);
 
-            return RedirectToAction("Index", new {id = proyecto.idProyectoAID});
+            return RedirectToAction("Index", new { id = proyecto.idProyectoAID });
 
         }
 
@@ -720,7 +716,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 proyecto.cedulaClienteFK = cedulaCliente;
             }
-           
+
 
 
 
@@ -785,7 +781,7 @@ namespace ProyectoIntegrador.Controllers
 
                 }
 
-                return RedirectToAction("Index", new {id = 0 } );
+                return RedirectToAction("Index", new { id = 0 });
 
             }
             else

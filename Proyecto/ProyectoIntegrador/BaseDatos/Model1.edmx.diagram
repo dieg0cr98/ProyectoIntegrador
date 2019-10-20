@@ -4,21 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e5668e03d074432cbce233debe9bbefb" Name="Diagram1" ZoomLevel="111">
-        <EntityTypeShape EntityType="Gr03Proy2Model.Cliente" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.Empleado" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadTecnica" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.Proyecto" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.Requerimiento" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.Tester" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.TrabajaEn" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+      <Diagram DiagramId="067c0969efd146b1818d961baceef8b7" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="Gr03Proy2Model.Cliente" Width="1.5" PointX="1.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.Empleado" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadBlanda" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadTecnica" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.Proyecto" Width="1.5" PointX="7.125" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.Prueba" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.Requerimiento" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.Tester" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.TrabajaEn" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.HistorialReqTester" Width="1.5" PointX="8.25" PointY="13" IsExpanded="true" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Proyecto_Cliente" ManuallyRouted="false" />
-        <AssociationConnector Association="Gr03Proy2Model.FK__Habilidad__idEmp__00DF2177" ManuallyRouted="false" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_HabilidadBlanda_idEmpleadoFK" ManuallyRouted="false" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_idEmpleadoFK" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Req_CedulaTester" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Tester_Empleado" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_TrabajaEn_empleado" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Requerimiento_IdProy" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_TrabajaEn_proy" ManuallyRouted="false" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_Prueba_Requerimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" ManuallyRouted="false" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

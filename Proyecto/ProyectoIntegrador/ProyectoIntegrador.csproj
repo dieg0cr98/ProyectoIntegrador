@@ -184,7 +184,13 @@
     <Compile Include="BaseDatos\Empleado.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\HabilidadBlanda.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\HabilidadTecnica.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\HistorialReqTester.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\Model1.Context.cs">
@@ -205,6 +211,9 @@
     <Compile Include="BaseDatos\Proyecto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\Prueba.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\Requerimiento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -216,15 +225,12 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
-    <Compile Include="Controllers\ConsultasAvanzadasController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
-    <Compile Include="Controllers\TestersController.cs" />
     <Compile Include="Controllers\TrabajaEnController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -417,49 +423,47 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Proyectos\Create.cshtml" />
     <Content Include="Views\Proyectos\Delete.cshtml" />
     <Content Include="Views\Proyectos\Details.cshtml" />
+    <Content Include="Views\Proyectos\Edit.cshtml" />
     <Content Include="Views\Proyectos\Index.cshtml" />
+    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
+    <Content Include="Views\Proyectos\FormularioEditar.cshtml" />
+    <Content Include="Views\Proyectos\FormularioIndex.cshtml" />
+    <Content Include="Views\Proyectos\ModalClientes.cshtml" />
+    <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
+    <Content Include="Views\Proyectos\Scripts.cshtml" />
     <Content Include="Views\Requerimientos\Create.cshtml" />
+    <Content Include="Views\Requerimientos\Delete.cshtml" />
+    <Content Include="Views\Requerimientos\Details.cshtml" />
     <Content Include="Views\Requerimientos\Edit.cshtml" />
     <Content Include="Views\Requerimientos\Index.cshtml" />
+    <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
+    <Content Include="Views\Requerimientos\Scripts.cshtml" />
+    <Content Include="Views\TrabajaEn\Add.cshtml" />
+    <Content Include="Views\TrabajaEn\Index.cshtml" />
+    <Content Include="Views\TrabajaEn\ScriptsEquipo.cshtml" />
     <Content Include="Views\Clientes\Create.cshtml" />
     <Content Include="Views\Clientes\Delete.cshtml" />
     <Content Include="Views\Clientes\Details.cshtml" />
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Clientes\modalEliminarCliente.cshtml" />
+    <Content Include="Views\Clientes\ScriptDropdown.cshtml" />
+    <Content Include="Views\Clientes\ScriptsCliente.cshtml" />
     <Content Include="Views\Empleados\Create.cshtml" />
     <Content Include="Views\Empleados\Delete.cshtml" />
     <Content Include="Views\Empleados\Details.cshtml" />
     <Content Include="Views\Empleados\Edit.cshtml" />
     <Content Include="Views\Empleados\Index.cshtml" />
-    <Content Include="Views\Testers\Create.cshtml" />
-    <Content Include="Views\Testers\Delete.cshtml" />
-    <Content Include="Views\Testers\Details.cshtml" />
-    <Content Include="Views\Testers\Edit.cshtml" />
-    <Content Include="Views\Testers\Index.cshtml" />
-    <Content Include="Views\TrabajaEn\Create.cshtml" />
-    <Content Include="Views\TrabajaEn\Delete.cshtml" />
-    <Content Include="Views\TrabajaEn\Details.cshtml" />
-    <Content Include="Views\TrabajaEn\Edit.cshtml" />
-    <Content Include="Views\TrabajaEn\Index.cshtml" />
-    <Content Include="Views\Proyectos\FormularioEditar.cshtml" />
-    <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
-    <Content Include="Views\Proyectos\Scripts.cshtml" />
-    <Content Include="Views\TrabajaEn\ScriptsEquipo.cshtml" />
-    <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
-    <Content Include="Views\Requerimientos\Scripts.cshtml" />
-    <Content Include="Views\Proyectos\FormularioAñadir.cshtml" />
-    <Content Include="Views\Proyectos\Create.cshtml" />
-    <Content Include="Views\Proyectos\Edit.cshtml" />
-    <Content Include="Views\Proyectos\ModalClientes.cshtml" />
-    <Content Include="Views\Proyectos\FormularioIndex.cshtml" />
-    <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
+    <Content Include="Views\Empleados\ModalCancelar.cshtml" />
+    <Content Include="Views\Empleados\ModalEliminar.cshtml" />
+    <Content Include="Views\Empleados\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomAttribute\" />
-    <Folder Include="Views\Role\" />
     <Folder Include="Views\Seguridad\" />
   </ItemGroup>
   <ItemGroup>

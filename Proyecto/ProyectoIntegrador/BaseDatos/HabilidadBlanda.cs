@@ -12,19 +12,11 @@ namespace ProyectoIntegrador.BaseDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class Tester
+    public partial class HabilidadBlanda
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tester()
-        {
-            this.HistorialReqTester = new HashSet<HistorialReqTester>();
-        }
-    
         public string idEmpleadoFK { get; set; }
-        public int cantidadRequerimientos { get; set; }
+        public string habilidad { get; set; }
     
         public virtual Empleado Empleado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HistorialReqTester> HistorialReqTester { get; set; }
     }
 }

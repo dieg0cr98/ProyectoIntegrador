@@ -14,7 +14,7 @@ namespace ProyectoIntegrador.Controllers
 {
     public class ClientesController : Controller
     {
-        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+        private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
 
         // GET: Clientes
         public ActionResult Index()
@@ -60,8 +60,8 @@ namespace ProyectoIntegrador.Controllers
             //Revisa si hay otro cliente con el mismo correo
             if (db.Cliente.Where(i => i.correo == cliente.correo).FirstOrDefault() != null)
             {
-                    ViewBag.cedulaPK = cliente.correo;
-                    return View(cliente);
+                ViewBag.cedulaPK = cliente.correo;
+                return View(cliente);
             }
 
 
@@ -98,7 +98,7 @@ namespace ProyectoIntegrador.Controllers
             string canton, string distrito, string direccionExacta, string telefono, string correo)
         {
             Cliente cliente = db.Cliente.Find(cedulaVieja);
-            
+
             cliente.nombre = nombre;
             cliente.apellido1 = apellido1;
             cliente.apellido2 = apellido2;
@@ -109,7 +109,7 @@ namespace ProyectoIntegrador.Controllers
             cliente.provincia = provincia;
             cliente.direccionExacta = direccionExacta;
             cliente.telefono = telefono;
-           
+
             //Revisa si no hay otro cliente con cedula ingresada
             if (cedulaVieja != cedulaPK)
             {

@@ -1,0 +1,130 @@
+﻿@model ProyectoIntegrador.BaseDatos.Requerimiento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Requerimiento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.complejidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.complejidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tiempoEstimado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tiempoEstimado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tiempoReal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tiempoReal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaDeInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaDeInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaDeFinalizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaDeFinalizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resultado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resultado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.detallesResultado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.detallesResultado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estadoResultado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estadoResultado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadDePruebas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadDePruebas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empleado.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proyecto.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

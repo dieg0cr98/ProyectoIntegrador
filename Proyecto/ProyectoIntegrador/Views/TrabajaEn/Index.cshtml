@@ -34,10 +34,10 @@
                 margin: 0 5px 5px 5px;
                 padding: 5px;
                 color: black;
-                width:500px;
-                height:50px;
-                border-color:rgba(128,128,128,0.91);
-                border-radius:20px 20px 20px 20px;
+                width: 500px;
+                height: 50px;
+                border-color: rgba(128,128,128,0.91);
+                border-radius: 20px 20px 20px 20px;
                 background-color: #ede4db;
             }
     </style>
@@ -94,9 +94,9 @@
                     }
                 </nav>
 
-                    <!--Carta que contiene la lista de integrantes-->
-                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                     <ul id="sortable2" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
+                <!--Carta que contiene la lista de integrantes-->
+                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                    <ul id="sortable2" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
 
 
 
@@ -105,7 +105,7 @@
 
 
                             <!-- EL lider tiene una bandera en disable para no hacer drag-->
-                            <a   class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" value="@item.nombre" style="border-radius:20px 20px 20px 20px" id="list-home-list">@item.nombre</a>
+                            <a class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" value="@item.nombre" style="border-radius:20px 20px 20px 20px" id="list-home-list">@item.nombre</a>
 
                         }
 
@@ -113,52 +113,52 @@
                     </ul>
 
                 </div>
-             </div>
+            </div>
 
-                <!--La columna con empleados disponibles solo es visible para calidad,soporte y el líder-->
-                @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
-                {
-                    <!--Segunda columna, contiene lista de empleados disponibles-->
-                    <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+            <!--La columna con empleados disponibles solo es visible para calidad,soporte y el líder-->
+            @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
+            {
+                <!--Segunda columna, contiene lista de empleados disponibles-->
+                <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                        <!--Navbar inside the col-->
-                        <nav class="navbar navbar-light bg-secondary">
-                            <a class="navbar-brand">
-                                <img src="~/Content/folder.svg" draggable="false" width="30" height="30" class="d-inline-block align-top" alt="">
-                                Empleados disponibles
-                            </a>
+                    <!--Navbar inside the col-->
+                    <nav class="navbar navbar-light bg-secondary">
+                        <a class="navbar-brand">
+                            <img src="~/Content/folder.svg" draggable="false" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Empleados disponibles
+                        </a>
 
-                            <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
-                            <a data-toggle="tooltip" draggable="false" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
-                                <img src="~/Content/buscar.svg" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
-                            </a>
-                        </nav>
-
-
-
-                        <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                            <ul id="sortable1" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
+                        <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
+                        <a data-toggle="tooltip" draggable="false" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
+                            <img src="~/Content/buscar.svg" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                        </a>
+                    </nav>
 
 
 
-                                @foreach (var item in ViewBag.testers)
-                                {
-
-                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1" value="@item.nombre" style="border-radius:20px 20px 20px 20px" id="list-home-list">@item.nombre</a>
-
-                                }
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                        <ul id="sortable1" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
 
 
-                            </ul>
 
-                        </div>
+                            @foreach (var item in ViewBag.testers)
+                            {
 
+                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" value="@item.nombre" style="border-radius:20px 20px 20px 20px" id="list-home-list">@item.nombre</a>
+
+                            }
+
+
+                        </ul>
 
                     </div>
-                }
 
 
-            </div>
+                </div>
+            }
+
+
+        </div>
     </div>>
 
 
@@ -167,7 +167,7 @@
 
 
 
-  
+
 
 
 

@@ -13,10 +13,10 @@ namespace ProyectoIntegrador.BaseDatos
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Gr03Proy2Entities5 : DbContext
+    public partial class Gr03Proy2Entities6 : DbContext
     {
-        public Gr03Proy2Entities5()
-            : base("name=Gr03Proy2Entities5")
+        public Gr03Proy2Entities6()
+            : base("name=Gr03Proy2Entities6")
         {
         }
     
@@ -27,10 +27,13 @@ namespace ProyectoIntegrador.BaseDatos
     
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
+        public virtual DbSet<HabilidadBlanda> HabilidadBlanda { get; set; }
         public virtual DbSet<HabilidadTecnica> HabilidadTecnica { get; set; }
         public virtual DbSet<Proyecto> Proyecto { get; set; }
+        public virtual DbSet<Prueba> Prueba { get; set; }
         public virtual DbSet<Requerimiento> Requerimiento { get; set; }
         public virtual DbSet<Tester> Tester { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
+        public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
     }
 }

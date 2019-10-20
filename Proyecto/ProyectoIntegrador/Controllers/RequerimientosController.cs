@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
 
+
 namespace ProyectoIntegrador.Controllers
 {
     public class RequerimientosController : Controller
     {
-        private Gr03Proy2Entities5 db = new Gr03Proy2Entities5();
+        private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
         private SeguridadController seguridad = new SeguridadController();
         private ProyectosController proyectos = new ProyectosController();
 
@@ -73,7 +74,7 @@ namespace ProyectoIntegrador.Controllers
             db.SaveChanges();
 
         }
-        
+
 
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto)
@@ -114,7 +115,6 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.fechaDeInicio = fechai;
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
-            requerimiento.horas = 0;
             requerimiento.tiempoReal = 0;
 
 
@@ -194,7 +194,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.tiempoReal = duracionReal;
 
             //Revisamos que el valor ingresado para el id del requerimiento haya cambiado
-            if(idRequerimientoViejo != idRequerimientoNuevo)
+            if (idRequerimientoViejo != idRequerimientoNuevo)
             {
                 //Si cambió, revisamos que no exista otra tupla en este proyecto con el mismo id de requerimiento
                 if (db.Requerimiento.Where(i => i.idReqPK == idRequerimientoNuevo && i.idProyectoFK == idProyecto).FirstOrDefault() != null)

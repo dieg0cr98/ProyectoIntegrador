@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities5">
+  <EntityContainerMapping StorageEntityContainer="Gr03Proy2ModelStoreContainer" CdmEntityContainer="Gr03Proy2Entities6">
     <EntitySetMapping Name="Cliente">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Cliente">
         <MappingFragment StoreEntitySet="Cliente">
@@ -37,6 +37,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="HabilidadBlanda">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.HabilidadBlanda">
+        <MappingFragment StoreEntitySet="HabilidadBlanda">
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="HabilidadTecnica">
       <EntityTypeMapping TypeName="Gr03Proy2Model.HabilidadTecnica">
         <MappingFragment StoreEntitySet="HabilidadTecnica">
@@ -61,6 +69,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Prueba">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
+        <MappingFragment StoreEntitySet="Prueba">
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+          <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
+          <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+          <ScalarProperty Name="propositoPrueba" ColumnName="propositoPrueba" />
+          <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
+          <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
+          <ScalarProperty Name="flujoPrueba" ColumnName="flujoPrueba" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="imagen" ColumnName="imagen" />
+          <ScalarProperty Name="descripcionError" ColumnName="descripcionError" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Requerimiento">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Requerimiento">
         <MappingFragment StoreEntitySet="Requerimiento">
@@ -75,7 +100,10 @@
           <ScalarProperty Name="fechaDeInicio" ColumnName="fechaDeInicio" />
           <ScalarProperty Name="fechaDeFinalizacion" ColumnName="fechaDeFinalizacion" />
           <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="horas" ColumnName="horas" />
+          <ScalarProperty Name="resultado" ColumnName="resultado" />
+          <ScalarProperty Name="detallesResultado" ColumnName="detallesResultado" />
+          <ScalarProperty Name="estadoResultado" ColumnName="estadoResultado" />
+          <ScalarProperty Name="cantidadDePruebas" ColumnName="cantidadDePruebas" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -94,6 +122,19 @@
           <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
           <ScalarProperty Name="rol" ColumnName="rol" />
           <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistorialReqTester">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
+        <MappingFragment StoreEntitySet="HistorialReqTester">
+          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="horas" ColumnName="horas" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

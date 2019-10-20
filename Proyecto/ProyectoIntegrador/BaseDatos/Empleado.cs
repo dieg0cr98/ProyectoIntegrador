@@ -17,6 +17,7 @@ namespace ProyectoIntegrador.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
+            this.HabilidadBlanda = new HashSet<HabilidadBlanda>();
             this.HabilidadTecnica = new HashSet<HabilidadTecnica>();
             this.Requerimiento = new HashSet<Requerimiento>();
             this.TrabajaEn = new HashSet<TrabajaEn>();
@@ -36,6 +37,8 @@ namespace ProyectoIntegrador.BaseDatos
         public string estado { get; set; }
         public string tipoTrabajo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HabilidadBlanda> HabilidadBlanda { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HabilidadTecnica> HabilidadTecnica { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
