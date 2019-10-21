@@ -47,7 +47,7 @@
 
 </head>
 
-<body onload="">
+<body>
 
     @if (Request.IsAuthenticated)
     {
@@ -62,7 +62,7 @@
 
         <hr>
 
-        <div class="container " style="max-width: 1800px">
+        <div class="container " id="cont" style="max-width: 1800px">
             <div class="row">
 
                 <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
@@ -81,7 +81,7 @@
                         @*Pregunta si tiene permisos para crear*@
                         @if (ViewBag.permisosEspecificos.Item2 == 1)
                         {
-                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" id="AgregarProyecto"  data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
 
 
