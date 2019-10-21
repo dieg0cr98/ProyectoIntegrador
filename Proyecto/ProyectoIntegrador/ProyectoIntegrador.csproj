@@ -435,8 +435,6 @@
     <Content Include="Views\Proyectos\ModalEliminar.cshtml" />
     <Content Include="Views\Proyectos\Scripts.cshtml" />
     <Content Include="Views\Requerimientos\Create.cshtml" />
-    <Content Include="Views\Requerimientos\Delete.cshtml" />
-    <Content Include="Views\Requerimientos\Details.cshtml" />
     <Content Include="Views\Requerimientos\Edit.cshtml" />
     <Content Include="Views\Requerimientos\Index.cshtml" />
     <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />

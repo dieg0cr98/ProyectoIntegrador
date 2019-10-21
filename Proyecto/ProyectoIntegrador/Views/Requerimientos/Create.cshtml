@@ -220,94 +220,94 @@
 
     <script>
 
-            $('document').ready(function () {
+        $('document').ready(function () {
 
 
-                $('#loading').hide();
-
-
-
-            });
+            $('#loading').hide();
 
 
 
-            $('#btnsubmit').on('click', function () {
-                $('#acceptar').hide('fast');
+        });
 
 
-                $('#loading').show('fast');
+
+        $('#btnsubmit').on('click', function () {
+            $('#acceptar').hide('fast');
 
 
-            });
+            $('#loading').show('fast');
+
+
+        });
 
     </script>
 
 
 
     <script>
-            $(function () {
-                $("#commentForm").validate(
+        $(function () {
+            $("#commentForm").validate(
+                {
+                    rules:
                     {
-                        rules:
+                        nombre:
                         {
-                            nombre:
-                            {
-                                required: true,
-                                minlength: 1
-
-                            },
-                            duracionEstimada:
-                            {
-                                required: true,
-                                min: 1
-
-                            },
-                            fechai:
-                            {
-                                required: true,
-
-                            },
+                            required: true,
+                            minlength: 1
 
                         },
-                        messages:
+                        duracionEstimada:
                         {
-                            nombre: "Inserte al menos 1 caracter",
-                            duracionEstimada: "Tiene que ser un numero mayor a 0",
-                            fechai: "Inserte una fecha"
+                            required: true,
+                            min: 1
+
+                        },
+                        fechai:
+                        {
+                            required: true,
 
                         },
 
-                        errorPlacement: function (error, element) {
-                            if ((element.attr('name') === 'nombre')) {
-                                error.insertAfter($('#errorNombre'));
-                            }
-                            if ((element.attr('name') === 'fechai')) {
-                                error.insertAfter($('#errorFechai'));
-                            }
-                            if ((element.attr('name') === 'duracionEstimada')) {
-                                error.insertAfter($('#errorDuracionEstimada'));
-                            }
+                    },
+                    messages:
+                    {
+                        nombre: "Inserte al menos 1 caracter",
+                        duracionEstimada: "Tiene que ser un numero mayor a 0",
+                        fechai: "Inserte una fecha"
+
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if ((element.attr('name') === 'nombre')) {
+                            error.insertAfter($('#errorNombre'));
+                        }
+                        if ((element.attr('name') === 'fechai')) {
+                            error.insertAfter($('#errorFechai'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada')) {
+                            error.insertAfter($('#errorDuracionEstimada'));
+                        }
 
 
 
 
 
-                        },
-                        invalidHandler: function (form, validator) {
+                    },
+                    invalidHandler: function (form, validator) {
 
-                            $('#loading').hide('fast');
-                            $('#acceptar').show('fast');
+                        $('#loading').hide('fast');
+                        $('#acceptar').show('fast');
 
-                        },
+                    },
 
 
 
-                    });
-            });
+                });
+        });
     </script>
     <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 </body>

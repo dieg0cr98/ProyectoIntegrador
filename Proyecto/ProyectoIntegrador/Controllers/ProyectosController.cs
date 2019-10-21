@@ -26,12 +26,12 @@ namespace ProyectoIntegrador.Controllers
         {
             return db.Proyecto.Find(idProyecto).nombre;
         }
-
+        //Método que se encarga de buscar cual es la cantidad de requerimientos actual para asignar el id al nuevo requerimiento.
         public int GetCantidadRequerimientos(int idProyecto)
         {
             return db.Proyecto.Find(idProyecto).cantidadReq;
         }
-
+        //Método que cambia el atributo de cantidad de requerimientos en la base de datos
         public void SetCantidadRequerimientos(int idProyecto, int nuevaCantidad)
         {
             Proyecto proyecto = db.Proyecto.Find(idProyecto);
