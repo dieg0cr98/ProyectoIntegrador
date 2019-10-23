@@ -15,12 +15,11 @@ namespace ProyectoIntegrador.Controllers
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
         private SeguridadController seguridad = new SeguridadController();
 
-
         /*
-         * Efecto: Obtiene todos los valores requeridos en la vista de equipo y los añade al viewbag.
-         * Requiere: Un id de proyecto valido
-         * Modifica: Agrega variables al ViewBag
-         */
+                * Efecto: Obtiene todos los valores requeridos en la vista de equipo y los añade al viewbag.
+                * Requiere: Un id de proyecto valido
+                * Modifica: Agrega variables al ViewBag
+                */
         private void GetDatosVistaEquipo(int idProyecto)
         {
             //Encuentra el proyecto asociado al id
@@ -48,7 +47,6 @@ namespace ProyectoIntegrador.Controllers
          * Requiere: --
          * Modifica: --
          */
-
         public ActionResult Index(int? idProyecto)
         {
             if (idProyecto == null)
@@ -62,7 +60,6 @@ namespace ProyectoIntegrador.Controllers
                 var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
                 return View(trabajaEn.ToList());
             }
-
         }
 
         /*
@@ -88,6 +85,43 @@ namespace ProyectoIntegrador.Controllers
         {
             return db.Empleado.ToList();
         }
+
+
+        /*
+         * Efecto: Agrega un integrante nuevo al equipo
+         * Requiere: Parámetros válidos que no hagan conflicto con la base de datos
+         * Modifica: El empleado que se integra al equipo y la tabla TrabajaEn
+         */
+        //deberia retornar json result para verificar
+        public void AgregarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
+        {
+
+            //System.Diagnostics.Debug.WriteLine(idProyecto + " " + idEmpleado + " " + rolEmpleado);
+            TrabajaEn trabaja = new TrabajaEn();
+            Empleado empleado = db.Empleado.Find(idEmpleado);
+            empleado.estado = "Ocupado";
+            trabaja.idProyectoFK = idProyecto;
+            trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
+            trabaja.rol = rolEmpleado;
+            trabaja.estado = "Activo";
+
+            db.Entry(empleado).State = EntityState.Modified;
+            db.TrabajaEn.Add(trabaja);
+            db.SaveChanges();
+        }
+
+
+        public void QuitarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
+        {
+            //System.Diagnostics.Debug.WriteLine(idProyecto + " " + idEmpleado + " " + rolEmpleado);
+            Empleado empleado = db.Empleado.Find(idEmpleado);
+            empleado.estado = "Disponible";
+            TrabajaEn trabaja = db.TrabajaEn.Find(idProyecto, idEmpleado);
+            db.Entry(empleado).State = EntityState.Modified;
+            db.TrabajaEn.Remove(trabaja);
+            db.SaveChanges();
+        }
+
 
         // GET: TrabajaEn/Details/5
         public ActionResult Details(int? id)
