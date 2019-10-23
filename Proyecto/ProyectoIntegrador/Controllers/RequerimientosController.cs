@@ -107,7 +107,7 @@ namespace ProyectoIntegrador.Controllers
         // los envía a la BD y de no serlo, vuelve a la vista de crear con un error.
         [HttpPost]
         public ActionResult Create(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
-            int duracionEstimada, DateTime fechai, int idProyecto, string idTester)
+            int duracionEstimada, DateTime fechai, int idProyecto/*, string idTester*/)
         {
             //Crea la instancia de requerimiento que será agregada si pasa las pruebas necesarias.
             Requerimiento requerimiento = new Requerimiento();
@@ -118,6 +118,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = 0;
+            //requerimiento.cedulaTesterFK = idTester;
 
 
             //Comentado pues se usará en el siguiente sprint
@@ -179,8 +180,8 @@ namespace ProyectoIntegrador.Controllers
         // Método que recibe los cambios hechos a un requerimiento en el formulario de modificar y los valída antes de enviarlos a la BD.
         [HttpPost]
         public ActionResult Edit(int idRequerimientoNuevo, string nombre, string complejidad, string descripcion, string estado,
-            int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto, int idRequerimientoViejo,
-            string idTester)
+            int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto, int idRequerimientoViejo/*,
+            string idTester*/)
         {
 
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimientoViejo, idProyecto);
@@ -192,6 +193,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = duracionReal;
+            //requerimiento.cedulaTesterFK = idTester;
 
             //Revisamos que el valor ingresado para el id del requerimiento haya cambiado
             if (idRequerimientoViejo != idRequerimientoNuevo)

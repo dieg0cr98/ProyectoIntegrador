@@ -131,8 +131,8 @@
                     <div class="col-4">
                         @*Atributo Cédula Tester*@
                         <div class="input-group">
-                            <select class="custom-select" name="estado">
-                                <option value="null" selected>No Asignar</option>
+                            <select class="custom-select" name="idTester">
+                                <option value = null selected>No Asignar</option>
                                 @foreach (var item in ViewBag.TestersDisponibles)
                                 {
                                     <option value="item.idEmpleadoPK">item.nombre item.apellido1 item.apellido2</option>
