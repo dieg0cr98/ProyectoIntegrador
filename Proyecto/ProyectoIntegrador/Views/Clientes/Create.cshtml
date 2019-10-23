@@ -56,9 +56,9 @@
 <hr />
 <body onload="getProvincias('San José','Central','Carmen')">
     <div class="container align-content-center" style="max-width: 1400px;">
-        <div class="tab-content d-block overflow-auto bg-secondary" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
+        <div class="tab-content d-block overflow-auto bg-secondary" style="background-color:rgba(192,159,128,0.7); height:auto; box-shadow: rgba(128,128,128,0.91); border-radius:25px;" id="nav-tabContent">
             <!--Despliegue del formulario-->
-            <div style="padding-left:30px; padding-right:30px; overflow-x:hidden; background-color:antiquewhite">
+            <div style="padding-left:30px; padding-right:30px; overflow-x:hidden; background-color:rgba(192,159,128,0.7)">
                 <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
                     <fieldset>
                         @if (ViewBag.error != null)
@@ -74,21 +74,21 @@
                             <div class="col-3">
                                 <!--Campo Nombre-->
                                 <h5 for="nombre" style="width:200px">Nombre *:</h5>
-                                <input class="form-control" id="nombre" name="nombre" type="text" style="max-width:none" />
+                                <input class="form-control" id="nombre" name="nombre" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
                                 <div id="errorNombre"></div>
                             </div>
                             <div class="col-1"></div>
                             <div class="col-3">
                                 <!--Campo Primer Apellido-->
                                 <h5 for="apellido1" style="width:200px">Primer Apellido *:</h5>
-                                <input class="form-control" id="apellido1" name="apellido1" type="text" style=" max-width:none" />
+                                <input class="form-control" id="apellido1" name="apellido1" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
                                 <div id="errorApe1"></div>
                             </div>
                             <div class="col-1"></div>
                             <div class="col-3">
                                 <!--Campo Segundo Apellido-->
                                 <h5 for="apellido2" style="width:200px">Segundo Apellido:</h5>
-                                <input class="form-control" id="apellido2" name="apellido2" type="text" style="max-width:none" />
+                                <input class="form-control" id="apellido2" name="apellido2" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
                                 <div id="errorApe2"></div>
                             </div>
                         </div>
@@ -97,21 +97,21 @@
                             <div class="col-3">
                                 <!--Campo Cedula-->
                                 <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style=" max-width:none" placeholder="000000000" />
+                                <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
                                 <div id="errorCed"></div>
                             </div>
                             <div class="col-1"></div>
                             <div class="col-3">
                                 <!--Campo Email-->
                                 <h5 for="correo" style="width:200px">Correo *:</h5>
-                                <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style=" max-width:none" />
+                                <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
                                 <div id="errorEma"></div>
                             </div>
                             <div class="col-1"></div>
                             <div class="col-3">
                                 <!--Campo Telefono-->
                                 <h5 for="telefono" style="width:200px">Telefono:</h5>
-                                <input class="form-control" id="telefono" name="telefono" type="text" style=" max-width:none" placeholder="88888888" />
+                                <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="88888888" />
                                 <div id="errorTel"></div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <div class="col-3">
                                 <!--Campo Empresa-->
                                 <h5 for="empresa" style="width:200px">Empresa *:</h5>
-                                <input class="form-control" id="empresa" name="empresa" type="text" style="max-width:none" />
+                                <input class="form-control" id="empresa" name="empresa" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
                                 <div id="errorEmp"></div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                             <h5 for="direccionExacta" style="width:400px">Direccion exacta de la empresa*:</h5>
                         </div>
                         <div class="row" style="padding-left:15px; padding-right:15px;">
-                            <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="height: 90px;"></textarea>
+                            <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
                             <div id="errorDir"></div>
                         </div>
                         <br><br>

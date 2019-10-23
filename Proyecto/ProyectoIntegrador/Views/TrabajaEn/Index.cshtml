@@ -4,11 +4,6 @@
     ViewBag.Title = "Equipo del Proyecto";
 }
 
-@*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
-@{ var idCarta1 = "#a"; }
-@{ var idCarta2 = "#a"; }
-@{ var idCarta3 = "#a"; }
-
 
 <head>
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -18,7 +13,7 @@
 
     <style>
         /*Estilo del drag and drop*/
-        #sortable1, #sortable2 {
+        #listaEquipo, #listaDisponibles {
             border: none;
             width: 550px;
             height: 530px;
@@ -30,7 +25,7 @@
             background-color: transparent;
         }
 
-            #sortable1 li, #sortable2 li {
+            #listaEquipo li, #listaDisponibles li {
                 margin: 0 5px 5px 5px;
                 padding: 5px;
                 color: black;
@@ -79,7 +74,7 @@
             <!--Primera columna, contiene integrantes del equipo-->
             <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                <!--Navbar inside the col-->
+                <!--Navbar-->
                 <nav class="navbar navbar-light bg-secondary" draggable="false">
                     <a class="navbar-brand" draggable="false">
                         <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="" draggable="false">
@@ -96,20 +91,25 @@
 
                 <!--Carta que contiene la lista de integrantes-->
                 <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                    <ul id="sortable2" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
+                    <ul id="listaEquipo" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
 
 
 
-                        @foreach (var item in ViewBag.equipoActual)
+                        @foreach (var integrante in ViewBag.equipoActual)
                         {
-
-
-                            <!-- EL lider tiene una bandera en disable para no hacer drag-->
-                            <a class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" value="@item.nombre" style="border-radius:20px 20px 20px 20px" id="list-home-list">@item.nombre</a>
-
+                            if (integrante.tipoTrabajo == "Lider")
+                            {
+                                <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
+                                    data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">
+                                    <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                                    @integrante.nombre @integrante.apellido1
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">@integrante.nombre @integrante.apellido1</li>
+                            }
                         }
-
-
                     </ul>
 
                 </div>
@@ -121,7 +121,7 @@
                 <!--Segunda columna, contiene lista de empleados disponibles-->
                 <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
-                    <!--Navbar inside the col-->
+                    <!--Navbar-->
                     <nav class="navbar navbar-light bg-secondary">
                         <a class="navbar-brand">
                             <img src="~/Content/folder.svg" draggable="false" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -137,18 +137,24 @@
 
 
                     <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                        <ul id="sortable1" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
+                        <ul id="listaDisponibles" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
 
 
-
-                            @foreach (var item in ViewBag.testers)
+                            @foreach (var lider in ViewBag.lideres)
                             {
-
-                                <a class="list-group-item list-group-item-action list-group-item-secondary my-1" value="@item.nombre" style="border-radius:20px 20px 20px 20px" id="list-home-list">@item.nombre</a>
-
+                                <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
+                                    data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@lider.idEmpleadoPK" data-rol="@lider.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">
+                                    <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                                    @lider.nombre @lider.apellido1
+                                </li>
                             }
 
+                            @foreach (var integrante in ViewBag.testers)
+                            {
+                                <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
+                                    data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">@integrante.nombre @integrante.apellido1</li>
 
+                                }
                         </ul>
 
                     </div>
@@ -161,41 +167,7 @@
         </div>
     </div>>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @{ Html.RenderPartial("ScriptsEquipo"); }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

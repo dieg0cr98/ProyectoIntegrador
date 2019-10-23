@@ -55,17 +55,49 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idEmpleadoPK,nombre,apellido1,apellido2,correo,telefono,fechaNacimiento,distrito,canton,provincia,direccion,estado,tipoTrabajo")] Empleado empleado)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Create(string idEmpleadoPK, string nombre, string apellido1, string apellido2,
+            string correo, DateTime fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
-            if (db.Empleado.Where(i => i.idEmpleadoPK == empleado.idEmpleadoPK).FirstOrDefault() != null)
+
+            Empleado empleado = new Empleado();
+
+            if (fechaNacimiento == null)
             {
-                ViewBag.error = "Ya existe un empleado con el ID: " + empleado.idEmpleadoPK + " en el sistema";
-                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
+                ViewBag.error = "Debe agregar una fecha de nacimiento: ";
                 ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
                 return View(empleado);
             }
 
+            empleado.idEmpleadoPK = idEmpleadoPK;
+            empleado.correo = correo;
+            empleado.nombre = nombre;
+            empleado.apellido1 = apellido1;
+            empleado.apellido2 = apellido2;
+            empleado.fechaNacimiento = fechaNacimiento;
+            empleado.estado = estado;
+            empleado.telefono = telefono;
+            empleado.provincia = provincia;
+            empleado.canton = canton;
+            empleado.distrito = distrito;
+            empleado.direccion = direccion;
+            empleado.tipoTrabajo = tipoTrabajo;
+
+            if (db.Empleado.Where(i => i.idEmpleadoPK == idEmpleadoPK).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un empleado con la cedula: " + empleado.idEmpleadoPK;
+                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
+                return View(empleado);
+            }
+
+            //Revisa si hay otro empleado con el mismo correo
+            if (db.Empleado.Where(i => i.correo == empleado.correo).FirstOrDefault() != null)
+            {
+                ViewBag.error = "Ya existe un empleado con el correo: " + empleado.correo;
+                ViewBag.idEmpleadoPK = empleado.correo;
+                return View(empleado);
+            }
+            
             if (ModelState.IsValid)
             {
                 db.Empleado.Add(empleado);
@@ -76,7 +108,6 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.idEmpleadoPK = new SelectList(db.Tester, "idEmpleadoFK", "idEmpleadoFK", empleado.idEmpleadoPK);
             return View(empleado);
         }
-
         // GET: Empleados/Edit/5
         public ActionResult Edit(string id)
         {
@@ -96,17 +127,53 @@ namespace ProyectoIntegrador.Controllers
         // POST: Empleados/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idEmpleadoPK,nombre,apellido1,apellido2,correo,telefono,fechaNacimiento,distrito,canton,provincia,direccion,estado,tipoTrabajo")] Empleado empleado)
+           [HttpPost]
+         public ActionResult Edit(string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2, 
+            string correo, DateTime fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
-            if (db.Empleado.Where(i => i.idEmpleadoPK == empleado.idEmpleadoPK).FirstOrDefault() != null)
+
+            Empleado empleado = db.Empleado.Find(cedulaVieja);
+
+            empleado.nombre = nombre;
+            empleado.apellido1 = apellido1;
+            empleado.apellido2 = apellido2;
+            empleado.fechaNacimiento = fechaNacimiento;
+            empleado.estado = estado;
+            empleado.telefono = telefono;
+            empleado.provincia = provincia;
+            empleado.canton = canton;
+            empleado.distrito = distrito;
+            empleado.direccion = direccion;
+            empleado.tipoTrabajo = tipoTrabajo;
+
+            //Revisa si no hay otro cliente con cedula ingresada
+            if (cedulaVieja != idEmpleadoPK)
             {
-                ViewBag.error = "Ya existe un empleado con el ID: " + empleado.idEmpleadoPK + " en el sistema";
-                //ViewBag.cedulaTesterFK = getTesters(0, idProyecto, "").ToList();
-                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
-                return View(empleado);
+                System.Diagnostics.Debug.WriteLine("CedulaNueva es " + idEmpleadoPK + " and cedulaVieja is " + cedulaVieja);
+                if (db.Empleado.Where(i => i.idEmpleadoPK == idEmpleadoPK).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un emplado con la cedula: " + idEmpleadoPK;
+                    ViewBag.idEmpleadoPK = idEmpleadoPK;
+                    return View(empleado);
+                }
             }
+
+            //En caso de que no existe se hace el cambio
+            empleado.idEmpleadoPK = idEmpleadoPK;
+
+            if (correo != empleado.correo)
+            {
+                if (db.Empleado.Where(i => i.correo == correo).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un empleado con el correo: " + correo;
+                    ViewBag.idEmpleadoPK = idEmpleadoPK;
+                    return View(empleado);
+                }
+            }
+
+            empleado.correo = correo;
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(empleado).State = EntityState.Modified;

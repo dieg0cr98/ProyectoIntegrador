@@ -1,4 +1,4 @@
-﻿@model ProyectoIntegrador.BaseDatos.Empleado
+@model ProyectoIntegrador.BaseDatos.Empleado
 
 @{
     ViewBag.Title = "Create";
@@ -8,7 +8,7 @@
 
 <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Empleado</p>
 
-<hr>
+
 
 <head>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -21,6 +21,10 @@
             color: white;
             background-color: red;
             font-family: verdana, Helvetica;
+        }
+        input.error, input select.error {
+            background-color: white;
+            border-color: red;
         }
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -61,298 +65,186 @@
 
 
 <hr />
-<body onload="getProvincias()">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+<body onload="getProvincias('San José','Central','Carmen')">
+   
 
-        <form class="cmxform" id="commentForm" name="commentForm" method="post" action="Create">
+        <form id="employeeForm" class="cmxform" name="employeeForm" method="post" action="Create">
             <fieldset>
 
                 <div id="errors"></div>
-                <div class="container justify-content-center bg-secondary" style="width:800px; padding-top:20px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+                <div class="container justify-content-center bg-secondary" style="width:800px; padding-top:1px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
 
                     @if (ViewBag.error != null)
                     {
                         <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
                     }
+                    else
+                    {
+                        <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+                    }
 
 
-                    @*Atributo ID*@
+                    @*Primera fila*@
                     <div class="form-row mb-2">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="width:200px" id="basic-addon1">ID *</span>
-                            </div>
-
-                            <input id="input1" class="form-control" style=" max-width:none" name="idEmpleadoPK" placeholder="000000000" type="text">
+                        <div class="col-3">
+                            <!--Campo Nombre-->
+                            <h5 for="nombre" style="width:200px">Nombre *</h5>
+                            <input class="form-control" id="nombre" name="nombre" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                            <div id="errorNombre"></div>
                         </div>
-                        <div id="errorID"></div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Primer Apellido-->
+                            <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
+                            <input class="form-control" id="apellido1" name="apellido1" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Segundo Apellido-->
+                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
+                            <input class="form-control" id="apellido2" name="apellido2" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                        </div>
                     </div>
+                    <br>
 
                     @*Segunda fila*@
                     <div class="form-row mb-2">
-                        @*Atributo nombre*@
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Primer Nombre *</span>
-                                </div>
-                                <input id="input2" class="form-control" style=" max-width:none" name="nombre" placeholder="Primer nombre" type="text">
-                            </div>
-                            <div id="errorNombre"></div>
+                        <div class="col-3">
+                            <!--Campo Cedula-->
+                            <h5 for="idEmpleadoPK" style="width:200px">Cedula *</h5>
+                            <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" placeholder="000000000" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                            <div id="errorID"></div>
                         </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Fecha de nacimiento-->
+                            <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
+                            <input id="fechaNacimiento" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaNacimiento" required>
+                            <div id="errorFechaNacimiento"></div>
 
-                        @*Atributo apellido1*@
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style="width:200px" id="basic-addon1">Primer apellido</span>
-                                </div>
-                                <input id="input3" class="form-control" style=" max-width:none" name="apellido1" placeholder="Primer apellido" type="text">
-                            </div>
                         </div>
-                    </div>
-
-                    @*Tercera fila*@
-                    <div class="form-row mb-2">
-                        @*Atributo segundo apellido*@
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Segundo apellido</span>
-                                </div>
-                                <input id="input4" class="form-control" type="text" style="text-align:center; max-width:none" placeholder="Segundo apellido" name="apellido2">
-                            </div>
-                        </div>
-
-                        @*Atributo correo*@
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Email *</span>
-                                </div>
-                                <input id="input5" class="form-control" type="email" style="text-align:center; max-width:none" name="correo" placeholder="email@email.com">
-                            </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo correo-->
+                            <h5 for="correo" style="width:200px">Correo *</h5>
+                            <input class="form-control" id="correo" name="correo" type="email" placeholder="example@email.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
                             <div id="errorCorreo"></div>
                         </div>
                     </div>
+                    <br>
 
-                    @*Cuarta fila*@
+                    @*Tercera fila*@
                     <div class="form-row mb-2">
-
-                        @*Atributo telefono*@
-                        <div class="col">
+                        <div class="col-3">
+                            <!--Campo telefono-->
+                            <h5 for="telefono" style="width:200px">Telefono</h5>
+                            <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                            <div id="errorTel"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Estado-->
+                            <h5 for="correo" style="width:200px">Estado *</h5>
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Telefono</span>
-                                </div>
-                                <input id="input6" class="form-control" type="text" style="text-align:center; max-width:none" placeholder="88888888" name="telefono">
-                            </div>
-                        </div>
 
-                        @*Atributo fechaNacimiento*@
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Fecha de Nacimiento *</span>
-                                </div>
-                                <input id="input7" class="form-control" type="date" style="text-align:center; max-width:none" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaNacimiento">
-                            </div>
-                        </div>
-                        <div id="errorFechaNacimiento"></div>
-                    </div>
+                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
 
-                    @*Quinta fila*@
-                    <div class="form-row mb-2">
-
-                        @*Provincia*@
-                        <div class="col">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px; text-align:center" id="basic-addon1" for="provincia">Provincia:</span>
-                            </div>
-                            <div id="destino"></div>
-                        </div>
-
-                        @*Canton*@
-                        <div class="col">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" for="canton">Canton:</span>
-                            </div>
-                            <div id="destino2"></div>
-                        </div>
-
-                        @*Distrito*@
-                        <div class="col">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1" for="distrito">Distrito:</span>
-                            </div>
-                            <div id="destino3"></div>
-                        </div>
-                    </div>
-
-                    @*Sexta fila*@
-                    @*Atributo DireccionExacta*@
-                    <div class="input-group mb-2 ">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:200px;   text-align:center" id="basic-addon1">Direccion</span>
-                        </div>
-                        <textarea class="form-control" name="direccion" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none" id="comment"></textarea>
-                    </div>
-
-                    @*Setima fila*@
-                    <div class="form-row mb-2">
-
-                        @*Estado*@
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Estado</span>
-                                </div>
-
-                                <select class="custom-select" style="text-align:center; max-width:none" name="estado">
-
-                                    <option value="Activo">Disponible</option>
+                                    <option value="Disponible">Disponible</option>
                                     <option value="Ocupado">Ocupado</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
                             </div>
                             <div id="errorEstado"></div>
                         </div>
-
-                        @*Atributo Puesto*@
-                        <div class="col">
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Puesto-->
+                            <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style=" width:200px;  text-align:center" id="basic-addon1">Puesto</span>
-                                </div>
-                                <select class="custom-select" style="text-align:center; max-width:none" name="tipoTrabajo">
+
+                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
                                     <option value="Tester">Tester</option>
                                     <option value="Lider">Lider</option>
+                                    <option value="Jefe de Calidad">Jefe de Calidad</option>
+                                    <option value="Jefe de Soporte">Jefe de Soporte</option>
                                 </select>
                             </div>
                             <div id="errorTipoTrabajo"></div>
                         </div>
-
                     </div>
 
+                    @*Cuarta fila*@
+                    <br>
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo Provincia-->
+                            <h5 for="provincia" style="width:100px">Provincia *</h5>
+                            <div id="destino"></div>
+                            <div id="errorProv"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Canton-->
+                            <h5 for="canton" style="width:100px">Cantón *</h5>
+                            <div id="destino2"></div>
+                            <div id="errorCant"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Distrito-->
+                            <h5 for="distrito" style="width:100px">Distrito *</h5>
+                            <div id="destino3"></div>
+                            <div id="errorDistr"></div>
+                        </div>
+                    </div>
+                    @*Quinta fila*@
+                    <br>
+                    <div class="form-row mb-2" style="padding-left:5px">
+                        <!--Campo Direccion Exacta-->
+                        <h5 for="direccionExacta" style="width:400px">Direccion exacta</h5>
+                    </div>
+                    <div class="row" style="padding-left:15px; padding-right:15px;">
+                        <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
+                        @*<div id="errorDir"></div>*@
+                    </div>
+                    <br>
+
                     @*Habilidades Tecnicas*@
-
-
-
                     <h5> * Campos requeridos</h5>
 
                     <hr />
 
-                    <div class="row justify-content-center" style="max-width:1150px">
+                    <div class="row" style="max-width:1600px">
+                        <!--Boton Regresar-->
                         <div class="col-4  text-center">
-                            <a data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
                         </div>
+
+                        <!--Boton Cancelar o Reset-->
+                        <div class="col-4 text-center">
+                            <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                                <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
+
+                        <!--Boton Aceptar-->
                         <div class="col-4  text-center">
-                            <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
-                                <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                <div id="loading" style="width:80px;height:80px" class="spinner-border text-black" role="status"></div>
+                            <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
                             </button>
                         </div>
                     </div>
                 </div>
             </fieldset>
         </form>
+        
+        
 
-        <script>
-            $('document').ready(function () {
-                $('#loading').hide();
-            });
-
-            $('#btnsubmit').on('click', function () {
-                $('#acceptar').hide('fast');
-                $('#loading').show('fast');
-            });
-        </script>
-
-        <script>
-            $(function () {
-                $("#commentForm").validate(
-                    {
-                        rules:
-                        {
-                            ID:
-                            {
-                                required: true,
-                                minlength: 8
-                            },
-                            nombre:
-                            {
-                                required: true
-                            },
-
-                            correo:
-                            {
-                                required: true
-                            },
-
-                            fechaNacimiento:
-                            {
-                                required: true
-                            },
-
-                            estado:
-                            {
-                                required: true
-                            },
-
-                            tipoTrabajo:
-                            {
-                                required: true
-                            },
-                        },
-                        messages:
-                        {
-                            idEmpleadoPK: "Se requiere un ID valido",
-                            nombre: "Se requiere un nombre de empleado valido",
-                            correo: "Se requiere un email valido, ejm: correo@email.com",
-                            fechaNacimiento: "Se requiere una fecha de nacimiento",
-                            estado: "Se requiere el estado actual del Empleado",
-                            tipoTrabajo: "Se requiere el puesto del nuevo empleado"
-                        },
-
-                        errorPlacement: function (error, element) {
-                            if ((element.attr('name') === 'idEmpleadoPK')) {
-                                error.insertAfter($('#errorID'));
-                            }
-                            if ((element.attr('name') === 'nombre')) {
-                                error.insertAfter($('#errorNombre'));
-                            }
-                            if ((element.attr('name') === 'correo')) {
-                                error.insertAfter($('#errorCorreo'));
-                            }
-                            if ((element.attr('name') === 'fechaNacimiento')) {
-                                error.insertAfter($('#errorFechaNacimiento'));
-                            }
-                            if ((element.attr('name') === 'estado')) {
-                                error.insertAfter($('#errorEstado'));
-                            }
-                            if ((element.attr('name') === 'tipoTrabajo')) {
-                                error.insertAfter($('#errorTipoTrabajo'));
-                            }
-                        },
-
-                        invalidHandler: function (form, validator) {
-                            $('#loading').hide('fast');
-                            $('#acceptar').show('fast');
-                        },
-                    });
-            });
-        </script>
-
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
-        @Html.Partial("ModalCancelar")
-        @Html.Partial("Scripts")
-    }
+    
+    @Html.Partial("ModalCancelar")
+    @Html.Partial("Scripts")
+    @Html.Partial("ScriptDropdown")
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -46,12 +46,148 @@
             }
         }
     }
+</script>
 
+<script>
+    $('document').ready(function () {
+        $('#loading').hide();
+    });
 
-
+    $('#btnsubmit').on('click', function () {
+        $('#acceptar').hide('fast');
+        $('#loading').show('fast');
+    });
 </script>
 
 
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<script>
+    $(function () {
+        $("#employeeForm").validate(
+            {
+                rules:
+                {
+                    nombre:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30,
+                        text: true
+                    },
+                    apellido1:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    
+                    idEmpleadoPK:
+                    {
+                        required: true,
+                        minlength: 8,
+                        number: true,
+                        maxlength: 20
+                    },
+                    fechaNacimiento:
+                    {
+                        required: true,
+                    },
+                    correo:
+                    {
+                        required: true,
+                        maxlength: 50
+                    },
+                    estado:
+                    {
+                        required: true,
+                        
+                    },
+                    puesto:
+                    {
+                        required: true,
+                        
+                    },
+                    provincia:
+                    {
+                        required: true
+                    },
+                    canton:
+                    {
+                        required: true
+                    },
+                    distrito:
+                    {
+                        required: true
+                    },
+                    
+                    telefono:
+                    {
+                        number: true,
+                        minlength: 8,
+                        maxlength: 15
+                    },
+                    
+                },
+                messages:
+                {
+                    idEmpleadoPK: "No se aceptan letras, minimo ocho digitos",
+                    nombre: "No se aceptan numeros",
+                    correo: "Se requiere un email valido, ejm: correo@email.com",
+                    fechaNacimiento: "Se requiere una fecha de nacimiento",
+                    estado: "Se requiere el estado actual del Empleado",
+                    tipoTrabajo: "Se requiere el puesto del nuevo empleado",
+                    provincia: "Se requiere la provincia",
+                    canton: "Se requiere el canton",
+                    distrito: "Se requiere el distrito",
+                    telefono: "Solo se aceptan numeros, minimo ocho digitos"
+                },
+
+                errorPlacement: function (error, element) {
+                    if ((element.attr('name') === 'idEmpleadoPK')) {
+                        error.insertAfter($('#errorID'));
+                    }
+                    if ((element.attr('name') === 'nombre')) {
+                        error.insertAfter($('#errorNombre'));
+                    }
+                    if ((element.attr('name') === 'correo')) {
+                        error.insertAfter($('#errorCorreo'));
+                    }
+                    if ((element.attr('name') === 'fechaNacimiento')) {
+                        error.insertAfter($('#errorFechaNacimiento'));
+                    }
+                    if ((element.attr('name') === 'estado')) {
+                        error.insertAfter($('#errorEstado'));
+                    }
+                    if ((element.attr('name') === 'tipoTrabajo')) {
+                        error.insertAfter($('#errorTipoTrabajo'));
+                    }
+                    if ((element.attr('name') === 'provincia')) {
+                        error.insertAfter($('#errorProv'));
+                    }
+                    if ((element.attr('name') === 'canton')) {
+                        error.insertAfter($('#errorCant'));
+                    }
+                    if ((element.attr('name') === 'distrito')) {
+                        error.insertAfter($('#errorDist'));
+                    }
+                    if ((element.attr('name') === 'telefono')) {
+                        error.insertAfter($('#errorTel'));
+                    }
+                },
+
+                invalidHandler: function (form, validator) {
+                    $('#loading').hide('fast');
+                    $('#acceptar').show('fast');
+                },
+            });
+    });
+</script>
 
 <!-- Agrega Tooltips a los elementos -->
 <script>

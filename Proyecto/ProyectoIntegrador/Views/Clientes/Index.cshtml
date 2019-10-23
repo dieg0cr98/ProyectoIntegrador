@@ -49,7 +49,7 @@
     <hr>
     <div class="container " style="max-width: 1800px">
         <div class="row">
-            <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px">
+            <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px; ">
                 <!-- Image and text -->
                 <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
                     <!--Imagen cliente + titulo lista de clientes-->
@@ -79,7 +79,7 @@
             </div>
             <!--Se crean tabs con la info cliente-->
             <div class="col-12 col-md-8">
-                <div class="tab-content d-block overflow-auto" style="background-color:antiquewhite; height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                <div class="tab-content d-block overflow-auto" style="background-color: rgba(192,159,128,0.7); height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
                     @foreach (var item in Model)
                     {
                         <div class="tab-pane fade" style="max-width:1150px;" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
@@ -106,13 +106,13 @@
                                     <div class="col-5">
                                         <!--Campo Nombre-->
                                         <h5 for="nombre" style="width:200px">Nombre:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none; background-color:#D7CEC7; border-color:transparent;" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <!--Campo Cedula-->
                                         <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                        <input style=" max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
+                                        <input style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
                                     </div>
                                 </div>
                                 <br />
@@ -120,13 +120,13 @@
                                     <div class="col-5">
                                         <!--Campo Correo-->
                                         <h5 for="correo" style="width:200px">Correo:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.correo)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.correo)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <!--Campo Telefono-->
                                         <h5 for="telefono" style="width:200px">Teléfono:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.telefono)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.telefono)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
                                     </div>
                                 </div>
                                 <br>
@@ -134,13 +134,13 @@
                                     <div class="col-5">
                                         <!--Campo Empresa-->
                                         <h5 for="empresa" style="width:200px">Empresa:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.empresa)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.empresa)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <!--Campo Provincia-->
                                         <h5 for="provincia" style="width:200px">Provincia:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.provincia)" style=" max-width:none" readonly class="form-control">
+                                        <input value="@Html.DisplayFor(modelItem => item.provincia)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
                                     </div>
                                 </div>
                                 <br>
@@ -148,20 +148,20 @@
                                     <div class="col-5">
                                         <!--Campo Canton-->
                                         <h5 for="canton" style="width:200px">Cantón:</h5>
-                                        <input value="@if (item.canton != null) { @Html.DisplayFor(modelItem => item.canton)  } else { @Html.Raw("No definido")  }" style=" max-width:none" readonly class="form-control">
+                                        <input value="@if (item.canton != null) { @Html.DisplayFor(modelItem => item.canton)  } else { @Html.Raw("No definido")  }" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <!--Campo Distrito-->
                                         <h5 for="canton" style="width:200px">Distrito:</h5>
-                                        <input value="@if (item.distrito != null) { @Html.DisplayFor(modelItem => item.distrito)  } else { @Html.Raw("No definido")  }" style=" max-width:none" readonly class="form-control">
+                                        <input value="@if (item.distrito != null) { @Html.DisplayFor(modelItem => item.distrito)  } else { @Html.Raw("No definido")  }" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
                                     </div>
                                 </div>
                                 <br>
                                 <div class="form-row mb-12" style="padding-bottom:3%; padding-left:5px; padding-right:5px;">
                                     <!--Campo Direccion Exacta-->
                                     <h5 for="direccionExacta" style="width:200px">Dirección Exacta:</h5>
-                                    <textarea class="form-control col-12" style=" height: 100px;" readonly>@Html.DisplayFor(modelItem => item.direccionExacta)</textarea>
+                                    <textarea class="form-control col-12" style="background-color:#D7CEC7; border-color:transparent; height: 100px;" readonly>@Html.DisplayFor(modelItem => item.direccionExacta)</textarea>
                                 </div>
                             </div>
                         </div>

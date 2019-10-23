@@ -11,7 +11,7 @@
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
-        ul = document.getElementById("sortable1");
+        ul = document.getElementById("listaEquipo");
         li = ul.getElementsByTagName("a");
         for (i = 0; i < li.length; i++) {
             txtValue = li.textContent || li[i].innerText;
@@ -27,96 +27,60 @@
 <!--Script del drag and drop#1-->
 <script>
     $(function () {
-
-        $( "#sortable1" ).sortable({
+        //Sección de disponible
+        $("#listaDisponibles").sortable({
+            connectWith: "#listaEquipo",
+            cursor: "move",
             receive: function (event, ui) {
-            alert(ui.item.attr('value')+ 'Disponible');
-        },
-        });
+                //var datosSalida = JSON.parse($(ui.item).data('value'));
+                var idProyecto = $(ui.item).data('proyecto');
+                var idEmpleado = $(ui.item).data('empleado');
+                var rolEmpleado = $(ui.item).data('rol');
+                //alert('Sacando a  ' + idEmpleado + 'del equipo');
+                $.ajax({
+                    type: "POST",
+                    url: "/TrabajaEn/QuitarIntegrante",
+                    data: {
+                        idProyecto: idProyecto,
+                        idEmpleado: idEmpleado,
+                        rolEmpleado: rolEmpleado
+                    },
+                    success: function (data) {
+                        alert("Success");
+                    },
 
-        $("#sortable1, #sortable2").sortable({
 
 
-            connectWith: ".connectedSortable",
-
-
-        });
-
-
-        $("#sortable2").sortable({
-            receive: function (event, ui) {
-                if ($("#sortable2 a").length > 2) {
-                    alert("Max por equipo es de 2");
-                    $(ui.sender).sortable('cancel');
-                }
-                else
-                {
-                     alert(ui.item.attr('value')+' Equipo');
-
-                }
+                });
             },
-            cancel: ".ui-state-disabled",
+        });
+        //Sección de equipo
+        $("#listaEquipo").sortable({
+            connectWith: "#listaDisponibles",
+            cursor: "move",
+            receive: function (event, ui) {
+                //var datosEntrada =  $(ui.item).data('value');//JSON.parse(ui.item.attr('value'));
+                var idProyecto = $(ui.item).data('proyecto');
+                var idEmpleado = $(ui.item).data('empleado');
+                var rolEmpleado = $(ui.item).data('rol');
+                alert('Agregando a ' + idEmpleado + ' al equipo');
+                $.ajax({
+                    type: "POST",
+                    url: "/TrabajaEn/AgregarIntegrante",
+                    data: {
+                        idProyecto: idProyecto,
+                        idEmpleado: idEmpleado,
+                        rolEmpleado: rolEmpleado
+                    },
+
+                    success: function (data) {
+                        alert("Success");
+                    },
 
 
+                });
 
+            },
         })
     });
-</script>
-
-<!--Script del drag and drop con HTML5-->
-<script>
-
-
-    function dragHandler(ev) {
-        // Add the target element's id to the data transfer object
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
-
-    function dragEndHandler(ev) {
-    }
-
-    function dragEnterHandler(ev) {
-
-    }
-
-    function dragExitHandler(ev) {
-
-    }
-
-    function dragLeaveHandler(ev) {
-
-    }
-
-    function dragOverHandler(ev) {
-        if (ev.preventDefault) {
-            ev.preventDefault(); // Necessary. Allows us to drop.
-        }
-        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-        return false;
-    }
-
-    /*
-     *         Set the ID of the element being dragged and make any other changes we want to apply in the drag state. 
-    */
-    function dragStartHandler(ev) {
-        this.style.opacity = '0.4';
-         dragSrcEl = this;
-        ev.dataTransfer.effectAllowed = 'move';
-        ev.dataTransfer.setData('text/html', this.innerHTML);
-    }
-
-    function dropHandler(ev) {
-        // this/e.target is current target element.
-        if (ev.stopPropagation) {
-            ev.stopPropagation(); // Stops some browsers from redirecting.
-        }
-
-        // Don't do anything if dropping the same column we're dragging.
-        if (dragSrcEl != this) {
-            // Set the source column's HTML to the HTML of the column we dropped on.
-            dragSrcEl.innerHTML = this.innerHTML;
-            this.innerHTML = e.dataTransfer.getData('text/html');
-        }
-        return false;
-    }
 </script>
