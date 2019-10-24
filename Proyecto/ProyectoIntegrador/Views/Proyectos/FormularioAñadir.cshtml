@@ -211,7 +211,7 @@
                 @*Filas con las etiquetas de Duraciones *@
                 <div class="form-row">
                     <div class="col-5">
-                        <h5> Duración Estimada * </h5>
+                        <h5> Duración Estimada </h5>
                     </div>
 
                     <div class="col-2">
@@ -234,12 +234,12 @@
 
                             @if (ViewBag.permisos.Item3[4] == 1)
                             {
-                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionEstimada">
+                                <input id="input4" class="form-control" type="number" value="0" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionEstimada">
 
                             }
                             else
                             {
-                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionEstimada" readonly>
+                                <input id="input4" class="form-control" type="number" value="0" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionEstimada" readonly>
                             }
 
                         </div>
@@ -468,7 +468,7 @@
                         duracionEstimada:
                         {
                             required: true,
-                            min: 1
+                            min: 0
 
 
                         },
@@ -485,7 +485,7 @@
                         },
 
                         cedulaCliente: "Seleccione un cliente",
-                        duracionEstimada: "La duracion tiene que ser mayor que 0",
+                        duracionEstimada: "La duracion tiene que ser un numero positivo",
 
 
                     },
