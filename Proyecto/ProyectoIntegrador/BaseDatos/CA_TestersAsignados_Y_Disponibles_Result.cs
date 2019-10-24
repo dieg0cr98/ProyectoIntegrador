@@ -11,25 +11,18 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     
-    public partial class CA_TestersAsignadosDisponibles_Result
+    public partial class CA_TestersAsignados_Y_Disponibles_Result
     {
-        public string idEmpleadoPK { get; set; }
-        public string nombre { get; set; }
+        public string nombre_Empleado { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }
-        public string correo { get; set; }
-        public string telefono { get; set; }
-        public System.DateTime fechaNacimiento { get; set; }
-        public string distrito { get; set; }
-        public string canton { get; set; }
-        public string provincia { get; set; }
-        public string direccion { get; set; }
-        public string estado { get; set; }
+        public string Estado_Empleado { get; set; }
         public string tipoTrabajo { get; set; }
+        public string idEmpleadoPK { get; set; }
         public int idProyectoAID { get; set; }
-        public string nombre1 { get; set; }
+        public string nombre { get; set; }
         public string objetivo { get; set; }
-        public string estado1 { get; set; }
+        public string estado { get; set; }
         public int duracionReal { get; set; }
         public int duracionEstimada { get; set; }
         public System.DateTime fechaInicio { get; set; }

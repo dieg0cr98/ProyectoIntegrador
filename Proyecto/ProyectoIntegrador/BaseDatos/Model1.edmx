@@ -290,7 +290,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="CA_TestersAsignadosDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CA_TestersAsignados_Y_Disponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Gr03Proy2ModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
@@ -670,6 +670,7 @@
             <End Role="Requerimiento" EntitySet="Requerimiento" />
             <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
           </AssociationSet>
+          <FunctionImport Name="CA_TestersAsignados_Y_Disponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result)" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -740,6 +741,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="CA_TestersAsignados_Y_Disponibles_Result">
+          <Property Type="String" Name="nombre_Empleado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Estado_Empleado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="objetivo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="duracionReal" Nullable="false" />
+          <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
+          <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
+          <Property Type="DateTime" Name="fechaFinalizacion" Nullable="false" />
+          <Property Type="String" Name="cedulaClienteFK" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="cantidadReq" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -870,35 +889,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="CA_TestersAsignadosDisponibles" FunctionName="Gr03Proy2Model.Store.CA_TestersAsignadosDisponibles">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.CA_TestersAsignadosDisponibles_Result">
-                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="distrito" ColumnName="distrito" />
-                <ScalarProperty Name="canton" ColumnName="canton" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
-                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
-                <ScalarProperty Name="objetivo" ColumnName="objetivo" />
-                <ScalarProperty Name="estado1" ColumnName="estado1" />
-                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
-                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
-                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-                <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
-                <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
-                <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="HistorialReqTester">
             <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
               <MappingFragment StoreEntitySet="HistorialReqTester">
@@ -912,6 +902,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CA_TestersAsignados_Y_Disponibles" FunctionName="Gr03Proy2Model.Store.CA_TestersAsignados_Y_Disponibles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result">
+                <ScalarProperty Name="nombre_Empleado" ColumnName="nombre Empleado" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="Estado_Empleado" ColumnName="Estado Empleado" />
+                <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
+                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="objetivo" ColumnName="objetivo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
+                <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
+                <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

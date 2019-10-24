@@ -319,6 +319,7 @@
       <End Role="Requerimiento" EntitySet="Requerimiento" />
       <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
     </AssociationSet>
+    <FunctionImport Name="CA_TestersAsignados_Y_Disponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result)" />
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -389,4 +390,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="CA_TestersAsignados_Y_Disponibles_Result">
+    <Property Type="String" Name="nombre_Empleado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Estado_Empleado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="objetivo" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="duracionReal" Nullable="false" />
+    <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
+    <Property Type="DateTime" Name="fechaFinalizacion" Nullable="false" />
+    <Property Type="String" Name="cedulaClienteFK" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="cantidadReq" Nullable="false" />
+  </ComplexType>
 </Schema>

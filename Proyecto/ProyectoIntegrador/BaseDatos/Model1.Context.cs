@@ -37,10 +37,10 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<Tester> Tester { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
-    
-        public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
+
+        public virtual ObjectResult<CA_TestersAsignados_Y_Disponibles_Result> CA_TestersAsignados_Y_Disponibles()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CA_TestersAsignadosDisponibles_Result>("CA_TestersAsignadosDisponibles");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CA_TestersAsignados_Y_Disponibles_Result>("CA_TestersAsignados_Y_Disponibles");
         }
     }
 }
