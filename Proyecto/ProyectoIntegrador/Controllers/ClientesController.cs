@@ -47,23 +47,24 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "cedulaPK,nombre,apellido1,apellido2,empresa,provincia,canton,distrito,direccionExacta,telefono,correo")] Cliente cliente)
+        public ActionResult Create(string cedulaPK, string nombre, string apellido1, string apellido2, string empresa, string provincia,
+            string canton, string distrito, string direccionExacta, string telefono, string correo)
+         //[Bind(Include = "cedulaPK,nombre,apellido1,apellido2,empresa,provincia,canton,distrito,direccionExacta,telefono,correo")] Cliente cliente)
         {
-            //Revisa si no hay otro cliente con cedula ingresada
-            if (db.Cliente.Where(i => i.cedulaPK == cliente.cedulaPK).FirstOrDefault() != null)
-            {
-                ViewBag.error = "Ya existe un cliente con la cedula: " + cliente.cedulaPK;
-                ViewBag.cedulaPK = cliente.cedulaPK;
-                return View(cliente);
-            }
-
-            //Revisa si hay otro cliente con el mismo correo
-            if (db.Cliente.Where(i => i.correo == cliente.correo).FirstOrDefault() != null)
-            {
-                ViewBag.cedulaPK = cliente.correo;
-                return View(cliente);
-            }
-
+            Cliente cliente = new Cliente();
+            
+            cliente.nombre = nombre;
+            cliente.apellido1 = apellido1;
+            cliente.apellido2 = apellido2;
+            cliente.empresa = empresa;
+            cliente.provincia = provincia;
+            cliente.canton = canton;
+            cliente.distrito = distrito;
+            cliente.provincia = provincia;
+            cliente.direccionExacta = direccionExacta;
+            cliente.telefono = telefono;
+            cliente.cedulaPK = cedulaPK;
+            cliente.correo = correo;
 
             if (ModelState.IsValid)
             {
@@ -73,6 +74,38 @@ namespace ProyectoIntegrador.Controllers
             }
 
             return View(cliente);
+        }
+
+        //Metodo para verificar si una cedula de cliente ya existe
+        //Recibe string cedulaPK. Contiene la cedula que se quiere verificar
+        //string oldName. Contiene la cedula Actual del cliente
+        //Devuelve un JsonResult con un True si ya existe un cliente con esa cedula y un false si no
+        public JsonResult CheckCedula(string cedulaPK, string oldcedulaPK)
+        {
+            //Hay que verificar si la nueva cedula ya existe en la base de datos
+            if ((cedulaPK != oldcedulaPK) && (db.Cliente.Where(i => i.cedulaPK == cedulaPK).FirstOrDefault() != null))
+            {
+                //Existe un cliente con esa cedula
+                return new JsonResult { Data = false };
+            }
+            else
+                return new JsonResult { Data = true };
+        }
+
+        //Metodo para verificar si un correo de cliente ya existe
+        //Recibe string email. Contiene el email que se quiere verificar
+        //string oldEmail. Contiene el email Actual del cliente
+        //Devuelve un JsonResult con un True si ya existe un cliente con esa cedula y un false si no
+        public JsonResult CheckEmail(string email, string oldEmail)
+        {
+            //Hay que verificar si el nuevo correo ya existe en la base de datos
+            if ((email != oldEmail) && (db.Cliente.Where(i => i.correo == email).FirstOrDefault() != null))
+            {
+                //Existe un cliente con ese correo
+                return new JsonResult { Data = false };
+            }
+            else
+                return new JsonResult { Data = true };
         }
 
         // GET: Clientes/Edit/5
@@ -109,32 +142,7 @@ namespace ProyectoIntegrador.Controllers
             cliente.provincia = provincia;
             cliente.direccionExacta = direccionExacta;
             cliente.telefono = telefono;
-
-            //Revisa si no hay otro cliente con cedula ingresada
-            if (cedulaVieja != cedulaPK)
-            {
-                System.Diagnostics.Debug.WriteLine("Wtf, cedulaNueva is " + cedulaPK + " and cedulaVieja is " + cedulaVieja);
-                if (db.Cliente.Where(i => i.cedulaPK == cedulaPK).FirstOrDefault() != null)
-                {
-                    ViewBag.error = "Ya existe un cliente con la cedula: " + cedulaPK;
-                    ViewBag.cedulaPK = cedulaPK;
-                    return View(cliente);
-                }
-            }
-
-            //En caso de que no existe se hace el cambio
             cliente.cedulaPK = cedulaPK;
-
-            if (correo != cliente.correo)
-            {
-                if (db.Cliente.Where(i => i.correo == correo).FirstOrDefault() != null)
-                {
-                    ViewBag.error = "Ya existe un cliente con el correo: " + correo;
-                    ViewBag.cedulaPK = cedulaPK;
-                    return View(cliente);
-                }
-            }
-
             cliente.correo = correo;
 
             if (ModelState.IsValid)
