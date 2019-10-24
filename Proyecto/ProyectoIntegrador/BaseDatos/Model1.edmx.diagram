@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="067c0969efd146b1818d961baceef8b7" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="067c0969efd146b1818d961baceef8b7" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="Gr03Proy2Model.Cliente" Width="1.5" PointX="1.5" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Empleado" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadBlanda" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="Gr03Proy2Model.Requerimiento" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Tester" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.TrabajaEn" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.HistorialReqTester" Width="1.5" PointX="8.25" PointY="13" IsExpanded="true" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Proyecto_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_HabilidadBlanda_idEmpleadoFK" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_idEmpleadoFK" ManuallyRouted="false" />
@@ -24,8 +23,9 @@
         <AssociationConnector Association="Gr03Proy2Model.FK_Requerimiento_IdProy" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_TrabajaEn_proy" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Prueba_Requerimiento" ManuallyRouted="false" />
-        <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" ManuallyRouted="false" />
-        <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.HistorialReqTester" Width="1.5" PointX="8.25" PointY="13" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
