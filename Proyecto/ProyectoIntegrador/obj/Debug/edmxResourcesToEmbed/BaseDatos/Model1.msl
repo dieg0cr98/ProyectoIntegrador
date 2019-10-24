@@ -125,16 +125,45 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CA_TestersAsignadosDisponibles" FunctionName="Gr03Proy2Model.Store.CA_TestersAsignadosDisponibles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.CA_TestersAsignadosDisponibles_Result">
+          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+          <ScalarProperty Name="distrito" ColumnName="distrito" />
+          <ScalarProperty Name="canton" ColumnName="canton" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
+          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+          <ScalarProperty Name="nombre1" ColumnName="nombre1" />
+          <ScalarProperty Name="objetivo" ColumnName="objetivo" />
+          <ScalarProperty Name="estado1" ColumnName="estado1" />
+          <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+          <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
+          <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
+          <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <EntitySetMapping Name="HistorialReqTester">
       <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
         <MappingFragment StoreEntitySet="HistorialReqTester">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="horas" ColumnName="horas" />
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
           <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
           <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
-          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
-          <ScalarProperty Name="horas" ColumnName="horas" />
-          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-          <ScalarProperty Name="activo" ColumnName="activo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
