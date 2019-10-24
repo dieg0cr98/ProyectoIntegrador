@@ -9,44 +9,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
 
-        /*Cambia los colores de las listas activas*/
-        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-            color: #ffffff;
-            background-color: #76323f;
-            border-color: none;
-        }
-        /*Cambia los colores de los tooltips*/
-        .tooltip > .tooltip-inner {
-            background-color: #76323f;
-            color: white;
-        }
-
-        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
-            border-bottom-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
-            border-top-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
-            border-left-color: #76323f
-        }
-
-        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-            border-right-color: #76323f
-        }
-
-        .error {
-            color: white;
-            background-color: red;
-            font-family: verdana, Helvetica;
-        }
-
-        input.error, input select.error {
-            background-color: white;
-            border-color: red;
-        }
     </style>
 </head>
 
@@ -54,7 +16,8 @@
 
 
 <hr />
-<body onload="getProvincias('San José','Central','Carmen')">
+<!---->
+<body onload="getProvincias('Seleccione una provincia','Seleccione un cantón','Seleccione un distrito')">
     <div class="container align-content-center" style="max-width: 1400px;">
         <div class="tab-content d-block overflow-auto bg-secondary" style="background-color:rgba(192,159,128,0.7); height:auto; box-shadow: rgba(128,128,128,0.91); border-radius:25px;" id="nav-tabContent">
             <!--Despliegue del formulario-->
@@ -199,7 +162,7 @@
     $(function () {
         jQuery.validator.addMethod("lettersonly", function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
-        }, "No se admiten números en los nombres"); 
+        }, "No se admiten números en los nombres");
 
         $("#clientForm").validate(
             {
