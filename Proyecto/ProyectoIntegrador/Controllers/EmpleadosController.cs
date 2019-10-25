@@ -15,6 +15,12 @@ namespace ProyectoIntegrador.Controllers
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
 
+        public List<Empleado> GetTestersDisponibles()
+        {
+            return db.Empleado.Where(e => e.tipoTrabajo == "Tester" && e.estado == "Disponible").ToList();
+        }
+
+
         // GET: Empleados
         public ActionResult Index()
         {

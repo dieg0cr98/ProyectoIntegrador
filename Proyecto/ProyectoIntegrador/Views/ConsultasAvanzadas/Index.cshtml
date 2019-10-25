@@ -1,1 +1,277 @@
 ﻿
+@model IEnumerable<ProyectoIntegrador.BaseDatos.Empleado>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 625px;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 160px;
+            left: 0;
+            background-color: #76323F;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 0px;
+        }
+
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #FFFFFF;
+                display: block;
+                transition: 0.3s;
+            }
+
+                .sidenav a:hover {
+                    color: #C09F80;
+                }
+
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav mt-2">
+        <a href="#" onclick="consulta1()"><h6>Testers Asignados/Disponibles</h6></a>
+        <a href="#" onclick="consulta2()"><h6>Búsqueda de testers por Habilidad</h6></a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <br />
+    <p id="title" class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px; letter-spacing: 5px">Consultas Avanzadas</p>
+
+
+    <hr>
+
+    <div class="container-fluid">
+        <div id="main" style="height:600px">
+
+            <div class="row mb-0">
+
+                <div class="col-2 text-center">
+                    <button id="toggleButton" type="button" onclick="opencloseNav()" class="btn btn-primary">&#9776; Consultas</button>
+                </div>
+
+                <div class="col" style="max-height:40px">
+                    <p id="nombreConsulta" class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:32px;"></p>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="container-fluid" style="max-height:550px;overflow:auto">
+                <!-- Datos para la primera consulta -->
+                <div id="datosC1">
+
+
+          
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <script>
+        function opencloseNav() {
+
+            var title = document.getElementById("title");
+            var Sidenav = document.getElementById("mySidenav");
+            var main = document.getElementById("main")
+            var Width = document.getElementById("mySidenav").offsetWidth;
+
+            if (Width == 0) {
+                Sidenav.style.width = "250px";
+                main.style.marginLeft = "250px";
+                //title.style.marginLeft = "150px";
+            }
+            else {
+                Sidenav.style.width = "0";
+                main.style.marginLeft = "0";
+                // title.style.marginLeft = "280px";
+            }
+
+        }
+   
+
+        function consulta1() {
+            document.getElementById("datosC1").innerHTML = " ";
+           
+                        
+                           
+                        
+
+                    
+
+
+            document.getElementById("nombreConsulta").innerText = "Testers asignados a proyectos y disponibles";
+             //Se crea el html de loading
+            document.getElementById("datosC1").innerHTML = '</br> </br> <div class="text-center"> <div class="spinner-border"  style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span></div></div>';
+                               
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta1",
+                method: "GET",
+                success: function (data) {
+                    
+                    data2 = JSON.parse(data);
+      
+                    //Saca los datos para el piechart
+                    var cantidadAsignados = data2.Item2.length;
+                    var cantiadadDisponibles = data2.Item1.length; 
+
+                    //Carga los datos del chart
+                    google.charts.load('current', {
+                        packages: ['corechart']
+                    }).then(function () {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Disponibles', 'Hours per Day'],
+                            ['Asignados', cantidadAsignados],
+                            ['Disponibles', cantiadadDisponibles ],
+
+                        ]);
+
+                        var options = {
+                            //title: 'Testers',
+                            'backgroundColor': 'transparent',
+                            pieHole: 0.4,
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                        chart.draw(data, options);
+           
+                    });
+
+                    //Se crea el html para el piechart
+                    var chart = '<div id="piechart" align="center" style="width: 900px; height: 500px;margin: 0 auto"></div>';
+
+
+                    //Se crea el html para la tabla
+                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th><th scope="col">Proyecto</th></tr></thead><tbody>';
+
+                    //Recorre las tuplas de testers asignados para insertar los datos a la tabla
+                    for (key in data2.Item2) {
+                       
+                        table += '<tr>';
+                       
+                        var nombreEmpleado = data2.Item2[key].Nombre_Empleado;
+                        table += ' <th scope="row">' + nombreEmpleado + '</th>';
+
+                        var estado = data2.Item2[key].estado;
+                        table += '<td>' + estado + '</td>';
+
+                        var proyecto = data2.Item2[key].Nombre_Proyecto;
+                        table += '<td>' + proyecto + '</td>';
+                        
+                        table += '</tr>';
+
+                    }
+
+
+                    //Recorre las tuplas de testers disponibles para insertar los datos a la tabla
+                    for (key in data2.Item1) {
+                        
+                        table += '<tr>';
+
+
+
+                        var nombreEmpleado = data2.Item1[key].nombre + " " + data2.Item1[key].apellido1 + " ";
+                        var apellido2 = data2.Item1[key].apellido2;
+                        if (apellido2 != null) {
+                            nombreEmpleado += apellido2;
+                        }
+
+
+
+                        table += ' <th scope="row">' + nombreEmpleado + '</th>';
+
+                        var estado = data2.Item1[key].estado;
+                        table += '<td>' + estado + '</td>';
+
+                        table += '<td> </td>';
+                        
+                        table += '</tr>';
+
+                    }
+
+
+
+                    table += '</tbody></table>';
+
+                   
+                  
+                    
+                    var html = chart + table;
+                    document.getElementById("datosC1").innerHTML = html;
+     
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+
+           
+
+
+
+            
+
+
+
+
+        }
+
+        function consulta2() {
+            document.getElementById("datosC1").innerHTML = " ";
+            document.getElementById("nombreConsulta").innerText = "Búsqueda de testers de acuerdo a su tipo de conocimiento y su disponibilidad de formar el equipo (Jefe de Calidad y líderes)";
+
+        }
+
+
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+
+</body>
+</html> 
