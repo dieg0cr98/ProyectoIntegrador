@@ -3,9 +3,6 @@
 @{
     ViewBag.Title = "Edit";
 }
-<br />
-<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Requerimiento</p>
-<hr>
 
 <head>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -15,6 +12,9 @@
 </head>
 
 <body>
+    <br />
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Requerimiento</p>
+    <hr>
 
     <!-- Se crea el formulario con el que recibiremos los datos -->
     <form class="cmxform" id="commentForm" method="post" action="Edit">
@@ -248,6 +248,7 @@
                         @*Atributo Cédula Tester*@
                         <div class="input-group">
                             <select class="custom-select" name="idTester">
+                                <option value=null>No Asignar</option>
                                 @if (@ViewBag.testerAsociado != null)
                                 {
                                     <option value="@ViewBag.testerAsociado.idEmpleadoPK" selected>@ViewBag.testerAsociado.nombre @ViewBag.testerAsociado.apellido1</option>
@@ -257,7 +258,7 @@
                                 {
                                     <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
                                 }
-                                <option value=null>No Asignar</option>
+
                             </select>
                         </div>
                     </div>
@@ -386,7 +387,7 @@
                             remote:
                             {
                                 url: "/Requerimientos/ReviseNombreRequerimiento",
-                                type: "post", 
+                                type: "post",
                                 delay: 1000,
                                 data: {
                                     name: function () {
