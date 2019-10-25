@@ -118,7 +118,7 @@
     <NavigationProperty Name="Empleado" Relationship="Self.FK_Req_CedulaTester" FromRole="Requerimiento" ToRole="Empleado" />
     <NavigationProperty Name="Proyecto" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Requerimiento" ToRole="Proyecto" />
     <NavigationProperty Name="Prueba" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
-    <NavigationProperty Name="HistorialReqTester" Relationship="Self.FK_HistorialReqTester_idReqFK" FromRole="Requerimiento" ToRole="HistorialReqTester" />
+    <NavigationProperty Name="HistorialReqTester" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" FromRole="Requerimiento" ToRole="HistorialReqTester" />
   </EntityType>
   <EntityType Name="Tester">
     <Key>
@@ -127,7 +127,7 @@
     <Property Name="idEmpleadoFK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="cantidadRequerimientos" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Empleado" Relationship="Self.FK_Tester_Empleado" FromRole="Tester" ToRole="Empleado" />
-    <NavigationProperty Name="HistorialReqTester" Relationship="Self.FK_HistorialReqTester_idEmpleadoFK" FromRole="Tester" ToRole="HistorialReqTester" />
+    <NavigationProperty Name="HistorialReqTester" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" FromRole="Tester" ToRole="HistorialReqTester" />
   </EntityType>
   <EntityType Name="TrabajaEn">
     <Key>
@@ -140,24 +140,6 @@
     <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Empleado" Relationship="Self.FK_TrabajaEn_empleado" FromRole="TrabajaEn" ToRole="Empleado" />
     <NavigationProperty Name="Proyecto" Relationship="Self.FK_TrabajaEn_proy" FromRole="TrabajaEn" ToRole="Proyecto" />
-  </EntityType>
-  <EntityType Name="HistorialReqTester">
-    <Key>
-      <PropertyRef Name="idReqFK" />
-      <PropertyRef Name="idProyectoFK" />
-      <PropertyRef Name="idEmpleadoFK" />
-      <PropertyRef Name="horas" />
-      <PropertyRef Name="activo" />
-    </Key>
-    <Property Name="idReqFK" Type="Int32" Nullable="false" />
-    <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
-    <Property Name="idEmpleadoFK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="horas" Type="Int32" Nullable="false" />
-    <Property Name="fechaInicio" Type="DateTime" Precision="0" />
-    <Property Name="fechaFin" Type="DateTime" Precision="0" />
-    <Property Name="activo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Requerimiento" Relationship="Self.FK_HistorialReqTester_idReqFK" FromRole="HistorialReqTester" ToRole="Requerimiento" />
-    <NavigationProperty Name="Tester" Relationship="Self.FK_HistorialReqTester_idEmpleadoFK" FromRole="HistorialReqTester" ToRole="Tester" />
   </EntityType>
   <Association Name="FK_Proyecto_Cliente">
     <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
@@ -281,34 +263,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HistorialReqTester_idReqFK">
-    <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="HistorialReqTester" Type="Self.HistorialReqTester" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Requerimiento">
-        <PropertyRef Name="idReqPK" />
-        <PropertyRef Name="idProyectoFK" />
-      </Principal>
-      <Dependent Role="HistorialReqTester">
-        <PropertyRef Name="idReqFK" />
-        <PropertyRef Name="idProyectoFK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_HistorialReqTester_idEmpleadoFK">
-    <End Role="Tester" Type="Self.Tester" Multiplicity="1" />
-    <End Role="HistorialReqTester" Type="Self.HistorialReqTester" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Tester">
-        <PropertyRef Name="idEmpleadoFK" />
-      </Principal>
-      <Dependent Role="HistorialReqTester">
-        <PropertyRef Name="idEmpleadoFK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="Gr03Proy2Entities6" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cliente" EntityType="Self.Cliente" />
     <EntitySet Name="Empleado" EntityType="Self.Empleado" />
@@ -319,7 +273,6 @@
     <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" />
     <EntitySet Name="Tester" EntityType="Self.Tester" />
     <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" />
-    <EntitySet Name="HistorialReqTester" EntityType="Self.HistorialReqTester" />
     <AssociationSet Name="FK_Proyecto_Cliente" Association="Self.FK_Proyecto_Cliente">
       <End Role="Cliente" EntitySet="Cliente" />
       <End Role="Proyecto" EntitySet="Proyecto" />
@@ -356,13 +309,103 @@
       <End Role="Requerimiento" EntitySet="Requerimiento" />
       <End Role="Prueba" EntitySet="Prueba" />
     </AssociationSet>
-    <AssociationSet Name="FK_HistorialReqTester_idReqFK" Association="Self.FK_HistorialReqTester_idReqFK">
-      <End Role="Requerimiento" EntitySet="Requerimiento" />
-      <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HistorialReqTester_idEmpleadoFK" Association="Self.FK_HistorialReqTester_idEmpleadoFK">
+    <FunctionImport Name="CA_TestersAsignadosDisponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignadosDisponibles_Result)" />
+    <EntitySet Name="HistorialReqTester" EntityType="Gr03Proy2Model.HistorialReqTester" />
+    <AssociationSet Name="FK_HistorialReqTester_idEmpleadoFK" Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK">
       <End Role="Tester" EntitySet="Tester" />
       <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
     </AssociationSet>
+    <AssociationSet Name="FK_HistorialReqTester_idReqFK" Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK">
+      <End Role="Requerimiento" EntitySet="Requerimiento" />
+      <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
+    </AssociationSet>
+    <FunctionImport Name="CA_TestersAsignados_Y_Disponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result)" />
   </EntityContainer>
+  <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+    <Property Type="String" Name="nombre1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="objetivo" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="estado1" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="duracionReal" Nullable="false" />
+    <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
+    <Property Type="DateTime" Name="fechaFinalizacion" Nullable="false" />
+    <Property Type="String" Name="cedulaClienteFK" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="cantidadReq" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="HistorialReqTester">
+    <Key>
+      <PropertyRef Name="idProyectoFK" />
+      <PropertyRef Name="idReqFK" />
+      <PropertyRef Name="idEmpleadoFK" />
+    </Key>
+    <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
+    <Property Name="idReqFK" Type="Int32" Nullable="false" />
+    <Property Name="idEmpleadoFK" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="horas" Type="Int32" Nullable="false" />
+    <Property Name="fechaInicio" Type="DateTime" Precision="0" />
+    <Property Name="fechaFin" Type="DateTime" Precision="0" />
+    <Property Name="activo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tester" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" FromRole="HistorialReqTester" ToRole="Tester" />
+    <NavigationProperty Name="Requerimiento" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" FromRole="HistorialReqTester" ToRole="Requerimiento" />
+  </EntityType>
+  <Association Name="FK_HistorialReqTester_idEmpleadoFK">
+    <End Type="Gr03Proy2Model.Tester" Role="Tester" Multiplicity="1" />
+    <End Type="Gr03Proy2Model.HistorialReqTester" Role="HistorialReqTester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tester">
+        <PropertyRef Name="idEmpleadoFK" />
+      </Principal>
+      <Dependent Role="HistorialReqTester">
+        <PropertyRef Name="idEmpleadoFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistorialReqTester_idReqFK">
+    <End Type="Gr03Proy2Model.Requerimiento" Role="Requerimiento" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Gr03Proy2Model.HistorialReqTester" Role="HistorialReqTester" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requerimiento">
+        <PropertyRef Name="idReqPK" />
+        <PropertyRef Name="idProyectoFK" />
+      </Principal>
+      <Dependent Role="HistorialReqTester">
+        <PropertyRef Name="idReqFK" />
+        <PropertyRef Name="idProyectoFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="CA_TestersAsignados_Y_Disponibles_Result">
+    <Property Type="String" Name="nombre_Empleado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Estado_Empleado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="objetivo" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="duracionReal" Nullable="false" />
+    <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
+    <Property Type="DateTime" Name="fechaFinalizacion" Nullable="false" />
+    <Property Type="String" Name="cedulaClienteFK" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="cantidadReq" Nullable="false" />
+  </ComplexType>
 </Schema>

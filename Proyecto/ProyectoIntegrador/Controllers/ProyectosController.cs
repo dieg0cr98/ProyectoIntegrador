@@ -491,7 +491,18 @@ namespace ProyectoIntegrador.Controllers
             var permisosGenerales = seguridad.ProyectoConsultar(User);
             ViewBag.proyectoSelec = id; //ViewBag con el proyecto seleccionado, para poder desplegarlo en la vista
             ViewBag.permisosEspecificos = permisosGenerales;
-            return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3));
+
+            //Verifica que el usuario este registrado
+            if(permisosGenerales.Item1 >= 0 )
+            {
+                return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3).Reverse());
+            }
+            else
+            {
+                return View();
+            }
+
+           
 
         }
 

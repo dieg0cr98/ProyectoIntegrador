@@ -9,44 +9,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
 
-        /*Cambia los colores de las listas activas*/
-        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-            color: #ffffff;
-            background-color: #76323f;
-            border-color: none;
-        }
-        /*Cambia los colores de los tooltips*/
-        .tooltip > .tooltip-inner {
-            background-color: #76323f;
-            color: white;
-        }
-
-        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
-            border-bottom-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
-            border-top-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
-            border-left-color: #76323f
-        }
-
-        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-            border-right-color: #76323f
-        }
-
-        .error {
-            color: white;
-            background-color: red;
-            font-family: verdana, Helvetica;
-        }
-
-        input.error, input select.error {
-            background-color: white;
-            border-color: red;
-        }
     </style>
 </head>
 
@@ -54,7 +16,8 @@
 
 
 <hr />
-<body onload="getProvincias('San José','Central','Carmen')">
+<!---->
+<body onload="getProvincias('Seleccione una provincia','Seleccione un cantón','Seleccione un distrito')">
     <div class="container align-content-center" style="max-width: 1400px;">
         <div class="tab-content d-block overflow-auto bg-secondary" style="background-color:rgba(192,159,128,0.7); height:auto; box-shadow: rgba(128,128,128,0.91); border-radius:25px;" id="nav-tabContent">
             <!--Despliegue del formulario-->
@@ -96,7 +59,7 @@
                         <div class="form-row mb-2">
                             <div class="col-3">
                                 <!--Campo Cedula-->
-                                <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
+                                <h5 for="cedulaPK" style="width:200px">Cédula*:</h5>
                                 <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
                                 <div id="errorCed"></div>
                             </div>
@@ -194,3 +157,169 @@
 
 }
 
+
+<script>
+    $(function () {
+        jQuery.validator.addMethod("lettersonly", function (value, element) {
+            return this.optional(element) || /^[a-z]+$/i.test(value);
+        }, "No se admiten números en los nombres");
+
+        $("#clientForm").validate(
+            {
+                rules:
+                {
+                    nombre:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30,
+                        lettersonly: true
+                    },
+                    apellido1:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30,
+                        lettersonly: true
+                    },
+                    apellido2:
+                    {
+                        minlength: 1,
+                        maxlength: 30,
+                        lettersonly: true
+                    },
+                    cedulaPK:
+                    {
+                        required: true,
+                        minlength: 1,
+                        number: true,
+                        maxlength: 20,
+                        remote: {
+                            url: "/Clientes/CheckCedula",
+                            type: "post",
+                            delay: 1000,
+                            data: {
+                                cedulaPK: function () {
+                                    return $("#cedulaPK").val();
+                                },
+                                oldcedulaPK: null
+                            }
+                        }
+                    },
+                    empresa:
+                    {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 30
+                    },
+                    provincia:
+                    {
+                        required: true
+                    },
+                    canton:
+                    {
+                        required: true
+                    },
+                    distrito:
+                    {
+                        required: true
+                    },
+                    direccionExacta:
+                    {
+                        required: true,
+                        maxlength: 300
+                    },
+                    telefono:
+                    {
+                        required: true,
+                        number: true,
+                        maxlength: 15
+                    },
+                    correo:
+                    {
+                        required: true,
+                        maxlength: 50,
+                        remote: {
+                            url: "/Clientes/CheckEmail",
+                            type: "post",
+                            delay: 1000,
+                            data: {
+                                email: function () {
+                                    return $("#correo").val();
+                                },
+                                oldEmail: null
+                            }
+                        }
+                    }
+                },
+                messages:
+                {
+                    correo:
+                    {
+                        required: "Ingrese un correo válido",
+                        remote: "Ya existe un cliente con ese correo"
+                    },
+                    cedulaPK:
+                    {
+                        required: "Ingrese cédula válida",
+                        remote: "Ya existe un cliente con esa cédula"
+                    },
+                    nombre: {
+                        required: "Nombre es requerido",
+                        lettersonly: "No se admiten números en el nombre"
+                    },
+                    apellido1: {
+                        required: "Apellido es requerido",
+                        lettersonly: "No se admiten números en apellido"
+                    },
+                    apellido2: "No se admiten números en apellido",
+                    empresa: "Inserte nombre de empresa válido",
+                    provincia: "Seleccione una provincia",
+                    canton: "Seleccione un canton",
+                    distrito: "Seleccione un distrito",
+                    direccionExacta: "Ingrese una dirección válida, rango 300 caracteres",
+                    telefono: "Ingrese número de teléfono válido"
+                },
+
+                errorPlacement: function (error, element) {
+                    if ((element.attr('name') === 'nombre')) {
+                        error.insertAfter($('#errorNombre'));
+                    }
+                    if ((element.attr('name') === 'apellido1')) {
+                        error.insertAfter($('#errorApe1'));
+                    }
+                    if ((element.attr('name') === 'apellido2')) {
+                        error.insertAfter($('#errorApe2'));
+                    }
+                    if ((element.attr('name') === 'empresa')) {
+                        error.insertAfter($('#errorEmp'));
+                    }
+                    if ((element.attr('name') === 'cedulaPK')) {
+                        error.insertAfter($('#errorCed'));
+                    }
+                    if ((element.attr('name') === 'provincia')) {
+                        error.insertAfter($('#errorProv'));
+                    }
+                    if ((element.attr('name') === 'canton')) {
+                        error.insertAfter($('#errorCant'));
+                    }
+                    if ((element.attr('name') === 'distrito')) {
+                        error.insertAfter($('#errorDistr'));
+                    }
+                    if ((element.attr('name') === 'direccionExacta')) {
+                        error.insertAfter($('#errorDir'));
+                    }
+                    if ((element.attr('name') === 'correo')) {
+                        error.insertAfter($('#errorEma'));
+                    }
+                    if ((element.attr('name') === 'telefono')) {
+                        error.insertAfter($('#errorTel'));
+                    }
+                },
+                invalidHandler: function (form, validator) {
+                    $('#loading').hide('fast');
+                    $('#acceptar').show('fast');
+                },
+            });
+    });
+</script>

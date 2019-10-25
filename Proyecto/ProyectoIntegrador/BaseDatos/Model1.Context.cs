@@ -12,6 +12,8 @@ namespace ProyectoIntegrador.BaseDatos
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Gr03Proy2Entities6 : DbContext
     {
@@ -35,5 +37,10 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<Tester> Tester { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
+
+        public virtual ObjectResult<CA_TestersAsignados_Y_Disponibles_Result> CA_TestersAsignados_Y_Disponibles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CA_TestersAsignados_Y_Disponibles_Result>("CA_TestersAsignados_Y_Disponibles");
+        }
     }
 }

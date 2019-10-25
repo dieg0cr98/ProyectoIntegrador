@@ -50,18 +50,14 @@
     <Property Name="idEmpleadoFK" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="habilidad" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Gr03Proy2.dbo.HistorialReqTester' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="HistorialReqTester">
     <Key>
-      <PropertyRef Name="idReqFK" />
       <PropertyRef Name="idProyectoFK" />
+      <PropertyRef Name="idReqFK" />
       <PropertyRef Name="idEmpleadoFK" />
-      <PropertyRef Name="horas" />
-      <PropertyRef Name="activo" />
     </Key>
-    <Property Name="idReqFK" Type="int" Nullable="false" />
     <Property Name="idProyectoFK" Type="int" Nullable="false" />
+    <Property Name="idReqFK" Type="int" Nullable="false" />
     <Property Name="idEmpleadoFK" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="horas" Type="int" Nullable="false" />
     <Property Name="fechaInicio" Type="date" />
@@ -289,27 +285,18 @@ warning 6002: The table/view 'Gr03Proy2.dbo.HistorialReqTester' does not have a 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="CA_TestersAsignados_Y_Disponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="Gr03Proy2ModelStoreContainer">
     <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HabilidadBlanda" EntityType="Self.HabilidadBlanda" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HabilidadTecnica" EntityType="Self.HabilidadTecnica" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistorialReqTester" EntityType="Self.HistorialReqTester" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="HistorialReqTester" EntityType="Self.HistorialReqTester" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [HistorialReqTester].[idReqFK] AS [idReqFK], 
-    [HistorialReqTester].[idProyectoFK] AS [idProyectoFK], 
-    [HistorialReqTester].[idEmpleadoFK] AS [idEmpleadoFK], 
-    [HistorialReqTester].[horas] AS [horas], 
-    [HistorialReqTester].[fechaInicio] AS [fechaInicio], 
-    [HistorialReqTester].[fechaFin] AS [fechaFin], 
-    [HistorialReqTester].[activo] AS [activo]
-    FROM [dbo].[HistorialReqTester] AS [HistorialReqTester]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_HabilidadBlanda_idEmpleadoFK" Association="Self.FK_HabilidadBlanda_idEmpleadoFK">
       <End Role="Empleado" EntitySet="Empleado" />
       <End Role="HabilidadBlanda" EntitySet="HabilidadBlanda" />

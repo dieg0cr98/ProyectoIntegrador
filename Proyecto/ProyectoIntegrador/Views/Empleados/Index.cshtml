@@ -69,7 +69,7 @@
                     <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleados">
 
                     <!--Imagen de agregar Empleado-->
-                    <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                    <a data-toggle="tooltip" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                 </nav>
 
                 <!--Tab izquierdo donde se muestran los empleados con el nombre en la BD-->
@@ -101,7 +101,7 @@
 
                                 <!-- Botones de Editar -->
                                 <div class="col" style="margin-left: 10%;">
-                                    <a data-toggle="tooltip" onclick="my_loading(this)" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                    <a data-toggle="tooltip" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                 </div>
 
                                 <!-- Button trigger modal para Borrar-->
@@ -214,7 +214,7 @@
                             @*Filas con las etiquetas de Canton y distrito *@
                             <div class="form-row">
                                 <div class="col-5">
-                                    <h5> Canton</h5>
+                                    <h5> Cantón</h5>
                                 </div>
 
                                 <div class="col-1">

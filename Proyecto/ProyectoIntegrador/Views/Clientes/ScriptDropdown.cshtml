@@ -17,6 +17,10 @@
 
                 var html = "<select id = 'abc' class='form-control' name = 'provincia' onchange = 'getCantones()' onclick = 'getCantones()' style = 'background-color:#D7CEC7; border-color:transparent; width: 450px' > ";
 
+                if (provincia == 'Seleccione una provincia') {
+                    html += "<option selected >" + provincia + "</option>";
+                }
+                
                 for (key in data) {
                     if (provincia == data[key]) {
                         html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
@@ -54,6 +58,7 @@
             data: {},
             success: function (data) {
                 var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='background-color:#D7CEC7; border-color:transparent; width: 450px'>";
+
                 for (key in data) {
                     if (canton == data[key]) {
                         html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
@@ -87,6 +92,7 @@
             data: {},
             success: function (data) {
                 var html = "<select id='abc3' class='form-control' style='background-color:#D7CEC7; border-color:transparent; width: 450px' name='distrito'>";
+
                 for (key in data) {
                     if (distrito == data[key]) {
                         html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
