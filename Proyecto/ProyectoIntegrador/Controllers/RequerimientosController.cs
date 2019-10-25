@@ -79,13 +79,14 @@ namespace ProyectoIntegrador.Controllers
 
 
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
-        public ActionResult Index(int idProyecto)
+        public ActionResult Index(int idProyecto, int idRequerimiento)
         {
             //Se obtienen los datos de todos los requerimientos asociados al proyecto.
             var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
+
             //Se buscan los permisos del usuario que hizo la consulta
             ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
-
+            ViewBag.seleccion = idRequerimiento;
             ViewBag.idProyecto = idProyecto;
 
             ViewBag.nombre = proyectos.GetNombreProyecto(idProyecto);
@@ -107,52 +108,45 @@ namespace ProyectoIntegrador.Controllers
         // los envía a la BD y de no serlo, vuelve a la vista de crear con un error.
         [HttpPost]
         public ActionResult Create(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
-            int duracionEstimada, DateTime fechai, int idProyecto/*, string idTester*/)
+            int? duracionEstimada, DateTime? fechai, int idProyecto, string idTester)
         {
-            //Crea la instancia de requerimiento que será agregada si pasa las pruebas necesarias.
+            //Crea la instancia de requerimiento que será agregada.
             Requerimiento requerimiento = new Requerimiento();
+            requerimiento.nombre = nombre;
             requerimiento.complejidad = complejidad;
-            requerimiento.descripcion = descripcion;
-            requerimiento.estado = estado;
-            requerimiento.fechaDeInicio = fechai;
             requerimiento.idProyectoFK = idProyecto;
-            requerimiento.tiempoEstimado = duracionEstimada;
-            requerimiento.tiempoReal = 0;
+            requerimiento.idReqPK = idRequerimiento;
+            requerimiento.descripcion = descripcion;
             //requerimiento.cedulaTesterFK = idTester;
 
+            if (estado != "")
+            {
+                requerimiento.estado = estado;
+            }
+
+            if (duracionEstimada != null)
+            {
+                requerimiento.tiempoEstimado = (int)duracionEstimada;
+            }
+
+            if (fechai != null)
+            {
+                requerimiento.fechaDeInicio = (DateTime)fechai;
+            }
 
             //Comentado pues se usará en el siguiente sprint
             //Actualiza la cantidad de requerimientos que el tester tiene asignados.
             //actualiceTester(0, idTester, "");
 
-            //Revisa que no exista un requerimiento con el id ingresado por el usuario en el mismo proyecto
-            if (db.Requerimiento.Where(i => i.idReqPK == idRequerimiento && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
-            {
-                ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimiento + " en este proyecto";
-                ViewBag.TestersDisponibles = getTesters(0, idProyecto, "");
-                ViewBag.idProyectoFK = idProyecto;
-                return View(requerimiento);
-            }
-
-            requerimiento.idReqPK = idRequerimiento;
-
-            //Revisa que no exista un requerimiento con el nombre ingresado por el usuario en el mismo proyecto
-            if (db.Requerimiento.Where(i => i.nombre == nombre && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
-            {
-                ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
-                ViewBag.TestersDisponibles = getTesters(0, idProyecto, "");
-                ViewBag.idProyectoFK = idProyecto;
-                return View(requerimiento);
-            }
-
-            requerimiento.nombre = nombre;
-
             //Lo agrega a la BD
             db.Requerimiento.Add(requerimiento);
             db.SaveChanges();
 
-            //Vuelve a la vista de consultar
-            return RedirectToAction("Index", new { idProyecto = idProyecto });
+            // Se cambia la nueva cantidad de requerimientos del proyecto para asignar correctamente el siguiente id.
+            proyectos.SetCantidadRequerimientos(idProyecto, idRequerimiento);
+
+            //Vuelve a la vista de consultar.
+            return RedirectToAction("Index", new { idProyecto, idRequerimiento });
         }
 
         // Método que llama a la vista de modificar un requerimiento
@@ -263,6 +257,23 @@ namespace ProyectoIntegrador.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // Método que se encarga de verificar que el nombre del requerimiento que voy a ingresar, sea único.
+        // Recibe string name. Contiene el nombre que se quiere verificar
+        //        string oldName. Contiene el nombre actual del reqeurimiento (Se utiliza en caso de editar un requerimiento)
+        // Devuelve un JsonResult con un True si ya existe un requerimiento y un false si no
+        public JsonResult ReviseNombreRequerimiento(string name, string oldName)
+        {
+            //Hay que verificar si el nuevo nombre ya existe en la base de datos
+            if ((name != oldName) && (db.Requerimiento.Where(r => r.nombre == name).FirstOrDefault() != null))
+            {
+                //Existe un proyecto con ese nombre
+                return new JsonResult { Data = false };
+            }
+            else
+                return new JsonResult { Data = true };
+
         }
     }
 }

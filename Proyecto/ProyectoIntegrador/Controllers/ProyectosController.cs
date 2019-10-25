@@ -453,7 +453,7 @@ namespace ProyectoIntegrador.Controllers
         //Devuelve una redireccion a otra controladora
         public ActionResult IndexRequerimientos(int? idProyecto)
         {
-            return RedirectToAction("Index", "Requerimientos", new { idProyecto });
+            return RedirectToAction("Index", "Requerimientos", new { idProyecto, idRequerimiento = 0 });
 
         }
 

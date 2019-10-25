@@ -458,6 +458,7 @@
     <Content Include="Views\Empleados\ModalCancelar.cshtml" />
     <Content Include="Views\Empleados\ModalEliminar.cshtml" />
     <Content Include="Views\Empleados\Scripts.cshtml" />
+    <Content Include="Views\Requerimientos\FormularioIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

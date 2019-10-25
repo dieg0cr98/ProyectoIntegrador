@@ -25,7 +25,7 @@ namespace ProyectoIntegrador.BaseDatos
         public int idProyectoFK { get; set; }
         public string cedulaTesterFK { get; set; }
         public string nombre { get; set; }
-        public string complejidad { get; set; } = "Medio";
+        public string complejidad { get; set; }
         public int tiempoEstimado { get; set; } = 0;
         public Nullable<int> tiempoReal { get; set; }
         public string descripcion { get; set; }

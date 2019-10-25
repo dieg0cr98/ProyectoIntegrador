@@ -57,7 +57,7 @@ namespace ProyectoIntegrador.Controllers
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Create(string idEmpleadoPK, string nombre, string apellido1, string apellido2,
-            string correo, DateTime fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
+            string correo, DateTime? fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
 
             Empleado empleado = new Empleado();
@@ -74,7 +74,7 @@ namespace ProyectoIntegrador.Controllers
             empleado.nombre = nombre;
             empleado.apellido1 = apellido1;
             empleado.apellido2 = apellido2;
-            empleado.fechaNacimiento = fechaNacimiento;
+            empleado.fechaNacimiento = (DateTime)fechaNacimiento;
             empleado.estado = estado;
             empleado.telefono = telefono;
             empleado.provincia = provincia;

@@ -6,26 +6,11 @@
 
 
 
-<head>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-
-    <!-- Se define la letra y los estilos para el error y los por defecto -->
-    <style>
-
-        .error {
-            color: white;
-            background-color: red;
-            font-family: verdana, Helvetica;
-        }
-
-        input.error, input select.error {
-            background-color: white;
-            border-color: red;
-        }
-    </style>
-</head>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    </head>
 
 
 
@@ -50,8 +35,25 @@
                 }
 
                 <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
-                <input type="hidden" id="custId" name="idProyecto" value=@ViewBag.idProyectoFK>
-                <input type="hidden" id="custId" name="idRequerimiento" value=@ViewBag.nuevoIDRequerimiento>
+                <input type="hidden" id="idProy" name="idProyecto" value=@ViewBag.idProyectoFK>
+                <input type="hidden" id="idReq" name="idRequerimiento" value=@ViewBag.nuevoIDRequerimiento>
+
+                <div class="form-row">
+                    @*Título de Atributo Nombre del Requerimiento*@
+                    <div class="col-5">
+                        <h5> Nombre del Requerimiento *</h5>
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="col-5">
+                        @*Atributo nombre*@
+                        <div class="input-group">
+                            <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
+                        </div>
+                        <div id="errorNombre"></div>
+                    </div>
+                </div>
 
                 @*Titulo de Atributo Descripción*@
                 <div class="form-row">
@@ -67,72 +69,140 @@
 
                 <div class="form-row">
                     @*Título de Atributo Complejidad*@
-                    <div class="col-3 ">
+                    <div class="col-4 ">
                         <h5> Complejidad </h5>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-2">
 
                     </div>
 
                     @*Título de Atributo Estado*@
-                    <div class="col-3">
+                    <div class="col-4">
                         <h5> Estado </h5>
                     </div>
                 </div>
 
                 <div class="form-row mb-4">
-                    <div class="col-3">
+                    <div class="col-4">
                         @*Atributo Complejidad*@
                         <div class="input-group">
-                            <select class="custom-select" name="complejidad">
+                            <select class="custom-select" name="complejidad" required>
+                                <option value="" selected>Seleccione la complejidad</option>
                                 <option value="Simple">Simple</option>
-                                <option value="Medio" selected>Medio</option>
+                                <option value="Medio">Medio</option>
                                 <option value="Complejo">Complejo</option>
                                 <option value="Muy Complejo">Muy Complejo</option>
                             </select>
                         </div>
+                        <div id="errorComplejidad"></div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-2">
 
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-4">
 
                         @*Atributo Estado*@
                         <div class="input-group">
                             <select class="custom-select" name="estado">
+                                <option value="" selected>Seleccione el estado</option>
+                                <option value="Preparacion">Preparación</option>
                                 <option value="Activo">Activo</option>
-                                <option value="Preparacion" selected>Preparación</option>
-                                <option value="Terminado">Terminado</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    @*Título de Atributo cedulaTesterFK*@
+                    @*Título de Atributo Fecha de Inicio*@
+                    <div class="col-4 ">
+                        <h5>Fecha de Inicio</h5>
+                    </div>
+
+                    <div class="col-2 ">
+
+                    </div>
+
+                    @*Título de Atributo Fecha de Fin*@
+                    <div class="col-4 ">
+                        <h5> Fecha de Fin</h5>
+                    </div>
+                </div>
+
+                <div class="form-row mb-2">
                     <div class="col-4">
-                        <h5> Asignar tester </h5>
+                        @*Atributo fechaInicio*@
+                        <div class="input-group">
+                            <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@DateTime.Now.ToShortDateString()">
+                        </div>
+                        <small class="form-text text-left" style="color:black">Por defecto, la fecha que fue creado</small>
                     </div>
 
                     <div class="col-2">
 
                     </div>
+
+                    <div class="col-4">
+                        @*Atributo fechaFin*@
+                        <div class="input-group">
+                            <input id="cfechaf" class="form-control text-center" type="date" value="dd/mm/aaaa" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    @*Título de Atributo Duracion Estimada*@
+                    <div class="col-4 ">
+                        <h5> Duración Estimada</h5>
+                    </div>
+
+                    <div class="col-2 ">
+
+                    </div>
+
+                    @*Título de Atributo Duracion Real*@
+                    <div class="col-4 ">
+                        <h5> Duración Real</h5>
+                    </div>
+                </div>
+
+                <div class="form-row mb-2">
+                    <div class="col-2">
+                        @*Atributo duracionEstimada*@
+                        <div class="input-group">
+                            <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada">
+                        </div>
+                        <small class="form-text text-left" style="color:black">Por defecto, cero</small>
+                    </div>
+
+                    <div class="col-4">
+
+                    </div>
+
+                    <div class="col-2">
+                        @*Atributo duraciónReal*@
+                        <div class="input-group">
+                            <input id="dr" class="form-control text-center" type="number" value="0" readonly>
+                        </div>
+                        <small class="form-text text-left" style="color:black">Por defecto, cero</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
                     @*Título de atributo cedulaTesterFK*@
-                    <div class="col-3">
-                        <h5> Nombre del Requerimiento </h5>
+                    <div class="col-5">
+                        <h5> Asignar tester </h5>
                     </div>
                 </div>
 
                 <div class="form-row mb-4">
-
-                    <div class="col-4">
+                    <div class="col-5">
                         @*Atributo Cédula Tester*@
                         <div class="input-group">
                             <select class="custom-select" name="idTester">
-                                <option value = null selected>No Asignar</option>
+                                <option value=null selected>No Asignar</option>
                                 @foreach (var item in ViewBag.TestersDisponibles)
                                 {
                                     <option value="item.idEmpleadoPK">item.nombre item.apellido1 item.apellido2</option>
@@ -140,77 +210,81 @@
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-2">
-
-                    </div>
-
-                    <div class="col-3">
-                        @*Atributo nombre*@
-                        <div class="input-group">
-                            <input id="nom" class="form-control" placeholder="Ingrese el Nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
+                    <div class="form-row">
+                        @*Título de Atributo Cumplimiento de Requerimiento*@
+                        <div class="col-4 ">
+                            <h5> Resultado </h5>
                         </div>
-                        <div id="errorNombre"></div>
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    @*Título de Atributo Duracion Estimada*@
-                    <div class="col-4 ">
-                        <h5> Duración Estimada </h5>
-                    </div>
+                        <div class="col-2 ">
 
-                    <div class="col-2 ">
-
-                    </div>
-
-                    @*Título de Atributo Fecha de Inicio*@
-                    <div class="col-4 ">
-                        <h5> Fecha de Inicio </h5>
-                    </div>
-                </div>
-
-                <div class="form-row mb-2">
-                    <div class="col-2">
-
-                        @*Atributo duracionEstimada*@
-                        <div class="input-group">
-                            <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada" required>
                         </div>
-                        <small class="form-text text-center" style="color:black">Formato en cantidad de horas</small>
-                        <div id="errorDuracionEstimada"></div>
-                    </div>
 
-                    <div class="col-4">
-
-                    </div>
-
-                    <div class="col-3">
-                        @*Atributo fechaInicio*@
-                        <div class="input-group">
-                            <input id="cfecha" class="form-control text-center" type="date" name="fechai" required>
+                        @*Título de Atributo Estado del Resultado*@
+                        <div class="col-4">
+                            <h5> Estado del Resultado </h5>
                         </div>
-                        <div id="errorFechai"></div>
                     </div>
-                </div>
 
-                <h5> * Campos requeridos</h5>
+                    <div class="form-row mb-4">
+                        <div class="col-4">
+                            <div class="input-group">
+                                @*Atributo Resultado*@
+                                <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" readonly>
+                            </div>
+                        </div>
 
-                <hr />
+                        <div class="col-2">
 
-                <div class="row justify-content-center" style="max-width:1150px">
-                    <div class="col-4  text-center">
-                        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Cancelar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK })"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="input-group">
+                                @*Atributo Estado del Resultado*@
+                                <input id="input2" class="form-control" @*value="@item.estado"*@ style="text-align:center; max-width:none" type="text" readonly>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-4  text-center">
 
-                        <button onclick="my_loading(this,'80px','80px')" type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                            <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                        </button>
+                    @*Titulo de Atributo detalle del resultado*@
+                    <div class="form-row">
+                        <div class="col">
+                            <h5> Detalle del Resultado </h5>
+                        </div>
                     </div>
-                </div>
 
+                    @*Atributo detalle del resultado*@
+                    <div class="input-group mb-4  mx-6">
+                        <textarea class="form-control" name="detalleResultado" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment" readonly>@*@item.descripcion*@</textarea>
+                    </div>
 
+                    <h5> * Campos requeridos</h5>
+
+                    <hr />
+
+                    <div class="row justify-content-center" style="max-width:1150px">
+                        <div class="col-2  text-center">
+                            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Index", "Requerimientos", new { idProyecto = ViewBag.idProyectoFK, idRequerimiento = 0 })">
+                                <img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px">
+                            </a>
+                        </div>
+
+                        <div class="col-5 text-right">
+                            <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                                <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
+
+                        <div class="col-5  text-center">
+                            <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                <div id="loading" style="width:80px;height:80px" class="spinner-border text-black" role="status"></div>
+                            </button>
+                        </div>
+                    </div>
             </div>
         </fieldset>
     </form>
@@ -253,41 +327,42 @@
                         nombre:
                         {
                             required: true,
-                            minlength: 1
+                            minlength: 1,
+                            remote:
+                            {
+                                url: "/Requerimientos/ReviseNombreRequerimiento",
+                                type: "post", 
+                                delay: 1000,
+                                data: {
+                                    name: function () {
+                                        return $("#nom").val();
+                                    },
+                                    oldName: null
+                                }
+                            }
 
                         },
-                        duracionEstimada:
+                        complejidad:
                         {
-                            required: true,
-                            min: 1
-
+                            required: true
                         },
-                        fechai:
-                        {
-                            required: true,
-
-                        },
-
                     },
                     messages:
                     {
-                        nombre: "Inserte al menos 1 caracter",
-                        duracionEstimada: "Tiene que ser un numero mayor a 0",
-                        fechai: "Inserte una fecha"
-
+                        nombre: {
+                            required: "Inserte al menos 1 caractér",
+                            remote: "Ya existe un requerimiento con ese nombre",
+                        },
+                        complejidad: "Seleccione una complejidad"
                     },
 
                     errorPlacement: function (error, element) {
                         if ((element.attr('name') === 'nombre')) {
                             error.insertAfter($('#errorNombre'));
                         }
-                        if ((element.attr('name') === 'fechai')) {
-                            error.insertAfter($('#errorFechai'));
+                        if ((element.attr('name') === 'complejidad')) {
+                            error.insertAfter($('#errorComplejidad'));
                         }
-                        if ((element.attr('name') === 'duracionEstimada')) {
-                            error.insertAfter($('#errorDuracionEstimada'));
-                        }
-
 
 
 
