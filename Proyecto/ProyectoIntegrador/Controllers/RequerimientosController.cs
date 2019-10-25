@@ -15,6 +15,7 @@ namespace ProyectoIntegrador.Controllers
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
         private SeguridadController seguridad = new SeguridadController();
         private ProyectosController proyectos = new ProyectosController();
+        private EmpleadosController empleados = new EmpleadosController();
 
         // Métodos comentados porque se utilizaran hasta el siguiente sprint
         // Método utilizado para obtener todos los testers disponibles en un proyecto
@@ -27,26 +28,24 @@ namespace ProyectoIntegrador.Controllers
                 from p in db.Proyecto //Selecciona la tabla de Proyectos
                 join t in db.TrabajaEn on p.idProyectoAID equals t.idProyectoFK //Hace join con la tabla TrabajaEn
                 join e in db.Empleado on t.idEmpleadoFK equals e.idEmpleadoPK //Hace join con la tabla Empleado
-                join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
-                where t.idProyectoFK == idProyecto && test.cantidadRequerimientos < 10 // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
+                //join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
+                where t.idProyectoFK == idProyecto && e.tipoTrabajo == "Tester" //&& test.cantidadRequerimientos < 10 // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
                 select e;
             }
-            else
+            else 
             {
                 testers =
                 from p in db.Proyecto //Selecciona la tabla de Proyectos
                 join t in db.TrabajaEn on p.idProyectoAID equals t.idProyectoFK //Hace join con la tabla TrabajaEn
                 join e in db.Empleado on t.idEmpleadoFK equals e.idEmpleadoPK //Hace join con la tabla Empleado
-                join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
-                where t.idProyectoFK == idProyecto && test.cantidadRequerimientos < 10 && e.idEmpleadoPK != cedulaTester // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
+                                                                              // join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
+                where t.idProyectoFK == idProyecto && e.idEmpleadoPK != cedulaTester// && test.cantidadRequerimientos < 10  // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
                 select e;
             }
 
 
             return testers.ToList();
         }
-
-
 
         //Método que se encarga actualizar la cantidad de requerimientos que posee un tester
         private void actualiceTester(int tipo, string idTesterNuevo, string idTesterViejo)
@@ -86,10 +85,13 @@ namespace ProyectoIntegrador.Controllers
 
             //Se buscan los permisos del usuario que hizo la consulta
             ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
+            //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;
+            //Se guarda el id del proyecto asociado para ser usado al llamar el CRUD de cualquier requerimiento.
             ViewBag.idProyecto = idProyecto;
-
+            //Obtiene el nombre del proyecto asociado para mostrarlo en la consulta.
             ViewBag.nombre = proyectos.GetNombreProyecto(idProyecto);
+
             return View(requerimiento.ToList());
         }
 
@@ -97,8 +99,8 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create(int idProyecto)
         {
             ViewBag.TestersDisponibles = getTesters(0, idProyecto, "");
-            ViewBag.idProyectoFK = idProyecto;
-            ViewBag.nuevoIDRequerimiento = proyectos.GetCantidadRequerimientos(idProyecto) + 1;
+            ViewBag.idProyecto = idProyecto;
+            ViewBag.idRequerimiento = proyectos.GetCantidadRequerimientos(idProyecto) + 1;
 
             return View();
         }
@@ -119,6 +121,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.descripcion = descripcion;
             //requerimiento.cedulaTesterFK = idTester;
 
+            //Valída los datos que podrían ser nulos.
             if (estado != "")
             {
                 requerimiento.estado = estado;
@@ -133,8 +136,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 requerimiento.fechaDeInicio = (DateTime)fechai;
             }
-
-            //Comentado pues se usará en el siguiente sprint
+             
             //Actualiza la cantidad de requerimientos que el tester tiene asignados.
             //actualiceTester(0, idTester, "");
 
@@ -150,13 +152,8 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // Método que llama a la vista de modificar un requerimiento
-        public ActionResult Edit(int? idRequerimiento, int? idProyecto)
+        public ActionResult Edit(int idRequerimiento, int idProyecto)
         {
-            if (idRequerimiento == null || idProyecto == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
 
             if (requerimiento == null)
@@ -165,20 +162,28 @@ namespace ProyectoIntegrador.Controllers
             }
 
             //Comentado pues se usará en el siguiente sprint
-            ViewBag.TestersDisponibles = getTesters(1, (int)idProyecto, requerimiento.cedulaTesterFK);
-            ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
+            if (requerimiento.cedulaTesterFK != null)
+            {
+                ViewBag.testerAsociado = empleados.getTesterAsociado(requerimiento.cedulaTesterFK);
+                ViewBag.testersDisponibles = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
+            }
+            else
+            {
+                ViewBag.testerAsociado = null;
+                ViewBag.testersDisponibles = getTesters(0, idProyecto, "");
+            }
             ViewBag.idProyecto = idProyecto;
+            ViewBag.idRequerimiento = idRequerimiento;
             return View(requerimiento);
         }
 
         // Método que recibe los cambios hechos a un requerimiento en el formulario de modificar y los valída antes de enviarlos a la BD.
         [HttpPost]
-        public ActionResult Edit(int idRequerimientoNuevo, string nombre, string complejidad, string descripcion, string estado,
-            int duracionEstimada, int duracionReal, DateTime fechai, DateTime? fechaf, int idProyecto, int idRequerimientoViejo/*,
-            string idTester*/)
+        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int duracionEstimada, 
+            int? duracionReal, DateTime fechai, DateTime? fechaf, string estadoR, string detalleResultado, string idTester)
         {
-
-            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimientoViejo, idProyecto);
+            Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
+            requerimiento.nombre = nombre;
             requerimiento.complejidad = complejidad;
             requerimiento.descripcion = descripcion;
             requerimiento.estado = estado;
@@ -187,45 +192,11 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = duracionReal;
+            requerimiento.estadoResultado = estadoR;
+            requerimiento.detallesResultado = detalleResultado;
             //requerimiento.cedulaTesterFK = idTester;
 
-            //Revisamos que el valor ingresado para el id del requerimiento haya cambiado
-            if (idRequerimientoViejo != idRequerimientoNuevo)
-            {
-                //Si cambió, revisamos que no exista otra tupla en este proyecto con el mismo id de requerimiento
-                if (db.Requerimiento.Where(i => i.idReqPK == idRequerimientoNuevo && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
-                {
-                    ViewBag.error = "Ya existe un requerimiento con el id: " + idRequerimientoNuevo + " en este proyecto";
-                    //Comentado pues se usará en el siguiente sprint
-                    //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
-                    //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
-                    ViewBag.idProyecto = idProyecto;
-                    return View(requerimiento);
-                }
-            }
-
-            requerimiento.idReqPK = idRequerimientoNuevo;
-
-            //Revisamos que el valor ingresado para el nombre del requerimiento haya cambiado
-            if (nombre != requerimiento.nombre)
-            {
-                //Si cambió, revisamos que no exista otra tupla en este proyecto con el mismo nombre de requerimiento
-                if (db.Requerimiento.Where(i => i.nombre == nombre && i.idProyectoFK == idProyecto).FirstOrDefault() != null)
-                {
-                    ViewBag.error = "Ya existe un requerimiento llamado: " + nombre + " en este proyecto";
-                    //Comentado pues se usará en el siguiente sprint
-                    //ViewBag.testerAsociado = db.Empleado.Where(e => e.idEmpleadoPK == requerimiento.cedulaTesterFK);
-                    //ViewBag.otros = getTesters(1, idProyecto, requerimiento.cedulaTesterFK);
-                    ViewBag.idProyecto = idProyecto;
-                    return View(requerimiento);
-                }
-            }
-
-            requerimiento.nombre = nombre;
-
-
             //Método utilzado para quitarle un requerimiento a un tester y asignarselo a otro, en terminos de cantidad de requerimientos por tester.
-            //Comentado pues se usará en el siguiente sprints
             //if (requerimiento.cedulaTesterFK != idTester)
             //{
             //    actualiceTester(1, idTester, requerimiento.cedulaTesterFK);
@@ -236,7 +207,7 @@ namespace ProyectoIntegrador.Controllers
             db.Entry(requerimiento).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index", new { idProyecto = idProyecto });
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = 0 });
         }
 
         // Método que recibe la confirmación del usuario para eliminar un requerimiento.
@@ -245,9 +216,10 @@ namespace ProyectoIntegrador.Controllers
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
             //Comentado pues se usará en el siguiente sprint
             //actualiceTester(2, "", requerimiento.cedulaTesterFK);
-            db.Requerimiento.Remove(requerimiento);
+            //db.Requerimiento.Remove(requerimiento);
+            requerimiento.estado = "Cancelado";
             db.SaveChanges();
-            return RedirectToAction("Index", new { idProyecto = idProyecto });
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = 0 });
         }
 
         protected override void Dispose(bool disposing)

@@ -235,5 +235,10 @@ namespace ProyectoIntegrador.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public Empleado getTesterAsociado(string cedulaTester)
+        {
+           return db.Empleado.Where(E => E.idEmpleadoPK == cedulaTester).FirstOrDefault();
+        }
     }
 }
