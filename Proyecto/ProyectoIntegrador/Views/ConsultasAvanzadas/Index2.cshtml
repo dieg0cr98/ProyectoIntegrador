@@ -1,7 +1,4 @@
-﻿
-@model IEnumerable<ProyectoIntegrador.BaseDatos.Empleado>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,7 +63,7 @@
     <hr>
 
     <div class="container-fluid">
-        <div id="main" style="height:600px">
+        <div id="main"style="min-height:600px">
 
             <div class="row mb-0">
 
@@ -84,14 +81,11 @@
 
 
 
-            <div class="container-fluid" style="max-height:550px;overflow:auto">
+            <div class="container-fluid" @*style="max-height:550px;overflow:auto*@">
                 <!-- Datos para la primera consulta -->
                 <div id="datosC1">
 
-
-          
-
-                </div>
+                   
 
             </div>
 
@@ -123,33 +117,31 @@
             }
 
         }
-   
+
 
         function consulta1() {
             //Cierra la lista de consultas
             opencloseNav();
-
-            //Limpia los datos
+            
             document.getElementById("datosC1").innerHTML = " ";
-           
-            //Agrega el titulo de la consulta
-            document.getElementById("nombreConsulta").innerText = "Testers asignados a proyectos y disponibles";
 
+
+            document.getElementById("nombreConsulta").innerText = "Testers asignados a proyectos y disponibles";
              //Se crea el html de loading
             document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
-                               
+
 
             //Pide los datos al controlador
             $.ajax({
                 url: "/ConsultasAvanzadas/consulta1",
                 method: "GET",
                 success: function (data) {
-                    
+
                     data2 = JSON.parse(data);
-      
+
                     //Saca los datos para el piechart
                     var cantidadAsignados = data2.Item2.length;
-                    var cantiadadDisponibles = data2.Item1.length; 
+                    var cantiadadDisponibles = data2.Item1.length;
 
                     //Carga los datos del chart
                     google.charts.load('current', {
@@ -171,7 +163,7 @@
                         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
                         chart.draw(data, options);
-           
+
                     });
 
                     //Se crea el html para el piechart
@@ -183,18 +175,20 @@
 
                     //Recorre las tuplas de testers asignados para insertar los datos a la tabla
                     for (key in data2.Item2) {
-                       
+
                         table += '<tr>';
-                       
+
                         var nombreEmpleado = data2.Item2[key].Nombre_Empleado;
                         table += ' <th scope="row">' + nombreEmpleado + '</th>';
 
                         var estado = data2.Item2[key].estado;
                         table += '<td>' + estado + '</td>';
 
+                        var idProyecto = data2.Item2[key].idProyectoAID
+
                         var proyecto = data2.Item2[key].Nombre_Proyecto;
-                        table += '<td>' + proyecto + '</td>';
-                        
+                        table += '<td><a  href="/Proyectos/Index/' + idProyecto +'">'+ proyecto + '</a></td>';
+
                         table += '</tr>';
 
                     }
@@ -202,7 +196,7 @@
 
                     //Recorre las tuplas de testers disponibles para insertar los datos a la tabla
                     for (key in data2.Item1) {
-                        
+
                         table += '<tr>';
 
 
@@ -221,7 +215,7 @@
                         table += '<td>' + estado + '</td>';
 
                         table += '<td> </td>';
-                        
+
                         table += '</tr>';
 
                     }
@@ -230,12 +224,12 @@
 
                     table += '</tbody></table>';
 
-                   
-                  
-                    
+
+
+
                     var html = chart + table;
                     document.getElementById("datosC1").innerHTML = html;
-     
+
 
                 }
                 ,
@@ -247,11 +241,11 @@
             });
 
 
-           
 
 
 
-            
+
+
 
 
 
@@ -259,14 +253,8 @@
         }
 
         function consulta2() {
-            //Limpia los datos
             document.getElementById("datosC1").innerHTML = " ";
-
-            //Agrega el titulo de la consulta
             document.getElementById("nombreConsulta").innerText = "Búsqueda de testers de acuerdo a su tipo de conocimiento y su disponibilidad de formar el equipo (Jefe de Calidad y líderes)";
-
-             //Se crea el html de loading
-            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
 
         }
 
