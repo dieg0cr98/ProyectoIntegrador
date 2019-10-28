@@ -28,17 +28,20 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.permisosActuales = seguridad.EquipoConsultar(User);
 
             //Selecciona todos los empelados que esten disponible y que sean tester
-            ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();
+            //ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();
+            ViewBag.testers = db.USP_GetTestersDisponibles().ToList();
             //Selecciona todos los empelados que esten disponible y que sean Lider
-            ViewBag.lideres = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+            //ViewBag.lideres = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
+            ViewBag.lideres = db.USP_GetLideresDisponibles().ToList();
 
             //Query para seleccionar integrantes del equipo asociados al proyecto
+            /*
             var equipo = from P in db.Proyecto
                          join TB in db.TrabajaEn on P.idProyectoAID equals TB.idProyectoFK
                          join E in db.Empleado on TB.idEmpleadoFK equals E.idEmpleadoPK
                          where P.idProyectoAID == idProyecto && TB.estado == "Activo"
-                         select E;
-            ViewBag.equipoActual = equipo;
+                         select E;*/
+            ViewBag.equipoActual = db.USP_GetEquipo(idProyecto);
         }
 
         //-------------------------ActionResults--------------------------//
