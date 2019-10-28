@@ -68,12 +68,7 @@ namespace ProyectoIntegrador.Controllers
 
             Empleado empleado = new Empleado();
 
-            if (fechaNacimiento == null)
-            {
-                ViewBag.error = "Debe agregar una fecha de nacimiento: ";
-                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
-                return View(empleado);
-            }
+         
 
             empleado.idEmpleadoPK = idEmpleadoPK;
             empleado.correo = correo;
@@ -89,24 +84,18 @@ namespace ProyectoIntegrador.Controllers
             empleado.direccion = direccion;
             empleado.tipoTrabajo = tipoTrabajo;
 
-            if (db.Empleado.Where(i => i.idEmpleadoPK == idEmpleadoPK).FirstOrDefault() != null)
-            {
-                ViewBag.error = "Ya existe un empleado con la cedula: " + empleado.idEmpleadoPK;
-                ViewBag.idEmpleadoPK = empleado.idEmpleadoPK;
-                return View(empleado);
-            }
-
-            //Revisa si hay otro empleado con el mismo correo
-            if (db.Empleado.Where(i => i.correo == empleado.correo).FirstOrDefault() != null)
-            {
-                ViewBag.error = "Ya existe un empleado con el correo: " + empleado.correo;
-                ViewBag.idEmpleadoPK = empleado.correo;
-                return View(empleado);
-            }
+            
+       
             
             if (ModelState.IsValid)
             {
                 db.Empleado.Add(empleado);
+                if (empleado.tipoTrabajo == "Tester") {
+                Tester tester = new Tester();
+                tester.cantidadRequerimientos = 0;
+                tester.idEmpleadoFK = empleado.idEmpleadoPK;
+                db.Tester.Add(tester);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -182,7 +171,17 @@ namespace ProyectoIntegrador.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 db.Entry(empleado).State = EntityState.Modified;
+               
+                    if (empleado.tipoTrabajo == "Tester")
+                    {
+                        Tester tester = new Tester();
+                        tester.cantidadRequerimientos = 0;
+                        tester.idEmpleadoFK = empleado.idEmpleadoPK;
+                        db.Tester.Add(tester);
+                    }
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
