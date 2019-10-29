@@ -16,10 +16,10 @@ namespace ProyectoIntegrador.Controllers
         private SeguridadController seguridad = new SeguridadController();
 
         /*
-                * Efecto: Obtiene todos los valores requeridos en la vista de equipo y los añade al viewbag.
-                * Requiere: Un id de proyecto valido
-                * Modifica: Agrega variables al ViewBag
-                */
+         * Efecto: Obtiene todos los valores requeridos en la vista de equipo y los añade al viewbag.
+         * Requiere: Un id de proyecto valido
+         * Modifica: Agrega variables al ViewBag
+         */
         private void GetDatosVistaEquipo(int idProyecto)
         {
             //Encuentra el proyecto asociado al id
@@ -28,19 +28,12 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.permisosActuales = seguridad.EquipoConsultar(User);
 
             //Selecciona todos los empelados que esten disponible y que sean tester
-            //ViewBag.testers = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Tester").ToList();
             ViewBag.testers = db.USP_GetTestersDisponibles().ToList();
+            
             //Selecciona todos los empelados que esten disponible y que sean Lider
-            //ViewBag.lideres = db.Empleado.Where(p => p.estado == "Disponible" && p.tipoTrabajo == "Lider").ToList();
             ViewBag.lideres = db.USP_GetLideresDisponibles().ToList();
 
-            //Query para seleccionar integrantes del equipo asociados al proyecto
-            /*
-            var equipo = from P in db.Proyecto
-                         join TB in db.TrabajaEn on P.idProyectoAID equals TB.idProyectoFK
-                         join E in db.Empleado on TB.idEmpleadoFK equals E.idEmpleadoPK
-                         where P.idProyectoAID == idProyecto && TB.estado == "Activo"
-                         select E;*/
+            //Procedimiento almacenado para encontrar integrantes del equipo asociados al proyecto
             ViewBag.equipoActual = db.USP_GetEquipo(idProyecto);
         }
 
@@ -116,12 +109,24 @@ namespace ProyectoIntegrador.Controllers
 
         public void QuitarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
-            //System.Diagnostics.Debug.WriteLine(idProyecto + " " + idEmpleado + " " + rolEmpleado);
+        
             Empleado empleado = db.Empleado.Find(idEmpleado);
-            empleado.estado = "Disponible";
+            Proyecto proyecto = db.Proyecto.Find(idProyecto);
             TrabajaEn trabaja = db.TrabajaEn.Find(idProyecto, idEmpleado);
+            empleado.estado = "Disponible";
             db.Entry(empleado).State = EntityState.Modified;
-            db.TrabajaEn.Remove(trabaja);
+
+            //Si el proyecto está activo guarda el empleado para cuestión de historial pero lo pone inactivo.
+            if (proyecto.estado == "Activo")
+            {
+                trabaja.estado = "Inactivo";
+                db.Entry(trabaja).State = EntityState.Modified;
+            } else //Si no lo elimina del equipo.
+            {
+                db.TrabajaEn.Remove(trabaja);
+            }
+           
+          
             db.SaveChanges();
         }
 
