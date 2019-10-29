@@ -51,7 +51,25 @@ namespace ProyectoIntegrador.Controllers
 
             //Inserta el usuario a un rol.
             await manager.AddToRoleAsync(r.Id, rol);
+
         }
+
+        /*Metodo que eliminar el usario de las tabla de seguridad
+         * La clase es de tipo async porque los metodos son async. Los hilos ejecutan el metodo y no esperan a que este termine
+         * El await significa que tiene que esperar a que este metodo termine para continuar
+        */
+        public async System.Threading.Tasks.Task DeleteUsuarioAsync(string correo)
+        {
+            //Crea una varia de contexto Owin
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //Tomado de https://stackoverflow.com/questions/24001245/cant-get-usermanager-from-owincontext-in-apicontroller
+
+            var user = await manager.FindByNameAsync(correo);
+
+            await manager.DeleteAsync(user);
+
+        }
+
 
         /*Metodo para saber el rol del usuario logueado
         Recibe System.Security.Principal.IPrincipal user . Con los datos del usuario registrado actualmenten 

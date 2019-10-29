@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
 using ProyectoIntegrador.Models;
+using ProyectoIntegrador.Controllers;
 
 
 namespace ProyectoIntegrador.Controllers
@@ -15,6 +16,7 @@ namespace ProyectoIntegrador.Controllers
     public class ClientesController : Controller
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
+        private SeguridadController seguridad = new SeguridadController();
 
         // GET: Clientes
         public ActionResult Index()
@@ -70,6 +72,9 @@ namespace ProyectoIntegrador.Controllers
             {
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
+
+                seguridad.AgregarUsuarioAsync(cliente.correo,"3"); //crea cuenta de usuario en el sistema
+
                 return RedirectToAction("Index");
             }
 
@@ -193,6 +198,9 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Eliminar(string id)
         {
             Cliente cliente = db.Cliente.Find(id); // Se busca el cliente en la bd
+
+            seguridad.DeleteUsuarioAsync(cliente.correo); //crea cuenta de usuario en el sistema
+
             db.Cliente.Remove(cliente); // se elimina cliente de la bd
             db.SaveChanges(); // se guardan los cambios
             return RedirectToAction("Index"); // se devuelve al index.
