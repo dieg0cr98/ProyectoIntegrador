@@ -26,9 +26,10 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        public ActionResult Index2()
+        public ActionResult Index2(int consulta)
         {
-
+            
+            ViewBag.consulta = consulta;
             return View();
         }
 

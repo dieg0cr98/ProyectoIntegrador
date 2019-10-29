@@ -47,7 +47,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="precargar(@ViewBag.consulta)">
 
     <div id="mySidenav" class="sidenav mt-2">
         <a href="#" onclick="consulta1()"><h6>Testers Asignados/Disponibles</h6></a>
@@ -98,6 +98,22 @@
     </div>
 
     <script>
+
+        function precargar(numeroConsulta)
+        {
+            switch (numeroConsulta)
+            {
+                case 1:
+                    {
+                        consulta1();
+                        opencloseNav();
+                        break;
+                    }
+
+            }
+            
+        }
+
         function opencloseNav() {
 
             var title = document.getElementById("title");
