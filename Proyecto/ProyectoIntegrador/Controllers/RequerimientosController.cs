@@ -28,8 +28,8 @@ namespace ProyectoIntegrador.Controllers
                 from p in db.Proyecto //Selecciona la tabla de Proyectos
                 join t in db.TrabajaEn on p.idProyectoAID equals t.idProyectoFK //Hace join con la tabla TrabajaEn
                 join e in db.Empleado on t.idEmpleadoFK equals e.idEmpleadoPK //Hace join con la tabla Empleado
-                //join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
-                where t.idProyectoFK == idProyecto && e.tipoTrabajo == "Tester" //&& test.cantidadRequerimientos < 10 // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
+                join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
+                where t.idProyectoFK == idProyecto && e.tipoTrabajo == "Tester" && test.cantidadRequerimientos < 10 // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
                 select e;
             }
             else 
@@ -38,8 +38,8 @@ namespace ProyectoIntegrador.Controllers
                 from p in db.Proyecto //Selecciona la tabla de Proyectos
                 join t in db.TrabajaEn on p.idProyectoAID equals t.idProyectoFK //Hace join con la tabla TrabajaEn
                 join e in db.Empleado on t.idEmpleadoFK equals e.idEmpleadoPK //Hace join con la tabla Empleado
-                                                                              // join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
-                where t.idProyectoFK == idProyecto && e.idEmpleadoPK != cedulaTester// && test.cantidadRequerimientos < 10  // Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
+                join test in db.Tester on e.idEmpleadoPK equals test.idEmpleadoFK // Hace join con la tabla de testers
+                where t.idProyectoFK == idProyecto && e.idEmpleadoPK != cedulaTester// Selecciona los testers que trabajan en ese proyecto y todavía se les puede asignar requerimientos
                 select e;
             }
 
@@ -56,23 +56,33 @@ namespace ProyectoIntegrador.Controllers
                 tester.cantidadRequerimientos++;
                 db.Entry(tester).State = EntityState.Modified;
             }
-            else if (tipo == 1)
-            {
-                Tester testerViejo = db.Tester.Find(idTesterViejo);
-                testerViejo.cantidadRequerimientos--;
-                Tester testerNuevo = db.Tester.Find(idTesterNuevo);
-                testerNuevo.cantidadRequerimientos++;
-                db.Entry(testerViejo).State = EntityState.Modified;
-                db.Entry(testerNuevo).State = EntityState.Modified;
-            }
             else
             {
                 Tester testerViejo = db.Tester.Find(idTesterViejo);
                 testerViejo.cantidadRequerimientos--;
                 db.Entry(testerViejo).State = EntityState.Modified;
             }
-
             db.SaveChanges();
+        }
+
+        private void actualiceHistorial(int tipo, int idProyecto, int idRequerimiento, string idTester, DateTime fechaDeFin, string estado)
+        {
+            if (tipo == 0)
+            {
+                HistorialReqTester HTR = new HistorialReqTester();
+                HTR.idProyectoFK = idProyecto;
+                HTR.idReqFK = idRequerimiento;
+                HTR.idEmpleadoFK = idTester;
+                HTR.fechaInicio = DateTime.Now;
+                HTR.activo = estado;
+            }
+            else
+            {
+                HistorialReqTester HTR = db.HistorialReqTester.Find(idProyecto, idRequerimiento, idTester);
+                HTR.fechaFin = fechaDeFin;
+                HTR.activo = estado;
+                //Falta calular horas pero eso se hará cuando esto sea un trigger
+            }
 
         }
 
@@ -81,7 +91,7 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Index(int idProyecto, int idRequerimiento)
         {
             //Se obtienen los datos de todos los requerimientos asociados al proyecto.
-            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto);
+            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto && P.estado != "Cancelado");
 
             //Se buscan los permisos del usuario que hizo la consulta
             ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
@@ -218,6 +228,7 @@ namespace ProyectoIntegrador.Controllers
             //actualiceTester(2, "", requerimiento.cedulaTesterFK);
             //db.Requerimiento.Remove(requerimiento);
             requerimiento.estado = "Cancelado";
+            db.Entry(requerimiento).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = 0 });
         }
