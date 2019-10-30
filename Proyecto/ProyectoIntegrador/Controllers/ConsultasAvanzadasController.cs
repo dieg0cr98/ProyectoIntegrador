@@ -35,11 +35,14 @@ namespace ProyectoIntegrador.Controllers
 
         public JsonResult consulta1()
         {
-            var t2 = db.testersActivos().ToList();
-            var t = empleados.GetTestersDisponibles();
-            var tuple = Tuple.Create(t, t2);
 
-            var json = JsonConvert.SerializeObject(tuple);
+            var t = db.USP_TestersDisponibleAsignado().ToList();
+            var json = JsonConvert.SerializeObject(t);
+            //var t2 = db.testersActivos().ToList();
+            //var t = empleados.GetTestersDisponibles();
+            //var tuple = Tuple.Create(t, t2);
+
+            //var json = JsonConvert.SerializeObject(tuple);
 
             return Json(json, JsonRequestBehavior.AllowGet);
 

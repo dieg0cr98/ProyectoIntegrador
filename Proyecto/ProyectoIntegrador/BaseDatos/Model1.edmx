@@ -303,12 +303,8 @@
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
-        
-        
-        
-        
-        
         <Function Name="testersActivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_TestersDisponibleAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Gr03Proy2ModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
@@ -706,6 +702,7 @@
             <Parameter Name="version" Mode="In" Type="Int32" />
             <Parameter Name="definition" Mode="In" Type="Binary" />
           </FunctionImport>
+          <FunctionImport Name="USP_TestersDisponibleAsignado" ReturnType="Collection(Gr03Proy2Model.USP_TestersDisponibleAsignado_Result)" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -820,6 +817,12 @@
           <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
           <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="USP_TestersDisponibleAsignado_Result">
+          <Property Type="String" Name="Nombre_Empleado" Nullable="false" MaxLength="92" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -977,6 +980,16 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Gr03Proy2Model.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Gr03Proy2Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="USP_TestersDisponibleAsignado" FunctionName="Gr03Proy2Model.Store.USP_TestersDisponibleAsignado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_TestersDisponibleAsignado_Result">
+                <ScalarProperty Name="Nombre_Empleado" ColumnName="Nombre Empleado" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

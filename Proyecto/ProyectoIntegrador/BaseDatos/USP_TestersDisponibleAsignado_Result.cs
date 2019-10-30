@@ -11,12 +11,11 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     
-    public partial class testersActivos_Result
+    public partial class USP_TestersDisponibleAsignado_Result
     {
         public string Nombre_Empleado { get; set; }
         public string Cedula { get; set; }
         public string estado { get; set; }
         public string Nombre_Proyecto { get; set; }
-        public int idProyectoAID { get; set; }
     }
 }

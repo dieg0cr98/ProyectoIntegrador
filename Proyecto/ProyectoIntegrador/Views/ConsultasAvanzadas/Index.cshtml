@@ -53,227 +53,239 @@
 <body>
 
     <div id="mySidenav" class="sidenav mt-2">
-        <a href="#" onclick="consulta1()"><h6>Testers Asignados/Disponibles</h6></a>
-        <a href="#" onclick="consulta2()"><h6>Búsqueda de testers por Habilidad</h6></a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a href="#" onclick="consulta1()"><h5>Testers Asignados/Disponibles</h5></a>
+        <a href="#" onclick="consulta2()"><h5>Tester Habilidades/Disponibilidad</h5></a>
+        <a href="#" onclick="consulta3()"><h5>Total requerimientos por tester</h5></a>
+        <a href="#" onclick="consulta4()"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
+        <a href="#" onclick="consulta5()"><h5>Horas estimadas y reales requeridas por proyecto</h5></a>
+        <a href="#" onclick="consulta6()"><h5>Historial de participación por tester </h5></a>
+        <a href="#" onclick="consulta7()"><h5>Comparación de duración por complejidad</h5></a>
+        <a href="#" onclick="consulta8()"><h5>Resultado de pruebas para un proyecto</h5></a>
+        <a href="#" onclick="consulta9()"><h5>Estado de pruebas para un proyecto</h5></a>
+        <a href="#" onclick="consulta10()"><h5>Requerimientos terminados y en ejecución</h5></a>
     </div>
 
     <br />
-    <p id="title" class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px; letter-spacing: 5px">Consultas Avanzadas</p>
 
+        <div class="row">
+            <div class="col-2 ">
 
-    <hr>
-
-    <div class="container-fluid">
-        <div id="main" style="height:600px">
-
-            <div class="row mb-0">
-
-                <div class="col-2 text-center">
-                    <button id="toggleButton" type="button" onclick="opencloseNav()" class="btn btn-primary">&#9776; Consultas</button>
-                </div>
-
-                <div class="col" style="max-height:40px">
-                    <p id="nombreConsulta" class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:32px;"></p>
-
-                </div>
+                <div style="margin-left:20px"><button id="toggleButton" type="button" onclick="opencloseNav()" class="btn btn-primary" style="height:60px"><h5>&#9776; Ver Consultas</h5></button></div>
 
             </div>
 
+            <div class="col">
 
-
-
-            <div class="container-fluid" style="max-height:550px;overflow:auto">
-                <!-- Datos para la primera consulta -->
-                <div id="datosC1">
-
-
-          
-
-                </div>
+                <p class="font-weight-bold" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-left:350px">Consultas Avanzadas</p>
 
             </div>
-
-
 
 
         </div>
 
 
-    </div>
+        <hr>
 
-    <script>
-        function opencloseNav() {
+        <div class="container-fluid">
+            <div id="main" style="min-height:600px">
 
-            var title = document.getElementById("title");
-            var Sidenav = document.getElementById("mySidenav");
-            var main = document.getElementById("main")
-            var Width = document.getElementById("mySidenav").offsetWidth;
+                <div class="row mb-2">
+                    <div class="col" style="max-height:40px">
+                        <p id="nombreConsulta" class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:32px;"></p>
 
-            if (Width == 0) {
-                Sidenav.style.width = "250px";
-                main.style.marginLeft = "250px";
-                //title.style.marginLeft = "150px";
-            }
-            else {
-                Sidenav.style.width = "0";
-                main.style.marginLeft = "0";
-                // title.style.marginLeft = "280px";
-            }
+                    </div>
 
-        }
-   
+                </div>
 
-        function consulta1() {
-            //Cierra la lista de consultas
-            opencloseNav();
-
-            //Limpia los datos
-            document.getElementById("datosC1").innerHTML = " ";
-           
-            //Agrega el titulo de la consulta
-            document.getElementById("nombreConsulta").innerText = "Testers asignados a proyectos y disponibles";
-
-             //Se crea el html de loading
-            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
-                               
-
-            //Pide los datos al controlador
-            $.ajax({
-                url: "/ConsultasAvanzadas/consulta1",
-                method: "GET",
-                success: function (data) {
-                    
-                    data2 = JSON.parse(data);
-      
-                    //Saca los datos para el piechart
-                    var cantidadAsignados = data2.Item2.length;
-                    var cantiadadDisponibles = data2.Item1.length; 
-
-                    //Carga los datos del chart
-                    google.charts.load('current', {
-                        packages: ['corechart']
-                    }).then(function () {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Disponibles', 'Hours per Day'],
-                            ['Asignados', cantidadAsignados],
-                            ['Disponibles', cantiadadDisponibles ],
-
-                        ]);
-
-                        var options = {
-                            //title: 'Testers',
-                            'backgroundColor': 'transparent',
-                            pieHole: 0.4,
-                        };
-
-                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                        chart.draw(data, options);
-           
-                    });
-
-                    //Se crea el html para el piechart
-                    var chart = '<div id="piechart" align="center" style="width: 900px; height: 500px;margin: 0 auto"></div>';
-
-
-                    //Se crea el html para la tabla
-                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th><th scope="col">Proyecto</th></tr></thead><tbody>';
-
-                    //Recorre las tuplas de testers asignados para insertar los datos a la tabla
-                    for (key in data2.Item2) {
+                <div class="row mb-2">
+                    <div class="col text-center">
                        
-                        table += '<tr>';
-                       
-                        var nombreEmpleado = data2.Item2[key].Nombre_Empleado;
-                        table += ' <th scope="row">' + nombreEmpleado + '</th>';
-
-                        var estado = data2.Item2[key].estado;
-                        table += '<td>' + estado + '</td>';
-
-                        var proyecto = data2.Item2[key].Nombre_Proyecto;
-                        table += '<td>' + proyecto + '</td>';
+                        <h5>Description de la consulta</h5>
                         
-                        table += '</tr>';
+                    </div>
 
-                    }
+                </div>
 
-
-                    //Recorre las tuplas de testers disponibles para insertar los datos a la tabla
-                    for (key in data2.Item1) {
-                        
-                        table += '<tr>';
+                <div class="container-fluid" @*style="max-height:550px;overflow:auto"*@>
+                    <!-- Datos para la primera consulta -->
+                    <div id="datosC1">
 
 
 
-                        var nombreEmpleado = data2.Item1[key].nombre + " " + data2.Item1[key].apellido1 + " ";
-                        var apellido2 = data2.Item1[key].apellido2;
-                        if (apellido2 != null) {
-                            nombreEmpleado += apellido2;
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+
+        <script>
+            function opencloseNav() {
+
+                var title = document.getElementById("title");
+                var Sidenav = document.getElementById("mySidenav");
+                var main = document.getElementById("main")
+                var Width = document.getElementById("mySidenav").offsetWidth;
+
+                if (Width == 0) {
+                    Sidenav.style.width = "350px";
+                    main.style.marginLeft = "350px";
+                    //title.style.marginLeft = "150px";
+                }
+                else {
+                    Sidenav.style.width = "0";
+                    main.style.marginLeft = "0";
+                    // title.style.marginLeft = "280px";
+                }
+
+            }
+
+
+            function consulta1() {
+                //Cierra la lista de consultas
+                opencloseNav();
+
+                //Limpia los datos
+                document.getElementById("datosC1").innerHTML = " ";
+
+                //Agrega el titulo de la consulta
+                document.getElementById("nombreConsulta").innerText = "Testers disponibles y asignados a proyectos";
+
+                //Se crea el html de loading
+                document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+
+                //Pide los datos al controlador
+                $.ajax({
+                    url: "/ConsultasAvanzadas/consulta1",
+                    method: "GET",
+                    success: function (data) {
+
+                        data2 = JSON.parse(data);
+
+                        console.log(data2);
+
+
+
+
+
+                        //Saca los datos para el piechart
+                        var catidadTotal = data2.length;
+                        var cantidadAsignados = 1;
+                        var cantiadadDisponibles = 0;
+
+
+
+                        //Se crea el html para la tabla
+                        var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th><th scope="col">Proyecto</th></tr></thead><tbody>';
+
+                        //Recorre las tuplas para insertar los datos a la tabla
+                        for (tupla in data2) {
+
+
+                            console.log(data2[tupla].Nombre_Empleado);
+                            table += '<tr>';
+
+                            var nombreEmpleado = data2[tupla].Nombre_Empleado;
+                            table += ' <th scope="row">' + nombreEmpleado + '</th>';
+
+                            var estado = data2[tupla].estado;
+                            if (estado == "Disponible") {
+                                cantiadadDisponibles += 1;
+                            }
+                            else {
+                                cantidadAsignados += 1;
+                            }
+                            table += '<td>' + estado + '</td>';
+
+                            var proyecto = data2[tupla].Nombre_Proyecto;
+                            table += '<td>' + proyecto + '</td>';
+
+                            table += '</tr>';
+
                         }
 
 
+                        table += '</tbody></table>';
 
-                        table += ' <th scope="row">' + nombreEmpleado + '</th>';
 
-                        var estado = data2.Item1[key].estado;
-                        table += '<td>' + estado + '</td>';
 
-                        table += '<td> </td>';
-                        
-                        table += '</tr>';
 
+                        //Carga los datos del chart
+                        google.charts.load('current', {
+                            packages: ['corechart']
+                        }).then(function () {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Tester', 'Estado'],
+                                ['Asignados', cantidadAsignados],
+                                ['Disponibles', cantiadadDisponibles],
+
+                            ]);
+
+                            var options = {
+                                //title: 'Testers',
+                                'backgroundColor': 'transparent',
+                                pieHole: 0.4,
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                            chart.draw(data, options);
+
+                        });
+
+                        //Se crea el html para el piechart
+                        var chart = '<div id="piechart" align="center" style="width: 900px; height: 500px;margin: 0 auto"></div>';
+
+
+
+                        var html = chart + table;
+                        document.getElementById("datosC1").innerHTML = html;
+
+
+                    }
+                    ,
+                    error: function (err) {
+                        alert("Por favor refrescar el navegador");
                     }
 
 
-
-                    table += '</tbody></table>';
-
-                   
-                  
-                    
-                    var html = chart + table;
-                    document.getElementById("datosC1").innerHTML = html;
-     
-
-                }
-                ,
-                error: function (err) {
-                    alert("Por favor refrescar el navegador");
-                }
-
-
-            });
-
-
-           
-
-
-
-            
+                });
 
 
 
 
-        }
-
-        function consulta2() {
-            //Limpia los datos
-            document.getElementById("datosC1").innerHTML = " ";
-
-            //Agrega el titulo de la consulta
-            document.getElementById("nombreConsulta").innerText = "Búsqueda de testers de acuerdo a su tipo de conocimiento y su disponibilidad de formar el equipo (Jefe de Calidad y líderes)";
-
-             //Se crea el html de loading
-            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
-
-        }
 
 
-    </script>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+
+            }
+
+            function consulta2() {
+                //Limpia los datos
+                document.getElementById("datosC1").innerHTML = " ";
+
+                //Agrega el titulo de la consulta
+                document.getElementById("nombreConsulta").innerText = "Búsqueda de testers de acuerdo a su tipo de conocimiento y su disponibilidad de formar el equipo (Jefe de Calidad y líderes)";
+
+                //Se crea el html de loading
+                document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+            }
+
+
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 
