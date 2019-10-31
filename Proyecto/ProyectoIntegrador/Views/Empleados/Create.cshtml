@@ -210,12 +210,10 @@
 
 }
 <script>
-
     $(function () {
         jQuery.validator.addMethod("lettersonly", function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
         }, "No se admiten números en los nombres");
-
         $("#employeeForm").validate(
             {
                 rules:
@@ -234,7 +232,7 @@
                         maxlength: 15,
                         lettersonly: true
                     },
-                    
+
                     idEmpleadoPK:
                     {
                         required: true,
@@ -260,31 +258,31 @@
                     },
                     correo:
                     {
-                       
-                            required: true,
-                            maxlength: 50,
-                            remote: {
-                                url: "/Empleados/CheckEmail",
-                                type: "post",
-                                delay: 1000,
-                                data: {
-                                    email: function () {
-                                        return $("#correo").val();
-                                    },
-                                    oldEmail: null
-                                }
+
+                        required: true,
+                        maxlength: 50,
+                        remote: {
+                            url: "/Empleados/CheckEmail",
+                            type: "post",
+                            delay: 1000,
+                            data: {
+                                email: function () {
+                                    return $("#correo").val();
+                                },
+                                oldEmail: null
                             }
-                        
+                        }
+
                     },
                     estado:
                     {
                         required: true,
-                        
+
                     },
                     puesto:
                     {
                         required: true,
-                        
+
                     },
                     provincia:
                     {
@@ -298,14 +296,14 @@
                     {
                         required: true
                     },
-                    
+
                     telefono:
                     {
                         number: true,
                         minlength: 8,
                         maxlength: 15
                     },
-                    
+
                 },
                 messages:
                 {
@@ -322,7 +320,6 @@
                         minlength: "Debe de haber mas de una letra",
                         maxlength: "El nombre debe de ser de menos de 15 letras"
                     },
-
                     apellido1:
                     {
                         required: "El primer apellido es requerido",
@@ -330,7 +327,7 @@
                         minlength: "Debe de haber mas de una letra",
                         maxlength: "El apellido debe de ser de menos de 15 letras"
                     },
-                    
+
                     correo:
                     {
                         required: "Se requiere un email valido, ejm: correo@email.com",
@@ -345,7 +342,6 @@
                     distrito: "Se requiere el distrito",
                     telefono: "Solo se aceptan numeros, minimo ocho digitos"
                 },
-
                 errorPlacement: function (error, element) {
                     if ((element.attr('name') === 'idEmpleadoPK')) {
                         error.insertAfter($('#errorCedula'));
@@ -381,7 +377,6 @@
                         error.insertAfter($('#errorTel'));
                     }
                 },
-
                 invalidHandler: function (form, validator) {
                     $('#loading').hide('fast');
                     $('#acceptar').show('fast');
