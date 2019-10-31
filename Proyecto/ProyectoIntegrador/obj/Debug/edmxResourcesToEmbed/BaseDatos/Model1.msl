@@ -222,5 +222,27 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HabilidadesEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesEmpleado" />
+    <FunctionImportMapping FunctionImportName="TestersAsignables" FunctionName="Gr03Proy2Model.Store.TestersAsignables">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.TestersAsignables_Result">
+          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_editEmployeeId" FunctionName="Gr03Proy2Model.Store.USP_editEmployeeId" />
+    <FunctionImportMapping FunctionImportName="USP_EquipoCheckLider" FunctionName="Gr03Proy2Model.Store.USP_EquipoCheckLider" />
+    <FunctionImportMapping FunctionImportName="USP_TestersDisponibleAsignado" FunctionName="Gr03Proy2Model.Store.USP_TestersDisponibleAsignado">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_TestersDisponibleAsignado_Result">
+          <ScalarProperty Name="Nombre_Empleado" ColumnName="Nombre Empleado" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

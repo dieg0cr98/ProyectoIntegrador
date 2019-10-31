@@ -169,5 +169,50 @@ namespace ProyectoIntegrador.BaseDatos
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetTestersDisponibles_Result>("USP_GetTestersDisponibles");
         }
+    
+        public virtual ObjectResult<string> HabilidadesEmpleado(string id)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("HabilidadesEmpleado", idParameter);
+        }
+    
+        public virtual ObjectResult<TestersAsignables_Result> TestersAsignables(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TestersAsignables_Result>("TestersAsignables", idProyectoParameter);
+        }
+    
+        public virtual int USP_editEmployeeId(string cedulaVieja, string cedulaNueva)
+        {
+            var cedulaViejaParameter = cedulaVieja != null ?
+                new ObjectParameter("cedulaVieja", cedulaVieja) :
+                new ObjectParameter("cedulaVieja", typeof(string));
+    
+            var cedulaNuevaParameter = cedulaNueva != null ?
+                new ObjectParameter("cedulaNueva", cedulaNueva) :
+                new ObjectParameter("cedulaNueva", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_editEmployeeId", cedulaViejaParameter, cedulaNuevaParameter);
+        }
+    
+        public virtual int USP_EquipoCheckLider(Nullable<int> idProyecto, ObjectParameter liderFlag)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_EquipoCheckLider", idProyectoParameter, liderFlag);
+        }
+    
+        public virtual ObjectResult<USP_TestersDisponibleAsignado_Result> USP_TestersDisponibleAsignado()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_TestersDisponibleAsignado_Result>("USP_TestersDisponibleAsignado");
+        }
     }
 }

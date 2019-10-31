@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using System.Data.Entity.Core.Objects;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -89,6 +90,7 @@ namespace ProyectoIntegrador.Controllers
          * Modifica: El empleado que se integra al equipo y la tabla TrabajaEn
          */
         //deberia retornar json result para verificar
+        // [HttpGet]
         public void AgregarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
 
@@ -96,6 +98,9 @@ namespace ProyectoIntegrador.Controllers
             TrabajaEn trabaja = new TrabajaEn();
             Empleado empleado = db.Empleado.Find(idEmpleado);
             empleado.estado = "Ocupado";
+
+            ObjectParameter output;
+            db.USP_EquipoCheckLider(idProyecto,);
             trabaja.idProyectoFK = idProyecto;
             trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
             trabaja.rol = rolEmpleado;
