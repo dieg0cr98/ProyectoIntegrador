@@ -337,6 +337,9 @@
       <Parameter Name="version" Mode="In" Type="Int32" />
       <Parameter Name="definition" Mode="In" Type="Binary" />
     </FunctionImport>
+    <FunctionImport Name="TestersAsignables" ReturnType="Collection(Gr03Proy2Model.TestersAsignables_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -451,5 +454,10 @@
     <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
     <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="TestersAsignables_Result">
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
   </ComplexType>
 </Schema>

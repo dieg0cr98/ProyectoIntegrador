@@ -151,5 +151,14 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Gr03Proy2Model.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Gr03Proy2Model.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="TestersAsignables" FunctionName="Gr03Proy2Model.Store.TestersAsignables">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.TestersAsignables_Result">
+          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

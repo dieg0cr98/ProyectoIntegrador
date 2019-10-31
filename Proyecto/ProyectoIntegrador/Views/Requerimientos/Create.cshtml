@@ -1,4 +1,5 @@
-﻿@model ProyectoIntegrador.BaseDatos.Requerimiento
+﻿@using Microsoft.AspNet.Identity
+@model ProyectoIntegrador.BaseDatos.Requerimiento
 
 @{
     ViewBag.Title = "Create";
@@ -6,15 +7,17 @@
 
 
 
-    <head>
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    </head>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+</head>
 
 
 
-    <body>
+<body>
+    @if (Request.IsAuthenticated)
+    {
         <br />
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
         <hr>
@@ -367,4 +370,10 @@
                 $('[data-toggle="tooltip"]').tooltip()
             })
         </script>
-    </body>
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder agregar un requerimiento</div>
+    }
+
+</body>
