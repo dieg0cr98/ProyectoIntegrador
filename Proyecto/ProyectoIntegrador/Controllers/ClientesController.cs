@@ -19,6 +19,7 @@ namespace ProyectoIntegrador.Controllers
         private SeguridadController seguridad = new SeguridadController();
 
         // GET: Clientes
+        
         public ActionResult Index()
         {
             var permisosGenerales = seguridad.ClienteConsultar(User);
@@ -30,7 +31,7 @@ namespace ProyectoIntegrador.Controllers
             if (permisosGenerales.Item1 >= 0)
             {
                 //GetClientesVista(int permiso, int rol, string idUsuario)
-                return View(GetClientesVista(permisosGenerales.Item3, permisosGenerales.Item1, permisosGenerales.Item2).Reverse());
+                return View((GetClientesVista(permisosGenerales.Item3, permisosGenerales.Item1, permisosGenerales.Item2).Reverse()).Reverse());
             }
             else
             {
@@ -65,34 +66,42 @@ namespace ProyectoIntegrador.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> Create(string cedulaPK, string nombre, string apellido1, string apellido2, string empresa, string provincia,
             string canton, string distrito, string direccionExacta, string telefono, string correo)
-         //[Bind(Include = "cedulaPK,nombre,apellido1,apellido2,empresa,provincia,canton,distrito,direccionExacta,telefono,correo")] Cliente cliente)
         {
-            Cliente cliente = new Cliente();
-            if (ModelState.IsValid)
-            {
-                cliente.nombre = nombre;
-                cliente.apellido1 = apellido1;
-                cliente.apellido2 = apellido2;
-                cliente.empresa = empresa;
-                cliente.provincia = provincia;
-                cliente.canton = canton;
-                cliente.distrito = distrito;
-                cliente.provincia = provincia;
-                cliente.direccionExacta = direccionExacta;
-                cliente.telefono = telefono;
-                cliente.cedulaPK = cedulaPK;
-                cliente.correo = correo;
+            var permisosGenerales = seguridad.ClienteConsultar(User);
+
+            //Verifica que el usuario este registrado y que tenga permiso de crear = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item5 == 1)
+            { 
+                Cliente cliente = new Cliente();
+                if (ModelState.IsValid)
+                {
+                    cliente.nombre = nombre;
+                    cliente.apellido1 = apellido1;
+                    cliente.apellido2 = apellido2;
+                    cliente.empresa = empresa;
+                    cliente.provincia = provincia;
+                    cliente.canton = canton;
+                    cliente.distrito = distrito;
+                    cliente.provincia = provincia;
+                    cliente.direccionExacta = direccionExacta;
+                    cliente.telefono = telefono;
+                    cliente.cedulaPK = cedulaPK;
+                    cliente.correo = correo;
                 
 
-                db.Cliente.Add(cliente);
-                db.SaveChanges();
+                    db.Cliente.Add(cliente);
+                    db.SaveChanges();
 
-                await seguridad.AgregarUsuarioAsync(correo, "Cliente"); //crea cuenta de usuario en el sistema
+                    await seguridad.AgregarUsuarioAsync(correo, "Cliente"); //crea cuenta de usuario en el sistema
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
             }
-
-            return View(cliente);
+            else
+            {
+                return View();
+            }
+            return View();
         }
 
         //Metodo para verificar si una cedula de cliente ya existe
@@ -149,28 +158,38 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Edit(string cedulaVieja, string cedulaPK, string nombre, string apellido1, string apellido2, string empresa, string provincia,
             string canton, string distrito, string direccionExacta, string telefono, string correo)
         {
-            Cliente cliente = db.Cliente.Find(cedulaVieja);
+            var permisosGenerales = seguridad.ClienteConsultar(User);
 
-            cliente.nombre = nombre;
-            cliente.apellido1 = apellido1;
-            cliente.apellido2 = apellido2;
-            cliente.empresa = empresa;
-            cliente.provincia = provincia;
-            cliente.canton = canton;
-            cliente.distrito = distrito;
-            cliente.provincia = provincia;
-            cliente.direccionExacta = direccionExacta;
-            cliente.telefono = telefono;
-            cliente.cedulaPK = cedulaPK;
-            cliente.correo = correo;
-
-            if (ModelState.IsValid)
+            //Verifica que el usuario este registrado y que tenga permiso de editar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item4 == 1)
             {
-                db.Entry(cliente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Cliente cliente = db.Cliente.Find(cedulaVieja);
+
+                cliente.nombre = nombre;
+                cliente.apellido1 = apellido1;
+                cliente.apellido2 = apellido2;
+                cliente.empresa = empresa;
+                cliente.provincia = provincia;
+                cliente.canton = canton;
+                cliente.distrito = distrito;
+                cliente.provincia = provincia;
+                cliente.direccionExacta = direccionExacta;
+                cliente.telefono = telefono;
+                cliente.cedulaPK = cedulaPK;
+                cliente.correo = correo;
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cliente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            return View(cliente);
+            else
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Clientes/Delete/5
@@ -211,13 +230,23 @@ namespace ProyectoIntegrador.Controllers
         //Metodo para eliminar directamente un cliente
         public ActionResult Eliminar(string id)
         {
-            Cliente cliente = db.Cliente.Find(id); // Se busca el cliente en la bd
+            var permisosGenerales = seguridad.ClienteConsultar(User);
 
-            seguridad.DeleteUsuarioAsync(cliente.correo); //crea cuenta de usuario en el sistema
+            //Verifica que el usuario este registrado y que tenga permiso de editar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item6 == 1)
+            {
+                Cliente cliente = db.Cliente.Find(id); // Se busca el cliente en la bd
 
-            db.Cliente.Remove(cliente); // se elimina cliente de la bd
-            db.SaveChanges(); // se guardan los cambios
-            return RedirectToAction("Index"); // se devuelve al index.
+                seguridad.DeleteUsuarioAsync(cliente.correo); //crea cuenta de usuario en el sistema
+
+                db.Cliente.Remove(cliente); // se elimina cliente de la bd
+                db.SaveChanges(); // se guardan los cambios
+                return RedirectToAction("Index"); // se devuelve al index.
+            }
+            else
+            {
+                return RedirectToAction("Index"); // se devuelve al index.
+            }
         }
 
         //Metodo para recuperar los clientes

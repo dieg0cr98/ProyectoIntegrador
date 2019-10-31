@@ -18,132 +18,138 @@
 <hr />
 <!---->
 <body onload="getProvincias('Seleccione una provincia','Seleccione un cantón','Seleccione un distrito')">
-    <div class="container align-content-center" style="max-width: 1400px;">
-        <div class="tab-content d-block overflow-auto bg-secondary" style="background-color:rgba(192,159,128,0.7); height:auto; box-shadow: rgba(128,128,128,0.91); border-radius:25px;" id="nav-tabContent">
-            <!--Despliegue del formulario-->
-            <div style="padding-left:30px; padding-right:30px; overflow-x:hidden; background-color:rgba(192,159,128,0.7)">
-                <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
-                    <fieldset>
-                        <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:20px"></div>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="container align-content-center" style="max-width: 1400px;">
+            <div class="tab-content d-block overflow-auto bg-secondary" style="background-color:rgba(192,159,128,0.7); height:auto; box-shadow: rgba(128,128,128,0.91); border-radius:25px;" id="nav-tabContent">
+                <!--Despliegue del formulario-->
+                <div style="padding-left:30px; padding-right:30px; overflow-x:hidden; background-color:rgba(192,159,128,0.7)">
+                    <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
+                        <fieldset>
+                            <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:20px"></div>
 
-                        <div class="form-row mb-2">
-                            <div class="col-3">
-                                <!--Campo Nombre-->
-                                <h5 for="nombre" style="width:200px">Nombre *:</h5>
-                                <input class="form-control" id="nombre" name="nombre" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
-                                <div id="errorNombre"></div>
+                            <div class="form-row mb-2">
+                                <div class="col-3">
+                                    <!--Campo Nombre-->
+                                    <h5 for="nombre" style="width:200px">Nombre *:</h5>
+                                    <input class="form-control" id="nombre" name="nombre" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                                    <div id="errorNombre"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <!--Campo Primer Apellido-->
+                                    <h5 for="apellido1" style="width:200px">Primer Apellido *:</h5>
+                                    <input class="form-control" id="apellido1" name="apellido1" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                                    <div id="errorApe1"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <!--Campo Segundo Apellido-->
+                                    <h5 for="apellido2" style="width:200px">Segundo Apellido:</h5>
+                                    <input class="form-control" id="apellido2" name="apellido2" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                                    <div id="errorApe2"></div>
+                                </div>
                             </div>
-                            <div class="col-1"></div>
-                            <div class="col-3">
-                                <!--Campo Primer Apellido-->
-                                <h5 for="apellido1" style="width:200px">Primer Apellido *:</h5>
-                                <input class="form-control" id="apellido1" name="apellido1" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                                <div id="errorApe1"></div>
+                            <br>
+                            <div class="form-row mb-2">
+                                <div class="col-3">
+                                    <!--Campo Cedula-->
+                                    <h5 for="cedulaPK" style="width:200px">Cédula*:</h5>
+                                    <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
+                                    <div id="errorCed"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <!--Campo Email-->
+                                    <h5 for="correo" style="width:200px">Correo *:</h5>
+                                    <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                                    <div id="errorEma"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <!--Campo Telefono-->
+                                    <h5 for="telefono" style="width:200px">Telefono:</h5>
+                                    <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="88888888" />
+                                    <div id="errorTel"></div>
+                                </div>
                             </div>
-                            <div class="col-1"></div>
-                            <div class="col-3">
-                                <!--Campo Segundo Apellido-->
-                                <h5 for="apellido2" style="width:200px">Segundo Apellido:</h5>
-                                <input class="form-control" id="apellido2" name="apellido2" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
-                                <div id="errorApe2"></div>
+                            <br>
+                            <div class="form-row mb-2">
+                                <div class="col-3">
+                                    <!--Campo Empresa-->
+                                    <h5 for="empresa" style="width:200px">Empresa *:</h5>
+                                    <input class="form-control" id="empresa" name="empresa" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                                    <div id="errorEmp"></div>
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <div class="form-row mb-2">
-                            <div class="col-3">
-                                <!--Campo Cedula-->
-                                <h5 for="cedulaPK" style="width:200px">Cédula*:</h5>
-                                <input class="form-control" id="cedulaPK" name="cedulaPK" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
-                                <div id="errorCed"></div>
-                            </div>
-                            <div class="col-1"></div>
-                            <div class="col-3">
-                                <!--Campo Email-->
-                                <h5 for="correo" style="width:200px">Correo *:</h5>
-                                <input class="form-control" id="correo" name="correo" type="email" placeholder="example@example.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                                <div id="errorEma"></div>
-                            </div>
-                            <div class="col-1"></div>
-                            <div class="col-3">
-                                <!--Campo Telefono-->
-                                <h5 for="telefono" style="width:200px">Telefono:</h5>
-                                <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="88888888" />
-                                <div id="errorTel"></div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-row mb-2">
-                            <div class="col-3">
-                                <!--Campo Empresa-->
-                                <h5 for="empresa" style="width:200px">Empresa *:</h5>
-                                <input class="form-control" id="empresa" name="empresa" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
-                                <div id="errorEmp"></div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-row mb-2">
-                            <div class="col-3">
-                                <!--Campo Provincia-->
-                                <h5 for="provincia" style="width:200px">Provincia *:</h5>
-                                <div id="destino"></div>
-                                <div id="errorProv"></div>
-                            </div>
-                            <div class="col-1"></div>
-                            <div class="col-3">
-                                <!--Campo Canton-->
-                                <h5 for="canton" style="width:200px">Cantón *:</h5>
-                                <div id="destino2"></div>
-                                <div id="errorCant"></div>
-                            </div>
-                            <div class="col-1"></div>
-                            <div class="col-3">
-                                <!--Campo Distrito-->
-                                <h5 for="distrito" style="width:200px">Distrito *:</h5>
-                                <div id="destino3"></div>
-                                <div id="errorDistr"></div>
-                            </div>
-                        </div>
-
-                        <br>
-                        <div class="form-row mb-2" style="padding-left:5px">
-                            <!--Campo Direccion Exacta-->
-                            <h5 for="direccionExacta" style="width:400px">Direccion exacta de la empresa*:</h5>
-                        </div>
-                        <div class="row" style="padding-left:15px; padding-right:15px;">
-                            <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
-                            <div id="errorDir"></div>
-                        </div>
-                        <br><br>
-                        <h5>* Campos Requeridos</h5>
-                        <hr>
-                        <div class="row" style="max-width:1600px">
-                            <!--Boton Regresar-->
-                            <div class="col-4  text-center">
-                                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                            <br>
+                            <div class="form-row mb-2">
+                                <div class="col-3">
+                                    <!--Campo Provincia-->
+                                    <h5 for="provincia" style="width:200px">Provincia *:</h5>
+                                    <div id="destino"></div>
+                                    <div id="errorProv"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <!--Campo Canton-->
+                                    <h5 for="canton" style="width:200px">Cantón *:</h5>
+                                    <div id="destino2"></div>
+                                    <div id="errorCant"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <!--Campo Distrito-->
+                                    <h5 for="distrito" style="width:200px">Distrito *:</h5>
+                                    <div id="destino3"></div>
+                                    <div id="errorDistr"></div>
+                                </div>
                             </div>
 
-                            <!--Boton Cancelar o Reset-->
-                            <div class="col-4 text-center">
-                                <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
-                                    <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                </button>
+                            <br>
+                            <div class="form-row mb-2" style="padding-left:5px">
+                                <!--Campo Direccion Exacta-->
+                                <h5 for="direccionExacta" style="width:400px">Direccion exacta de la empresa*:</h5>
                             </div>
+                            <div class="row" style="padding-left:15px; padding-right:15px;">
+                                <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
+                                <div id="errorDir"></div>
+                            </div>
+                            <br><br>
+                            <h5>* Campos Requeridos</h5>
+                            <hr>
+                            <div class="row" style="max-width:1600px">
+                                <!--Boton Regresar-->
+                                <div class="col-4  text-center">
+                                    <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                                </div>
 
-                            <!--Boton Aceptar-->
-                            <div class="col-4  text-center">
-                                <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                                    <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                </button>
+                                <!--Boton Cancelar o Reset-->
+                                <div class="col-4 text-center">
+                                    <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                                        <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                    </button>
+                                </div>
+
+                                <!--Boton Aceptar-->
+                                <div class="col-4  text-center">
+                                    <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    @Html.Partial("ScriptsCliente")
-    @Html.Partial("ScriptDropdown")
-
+        @Html.Partial("ScriptsCliente")
+        @Html.Partial("ScriptDropdown")
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder crear clientes</div>
+    }
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
