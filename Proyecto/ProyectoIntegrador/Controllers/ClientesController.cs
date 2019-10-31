@@ -57,7 +57,14 @@ namespace ProyectoIntegrador.Controllers
         // GET: Clientes/Create
         public ActionResult Create()
         {
-            return View();
+            var permisosGenerales = seguridad.ClienteConsultar(User);
+
+            //Verifica que el usuario este registrado y que tenga permiso de crear = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item5 == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: Clientes/Create
@@ -99,9 +106,9 @@ namespace ProyectoIntegrador.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         //Metodo para verificar si una cedula de cliente ya existe
@@ -139,16 +146,23 @@ namespace ProyectoIntegrador.Controllers
         // GET: Clientes/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            var permisosGenerales = seguridad.ClienteConsultar(User);
+
+            //Verifica que el usuario este registrado y que tenga permiso de editar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item4 == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Cliente cliente = db.Cliente.Find(id);
+                if (cliente == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cliente);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cliente);
+            return RedirectToAction("Index");
         }
 
         // POST: Clientes/Edit/5
@@ -187,7 +201,7 @@ namespace ProyectoIntegrador.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
