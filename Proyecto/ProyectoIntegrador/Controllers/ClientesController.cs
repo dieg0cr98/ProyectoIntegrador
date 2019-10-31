@@ -21,7 +21,21 @@ namespace ProyectoIntegrador.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Cliente.ToList());
+            var permisosGenerales = seguridad.ClienteConsultar(User);
+            ViewBag.permisosEspecificos = permisosGenerales;
+
+            ViewBag.cedCliente = permisosGenerales.Item2;
+
+            //Verifica que el usuario este registrado
+            if (permisosGenerales.Item1 >= 0)
+            {
+                //GetClientesVista(int permiso, int rol, string idUsuario)
+                return View(GetClientesVista(permisosGenerales.Item3, permisosGenerales.Item1, permisosGenerales.Item2).Reverse());
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Clientes/Details/5
@@ -49,31 +63,31 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(string cedulaPK, string nombre, string apellido1, string apellido2, string empresa, string provincia,
+        public async System.Threading.Tasks.Task<ActionResult> Create(string cedulaPK, string nombre, string apellido1, string apellido2, string empresa, string provincia,
             string canton, string distrito, string direccionExacta, string telefono, string correo)
          //[Bind(Include = "cedulaPK,nombre,apellido1,apellido2,empresa,provincia,canton,distrito,direccionExacta,telefono,correo")] Cliente cliente)
         {
             Cliente cliente = new Cliente();
-            
-            cliente.nombre = nombre;
-            cliente.apellido1 = apellido1;
-            cliente.apellido2 = apellido2;
-            cliente.empresa = empresa;
-            cliente.provincia = provincia;
-            cliente.canton = canton;
-            cliente.distrito = distrito;
-            cliente.provincia = provincia;
-            cliente.direccionExacta = direccionExacta;
-            cliente.telefono = telefono;
-            cliente.cedulaPK = cedulaPK;
-            cliente.correo = correo;
-
             if (ModelState.IsValid)
             {
+                cliente.nombre = nombre;
+                cliente.apellido1 = apellido1;
+                cliente.apellido2 = apellido2;
+                cliente.empresa = empresa;
+                cliente.provincia = provincia;
+                cliente.canton = canton;
+                cliente.distrito = distrito;
+                cliente.provincia = provincia;
+                cliente.direccionExacta = direccionExacta;
+                cliente.telefono = telefono;
+                cliente.cedulaPK = cedulaPK;
+                cliente.correo = correo;
+                
+
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
 
-                seguridad.AgregarUsuarioAsync(cliente.correo,"3"); //crea cuenta de usuario en el sistema
+                await seguridad.AgregarUsuarioAsync(correo, "Cliente"); //crea cuenta de usuario en el sistema
 
                 return RedirectToAction("Index");
             }
@@ -204,6 +218,55 @@ namespace ProyectoIntegrador.Controllers
             db.Cliente.Remove(cliente); // se elimina cliente de la bd
             db.SaveChanges(); // se guardan los cambios
             return RedirectToAction("Index"); // se devuelve al index.
+        }
+
+        //Metodo para recuperar los clientes
+        //Recibe int permiso (Tomados de la tabla de seguridad)
+        //           permiso = 1 Puede ver todos los clientes
+        //           permiso = 2 Solo puede ver los clientes asociados a su proyecto
+        //           permiso = 3 No puede ver ninguno
+        //       int rol (El usuario tiene que tener un rol asignado antes de llamar a este metodo)
+        //              rol = 0 Soporte/Calidad
+        //              rol = 1 Lider
+        //              rol = 2 Tester
+        //              rol = 3 Cliente
+        //       string idUsuario (Es la cedula o identificador de un usuario) 
+        //Devuelve una lista IEnumerable con los proyectos. Null en caso de que no puede ver ninguno
+        public IEnumerable<ProyectoIntegrador.BaseDatos.Cliente> GetClientesVista(int permiso, int rol, string idUsuario)
+        {
+
+            //Puede ver todos los proyectos
+            if (permiso == 1)
+            {
+                return db.Cliente.ToList();
+            }
+            else
+            {
+                //Solo puede ver los proyectos en los que participa
+                if (permiso == 2)
+                {
+                    //Si es cliente
+                    if (rol == 3)
+                    {
+                        //Selecciona solo los datos personales relacionados a dicho cliente
+                        return db.Cliente.Where(c => c.cedulaPK == idUsuario);
+                    }
+                    else //es empleado
+                    {
+                        var innerJoinQuery =
+                        from p in db.Proyecto //Selecciona la tabla de Proyectos
+                        join t in db.TrabajaEn on p.idProyectoAID equals t.idProyectoFK //Hace join con la tabla TrabajaEn
+                        join e in db.Empleado on t.idEmpleadoFK equals e.idEmpleadoPK //Hace join con la tabla Empleado
+                        join c in db.Cliente on p.cedulaClienteFK equals c.cedulaPK //hace join con proyecto y cliente
+                        where c.cedulaPK == idUsuario //Solo los clientes relacionados a su proyecto
+                        select c; //Selecciona todo los atributos del proyecto
+                        return innerJoinQuery.ToList();
+                    }
+                }
+                //No tiene permisos
+                else
+                    return null;
+            }
         }
     }
 }

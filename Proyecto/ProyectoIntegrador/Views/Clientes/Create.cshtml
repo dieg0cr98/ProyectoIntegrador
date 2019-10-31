@@ -24,15 +24,8 @@
             <div style="padding-left:30px; padding-right:30px; overflow-x:hidden; background-color:rgba(192,159,128,0.7)">
                 <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
                     <fieldset>
-                        @if (ViewBag.error != null)
-                        {
-                            <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
-                        }
-                        else
-                        {
-                            <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+                        <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:20px"></div>
 
-                        }
                         <div class="form-row mb-2">
                             <div class="col-3">
                                 <!--Campo Nombre-->
@@ -262,7 +255,8 @@
                     cedulaPK:
                     {
                         required: "Ingrese cédula válida",
-                        remote: "Ya existe un cliente con esa cédula"
+                        remote: "Ya existe un cliente con esa cédula",
+                        number: "Ingrese números solamente"
                     },
                     nombre: {
                         required: "Nombre es requerido",

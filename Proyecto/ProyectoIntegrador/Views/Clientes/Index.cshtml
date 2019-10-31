@@ -8,35 +8,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        /*Cambia los colores de las listas activas*/
-        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-            color: #ffffff;
-            background-color: #76323f;
-            border-color: none;
-        }
-        /*Cambia los colores de los tooltips*/
-        .tooltip > .tooltip-inner {
-            background-color: #76323f;
-            color: white;
-        }
-
-        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
-            border-bottom-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
-            border-top-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
-            border-left-color: #76323f
-        }
-
-        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-            border-right-color: #76323f
-        }
-    </style>
 </head>
 
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
@@ -44,134 +15,170 @@
 @{ var idTab = "a"; }
 <!---->
 <body>
-    <br />
-    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Clientes</p>
-    <hr>
-    <div class="container " style="max-width: 1800px">
-        <div class="row">
-            <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px; ">
-                <!-- Image and text -->
-                <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
-                    <!--Imagen cliente + titulo lista de clientes-->
-                    <a class="navbar-brand">
-                        <img src="~/Content/boss.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                        Lista de Clientes
-                    </a>
-                    <!--Input para realizar busquedas de clientes-->
-                    <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Clientes">
-                    <!--Imagen de agregar cliente-->
-                    <a data-toggle="tooltip" data-placement="top" title="Agregar Cliente" href="~/Clientes/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+    @if (Request.IsAuthenticated)
+    {
+        <br />
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Clientes</p>
+        <hr>
+        <div class="container " style="max-width: 1800px">
+            <div class="row">
+                <div class="col col-md-4 " style="width:auto; height:auto; border-radius:20px 20px 20px 20px; ">
+                    <!-- Image and text -->
+                    <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
+                        <!--Imagen cliente + titulo lista de clientes-->
 
-                    <a class="navbar-brand" style="font-size:18px;">
-                        Nombre Cliente | Nombre Empresa
-                    </a>
-                </nav>
-                <!--Tab izquierdo donde se muestran los clientes con el nombre y empresa existentes en la BD-->
-                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
-                    <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
-                        @foreach (var item in Model)
+                        <a class="navbar-brand">
+                            <img src="~/Content/boss.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Lista de Clientes
+                        </a>
+                        <!--Input para realizar busquedas de clientes-->
+                        <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Clientes">
+                        
+                        @*Pregunta si tiene permisos para crear*@
+                        @if (ViewBag.permisosEspecificos.Item5 == 1)
                         {
-                            <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) | @Html.DisplayFor(modelItem => item.empresa)</a>
-                            { idCarta += 1; }
+                            <!--Imagen de agregar cliente-->
+                            <a data-toggle="tooltip" data-placement="top" title="Agregar Cliente" href="~/Clientes/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        }
+
+                        <a class="navbar-brand" style="font-size:18px;">
+                            Nombre Cliente | Nombre Empresa
+                        </a>
+
+                    </nav>
+                    <!--Tab izquierdo donde se muestran los clientes con el nombre y empresa existentes en la BD-->
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px">
+                        <div class="list-group h-100 overflow-auto py-1" style="border-radius: 0px 0px 00px 20px" id="list-tab" role="tablist">
+                            @if (ViewBag.permisosEspecificos.Item3 == 1 || ViewBag.permisosEspecificos.Item3 == 2)
+                            {
+                                foreach (var item in Model)
+                                {
+
+                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) | @Html.DisplayFor(modelItem => item.empresa)</a>
+                                    { idCarta += 1; }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!--Se crean tabs con la info cliente-->
+                <div class="col-12 col-md-8">
+                    <div class="tab-content d-block overflow-auto" style="background-color: rgba(192,159,128,0.7); height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
+                        @if (ViewBag.permisosEspecificos.Item3 == 1 || ViewBag.permisosEspecificos.Item3 == 2)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="tab-pane fade" style="max-width:1150px;" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                                    <div class="row mx-4 mt-4 md-0" style="height:30px;">
+                                        <!--Titulo de informacion cliente-->
+                                        <div class="col-8" style="max-height:30px">
+                                            <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Información Cliente</p>
+                                        </div>
+                                        <!-- Botones de Editar -->
+                                        @if (ViewBag.permisosEspecificos.Item4 == 1)
+                                        {
+                                            <div class="col" style="margin-left: 10%;">
+                                                <a data-toggle="tooltip" data-placement="left" title="Editar" href="/Clientes/Edit/@item.cedulaPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            </div>
+                                        }
+                                        @if (ViewBag.permisosEspecificos.Item6 == 1)
+                                        {
+                                            <!-- Button trigger modal para Borrar-->
+                                            <div class="col" style="width:auto; height:auto;">
+                                                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.cedulaPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                            </div>
+                                        }
+                                    </div>
+                                    <hr />
+
+
+                                    <!--Informacion del cliente que se selecciona-->
+                                    <div style=" height:auto;" class="col-12 align-content-center">
+                                        <div class="row mb-2">
+                                            <div class="col-5">
+                                                <!--Campo Nombre-->
+                                                <h5 for="nombre" style="width:200px">Nombre:</h5>
+                                                <input value="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null)
+                                                {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none; background-color:#D7CEC7; border-color:transparent;" readonly class="form-control">
+                                            </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-5">
+                                                <!--Campo Cedula-->
+                                                <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
+                                                <input style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row mb-2">
+                                            <div class="col-5">
+                                                <!--Campo Correo-->
+                                                <h5 for="correo" style="width:200px">Correo:</h5>
+                                                <input value="@Html.DisplayFor(modelItem => item.correo)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
+                                            </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-5">
+                                                <!--Campo Telefono-->
+                                                <h5 for="telefono" style="width:200px">Teléfono:</h5>
+                                                <input value="@Html.DisplayFor(modelItem => item.telefono)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row mb-2">
+                                            <div class="col-5">
+                                                <!--Campo Empresa-->
+                                                <h5 for="empresa" style="width:200px">Empresa:</h5>
+                                                <input value="@Html.DisplayFor(modelItem => item.empresa)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
+                                            </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-5">
+                                                <!--Campo Provincia-->
+                                                <h5 for="provincia" style="width:200px">Provincia:</h5>
+                                                <input value="@Html.DisplayFor(modelItem => item.provincia)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row mb-2">
+                                            <div class="col-5">
+                                                <!--Campo Canton-->
+                                                <h5 for="canton" style="width:200px">Cantón:</h5>
+                                                <input value="@if (item.canton != null)
+                                                { @Html.DisplayFor(modelItem => item.canton)  }
+                                                else
+                                                { @Html.Raw("No definido")  }" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
+                                            </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-5">
+                                                <!--Campo Distrito-->
+                                                <h5 for="canton" style="width:200px">Distrito:</h5>
+                                                <input value="@if (item.distrito != null)
+                                                { @Html.DisplayFor(modelItem => item.distrito)  }
+                                                else
+                                                { @Html.Raw("No definido")  }" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-row mb-12" style="padding-bottom:3%; padding-left:5px; padding-right:5px;">
+                                            <!--Campo Direccion Exacta-->
+                                            <h5 for="direccionExacta" style="width:200px">Dirección Exacta:</h5>
+                                            <textarea class="form-control col-12" style="background-color:#D7CEC7; border-color:transparent; height: 100px;" readonly>@Html.DisplayFor(modelItem => item.direccionExacta)</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                //Le agrega un digito mas al idTab
+                                { idTab += 1; }
+                            }
                         }
                     </div>
                 </div>
             </div>
-            <!--Se crean tabs con la info cliente-->
-            <div class="col-12 col-md-8">
-                <div class="tab-content d-block overflow-auto" style="background-color: rgba(192,159,128,0.7); height:auto; width:auto; border-radius:20px 20px 20px 20px" id="nav-tabContent">
-                    @foreach (var item in Model)
-                    {
-                        <div class="tab-pane fade" style="max-width:1150px;" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                            <div class="row mx-4 mt-4 md-0" style="height:30px;">
-                                <!--Titulo de informacion cliente-->
-                                <div class="col-8" style="max-height:30px">
-                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Información Cliente</p>
-                                </div>
-                                <!-- Botones de Editar -->
-                                <div class="col" style="margin-left: 10%;">
-                                    <a data-toggle="tooltip" data-placement="left" title="Editar" href="/Clientes/Edit/@item.cedulaPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                                </div>
-                                <!-- Button trigger modal para Borrar-->
-                                <div class="col" style="width:auto; height:auto;">
-                                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" title="Eliminar" data-whatever="@item.cedulaPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                                </div>
-                            </div>
-                            <hr />
-
-
-                            <!--Informacion del cliente que se selecciona-->
-                            <div style=" height:auto;" class="col-12 align-content-center">
-                                <div class="row mb-2">
-                                    <div class="col-5">
-                                        <!--Campo Nombre-->
-                                        <h5 for="nombre" style="width:200px">Nombre:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null) {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none; background-color:#D7CEC7; border-color:transparent;" readonly class="form-control">
-                                    </div>
-                                    <div class="col-2"></div>
-                                    <div class="col-5">
-                                        <!--Campo Cedula-->
-                                        <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                        <input style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row mb-2">
-                                    <div class="col-5">
-                                        <!--Campo Correo-->
-                                        <h5 for="correo" style="width:200px">Correo:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.correo)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
-                                    </div>
-                                    <div class="col-2"></div>
-                                    <div class="col-5">
-                                        <!--Campo Telefono-->
-                                        <h5 for="telefono" style="width:200px">Teléfono:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.telefono)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row mb-2">
-                                    <div class="col-5">
-                                        <!--Campo Empresa-->
-                                        <h5 for="empresa" style="width:200px">Empresa:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.empresa)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
-                                    </div>
-                                    <div class="col-2"></div>
-                                    <div class="col-5">
-                                        <!--Campo Provincia-->
-                                        <h5 for="provincia" style="width:200px">Provincia:</h5>
-                                        <input value="@Html.DisplayFor(modelItem => item.provincia)" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row mb-2">
-                                    <div class="col-5">
-                                        <!--Campo Canton-->
-                                        <h5 for="canton" style="width:200px">Cantón:</h5>
-                                        <input value="@if (item.canton != null) { @Html.DisplayFor(modelItem => item.canton)  } else { @Html.Raw("No definido")  }" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
-                                    </div>
-                                    <div class="col-2"></div>
-                                    <div class="col-5">
-                                        <!--Campo Distrito-->
-                                        <h5 for="canton" style="width:200px">Distrito:</h5>
-                                        <input value="@if (item.distrito != null) { @Html.DisplayFor(modelItem => item.distrito)  } else { @Html.Raw("No definido")  }" style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-row mb-12" style="padding-bottom:3%; padding-left:5px; padding-right:5px;">
-                                    <!--Campo Direccion Exacta-->
-                                    <h5 for="direccionExacta" style="width:200px">Dirección Exacta:</h5>
-                                    <textarea class="form-control col-12" style="background-color:#D7CEC7; border-color:transparent; height: 100px;" readonly>@Html.DisplayFor(modelItem => item.direccionExacta)</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        //Le agrega un digito mas al idTab
-                        { idTab += 1; }
-                    }
-                </div>
-            </div>
         </div>
-    </div>
+
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los clientes</div>
+    }
+
     <!--Carga todos los scripts-->
     @Html.Partial("ModalEliminarCliente")
     @Html.Partial("ScriptsCliente")
