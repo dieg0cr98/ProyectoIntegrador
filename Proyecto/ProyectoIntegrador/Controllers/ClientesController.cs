@@ -19,7 +19,7 @@ namespace ProyectoIntegrador.Controllers
         private SeguridadController seguridad = new SeguridadController();
 
         // GET: Clientes
-        
+
         public ActionResult Index()
         {
             var permisosGenerales = seguridad.ClienteConsultar(User);
@@ -31,7 +31,7 @@ namespace ProyectoIntegrador.Controllers
             if (permisosGenerales.Item1 >= 0)
             {
                 //GetClientesVista(int permiso, int rol, string idUsuario)
-                return View((GetClientesVista(permisosGenerales.Item3, permisosGenerales.Item1, permisosGenerales.Item2).Reverse()).Reverse());
+                return View(GetClientesVista(permisosGenerales.Item3, permisosGenerales.Item1, permisosGenerales.Item2).Reverse());
             }
             else
             {
@@ -71,7 +71,7 @@ namespace ProyectoIntegrador.Controllers
 
             //Verifica que el usuario este registrado y que tenga permiso de crear = 1
             if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item5 == 1)
-            { 
+            {
                 Cliente cliente = new Cliente();
                 if (ModelState.IsValid)
                 {
@@ -87,7 +87,7 @@ namespace ProyectoIntegrador.Controllers
                     cliente.telefono = telefono;
                     cliente.cedulaPK = cedulaPK;
                     cliente.correo = correo;
-                
+
 
                     db.Cliente.Add(cliente);
                     db.SaveChanges();
@@ -228,7 +228,7 @@ namespace ProyectoIntegrador.Controllers
         }
 
         //Metodo para eliminar directamente un cliente
-        public ActionResult Eliminar(string id)
+        public async System.Threading.Tasks.Task<ActionResult> Eliminar(string id)
         {
             var permisosGenerales = seguridad.ClienteConsultar(User);
 
@@ -237,7 +237,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 Cliente cliente = db.Cliente.Find(id); // Se busca el cliente en la bd
 
-                seguridad.DeleteUsuarioAsync(cliente.correo); //crea cuenta de usuario en el sistema
+                await seguridad.DeleteUsuarioAsync(cliente.correo); //crea cuenta de usuario en el sistema
 
                 db.Cliente.Remove(cliente); // se elimina cliente de la bd
                 db.SaveChanges(); // se guardan los cambios
