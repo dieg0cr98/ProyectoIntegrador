@@ -122,6 +122,7 @@
 
                             <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
                                 <option value="@Model.tipoTrabajo">@Model.tipoTrabajo</option>
+                                <option value="Tester">Tester</option>
                                 <option value="Lider">Lider</option>
                                 <option value="Jefe de Calidad">Jefe de Calidad</option>
                                 <option value="Jefe de Soporte">Jefe de Soporte</option>
@@ -222,14 +223,14 @@
                     {
                         required: true,
                         minlength: 1,
-                        maxlength: 15,
+                        maxlength: 30,
                         lettersonly: true
                     },
                     apellido1:
                     {
                         required: true,
                         minlength: 1,
-                        maxlength: 15,
+                        maxlength: 30,
                         lettersonly: true
                     },
 
@@ -249,7 +250,8 @@
                                     return $("#idEmpleadoPK").val();
                                 },
                                 oldcedulaPK: function () {
-                                    return $("#cedulaOld").val();
+                                    return $("#cedulaVieja").val();
+                                },
                             }
                         }
                     },
@@ -272,6 +274,7 @@
                                 },
                                 oldEmail: function () {
                                     return $("#correoOld").val();
+                                }
                             }
                         }
 
@@ -312,23 +315,12 @@
                     idEmpleadoPK: {
                         required: "Cedula es requerida",
                         remote: "Ya existe esta cedula",
-                        number: "Solo se pueden ingresar numeros",
-                        minlength: "La cedula debe de tener al menos ocho digitos",
+                        number: "Solo se pueden ingresar numeros"
                     },
                     nombre:
                     {
                         required: "Nombre es requerido",
-                        lettersonly: "No se admiten números en el nombre",
-                        minlength: "Debe de haber mas de una letra",
-                        maxlength: "El nombre debe de ser de menos de 15 letras"
-                    },
-
-                    apellido1:
-                    {
-                        required: "El primer apellido es requerido",
-                        lettersonly: "No se admiten números en el apellido",
-                        minlength: "Debe de haber mas de una letra",
-                        maxlength: "El apellido debe de ser de menos de 15 letras"
+                        lettersonly: "No se admiten números en el nombre"
                     },
 
                     correo:
@@ -348,13 +340,10 @@
 
                 errorPlacement: function (error, element) {
                     if ((element.attr('name') === 'idEmpleadoPK')) {
-                        error.insertAfter($('#errorCedula'));
+                        error.insertAfter($('#errorID'));
                     }
                     if ((element.attr('name') === 'nombre')) {
                         error.insertAfter($('#errorNombre'));
-                    }
-                    if ((element.attr('name') === 'apellido1')) {
-                        error.insertAfter($('#errorApellido'));
                     }
                     if ((element.attr('name') === 'correo')) {
                         error.insertAfter($('#errorCorreo'));

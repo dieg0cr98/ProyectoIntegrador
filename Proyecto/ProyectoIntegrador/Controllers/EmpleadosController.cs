@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
 using ProyectoIntegrador.Models;
+using System.Data.SqlClient;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -123,7 +124,8 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
            [HttpPost]
-         public ActionResult Edit(string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2,
+      
+        public ActionResult Edit(string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2,
          string correo, DateTime? fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
 
@@ -140,28 +142,69 @@ namespace ProyectoIntegrador.Controllers
             empleado.distrito = distrito;
             empleado.direccion = direccion;
             empleado.tipoTrabajo = tipoTrabajo;
-            empleado.correo = correo;
+
 
             SqlParameter[] param = new SqlParameter[] {
                 new SqlParameter("@cedulaVieja", cedulaVieja),
                 new SqlParameter("@cedulaNueva",idEmpleadoPK),
             };
 
+
+            //Revisa si no hay otro empleado con cedula ingresada
+            if (cedulaVieja != idEmpleadoPK)
+            {
+                // System.Diagnostics.Debug.WriteLine("CedulaNueva es " + idEmpleadoPK + " and cedulaVieja is " + cedulaVieja);
+                if (db.Empleado.Where(i => i.idEmpleadoPK == idEmpleadoPK).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un emplado con la cedula: " + idEmpleadoPK;
+                    ViewBag.idEmpleadoPK = idEmpleadoPK;
+                    return View(empleado);
+                }
+            }
+
+           
+           
+            
+             
+
+            //En caso de que no existe se hace el cambio
+            // empleado.idEmpleadoPK = idEmpleadoPK;
+
+          
+
+            if (correo != empleado.correo)
+            {
+                if (db.Empleado.Where(i => i.correo == correo).FirstOrDefault() != null)
+                {
+                    ViewBag.error = "Ya existe un empleado con el correo: " + correo;
+                    ViewBag.idEmpleadoPK = idEmpleadoPK;
+                    return View(empleado);
+                }
+            }
+
+            empleado.correo = correo;
+
+            
+           
            db.Entry(empleado).State = EntityState.Modified;
            db.SaveChanges();
+            //return RedirectToAction("Index");
             ViewBag.idEmpleadoPK = new SelectList(db.Tester, "idEmpleadoFK", "idEmpleadoFK", empleado.idEmpleadoPK);
             View(empleado);
             try
             {
-                db.Database.SqlQuery<Empleado>("USP_editEmployeeId @cedulaVieja, @cedulaNueva", param).ToList();
-                return RedirectToAction("Index");
+                ViewBag.idEmpleadoPK = db.Database.SqlQuery<Empleado>("USP_editEmployeeId @cedulaVieja, @cedulaNueva", param).ToList(); return View(empleado);
+                
+
             }
             catch
             {
                 return RedirectToAction("Index");
             }
-        }
+            //return View(empleado);
+           
 
+        }
         // GET: Empleados/Delete/5
         public ActionResult Delete(string id)
         {

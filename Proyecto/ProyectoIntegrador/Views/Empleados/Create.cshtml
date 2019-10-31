@@ -96,7 +96,7 @@
                 <div class="form-row mb-2">
                     <div class="col-3">
                         <!--Campo telefono-->
-                        <h5 for="telefono" style="width:200px">Telefono</h5>
+                        <h5 for="telefono" style="width:200px">Tel&eacute;fono</h5>
                         <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
                         <div id="errorTel"></div>
                     </div>
@@ -145,7 +145,7 @@
                     <div class="col-1"></div>
                     <div class="col-3">
                         <!--Campo Canton-->
-                        <h5 for="canton" style="width:100px">Cantón</h5>
+                        <h5 for="canton" style="width:100px">Cant&oacute;n *</h5>
                         <div id="destino2"></div>
                         <div id="errorCant"></div>
                     </div>
@@ -210,12 +210,10 @@
 
 }
 <script>
-
     $(function () {
         jQuery.validator.addMethod("lettersonly", function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
         }, "No se admiten números en los nombres");
-
         $("#employeeForm").validate(
             {
                 rules:
@@ -234,7 +232,7 @@
                         maxlength: 15,
                         lettersonly: true
                     },
-                    
+
                     idEmpleadoPK:
                     {
                         required: true,
@@ -260,31 +258,31 @@
                     },
                     correo:
                     {
-                       
-                            required: true,
-                            maxlength: 50,
-                            remote: {
-                                url: "/Empleados/CheckEmail",
-                                type: "post",
-                                delay: 1000,
-                                data: {
-                                    email: function () {
-                                        return $("#correo").val();
-                                    },
-                                    oldEmail: null
-                                }
+
+                        required: true,
+                        maxlength: 50,
+                        remote: {
+                            url: "/Empleados/CheckEmail",
+                            type: "post",
+                            delay: 1000,
+                            data: {
+                                email: function () {
+                                    return $("#correo").val();
+                                },
+                                oldEmail: null
                             }
-                        
+                        }
+
                     },
                     estado:
                     {
                         required: true,
-                        
+
                     },
                     puesto:
                     {
                         required: true,
-                        
+
                     },
                     provincia:
                     {
@@ -298,14 +296,14 @@
                     {
                         required: true
                     },
-                    
+
                     telefono:
                     {
                         number: true,
                         minlength: 8,
                         maxlength: 15
                     },
-                    
+
                 },
                 messages:
                 {
@@ -322,7 +320,6 @@
                         minlength: "Debe de haber mas de una letra",
                         maxlength: "El nombre debe de ser de menos de 15 letras"
                     },
-
                     apellido1:
                     {
                         required: "El primer apellido es requerido",
@@ -330,7 +327,7 @@
                         minlength: "Debe de haber mas de una letra",
                         maxlength: "El apellido debe de ser de menos de 15 letras"
                     },
-                    
+
                     correo:
                     {
                         required: "Se requiere un email valido, ejm: correo@email.com",
@@ -345,7 +342,6 @@
                     distrito: "Se requiere el distrito",
                     telefono: "Solo se aceptan numeros, minimo ocho digitos"
                 },
-
                 errorPlacement: function (error, element) {
                     if ((element.attr('name') === 'idEmpleadoPK')) {
                         error.insertAfter($('#errorCedula'));
@@ -381,7 +377,6 @@
                         error.insertAfter($('#errorTel'));
                     }
                 },
-
                 invalidHandler: function (form, validator) {
                     $('#loading').hide('fast');
                     $('#acceptar').show('fast');
