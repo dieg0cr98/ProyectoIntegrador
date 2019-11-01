@@ -20,11 +20,13 @@ namespace ProyectoIntegrador.Controllers
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto, int idRequerimiento)
         {
-            //Se obtienen los datos de todos los requerimientos asociados al proyecto.
-            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto && P.estado != "Cancelado");
 
             //Se buscan los permisos del usuario que hizo la consulta
             ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
+
+            //Se obtienen los datos de todos los requerimientos asociados al proyecto.
+            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto && P.estado != "Cancelado");
+
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;
             //Se guarda el id del proyecto asociado para ser usado al llamar el CRUD de cualquier requerimiento.
@@ -38,6 +40,10 @@ namespace ProyectoIntegrador.Controllers
         //Método que despliega los datos de la vista utilizada para crear un requerimiento.
         public ActionResult Create(int idProyecto)
         {
+
+            //Se buscan los permisos del usuario que hizo la consulta
+            ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
+
             ViewBag.TestersDisponibles = db.TestersAsignables(idProyecto).ToList();
             ViewBag.idProyecto = idProyecto;
             ViewBag.idRequerimiento = proyectos.GetCantidadRequerimientos(idProyecto) + 1;

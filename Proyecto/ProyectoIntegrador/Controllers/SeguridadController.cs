@@ -82,8 +82,6 @@ namespace ProyectoIntegrador.Controllers
       */
         public int GetRoleUsuario(System.Security.Principal.IPrincipal user)
         {
-
-
             int rol = -1;
             if (user.IsInRole("Lider"))
             {

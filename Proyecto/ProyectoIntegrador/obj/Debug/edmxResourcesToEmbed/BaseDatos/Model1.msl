@@ -125,19 +125,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HistorialReqTester">
-      <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
-        <MappingFragment StoreEntitySet="HistorialReqTester">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-          <ScalarProperty Name="horas" ColumnName="horas" />
-          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
-          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
-          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="testersActivos" FunctionName="Gr03Proy2Model.Store.testersActivos">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Gr03Proy2Model.testersActivos_Result">
@@ -160,5 +147,18 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="HistorialReqTester">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
+        <MappingFragment StoreEntitySet="HistorialReqTester">
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="horas" ColumnName="horas" />
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
