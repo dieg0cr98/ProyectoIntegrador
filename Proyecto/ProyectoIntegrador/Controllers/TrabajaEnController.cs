@@ -100,7 +100,7 @@ namespace ProyectoIntegrador.Controllers
             empleado.estado = "Ocupado";
 
             ObjectParameter output;
-            db.USP_EquipoCheckLider(idProyecto,);
+            //db.USP_EquipoCheckLider(idProyecto,);
             trabaja.idProyectoFK = idProyecto;
             trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
             trabaja.rol = rolEmpleado;
