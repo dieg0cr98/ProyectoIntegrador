@@ -34,7 +34,7 @@ namespace ProyectoIntegrador.BaseDatos
         public string descripcion { get; set; }
         public System.DateTime fechaDeInicio { get; set; } = DateTime.Now;
         public Nullable<System.DateTime> fechaDeFinalizacion { get; set; }
-        public string estado { get; set; }
+        public string estado { get; set; } = "Preparacion";
         public Nullable<bool> resultado { get; set; }
         public string detallesResultado { get; set; }
         public string estadoResultado { get; set; }

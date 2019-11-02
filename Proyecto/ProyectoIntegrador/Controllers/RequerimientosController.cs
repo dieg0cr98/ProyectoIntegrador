@@ -67,7 +67,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.descripcion = descripcion;
 
             //Valída los datos que podrían ser nulos.
-            if (estado != "null")
+            if (estado != "")
             {
                 requerimiento.estado = estado;
             }
@@ -114,22 +114,54 @@ namespace ProyectoIntegrador.Controllers
 
         // Método que recibe los cambios hechos a un requerimiento en el formulario de modificar y los valída antes de enviarlos a la BD.
         [HttpPost]
-        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int duracionEstimada, 
-            int? duracionReal, DateTime fechai, DateTime? fechaf, string estadoR, string detalleResultado, string idTester)
+        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int? duracionEstimada, 
+            int? duracionReal, DateTime fechai, DateTime? fechaf, string resultado, string estadoR, string detalleResultado, string idTester)
         {
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
             requerimiento.nombre = nombre;
             requerimiento.complejidad = complejidad;
             requerimiento.descripcion = descripcion;
-            requerimiento.estado = estado;
             requerimiento.fechaDeFinalizacion = fechaf;
-            requerimiento.fechaDeInicio = fechai;
             requerimiento.idProyectoFK = idProyecto;
-            requerimiento.tiempoEstimado = duracionEstimada;
             requerimiento.tiempoReal = duracionReal;
-            requerimiento.estadoResultado = estadoR;
             requerimiento.detallesResultado = detalleResultado;
-            requerimiento.cedulaTesterFK = idTester;
+
+            if (estado != "")
+            {
+                requerimiento.estado = estado;
+            }
+
+            if (duracionEstimada != null)
+            {
+                requerimiento.tiempoEstimado = (int)duracionEstimada;
+            }
+
+            if (fechai != null)
+            {
+                requerimiento.fechaDeInicio = (DateTime)fechai;
+            }
+
+            if (idTester != "null")
+            {
+                requerimiento.cedulaTesterFK = idTester;
+            }
+
+            if (resultado != "")
+            {
+                if(resultado == "true")
+                {
+                    requerimiento.resultado = true;
+                }
+                else
+                {
+                    requerimiento.resultado = false;
+                }
+            }
+
+            if (estadoR != "")
+            {
+                requerimiento.estadoResultado = estadoR;
+            }
 
             db.Entry(requerimiento).State = EntityState.Modified;
             db.SaveChanges();

@@ -296,17 +296,17 @@
                                     @switch (Model.resultado)
                                     {
                                         case null:
-                                            <option value="null" selected>No Terminado</option>
+                                            <option value="" selected>No Terminado</option>
                                             <option value="true">Cumplido</option>
                                             <option value="false">No cumplido</option>
                                             break;
                                         case true:
-                                            <option value="null">No Terminado</option>
+                                            <option value="">No Terminado</option>
                                             <option value="true" selected>Cumplido</option>
                                             <option value="false">No cumplido</option>
                                             break;
                                         case false:
-                                            <option value="null">No Terminado</option>
+                                            <option value="">No Terminado</option>
                                             <option value="true">Cumplido</option>
                                             <option value="false" selected>No cumplido</option>
                                             break;
@@ -326,25 +326,25 @@
                                     @switch (Model.estadoResultado)
                                     {
                                         case null:
-                                            <option value="null" selected>Seleccione el estado del resultado</option>
+                                            <option value="" selected>Seleccione el estado del resultado</option>
                                             <option value="Exitoso">Exitoso</option>
                                             <option value="Fallido">Fallido</option>
                                             <option value="Incompleto">Incompleto</option>
                                             break;
                                         case "Exitoso":
-                                            <option value="null">Seleccione el estado del resultado</option>
+                                            <option value="">Seleccione el estado del resultado</option>
                                             <option value="Exitoso" selected>Exitoso</option>
                                             <option value="Fallido">Fallido</option>
                                             <option value="Incompleto">Incompleto</option>
                                             break;
                                         case "Fallido":
-                                            <option value="null">Seleccione el estado del resultado</option>
+                                            <option value="">Seleccione el estado del resultado</option>
                                             <option value="Exitoso">Exitoso</option>
                                             <option value="Fallido" selected>Fallido</option>
                                             <option value="Incompleto">Incompleto</option>
                                             break;
                                         case "Incompleto":
-                                            <option value="null">Seleccione el estado del resultado</option>
+                                            <option value="">Seleccione el estado del resultado</option>
                                             <option value="Exitoso">Exitoso</option>
                                             <option value="Fallido">Fallido</option>
                                             <option value="Incompleto" selected>Incompleto</option>
