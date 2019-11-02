@@ -82,7 +82,7 @@ namespace ProyectoIntegrador.Controllers
                 requerimiento.fechaDeInicio = (DateTime)fechai;
             }
 
-            if (idTester != "null")
+            if (idTester != "")
             {
                 requerimiento.cedulaTesterFK = idTester;
             }
@@ -109,6 +109,7 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.testersDisponibles = db.TestersAsignables(idProyecto).ToList();
             ViewBag.idProyecto = idProyecto;
             ViewBag.idRequerimiento = idRequerimiento;
+            ViewBag.testerAsociado = requerimiento.cedulaTesterFK;
             return View(requerimiento);
         }
 
@@ -141,9 +142,13 @@ namespace ProyectoIntegrador.Controllers
                 requerimiento.fechaDeInicio = (DateTime)fechai;
             }
 
-            if (idTester != "null")
+            if (idTester != "")
             {
                 requerimiento.cedulaTesterFK = idTester;
+            }
+            else
+            {
+                requerimiento.cedulaTesterFK = null;
             }
 
             if (resultado != "")
