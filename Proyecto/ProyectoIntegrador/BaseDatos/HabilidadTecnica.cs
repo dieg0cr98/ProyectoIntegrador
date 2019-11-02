@@ -11,10 +11,13 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class HabilidadTecnica
     {
+        [Key]
         public string idEmpleadoFK { get; set; }
+        [Key]
         public string habilidad { get; set; }
     
         public virtual Empleado Empleado { get; set; }
