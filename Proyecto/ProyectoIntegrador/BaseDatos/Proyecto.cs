@@ -26,7 +26,7 @@ namespace ProyectoIntegrador.BaseDatos
         public int idProyectoAID { get; set; }
         public string nombre { get; set; }
         public string objetivo { get; set; }
-        public string estado { get; set; } = "Preparacion";
+        public string estado { get; set; } = "Preparación";
         public int duracionReal { get; set; } = 0;
         public int duracionEstimada { get; set; } = 0;
         public System.DateTime fechaInicio { get; set; } = DateTime.Now.Date;
