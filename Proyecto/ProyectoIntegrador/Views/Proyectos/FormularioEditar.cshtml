@@ -93,7 +93,7 @@
 
                             @if (ViewBag.permisos.Item3[3] == 1)
                             {
-                                <select class="custom-select" style="text-align:center;max-width:200px; background-color:#D7CEC7; border-color:transparent" name="estado">
+                                <select id="dropdownEstado" class="custom-select" style="text-align:center;max-width:200px; background-color:#D7CEC7; border-color:transparent" name="estado">
 
 
                                     @switch (Model.estado)
@@ -550,6 +550,27 @@
                         {
                             required: true,
                             min: 0
+                        },
+                        estado:
+                        {
+                                remote: {
+                                url: "/Proyectos/CantidadReqTerminados",
+                                type: "post",
+                                delay: 1000,
+                                data: {
+                                    //estado: function () {
+                                    //    return $( "#dropdownEstado option:selected" ).text();
+                                    //},
+                                    //idProyecto:  function () {
+                                    //    return $("#id").val();
+                                    //}
+                                    estado: "Terminado",
+                                    idProyecto:  function () {
+                                        return $("#id").val();
+                                    }
+                                   
+                                }
+                            }
                         }
 
 

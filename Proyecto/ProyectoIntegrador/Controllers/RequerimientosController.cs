@@ -77,6 +77,9 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+
+
+
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto, int idRequerimiento)
         {
