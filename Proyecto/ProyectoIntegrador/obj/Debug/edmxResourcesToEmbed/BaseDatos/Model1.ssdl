@@ -55,14 +55,15 @@
       <PropertyRef Name="idProyectoFK" />
       <PropertyRef Name="idReqFK" />
       <PropertyRef Name="idEmpleadoFK" />
+      <PropertyRef Name="fechaInicio" />
     </Key>
     <Property Name="idProyectoFK" Type="int" Nullable="false" />
     <Property Name="idReqFK" Type="int" Nullable="false" />
     <Property Name="idEmpleadoFK" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="horas" Type="int" Nullable="false" />
-    <Property Name="fechaInicio" Type="date" />
-    <Property Name="fechaFin" Type="date" />
-    <Property Name="activo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="horas" Type="int" />
+    <Property Name="fechaInicio" Type="datetime" Nullable="false" />
+    <Property Name="fechaFin" Type="datetime" />
+    <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="Proyecto">
     <Key>

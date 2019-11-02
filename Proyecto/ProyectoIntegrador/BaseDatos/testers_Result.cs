@@ -10,19 +10,11 @@
 namespace ProyectoIntegrador.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HistorialReqTester
+    public partial class testers_Result
     {
-        public int idProyectoFK { get; set; }
-        public int idReqFK { get; set; }
-        public string idEmpleadoFK { get; set; }
-        public Nullable<int> horas { get; set; }
-        public System.DateTime fechaInicio { get; set; }
-        public Nullable<System.DateTime> fechaFin { get; set; }
+        public string Nombre_Empleado { get; set; }
+        public string Cedula { get; set; }
         public string estado { get; set; }
-    
-        public virtual Tester Tester { get; set; }
-        public virtual Requerimiento Requerimiento { get; set; }
     }
 }
