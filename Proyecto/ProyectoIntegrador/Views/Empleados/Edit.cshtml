@@ -160,11 +160,11 @@
                 <br>
                 <div class="form-row mb-2" style="padding-left:5px">
                     <!--Campo Direccion Exacta-->
-                    <h5 for="direccionExacta" style="width:400px">Direccion exacta</h5>
+                    <h5 for="direccion" style="width:400px">Direccion exacta</h5>
                 </div>
                 <div class="row" style="padding-left:15px; padding-right:15px;">
                     @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })                            
-                    <div id="errorFechaNacimiento"></div>
+                    
                     @*<div id="errorDir"></div>*@
                 </div>
                 <br>
@@ -250,7 +250,7 @@
                                     return $("#idEmpleadoPK").val();
                                 },
                                 oldcedulaPK: function () {
-                                    return $("#cedulaVieja").val();
+                                    return $("#cedulaOld").val();
                                 },
                             }
                         }

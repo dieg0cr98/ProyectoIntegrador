@@ -1,4 +1,4 @@
-﻿@model ProyectoIntegrador.BaseDatos.Empleado
+@model ProyectoIntegrador.BaseDatos.Empleado
 
 @{
     ViewBag.Title = "Create";
@@ -47,21 +47,22 @@
                     <div class="col-3">
                         <!--Campo Nombre-->
                         <h5 for="nombre" style="width:200px">Nombre *</h5>
-                        <input class="form-control" id="nombre" name="nombre" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                        <input class="form-control" id="nombre" name="nombre" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
                         <div id="errorNombre"></div>
                     </div>
                     <div class="col-1"></div>
                     <div class="col-3">
                         <!--Campo Primer Apellido-->
                         <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
-                        <input class="form-control" id="apellido1" name="apellido1" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <input class="form-control" id="apellido1" name="apellido1" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
                         <div id="errorApellido"></div>
                     </div>
                     <div class="col-1"></div>
                     <div class="col-3">
                         <!--Campo Segundo Apellido-->
                         <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                        <input class="form-control" id="apellido2" name="apellido2" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                        <input class="form-control" id="apellido2" name="apellido2" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                        <div id="errorApellido2"></div>
                     </div>
                 </div>
                 <br>
@@ -71,7 +72,7 @@
                     <div class="col-3">
                         <!--Campo Cedula-->
                         <h5 for="idEmpleadoPK" style="width:200px">Cédula*:</h5>
-                        <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
+                        <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
                         <div id="errorCedula"></div>
                     </div>
                     <div class="col-1"></div>
@@ -110,7 +111,6 @@
                                 <option value="">Escoja un estado...</option>
                                 <option value="Disponible">Disponible</option>
                                 <option value="Ocupado">Ocupado</option>
-                                <option value="Inactivo">Inactivo</option>
                             </select>
                         </div>
                         <div id="errorEstado"></div>
@@ -160,11 +160,11 @@
                 @*Quinta fila*@
                 <br>
                 <div class="form-row mb-2" style="padding-left:5px">
-                    <!--Campo Direccion Exacta-->
-                    <h5 for="direccionExacta" style="width:400px">Direccion exacta</h5>
+                    <!--Campo Dirección Exacta-->
+                    <h5 for="direccion" style="width:400px">Direccion exacta</h5>
                 </div>
                 <div class="row" style="padding-left:15px; padding-right:15px;">
-                    <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
+                    <textarea class="form-control col-12" id="direccion" maxlength="300" name="direccion" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
                     @*<div id="errorDir"></div>*@
                 </div>
                 <br>
@@ -221,16 +221,24 @@
                     nombre:
                     {
                         required: true,
-                        minlength: 1,
-                        maxlength: 15,
-                        lettersonly: true
+                        minlength: 2,
+                        lettersonly: true,
+                        maxlength: 20
                     },
                     apellido1:
                     {
                         required: true,
-                        minlength: 1,
-                        maxlength: 15,
-                        lettersonly: true
+                        minlength: 2,
+                        lettersonly: true,
+                        maxlength: 20
+                    },
+
+                    apellido2:
+                    {
+                        required: true,
+                        minlength: 2,
+                        lettersonly: true,
+                        maxlength: 20
                     },
 
                     idEmpleadoPK:
@@ -279,7 +287,7 @@
                         required: true,
 
                     },
-                    puesto:
+                    tipoTrabajo:
                     {
                         required: true,
 
@@ -308,39 +316,53 @@
                 messages:
                 {
                     idEmpleadoPK: {
-                        required: "Cedula es requerida",
-                        remote: "Ya existe esta cedula",
+                        required: "La cédula es requerida",
+                        remote: "Ya existe esta cédula",
                         number: "Solo se pueden ingresar numeros",
-                        minlength: "La cedula debe de tener al menos ocho digitos",
+                        minlength: "La cédula debe de tener al menos ocho digitos",
                     },
                     nombre:
                     {
-                        required: "Nombre es requerido",
+                        required: "El nombre es requerido",
                         lettersonly: "No se admiten números en el nombre",
-                        minlength: "Debe de haber mas de una letra",
-                        maxlength: "El nombre debe de ser de menos de 15 letras"
+                        minlength: "Debe de tener más de una letra",
+                        maxlength: "El nombre debe de ser de menos de 20 letras"
                     },
                     apellido1:
                     {
                         required: "El primer apellido es requerido",
                         lettersonly: "No se admiten números en el apellido",
-                        minlength: "Debe de haber mas de una letra",
-                        maxlength: "El apellido debe de ser de menos de 15 letras"
+                        minlength: "Debe de tener más de una letra",
+                        maxlength: "El apellido debe de ser de menos de 20 letras"
+                    },
+
+                    apellido2:
+                    {
+                        required: "El segundo apellido es requerido",
+                        lettersonly: "No se admiten números en el apellido",
+                        minlength: "Debe de tener más de una letra",
+                        maxlength: "El apellido debe de ser de menos de 20 letras"
                     },
 
                     correo:
                     {
-                        required: "Se requiere un email valido, ejm: correo@email.com",
+                        required: "Se requiere un email valido (ejemplo: email@email.com)",
                         lettersonly: "No se admiten números en el nombre",
                         remote: "Ya existe correo"
                     },
-                    fechaNacimiento: "Se requiere una fecha de nacimiento",
-                    estado: "Se requiere el estado actual del Empleado",
-                    tipoTrabajo: "Se requiere el puesto del nuevo empleado",
-                    provincia: "Se requiere la provincia",
-                    canton: "Se requiere el canton",
-                    distrito: "Se requiere el distrito",
-                    telefono: "Solo se aceptan numeros, minimo ocho digitos"
+                    fechaNacimiento: "La fecha de nacimiento es requerida",
+                    estado: "El estado es requerido",
+                    tipoTrabajo: "El puesto es requerido",
+                    provincia: "La provincia es requerida",
+                    canton: "El cantón es requerido",
+                    distrito: "El distrito es requerido",
+
+                    telefono:
+                    {
+                        minlength: "Mínimo ocho dígitos",
+                        number: "Solo se aceptan números",
+                        maxlength: "Máximo 15 dígitos"
+                    }
                 },
                 errorPlacement: function (error, element) {
                     if ((element.attr('name') === 'idEmpleadoPK')) {
@@ -351,6 +373,9 @@
                     }
                     if ((element.attr('name') === 'apellido1')) {
                         error.insertAfter($('#errorApellido'));
+                    }
+                    if ((element.attr('name') === 'apellido2')) {
+                        error.insertAfter($('#errorApellido2'));
                     }
                     if ((element.attr('name') === 'correo')) {
                         error.insertAfter($('#errorCorreo'));
