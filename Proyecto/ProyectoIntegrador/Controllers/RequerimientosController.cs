@@ -65,10 +65,9 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.idReqPK = idRequerimiento;
             requerimiento.descripcion = descripcion;
-            //requerimiento.cedulaTesterFK = idTester;
 
             //Valída los datos que podrían ser nulos.
-            if (estado != "")
+            if (estado != "null")
             {
                 requerimiento.estado = estado;
             }
@@ -81,6 +80,11 @@ namespace ProyectoIntegrador.Controllers
             if (fechai != null)
             {
                 requerimiento.fechaDeInicio = (DateTime)fechai;
+            }
+
+            if (idTester != "null")
+            {
+                requerimiento.cedulaTesterFK = idTester;
             }
 
             //Lo agrega a la BD

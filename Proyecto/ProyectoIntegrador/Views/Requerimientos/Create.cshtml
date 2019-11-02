@@ -80,7 +80,7 @@
                             @*Atributo Complejidad*@
                             <div class="input-group">
                                 <select class="custom-select" name="complejidad" required>
-                                    <option value="" selected>Seleccione la complejidad</option>
+                                    <option value="null" selected>Seleccione la complejidad</option>
                                     <option value="Simple">Simple</option>
                                     <option value="Medio">Medio</option>
                                     <option value="Complejo">Complejo</option>
@@ -99,7 +99,7 @@
                             @*Atributo Estado*@
                             <div class="input-group">
                                 <select class="custom-select" name="estado">
-                                    <option value="" selected>Seleccione el estado</option>
+                                    <option value="null" selected>Seleccione el estado</option>
                                     <option value="Preparacion">Preparación</option>
                                     <option value="Activo">Activo</option>
                                 </select>
@@ -127,7 +127,7 @@
                         <div class="col-4">
                             @*Atributo fechaInicio*@
                             <div class="input-group">
-                                <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@DateTime.Now.ToShortDateString()">
+                                <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@DateTime.Now">
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, la fecha que fue creado</small>
                         </div>
@@ -194,7 +194,7 @@
                             @*Atributo Cédula Tester*@
                             <div class="input-group">
                                 <select class="custom-select" name="idTester">
-                                    <option value=null selected>No Asignar</option>
+                                    <option value="null" selected>No Asignar</option>
                                     @foreach (var item in ViewBag.TestersDisponibles)
                                     {
                                         <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
