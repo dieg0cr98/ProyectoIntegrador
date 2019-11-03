@@ -72,11 +72,8 @@ namespace ProyectoIntegrador.Controllers
         public JsonResult consulta3LoadChart(int id)
         {
 
-            var t = db.Requerimiento.Where(r => r.idProyectoFK == id).ToList();
-            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
+            var t = db.USP_CantidadReqATester(id);
+            var json = JsonConvert.SerializeObject(t);
 
             return Json(json, JsonRequestBehavior.AllowGet);
 

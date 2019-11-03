@@ -125,17 +125,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="testersActivos" FunctionName="Gr03Proy2Model.Store.testersActivos">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.testersActivos_Result">
-          <ScalarProperty Name="Nombre_Empleado" ColumnName="Nombre Empleado" />
-          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
-          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Gr03Proy2Model.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Gr03Proy2Model.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="USP_TestersDisponibleAsignado" FunctionName="Gr03Proy2Model.Store.USP_TestersDisponibleAsignado">
@@ -161,5 +150,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="USP_CantidadReqATester" FunctionName="Gr03Proy2Model.Store.USP_CantidadReqATester">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CantidadReqATester_Result">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

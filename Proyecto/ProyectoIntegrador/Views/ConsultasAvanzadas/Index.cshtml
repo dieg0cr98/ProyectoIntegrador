@@ -174,7 +174,7 @@ cursor:pointer;
 
                     //Saca los datos para el piechart
                     var catidadTotal = data2.length;
-                    var cantidadAsignados = 1;
+                    var cantidadAsignados = 0;
                     var cantiadadDisponibles = 0;
 
                     var html = '<div class="row"><div class="col">';
@@ -236,7 +236,7 @@ cursor:pointer;
 
                         var options = {
                             //title: 'Testers',
-                            //'backgroundColor': 'transparent',
+                            'backgroundColor': 'transparent',
                             pieHole: 0.4,
                            'width':800,
                            'height':800,
@@ -363,7 +363,7 @@ cursor:pointer;
 
         }
 
-        function consulta3LoadChart(idProyecto,nombre) {
+        function consulta3LoadChart(idProyecto,nombreProyecto) {
             
 
             //Eliminar el Chart Anterior
@@ -388,24 +388,63 @@ cursor:pointer;
                 success: function (data) {
 
                     data2 = JSON.parse(data);
+                    console.log(data2);
+
+                    //var data = new google.visualization.DataTable();
+                    //data.addColumn('Tester', 'CantidadReq', { role: 'style' }, { role: 'tooltip' });
+                    //data.addRows([
+                    //     ['Tester1', 8.94, '#76323f','Tester1 '+ 8.94],
+                    //        ['Tester2', 10.49, '#76323f','Tester2'],
+                    //        ['Tester3', 19.30, '#76323f','Tester3'],
+                    //        ['Tester4', 21.45, '#76323f', 'Tester4'],
+                    //        ['Tester5', 21.45, '#76323f','Tester5']
+
+
+                    //]);
+
+
+
 
                     //Carga los datos del chart
-                    google.charts.load('current', {
-                        packages: ['corechart']
-                    }).then(function () {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Tester', 'CantidadReq', { role: 'style' }, { role: 'tooltip' }],
-                            ['Tester1', 8.94, '#76323f','Tester1 '+ 8.94],
-                            ['Tester2', 10.49, '#76323f','Tester2'],
-                            ['Tester3', 19.30, '#76323f','Tester3'],
-                            ['Tester4', 21.45, '#76323f', 'Tester4'],
-                            ['Tester5', 21.45, '#76323f','Tester5']
-                        ]);
+                    google.charts.load("visualization", "1", { packages: ["corechart"] }
+                    ).then(function () {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Tester');
+                    data.addColumn('number', 'CantidadReq');
+                    data.addColumn({ type: 'string', role: 'tooltip' }); 
+                    data.addColumn({ type: 'string', role: 'style' }); 
+
+                    for (tupla in data2)
+                    {
+                        var nombreCompleto = "";
+                       
+                        var nombre = data2[tupla].nombre;
+                        var apellido1 = data2[tupla].apellido1;
+                        var apellido2 = data2[tupla].apellido2;
+                        nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
+                        var cantidad = data2[tupla].Cantidad;
+                        data.addRow([nombre,cantidad,nombreCompleto + '\n CantidadReq: '+ cantidad ,'#76323f']);
+
+                    }
+
+
+
+                        //var data = google.visualization.arrayToDataTable([
+                        //    ['Tester', 'CantidadReq', { role: 'style' }, { role: 'tooltip' }],
+
+                            
+
+                        //    ['Tester1', 8.94, '#76323f','Tester1 '+ 8.94],
+                        //    ['Tester2', 10.49, '#76323f','Tester2'],
+                        //    ['Tester3', 19.30, '#76323f','Tester3'],
+                        //    ['Tester4', 21.45, '#76323f', 'Tester4'],
+                        //    ['Tester5', 21.45, '#76323f','Tester5']
+                        //]);
 
                         var options = {
 
                             'backgroundColor': 'transparent',
-                            title: nombre,
+                            title: nombreProyecto,
                             titleTextStyle: {fontSize:25,},
                             legend: { position: 'none' },
                             vAxes: {

@@ -38,31 +38,6 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
     
-        public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CA_TestersAsignadosDisponibles_Result>("CA_TestersAsignadosDisponibles");
-        }
-    
-        public virtual ObjectResult<CA_TestersAsignados_Y_Disponibles_Result> CA_TestersAsignados_Y_Disponibles()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CA_TestersAsignados_Y_Disponibles_Result>("CA_TestersAsignados_Y_Disponibles");
-        }
-    
-        public virtual ObjectResult<numeroEmpleados_Result> numeroEmpleados(ObjectParameter numeroEmpleados)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<numeroEmpleados_Result>("numeroEmpleados", numeroEmpleados);
-        }
-    
-        public virtual ObjectResult<testers_Result> testers()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<testers_Result>("testers");
-        }
-    
-        public virtual ObjectResult<testersActivos_Result> testersActivos()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<testersActivos_Result>("testersActivos");
-        }
-    
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
@@ -108,6 +83,15 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual ObjectResult<USP_TestersDisponibleAsignado_Result> USP_TestersDisponibleAsignado()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_TestersDisponibleAsignado_Result>("USP_TestersDisponibleAsignado");
+        }
+    
+        public virtual ObjectResult<USP_CantidadReqATester_Result> USP_CantidadReqATester(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CantidadReqATester_Result>("USP_CantidadReqATester", idProyectoParameter);
         }
     }
 }
