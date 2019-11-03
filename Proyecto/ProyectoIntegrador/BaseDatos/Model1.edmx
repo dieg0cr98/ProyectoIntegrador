@@ -335,6 +335,10 @@
         <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_ContarRequerimientosTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idTester" Type="char" Mode="In" />
+          <Parameter Name="reqs" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_editEmployeeId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
           <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
@@ -754,7 +758,7 @@
             <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
           </AssociationSet>
           <FunctionImport Name="HabilidadesEmpleado" ReturnType="Collection(String)">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_dropdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -775,7 +779,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="USP_CantidadReqATester" ReturnType="Collection(Gr03Proy2Model.USP_CantidadReqATester_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_editEmployeeId">
             <Parameter Name="cedulaVieja" Mode="In" Type="String" />
@@ -790,11 +794,15 @@
             <Parameter Name="testers" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_GetEquipo" ReturnType="Collection(Gr03Proy2Model.USP_GetEquipo_Result)">
-            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_GetLideresDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetLideresDisponibles_Result)" />
           <FunctionImport Name="USP_GetTestersDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersDisponibles_Result)" />
           <FunctionImport Name="USP_TestersDisponibleAsignado" ReturnType="Collection(Gr03Proy2Model.USP_TestersDisponibleAsignado_Result)" />
+          <FunctionImport Name="USP_ContarRequerimientosTester">
+            <Parameter Name="idTester" Mode="In" Type="String" />
+            <Parameter Name="reqs" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1236,6 +1244,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -38,7 +38,8 @@
                 var rolEmpleado = $(ui.item).data('rol');
                 //alert('Sacando a  ' + idEmpleado + 'del equipo');
                 $.ajax({
-                    type: "POST",
+                    type: "GET",
+                    dataType: 'json',
                     url: "/TrabajaEn/QuitarIntegrante",
                     data: {
                         idProyecto: idProyecto,
@@ -46,11 +47,13 @@
                         rolEmpleado: rolEmpleado
                     },
                     success: function (data) {
-                        alert("Success");
+                       if (data.flag == 1) { //Se añadió correctamente al equipo
+                            alert(data.msg);
+                       } else {
+                            alert(data.msg);
+                            ui.sender.sortable("cancel");
+                       }
                     },
-
-
-
                 });
             },
         });

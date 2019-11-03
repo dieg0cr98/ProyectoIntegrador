@@ -330,6 +330,10 @@
   <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>
+  <Function Name="USP_ContarRequerimientosTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idTester" Type="char" Mode="In" />
+    <Parameter Name="reqs" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="USP_editEmployeeId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
     <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />

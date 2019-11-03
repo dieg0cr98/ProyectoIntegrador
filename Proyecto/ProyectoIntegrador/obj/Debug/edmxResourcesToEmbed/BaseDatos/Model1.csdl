@@ -382,6 +382,10 @@
     <FunctionImport Name="USP_GetLideresDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetLideresDisponibles_Result)" />
     <FunctionImport Name="USP_GetTestersDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersDisponibles_Result)" />
     <FunctionImport Name="USP_TestersDisponibleAsignado" ReturnType="Collection(Gr03Proy2Model.USP_TestersDisponibleAsignado_Result)" />
+    <FunctionImport Name="USP_ContarRequerimientosTester">
+      <Parameter Name="idTester" Mode="In" Type="String" />
+      <Parameter Name="reqs" Mode="InOut" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />

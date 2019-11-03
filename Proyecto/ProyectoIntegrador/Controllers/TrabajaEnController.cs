@@ -138,7 +138,7 @@ namespace ProyectoIntegrador.Controllers
                 case "Tester":
                     {
                         ObjectParameter output = new ObjectParameter("testers", typeof(Int32));
-                        db.USP_EquipoCheckLider(idProyecto, output);
+                        db.USP_EquipoCheckTesters(idProyecto, output);
                         int numTesters = (int) output.Value;
                         System.Diagnostics.Debug.WriteLine("CANTIDAD TESTERS: " + numTesters);
                         if (numTesters < 5)
@@ -180,27 +180,113 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        public void QuitarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
+        public JsonResult QuitarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
-        
+            
             Empleado empleado = db.Empleado.Find(idEmpleado);
             Proyecto proyecto = db.Proyecto.Find(idProyecto);
             TrabajaEn trabaja = db.TrabajaEn.Find(idProyecto, idEmpleado);
-            empleado.estado = "Disponible";
-            db.Entry(empleado).State = EntityState.Modified;
+            dynamic ret;
+
 
             //Si el proyecto está activo guarda el empleado para cuestión de historial pero lo pone inactivo.
             if (proyecto.estado == "Activo")
             {
-                trabaja.estado = "Inactivo";
-                db.Entry(trabaja).State = EntityState.Modified;
-            } else //Si no lo elimina del equipo.
-            {
-                db.TrabajaEn.Remove(trabaja);
+                //Si se saca al lider del equipo el proyecto se congela.
+                if (empleado.tipoTrabajo == "Lider")
+                {
+                    empleado.estado = "Disponible";
+                    db.Entry(empleado).State = EntityState.Modified;
+
+                    trabaja.estado = "Inactivo";
+                    db.Entry(trabaja).State = EntityState.Modified;
+                    //Congelar proyecto aquí
+
+                    ret = new
+                    {
+                        flag = 1,
+                        msg = "Se ha sacado exitosamente al líder del equipo."
+                    };
+                    db.SaveChanges();
+                }
+                //Es un tester, revisar reqs
+                else
+                {
+                    ObjectParameter output = new ObjectParameter("reqs", typeof(Int32));
+                    db.USP_ContarRequerimientosTester(idEmpleado, output);
+                    int reqs = (int)output.Value;
+
+                    if (reqs == 0) //No tiene requerimientos asignados, puede ser eliminado
+                    {
+                        empleado.estado = "Disponible";
+                        db.Entry(empleado).State = EntityState.Modified;
+
+                        trabaja.estado = "Inactivo";
+                        db.Entry(trabaja).State = EntityState.Modified;
+
+                        ret = new
+                        {
+                            flag = 1,
+                            msg = "Se ha sacado exitosamente al tester del equipo."
+                        };
+                        db.SaveChanges();
+                    }
+                    else //Tiene reqs
+                    {
+                        ret = new
+                        {
+                            flag = -1,
+                            msg = "No se puede sacar a un empleado con requerimientos activos asignados."
+                        };
+                    }
+                }
+         
             }
-           
-          
-            db.SaveChanges();
+            //Proyecto no activo, lo borra del equipo.
+            else
+            {
+                
+                if (empleado.tipoTrabajo == "Lider") //Es lider, se elimina sin revisar requerimientos.
+                {
+                    db.TrabajaEn.Remove(trabaja);
+                    empleado.estado = "Disponible";
+                    db.Entry(empleado).State = EntityState.Modified;
+                    ret = new
+                    {
+                        flag = 1,
+                        msg = "Se ha sacado exitosamente al líder del equipo."
+                    };
+                    db.SaveChanges();
+                }
+                else //Es tester, se revisan los requerimientos.
+                {
+                    ObjectParameter output = new ObjectParameter("reqs", typeof(Int32));
+                    db.USP_ContarRequerimientosTester(idEmpleado, output);
+                    int reqs = (int)output.Value;
+
+                     if (reqs == 0) //No tiene requerimientos asignados, puede ser eliminado
+                     {
+                        db.TrabajaEn.Remove(trabaja);
+                        empleado.estado = "Disponible";
+                        db.Entry(empleado).State = EntityState.Modified;
+                        ret = new
+                        {
+                            flag = 1,
+                            msg = "Se ha sacado exitosamente al tester del equipo."
+                        };
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        ret = new
+                        {
+                            flag = -1,
+                            msg = "No se puede sacar a un empleado con requerimientos activos asignados."
+                        };
+                    }
+                }
+            }
+            return Json(ret, JsonRequestBehavior.AllowGet);
         }
 
 

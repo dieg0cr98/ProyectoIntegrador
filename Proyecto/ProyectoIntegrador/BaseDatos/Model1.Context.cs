@@ -247,5 +247,14 @@ namespace ProyectoIntegrador.BaseDatos
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_TestersDisponibleAsignado_Result>("USP_TestersDisponibleAsignado");
         }
+    
+        public virtual int USP_ContarRequerimientosTester(string idTester, ObjectParameter reqs)
+        {
+            var idTesterParameter = idTester != null ?
+                new ObjectParameter("idTester", idTester) :
+                new ObjectParameter("idTester", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_ContarRequerimientosTester", idTesterParameter, reqs);
+        }
     }
 }

@@ -255,5 +255,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
   </EntityContainerMapping>
 </Mapping>
