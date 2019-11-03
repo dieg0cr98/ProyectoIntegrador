@@ -214,5 +214,14 @@ namespace ProyectoIntegrador.BaseDatos
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_TestersDisponibleAsignado_Result>("USP_TestersDisponibleAsignado");
         }
+    
+        public virtual int USP_EquipoCheckTesters(Nullable<int> idProyecto, ObjectParameter testers)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_EquipoCheckTesters", idProyectoParameter, testers);
+        }
     }
 }

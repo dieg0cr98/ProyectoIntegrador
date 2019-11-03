@@ -90,25 +90,93 @@ namespace ProyectoIntegrador.Controllers
          * Modifica: El empleado que se integra al equipo y la tabla TrabajaEn
          */
         //deberia retornar json result para verificar
-        // [HttpGet]
-        public void AgregarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
+        //[HttpGet]
+        public JsonResult AgregarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
 
             //System.Diagnostics.Debug.WriteLine(idProyecto + " " + idEmpleado + " " + rolEmpleado);
-            TrabajaEn trabaja = new TrabajaEn();
             Empleado empleado = db.Empleado.Find(idEmpleado);
-            empleado.estado = "Ocupado";
-
-            ObjectParameter output;
-            //db.USP_EquipoCheckLider(idProyecto,);
-            trabaja.idProyectoFK = idProyecto;
-            trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
-            trabaja.rol = rolEmpleado;
-            trabaja.estado = "Activo";
-
-            db.Entry(empleado).State = EntityState.Modified;
-            db.TrabajaEn.Add(trabaja);
-            db.SaveChanges();
+            //empleado.estado = "Ocupado";
+            dynamic ret;
+            switch (empleado.tipoTrabajo)
+            {
+                case "Lider":
+                    {
+                        ObjectParameter output = new ObjectParameter("liderFlag", typeof(Int32));
+                        db.USP_EquipoCheckLider(idProyecto, output);
+                        int numLider = (int)output.Value;
+                        System.Diagnostics.Debug.WriteLine("TIENE LIDER: "  + numLider);
+                        if (numLider == 0) //Equipo sin lider, puede ser añadido
+                        {
+                            empleado.estado = "Ocupado";
+                            TrabajaEn trabaja = new TrabajaEn();
+                            trabaja.idProyectoFK = idProyecto;
+                            trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
+                            trabaja.rol = rolEmpleado;
+                            trabaja.estado = "Activo";
+                            db.Entry(empleado).State = EntityState.Modified;
+                            db.TrabajaEn.Add(trabaja);
+                            db.SaveChanges();
+                            ret = new
+                            {
+                               flag = 1, 
+                               msg = "Se ha agregado el líder exitosamente al equipo."
+                            };
+                        }  
+                        else //Ya tiene lider
+                        {
+                            ret = new
+                            {
+                                flag = -1,
+                                msg = "No puede haber más de un líder en el equipo."
+                            };
+                            return Json(ret, JsonRequestBehavior.AllowGet);
+                        }
+                      break;
+                    }
+                    
+                case "Tester":
+                    {
+                        ObjectParameter output = new ObjectParameter("testers", typeof(Int32));
+                        db.USP_EquipoCheckLider(idProyecto, output);
+                        int numTesters = (int) output.Value;
+                        System.Diagnostics.Debug.WriteLine("CANTIDAD TESTERS: " + numTesters);
+                        if (numTesters < 5)
+                        {
+                            empleado.estado = "Ocupado";
+                            TrabajaEn trabaja = new TrabajaEn();
+                            trabaja.idProyectoFK = idProyecto;
+                            trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
+                            trabaja.rol = rolEmpleado;
+                            trabaja.estado = "Activo";
+                            db.Entry(empleado).State = EntityState.Modified;
+                            db.TrabajaEn.Add(trabaja);
+                            db.SaveChanges();
+                            ret = new
+                            {
+                                flag = 1,
+                                msg = "Se ha agregado el tester exitosamente al equipo."
+                            };
+                        } 
+                        else
+                        {
+                            ret = new
+                            {
+                                flag = -1,
+                                msg = "No se pueden agregar más testers al equipo."
+                            };
+                        }
+                    }
+                    break;
+                default:
+                    ret = new
+                    {
+                        flag = -1,
+                        msg = "No se ha podido agregar el integrante al equipo."
+                    };
+                    break;
+            }
+            return Json(ret, JsonRequestBehavior.AllowGet);
         }
 
 
