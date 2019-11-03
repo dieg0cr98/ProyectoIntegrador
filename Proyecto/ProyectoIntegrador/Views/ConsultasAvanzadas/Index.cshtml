@@ -13,11 +13,11 @@
         }
 
         .sidenav {
-            height: 625px;
+            max-height: 790px;
             width: 0;
             position: fixed;
             z-index: 1;
-            top: 160px;
+            top: 156px;
             left: 0;
             background-color: #76323F;
             overflow-x: hidden;
@@ -60,19 +60,73 @@ cursor:pointer;
 <body>
 
     <div id="mySidenav" class="sidenav mt-2">
-        <a href="#" onclick="consulta1()"><h5>Testers Asignados/Disponibles</h5></a>
-        <a href="#" onclick="consulta2()"><h5>Tester Habilidades/Disponibilidad</h5></a>
-        <a href="#" onclick="consulta3()"><h5>Total requerimientos por tester</h5></a>
-        <a href="#" onclick="consulta4()"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
-        <a href="#" onclick="consulta5()"><h5>Horas estimadas y reales requeridas por proyecto</h5></a>
-        <a href="#" onclick="consulta6()"><h5>Historial de participación por tester </h5></a>
-        <a href="#" onclick="consulta7()"><h5>Comparación de duración por complejidad</h5></a>
-        <a href="#" onclick="consulta8()"><h5>Resultado de pruebas para un proyecto</h5></a>
-        <a href="#" onclick="consulta9()"><h5>Estado de pruebas para un proyecto</h5></a>
-        <a href="#" onclick="consulta10()"><h5>Requerimientos terminados y en ejecución</h5></a>
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[0] != 3)
+        {
+            <a href="#" onclick="consulta1(@ViewBag.permisosConsultas.Item2[0])"><h5>Testers Asignados/Disponibles</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[1] != 3)
+        {
+            <a href="#" onclick="consulta2()"><h5>Tester Habilidades/Disponibilidad</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[2] != 3)
+        {
+            <a href="#" onclick="consulta3(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Total requerimientos por tester</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[3] != 3)
+        {
+            <a href="#" onclick="consulta4()"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[4] != 3)
+        {
+            <a href="#" onclick="consulta5()"><h5>Horas estimadas y reales requeridas por proyecto</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[5] != 3)
+        {
+            <a href="#" onclick="consulta6()"><h5>Historial de participación por tester </h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[6] != 3)
+        {
+            <a href="#" onclick="consulta7()"><h5>Comparación de duración por complejidad</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[7] != 3)
+        {
+            <a href="#" onclick="consulta8()"><h5>Resultado de pruebas para un proyecto</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[8] != 3)
+        {
+            <a href="#" onclick="consulta9()"><h5>Estado de pruebas para un proyecto</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[9] != 3)
+        {
+            <a href="#" onclick="consulta10()"><h5>Requerimientos terminados y en ejecución</h5></a>
+        }
+
+
     </div>
 
     <br />
+
+    <input id="rol" hidden class="form-control" value="@ViewBag.permisosConsultas.Item1" name="rol" type="text">
 
     <div class="row">
         <div class="col-2 ">
@@ -112,7 +166,7 @@ cursor:pointer;
                 <!-- Datos para la primera consulta -->
                 <div id="datosC1">
 
-                   
+
 
 
                 </div>
@@ -149,7 +203,8 @@ cursor:pointer;
         }
 
 
-        function consulta1() {
+        function consulta1(permiso) {
+            alert(permiso);
             //Cierra la lista de consultas
             opencloseNav();
 
@@ -167,6 +222,13 @@ cursor:pointer;
             $.ajax({
                 url: "/ConsultasAvanzadas/consulta1",
                 method: "GET",
+                data: {
+                    permiso: function () {
+                        return permiso;
+                    }
+
+
+                },
                 success: function (data) {
 
                     data2 = JSON.parse(data);
@@ -178,7 +240,7 @@ cursor:pointer;
                     var cantiadadDisponibles = 0;
 
                     var html = '<div class="row"><div class="col">';
-                    
+
 
 
                     //Se crea el html para la tabla
@@ -213,14 +275,14 @@ cursor:pointer;
 
                     table += '</tbody></table>';
 
-                    html += table; 
+                    html += table;
                     //< !--Tabla-->
-                         
-                    html +=  '</div > <div class="col">';
+
+                    html += '</div > <div class="col">';
 
 
 
-              
+
 
 
                     //Carga los datos del chart
@@ -238,8 +300,8 @@ cursor:pointer;
                             //title: 'Testers',
                             'backgroundColor': 'transparent',
                             pieHole: 0.4,
-                           'width':800,
-                           'height':800,
+                            'width': 800,
+                            'height': 800,
                         };
 
                         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -251,7 +313,7 @@ cursor:pointer;
                     //Se crea el html para el piechart
                     var chart = '<div id="piechart" align="center" style="width: 100%;height: 100%;margin: 0 auto"></div>';
 
-                   //< !--Chart-->
+                    //< !--Chart-->
                     html += chart;
 
 
@@ -264,7 +326,7 @@ cursor:pointer;
                 }
                 ,
                 error: function (err) {
-                    alert("Por favor refrescar el navegador");
+                   alert("Ha ocurrido un error");
                 }
 
 
@@ -282,7 +344,7 @@ cursor:pointer;
 
         }
 
-        function consulta3() {
+        function consulta3(permiso,idUsuario) {
 
             //Cierra la lista de consultas
             opencloseNav();
@@ -300,6 +362,18 @@ cursor:pointer;
             $.ajax({
                 url: "/ConsultasAvanzadas/consulta3",
                 method: "GET",
+                data: {
+                    rol: function () {
+                        return document.getElementById("rol").value;
+                    },
+                    permiso: function () {
+                        return permiso;
+                    },
+                    idUsuario: function () {
+                        return idUsuario;
+                    },
+
+                },
                 success: function (data) {
 
                     data2 = JSON.parse(data);
@@ -319,9 +393,9 @@ cursor:pointer;
                         var datosDelScript = "consulta3LoadChart(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
 
 
-                        table += '<tr onclick="'+datosDelScript+'"  class="table-row" >';
+                        table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
 
-                       
+
                         table += ' <th scope="row">' + nombreProyecto + '</th>';
 
                         var estado = data2[tupla].estado;
@@ -335,10 +409,10 @@ cursor:pointer;
 
                     table += '</tbody></table>';
 
-                    html += table; 
-                   
-                         
-                    html +=  '</div > <div class="col"><div id="chartInterno"></div>';
+                    html += table;
+
+
+                    html += '</div > <div class="col"><div id="chartInterno"></div>';
 
                     html += '</div></div>';
 
@@ -347,7 +421,7 @@ cursor:pointer;
 
 
 
-                  
+
 
 
                 }
@@ -363,15 +437,15 @@ cursor:pointer;
 
         }
 
-        function consulta3LoadChart(idProyecto,nombreProyecto) {
-            
+        function consulta3LoadChart(idProyecto, nombreProyecto) {
+
 
             //Eliminar el Chart Anterior
             if (document.contains(document.getElementById("columnChart"))) {
                 document.getElementById("columnChart").remove();
             }
 
-             //Se crea el html de loading
+            //Se crea el html de loading
             document.getElementById("chartInterno").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
 
             //Pide los datos al controlador
@@ -408,31 +482,30 @@ cursor:pointer;
                     //Carga los datos del chart
                     google.charts.load("visualization", "1", { packages: ["corechart"] }
                     ).then(function () {
-                    var data = new google.visualization.DataTable();
-                    data.addColumn('string', 'Tester');
-                    data.addColumn('number', 'CantidadReq');
-                    data.addColumn({ type: 'string', role: 'tooltip' }); 
-                    data.addColumn({ type: 'string', role: 'style' }); 
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Tester');
+                        data.addColumn('number', 'CantidadReq');
+                        data.addColumn({ type: 'string', role: 'tooltip' });
+                        data.addColumn({ type: 'string', role: 'style' });
 
-                    for (tupla in data2)
-                    {
-                        var nombreCompleto = "";
-                       
-                        var nombre = data2[tupla].nombre;
-                        var apellido1 = data2[tupla].apellido1;
-                        var apellido2 = data2[tupla].apellido2;
-                        nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
-                        var cantidad = data2[tupla].Cantidad;
-                        data.addRow([nombre,cantidad,nombreCompleto + '\n CantidadReq: '+ cantidad ,'#76323f']);
+                        for (tupla in data2) {
+                            var nombreCompleto = "";
 
-                    }
+                            var nombre = data2[tupla].nombre;
+                            var apellido1 = data2[tupla].apellido1;
+                            var apellido2 = data2[tupla].apellido2;
+                            nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
+                            var cantidad = data2[tupla].Cantidad;
+                            data.addRow([nombre, cantidad, nombreCompleto + '\n CantidadReq: ' + cantidad, '#76323f']);
+
+                        }
 
 
 
                         //var data = google.visualization.arrayToDataTable([
                         //    ['Tester', 'CantidadReq', { role: 'style' }, { role: 'tooltip' }],
 
-                            
+
 
                         //    ['Tester1', 8.94, '#76323f','Tester1 '+ 8.94],
                         //    ['Tester2', 10.49, '#76323f','Tester2'],
@@ -445,15 +518,15 @@ cursor:pointer;
 
                             'backgroundColor': 'transparent',
                             title: nombreProyecto,
-                            titleTextStyle: {fontSize:25,},
+                            titleTextStyle: { fontSize: 25, },
                             legend: { position: 'none' },
                             vAxes: {
                                 // Adds titles to each axis.
-                                0: {title: 'CANTIDAD DE REQUERIMIENTOS', titleTextStyle: {fontSize:25,} },
+                                0: { title: 'CANTIDAD DE REQUERIMIENTOS', titleTextStyle: { fontSize: 25, } },
 
                             },
-   
-                       
+
+
                         };
 
                         var chart = new google.visualization.ColumnChart(document.getElementById('columnChart'));

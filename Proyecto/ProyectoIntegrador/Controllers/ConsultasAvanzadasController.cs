@@ -23,48 +23,40 @@ namespace ProyectoIntegrador.Controllers
         // GET: ConsultasAvanzadas
         public ActionResult Index()
         {
-            
 
- 
+            ViewBag.permisosConsultas = seguridad.permisosConsultasAvanzadas(User);
+
             return View();
         }
 
 
-        public ActionResult Index2(int consulta)
-        {
-            
-            ViewBag.consulta = consulta;
-            return View();
-        }
 
-        public JsonResult consulta1()
+
+        public JsonResult consulta1(int permiso)
         {
 
-            var t = db.USP_TestersDisponibleAsignado().ToList();
-            var json = JsonConvert.SerializeObject(t);
-            //var t2 = db.testersActivos().ToList();
-            //var t = empleados.GetTestersDisponibles();
-            //var tuple = Tuple.Create(t, t2);
-
-            //var json = JsonConvert.SerializeObject(tuple);
-
-            return Json(json, JsonRequestBehavior.AllowGet);
+            if(permiso == 1)
+            {
+                var t = db.USP_TestersDisponibleAsignado().ToList();
+                var json = JsonConvert.SerializeObject(t);
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return  Json(null, JsonRequestBehavior.AllowGet);
+            }
 
         }
 
-        public JsonResult consulta3()
+        public JsonResult consulta3(int rol,int permiso,string idUsuario)
         {
 
-            var t = db.Proyecto.ToList();
+            var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
             var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
-            //var t2 = db.testersActivos().ToList();
-            //var t = empleados.GetTestersDisponibles();
-            //var tuple = Tuple.Create(t, t2);
 
-            //var json = JsonConvert.SerializeObject(tuple);
 
             return Json(json, JsonRequestBehavior.AllowGet);
 

@@ -468,7 +468,6 @@
     <Content Include="Views\Empleados\Scripts.cshtml" />
     <Content Include="Views\Requerimientos\FormularioIndex.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
-    <Content Include="Views\ConsultasAvanzadas\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
