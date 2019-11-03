@@ -60,14 +60,15 @@
             <PropertyRef Name="idProyectoFK" />
             <PropertyRef Name="idReqFK" />
             <PropertyRef Name="idEmpleadoFK" />
+            <PropertyRef Name="fechaInicio" />
           </Key>
           <Property Name="idProyectoFK" Type="int" Nullable="false" />
           <Property Name="idReqFK" Type="int" Nullable="false" />
           <Property Name="idEmpleadoFK" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="horas" Type="int" Nullable="false" />
-          <Property Name="fechaInicio" Type="date" />
-          <Property Name="fechaFin" Type="date" />
-          <Property Name="activo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="horas" Type="int" />
+          <Property Name="fechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="fechaFin" Type="datetime" />
+          <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Proyecto">
           <Key>
@@ -290,16 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="edad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
-          <Parameter Name="fecha" Type="date" Mode="In" />
-        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="HabilidadesEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="ObtenerProyectoActualDelEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
-          <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -312,42 +304,10 @@
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="testersActivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="TestersAsignables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
-        <Function Name="USP_editEmployeeId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
-          <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="USP_EquipoCheckLider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="idProyecto" Type="int" Mode="In" />
-          <Parameter Name="liderFlag" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="USP_GetEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id_proyecto" Type="int" Mode="In" />
-        </Function>
-        <Function Name="USP_GetLideresDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="USP_GetTestersDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="USP_TestersDisponibleAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Gr03Proy2ModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
@@ -718,6 +678,27 @@
             <End Role="Prueba" EntitySet="Prueba" />
           </AssociationSet>
           <FunctionImport Name="CA_TestersAsignadosDisponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignadosDisponibles_Result)" />
+          <FunctionImport Name="CA_TestersAsignados_Y_Disponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result)" />
+          <FunctionImport Name="numeroEmpleados" ReturnType="Collection(Gr03Proy2Model.numeroEmpleados_Result)">
+          <Parameter Name="numeroEmpleados" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="testers" ReturnType="Collection(Gr03Proy2Model.testers_Result)" />
+          <FunctionImport Name="testersActivos" ReturnType="Collection(Gr03Proy2Model.testersActivos_Result)" />
+          <FunctionImport Name="sp_alterdiagram">
+          <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+          <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="TestersAsignables" ReturnType="Collection(Gr03Proy2Model.TestersAsignables_Result)">
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="HistorialReqTester" EntityType="Gr03Proy2Model.HistorialReqTester" />
           <AssociationSet Name="FK_HistorialReqTester_idEmpleadoFK" Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK">
             <End Role="Tester" EntitySet="Tester" />
@@ -727,57 +708,6 @@
             <End Role="Requerimiento" EntitySet="Requerimiento" />
             <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Gr03Proy2Model.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Gr03Proy2Model.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="testersActivos" ReturnType="Collection(Gr03Proy2Model.testersActivos_Result)" />
-          <FunctionImport Name="USP_GetEquipo" ReturnType="Collection(Gr03Proy2Model.USP_GetEquipo_Result)">
-          <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="USP_GetLideresDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetLideresDisponibles_Result)" />
-          <FunctionImport Name="USP_GetTestersDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersDisponibles_Result)" />
-          <FunctionImport Name="HabilidadesEmpleado" ReturnType="Collection(String)">
-          <Parameter Name="id" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="TestersAsignables" ReturnType="Collection(Gr03Proy2Model.TestersAsignables_Result)">
-          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="USP_editEmployeeId">
-            <Parameter Name="cedulaVieja" Mode="In" Type="String" />
-            <Parameter Name="cedulaNueva" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="USP_EquipoCheckLider">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
-            <Parameter Name="liderFlag" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="USP_TestersDisponibleAsignado" ReturnType="Collection(Gr03Proy2Model.USP_TestersDisponibleAsignado_Result)" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -804,19 +734,70 @@
           <Property Type="String" Name="cedulaClienteFK" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="cantidadReq" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="CA_TestersAsignados_Y_Disponibles_Result">
+          <Property Type="String" Name="nombre_Empleado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Estado_Empleado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="objetivo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="duracionReal" Nullable="false" />
+          <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
+          <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
+          <Property Type="DateTime" Name="fechaFinalizacion" Nullable="false" />
+          <Property Type="String" Name="cedulaClienteFK" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="cantidadReq" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="numeroEmpleados_Result">
+          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+          <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="testers_Result">
+          <Property Type="String" Name="Nombre_Empleado" Nullable="false" MaxLength="92" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="testersActivos_Result">
+          <Property Type="String" Name="Nombre_Empleado" Nullable="false" MaxLength="92" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="TestersAsignables_Result">
+          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+        </ComplexType>
         <EntityType Name="HistorialReqTester">
           <Key>
             <PropertyRef Name="idProyectoFK" />
             <PropertyRef Name="idReqFK" />
             <PropertyRef Name="idEmpleadoFK" />
+            <PropertyRef Name="fechaInicio" />
           </Key>
           <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
           <Property Name="idReqFK" Type="Int32" Nullable="false" />
           <Property Name="idEmpleadoFK" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="horas" Type="Int32" Nullable="false" />
-          <Property Name="fechaInicio" Type="DateTime" Precision="0" />
-          <Property Name="fechaFin" Type="DateTime" Precision="0" />
-          <Property Name="activo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="horas" Type="Int32" />
+          <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaFin" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tester" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" FromRole="HistorialReqTester" ToRole="Tester" />
           <NavigationProperty Name="Requerimiento" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" FromRole="HistorialReqTester" ToRole="Requerimiento" />
         </EntityType>
@@ -848,72 +829,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="testersActivos_Result">
-          <Property Type="String" Name="Nombre_Empleado" Nullable="false" MaxLength="92" />
-          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
-          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="USP_GetEquipo_Result">
-          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
-        </ComplexType>
-        <ComplexType Name="USP_GetLideresDisponibles_Result">
-          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
-          <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
-          <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
-        </ComplexType>
-        <ComplexType Name="USP_GetTestersDisponibles_Result">
-          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
-          <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
-          <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
-        </ComplexType>
-        <ComplexType Name="TestersAsignables_Result">
-          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
-        </ComplexType>
-        <ComplexType Name="USP_TestersDisponibleAsignado_Result">
-          <Property Type="String" Name="Nombre_Empleado" Nullable="false" MaxLength="92" />
-          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1044,43 +959,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HistorialReqTester">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
-              <MappingFragment StoreEntitySet="HistorialReqTester">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-                <ScalarProperty Name="horas" ColumnName="horas" />
-                <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
-                <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
-                <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Gr03Proy2Model.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Gr03Proy2Model.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Gr03Proy2Model.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Gr03Proy2Model.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Gr03Proy2Model.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Gr03Proy2Model.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Gr03Proy2Model.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="testersActivos" FunctionName="Gr03Proy2Model.Store.testersActivos">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr03Proy2Model.testersActivos_Result">
@@ -1092,56 +970,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_GetEquipo" FunctionName="Gr03Proy2Model.Store.USP_GetEquipo">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetEquipo_Result">
-                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_GetLideresDisponibles" FunctionName="Gr03Proy2Model.Store.USP_GetLideresDisponibles">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetLideresDisponibles_Result">
-                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="distrito" ColumnName="distrito" />
-                <ScalarProperty Name="canton" ColumnName="canton" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_GetTestersDisponibles" FunctionName="Gr03Proy2Model.Store.USP_GetTestersDisponibles">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetTestersDisponibles_Result">
-                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="distrito" ColumnName="distrito" />
-                <ScalarProperty Name="canton" ColumnName="canton" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="HabilidadesEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesEmpleado" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Gr03Proy2Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Gr03Proy2Model.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="TestersAsignables" FunctionName="Gr03Proy2Model.Store.TestersAsignables">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr03Proy2Model.TestersAsignables_Result">
@@ -1151,19 +981,20 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_editEmployeeId" FunctionName="Gr03Proy2Model.Store.USP_editEmployeeId" />
-          <FunctionImportMapping FunctionImportName="USP_EquipoCheckLider" FunctionName="Gr03Proy2Model.Store.USP_EquipoCheckLider" />
-          <FunctionImportMapping FunctionImportName="USP_TestersDisponibleAsignado" FunctionName="Gr03Proy2Model.Store.USP_TestersDisponibleAsignado">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_TestersDisponibleAsignado_Result">
-                <ScalarProperty Name="Nombre_Empleado" ColumnName="Nombre Empleado" />
-                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <EntitySetMapping Name="HistorialReqTester">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.HistorialReqTester">
+              <MappingFragment StoreEntitySet="HistorialReqTester">
                 <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-        </EntityContainerMapping>
+                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="horas" ColumnName="horas" />
+                <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+                <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+                <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

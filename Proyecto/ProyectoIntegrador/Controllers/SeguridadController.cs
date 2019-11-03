@@ -51,7 +51,25 @@ namespace ProyectoIntegrador.Controllers
 
             //Inserta el usuario a un rol.
             await manager.AddToRoleAsync(r.Id, rol);
+
         }
+
+        /*Metodo que eliminar el usario de las tabla de seguridad
+         * La clase es de tipo async porque los metodos son async. Los hilos ejecutan el metodo y no esperan a que este termine
+         * El await significa que tiene que esperar a que este metodo termine para continuar
+        */
+        public async System.Threading.Tasks.Task DeleteUsuarioAsync(string correo)
+        {
+            //Crea una varia de contexto Owin
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //Tomado de https://stackoverflow.com/questions/24001245/cant-get-usermanager-from-owincontext-in-apicontroller
+
+            var user = await manager.FindByNameAsync(correo);
+
+            await manager.DeleteAsync(user);
+
+        }
+
 
         /*Metodo para saber el rol del usuario logueado
         Recibe System.Security.Principal.IPrincipal user . Con los datos del usuario registrado actualmenten 
@@ -64,8 +82,6 @@ namespace ProyectoIntegrador.Controllers
       */
         public int GetRoleUsuario(System.Security.Principal.IPrincipal user)
         {
-
-
             int rol = -1;
             if (user.IsInRole("Lider"))
             {
@@ -231,8 +247,59 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,2,2,2}
          };
 
+        /* 1 Pueder hacer la accion para todos los clientes(crud)
+         * 2 Solo a los clientes que pertenece
+         * 3 No puede hacer la accion 
+        */
+        private int[,] tablaSeguridadClientes = new int[,] {
+                       /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consultar*/                   {1,2,2,2},
+         /*Agregar*/                     {1,3,3,3},
+         /*Editar*/                      {1,3,3,3},
+         /*Eliminar*/                    {1,3,3,3}
+         };
         //---------------------------------------------------------------------------------------------------------------------------//
 
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
+         * Retorna un Tuple<int,string,int,int,int>, con los valores:
+         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+         *              cedulaUsuario
+         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+        */
+        public Tuple<int, string, int, int, int, int> ClienteConsultar(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede editar
+            int permisoBorrar = 3;   //Por defecto no puede editar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadClientes[0, rol];
+                permisoAgregar = tablaSeguridadClientes[1, rol]; ;
+                permisoEditar = tablaSeguridadClientes[2, rol]; ;
+                permisoBorrar = tablaSeguridadClientes[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+
+            }
+
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
 
 
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
