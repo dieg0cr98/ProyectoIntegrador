@@ -11,16 +11,13 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class TrabajaEn
     {
-        [Key]
         public int idProyectoFK { get; set; }
-        [Key]
         public string idEmpleadoFK { get; set; }
-        public string rol { get; set; } = "Tester";
-        public string estado { get; set; } = "Activo";
+        public string rol { get; set; }
+        public string estado { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual Proyecto Proyecto { get; set; }
