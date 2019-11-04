@@ -6,11 +6,6 @@
 
 
     <style>
-
-
-
-
-
     </style>
 
 
@@ -68,14 +63,14 @@
                             <input id="input2" class="form-control bg-" style=" max-width:none; background-color:#D7CEC7; border-color:transparent" name="nombre" maxlength="30" type="text">
 
                             @*@if (ViewBag.permisos.Item3[1] == 1)
-                    {
-                        <input id="input2" class="form-control" style=" max-width:none" name="nombreP " maxlength="30" type="text">
+                                {
+                                    <input id="input2" class="form-control" style=" max-width:none" name="nombreP " maxlength="30" type="text">
 
-                    }
-                    else
-                    {
-                        <input id="input2" class="form-control" style=" max-width:none" name="nombreP" minlength="1" maxlength="30" type="text" readonly>
-                    }*@
+                                }
+                                else
+                                {
+                                    <input id="input2" class="form-control" style=" max-width:none" name="nombreP" minlength="1" maxlength="30" type="text" readonly>
+                                }*@
 
                         </div>
                         <div id="errorNombre"></div>
@@ -313,9 +308,9 @@
                         }
 
                     </select>
-                    <div class="input-group-append" style="max-width:none; width:180px">
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Añadir Cliente">Clientes</a>
-                    </div>
+                    @*<div class="input-group-append" style="max-width:none; width:180px">
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" style="max-width:none; width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Añadir Cliente">Clientes</a>
+                        </div>*@
 
                 </div>
 
@@ -349,9 +344,9 @@
                         }
 
                     </select>
-                    <div class="input-group-append" style="max-width:none; width:180px">
-                        <a class="btn btn-danger" style=" width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
-                    </div>
+                    @*<div class="input-group-append" style="max-width:none; width:180px">
+                            <a class="btn btn-danger" style=" width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
+                        </div>*@
                 </div>
 
 
@@ -373,7 +368,7 @@
                         <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/0"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
                     </div>
 
-                    <div class="col-5 text-right" >
+                    <div class="col-5 text-right">
 
                         <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
                             <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
@@ -399,7 +394,7 @@
 
     </form>
 
-    @Html.Partial("ModalClientes") 
+    @Html.Partial("ModalClientes")
 
     <script>
 
@@ -447,7 +442,7 @@
                             required: true,
                             minlength: 1,
                             remote: {
-                            url: "/Proyectos/CheckName",
+                                url: "/Proyectos/CheckName",
                                 type: "post",
                                 delay: 1000,
                                 data: {
@@ -457,7 +452,7 @@
                                     oldName: null
                                 }
                             }
-                           
+
 
                         },
                         cedulaCliente:
@@ -481,7 +476,7 @@
                         nombre:
                         {
                             required: "Inserte al menos 1 caracter",
-                            remote:"Ya existe un Proyecto con ese nombre"
+                            remote: "Ya existe un Proyecto con ese nombre"
                         },
 
                         cedulaCliente: "Seleccione un cliente",
@@ -551,4 +546,3 @@
     </script>
 
 </body>
-

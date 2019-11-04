@@ -505,6 +505,68 @@ namespace ProyectoIntegrador.Controllers
 
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
+            //----Consultas Avanzadas--//
+
+            /* 1 Pueder realizar la consulta
+             * 2 Solo los datos en los que participa
+             * 3 No puede realizar la consulta
+            */
+            private int[,] tablaSeguridadProyectoGeneralConsultas = new int[,] {
+                           /*Soporte/Calidad , Lider , Tester , Cliente*/
+             /*Consulta1*/                   {1,2,3,3},
+             /*Consulta2*/                   {1,2,3,3},
+             /*Consulta3*/                   {1,2,3,3},
+             /*Consulta4*/                   {1,2,3,3},
+             /*Consulta5*/                   {1,2,3,3},
+             /*Consulta6*/                   {1,3,3,3},
+             /*Consulta7*/                   {1,3,3,3},
+             /*Consulta8*/                   {1,3,3,2},
+             /*Consulta9*/                   {1,3,3,2},
+             /*Consulta10*/                  {1,3,3,2}
+             };
+
+
+
+            /*Metodo para acceder a las consultas avanzadas
+             * Retorna un Tuple<int,List<int>>, con los valores:
+             *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+             *              permisos (valor recuperado en la tabla de tablaSeguridadProyectoGeneralConsultas)
+             *              idUsuario (cedula)
+            */
+            public Tuple<int, List<int>, string> permisosConsultasAvanzadas(System.Security.Principal.IPrincipal user)
+            {
+                int consulta1 = 3; // Por defecto no puede realizar la consulta
+                int consulta2 = 3; // Por defecto no puede realizar la consulta
+                int consulta3 = 3; // Por defecto no puede realizar la consulta
+                int consulta4 = 3; // Por defecto no puede realizar la consulta
+                int consulta5 = 3; // Por defecto no puede realizar la consulta
+                int consulta6 = 3; // Por defecto no puede realizar la consulta
+                int consulta7 = 3; // Por defecto no puede realizar la consulta
+                int consulta8 = 3; // Por defecto no puede realizar la consulta
+                int consulta9 = 3; // Por defecto no puede realizar la consulta
+                int consulta10 = 3; // Por defecto no puede realizar la consulta
+                string cedulaUsuario = "";
+                List<int> permisos = new List<int>() { consulta1, consulta2, consulta3, consulta4, consulta5, consulta6, consulta7, consulta8, consulta9, consulta10 };
+
+
+                //Obtiene el rol del usuario
+                int rol = GetRoleUsuario(user);
+
+                if (rol >= 0)// Si el usuario tiene un rol asignado
+                {
+                    cedulaUsuario = IdUsuario(user);
+                    //Obtiene los permisos de la tabla de Seguridad
+                    for (int x = 0; x < 10; x++)
+                    {
+                        permisos[x] = tablaSeguridadProyectoGeneralConsultas[x, rol];
+                    }
+
+                }
+
+                return Tuple.Create(rol, permisos, cedulaUsuario);
+            }
+
+
 
     }
 }

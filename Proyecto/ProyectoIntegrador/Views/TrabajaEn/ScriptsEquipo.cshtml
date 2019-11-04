@@ -38,7 +38,8 @@
                 var rolEmpleado = $(ui.item).data('rol');
                 //alert('Sacando a  ' + idEmpleado + 'del equipo');
                 $.ajax({
-                    type: "POST",
+                    type: "GET",
+                    dataType: 'json',
                     url: "/TrabajaEn/QuitarIntegrante",
                     data: {
                         idProyecto: idProyecto,
@@ -46,11 +47,13 @@
                         rolEmpleado: rolEmpleado
                     },
                     success: function (data) {
-                        alert("Success");
+                       if (data.flag == 1) { //Se añadió correctamente al equipo
+                            alert(data.msg);
+                       } else {
+                            alert(data.msg);
+                            ui.sender.sortable("cancel");
+                       }
                     },
-
-
-
                 });
             },
         });
@@ -65,7 +68,8 @@
                 var rolEmpleado = $(ui.item).data('rol');
                 alert('Agregando a ' + idEmpleado + ' al equipo');
                 $.ajax({
-                    type: "POST",
+                    type: "GET",
+                    dataType: 'json',
                     url: "/TrabajaEn/AgregarIntegrante",
                     data: {
                         idProyecto: idProyecto,
@@ -74,10 +78,14 @@
                     },
 
                     success: function (data) {
-                        alert("Success");
+                        //var res = JSON.parse(data);
+                        if (data.flag == 1) { //Se añadió correctamente al equipo
+                            alert(data.msg);
+                        } else {
+                            alert(data.msg);
+                            ui.sender.sortable("cancel");
+                        }
                     },
-
-
                 });
 
             },

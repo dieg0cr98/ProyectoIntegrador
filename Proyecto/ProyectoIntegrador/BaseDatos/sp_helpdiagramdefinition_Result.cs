@@ -10,13 +10,10 @@
 namespace ProyectoIntegrador.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HabilidadTecnica
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string idEmpleadoFK { get; set; }
-        public string habilidad { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

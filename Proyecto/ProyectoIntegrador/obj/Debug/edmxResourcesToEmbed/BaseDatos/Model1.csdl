@@ -340,6 +340,52 @@
       <End Role="Requerimiento" EntitySet="Requerimiento" />
       <End Role="HistorialReqTester" EntitySet="HistorialReqTester" />
     </AssociationSet>
+    <FunctionImport Name="HabilidadesEmpleado" ReturnType="Collection(String)">
+      <Parameter Name="id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Gr03Proy2Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Gr03Proy2Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="USP_CantidadReqATester" ReturnType="Collection(Gr03Proy2Model.USP_CantidadReqATester_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_editEmployeeId">
+      <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+      <Parameter Name="cedulaNueva" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_EquipoCheckLider">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+      <Parameter Name="liderFlag" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_EquipoCheckTesters">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+      <Parameter Name="testers" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_GetEquipo" ReturnType="Collection(Gr03Proy2Model.USP_GetEquipo_Result)">
+      <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_GetLideresDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetLideresDisponibles_Result)" />
+    <FunctionImport Name="USP_GetTestersDisponibles" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersDisponibles_Result)" />
+    <FunctionImport Name="USP_TestersDisponibleAsignado" ReturnType="Collection(Gr03Proy2Model.USP_TestersDisponibleAsignado_Result)" />
+    <FunctionImport Name="USP_ContarRequerimientosTester">
+      <Parameter Name="idTester" Mode="In" Type="String" />
+      <Parameter Name="reqs" Mode="InOut" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -461,4 +507,64 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="USP_CantidadReqATester_Result">
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="Cantidad" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="USP_GetEquipo_Result">
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="USP_GetLideresDisponibles_Result">
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="USP_GetTestersDisponibles_Result">
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="USP_TestersDisponibleAsignado_Result">
+    <Property Type="String" Name="Nombre_Empleado" Nullable="false" MaxLength="92" />
+    <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
+  </ComplexType>
 </Schema>

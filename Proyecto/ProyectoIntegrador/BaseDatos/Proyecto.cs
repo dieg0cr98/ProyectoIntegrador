@@ -11,8 +11,7 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Proyecto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,18 +20,17 @@ namespace ProyectoIntegrador.BaseDatos
             this.Requerimiento = new HashSet<Requerimiento>();
             this.TrabajaEn = new HashSet<TrabajaEn>();
         }
-
-        [Key]
+    
         public int idProyectoAID { get; set; }
         public string nombre { get; set; }
         public string objetivo { get; set; }
-        public string estado { get; set; } = "Preparación";
-        public int duracionReal { get; set; } = 0;
-        public int duracionEstimada { get; set; } = 0;
-        public System.DateTime fechaInicio { get; set; } = DateTime.Now.Date;
-        public System.DateTime fechaFinalizacion { get; set; } = DateTime.Parse("1800-01-01");
+        public string estado { get; set; }
+        public int duracionReal { get; set; }
+        public int duracionEstimada { get; set; }
+        public System.DateTime fechaInicio { get; set; }
+        public System.DateTime fechaFinalizacion { get; set; }
         public string cedulaClienteFK { get; set; }
-        public int cantidadReq { get; set; } = 0;
+        public int cantidadReq { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

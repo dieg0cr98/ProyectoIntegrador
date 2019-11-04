@@ -10,13 +10,12 @@
 namespace ProyectoIntegrador.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HabilidadTecnica
+    public partial class USP_CantidadReqATester_Result
     {
-        public string idEmpleadoFK { get; set; }
-        public string habilidad { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
+        public string nombre { get; set; }
+        public string apellido1 { get; set; }
+        public string apellido2 { get; set; }
+        public Nullable<int> Cantidad { get; set; }
     }
 }
