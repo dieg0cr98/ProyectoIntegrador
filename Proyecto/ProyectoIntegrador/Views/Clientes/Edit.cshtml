@@ -16,155 +16,147 @@
 
 </head>
 
-<h2 class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Cliente  <img src="~/Content/boss.svg" width="70" height="70"></h2>
-
 <body onload="cargarDatos('@Model.provincia','@Model.canton','@Model.distrito')">
-    @if (Request.IsAuthenticated)
-    {
-        
-        <hr />
-        <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
-            <fieldset>
-                @if (ViewBag.error != null)
-                {
-                    <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
-                }
-                else
-                {
-                    <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
 
-                }
-                <input type="hidden" value="@Model.cedulaPK" name="cedulaVieja">
-                <div class="container " style="max-width: 1400px; ">
-                    <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
-                        <!--Despliegue del formulario-->
-                        <div style="background-color:rgba(192,159,128,0.7); padding-left:20px; padding-top:10px; overflow-x:hidden;" class="col-12">
-                            <div class="form-row mb-2">
-                                <div class="col-3">
-                                    <!--Campo Nombre-->
-                                    <h5 for="nombre" style="width:200px">Nombre *:</h5>
-                                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
-                                    <div id="errorNombre"></div>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-3">
-                                    <!--Campo Primer Apellido-->
-                                    <h5 for="apellido1" style="width:200px">Primer Apellido *:</h5>
-                                    @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
-                                    <div id="errorApe1"></div>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-3">
-                                    <!--Campo Segundo Apellido-->
-                                    <h5 for="apellido2" style="width:200px">Segundo Apellido:</h5>
-                                    @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
-                                    <div id="errorApe2"></div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-row mb-2">
-                                <div class="col-3">
-                                    <!--Se utiliza para pasarle informacion de info vieja al script de validacion -->
-                                    <input hidden class="form-control" value="@Model.cedulaPK" id="cedulaOld" type="text">
-                                    <!--Campo Cedula-->
-                                    <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none", @readonly = "true" } })
-                                    <div id="errorCed"></div>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-3">
-                                    <!--Se utiliza para pasarle informacion de info vieja al script de validacion -->
-                                    <input hidden class="form-control" value="@Model.correo" id="correoOld" type="text">
-                                    <!--Campo Email-->
-                                    <h5 for="correo" style="width:200px">Correo *:</h5>
-                                    @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none", @type = "email" } })
-                                    <div id="errorEma"></div>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-3">
-                                    <!--Campo Telefono-->
-                                    <h5 for="telefono" style="width:200px">Telefono:</h5>
-                                    @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
-                                    <div id="errorTel"></div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-row mb-2">
-                                <div class="col-3">
-                                    <!--Campo Empresa-->
-                                    <h5 for="empresa" style="width:200px">Empresa *:</h5>
-                                    @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
-                                    <div id="errorEmp"></div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-row mb-2">
-                                <div class="col-3">
-                                    <!--Campo Provincia-->
-                                    <h5 for="provincia" style="width:200px">Provincia *:</h5>
-                                    <div id="destino"></div>
-                                    <div id="errorProv"></div>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-3">
-                                    <!--Campo Canton-->
-                                    <h5 for="canton" style="width:200px">Cantón *:</h5>
-                                    <div id="destino2"></div>
-                                    <div id="errorCant"></div>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-3">
-                                    <!--Campo Distrito-->
-                                    <h5 for="distrito" style="width:200px">Distrito *:</h5>
-                                    <div id="destino3"></div>
-                                    <div id="errorDistr"></div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-row mb-2" style="padding-left:5px">
-                                <!--Campo Direccion Exacta-->
-                                <h5 for="direccionExacta" style="width:200px">Direccion Exacta *:</h5>
-                            </div>
-                            <div class="form-row" style="padding-left:5px; padding-right:15px;">
-                                <textarea class="form-control col-12" id="direccionExacta" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 100px;">@Model.direccionExacta</textarea>
-                                <div id="errorDir"></div>
-                            </div>
-                            <br><br>
-                            <h5>* Campos Requeridos</h5>
-                            <hr>
-                            <div class="row" style="max-width:1600px">
-                                <!--Boton Regresar-->
-                                <div class="col-4  text-center">
-                                    <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-                                </div>
+    <h2 style="text-align:center">Editar Cliente  <img src="~/Content/boss.svg" width="70" height="70"></h2>
+    <hr />
+    <form id="clientForm" class="cmxform" name="clientForm" method="post" action="Create">
+        <fieldset>
+            @if (ViewBag.error != null)
+            {
+                <div class="alert alert-primary text-center m-3 pt-2" style="color:white;  border-radius:25px ; border-color:transparent ; background-color:red; height:50px">@ViewBag.error</div>
+            }
+            else
+            {
+                <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
 
-                                <!--Boton Cancelar o Reset-->
-                                <div class="col-4 text-center">
-                                    <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar" onclick="cargarDatos('@Model.provincia','@Model.canton','@Model.distrito')">
-                                        <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                    </button>
-                                </div>
+            }
+            <input type="hidden" value="@Model.cedulaPK" name="cedulaVieja">
+            <div class="container " style="max-width: 1400px; ">
+                <div class="tab-content d-block bg-secondary overflow-auto" style="height:auto; box-shadow: 1px 9px 22px 12px grey; border-radius:25px;" id="nav-tabContent">
+                    <!--Despliegue del formulario-->
+                    <div style="background-color:rgba(192,159,128,0.7); padding-left:20px; padding-top:10px; overflow-x:hidden;" class="col-12">
+                        <div class="form-row mb-2">
+                            <div class="col-3">
+                                <!--Campo Nombre-->
+                                <h5 for="nombre" style="width:200px">Nombre *:</h5>
+                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
+                                <div id="errorNombre"></div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <!--Campo Primer Apellido-->
+                                <h5 for="apellido1" style="width:200px">Primer Apellido *:</h5>
+                                @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
+                                <div id="errorApe1"></div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <!--Campo Segundo Apellido-->
+                                <h5 for="apellido2" style="width:200px">Segundo Apellido:</h5>
+                                @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
+                                <div id="errorApe2"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-3">
+                                <!--Se utiliza para pasarle informacion de info vieja al script de validacion -->
+                                <input hidden class="form-control" value="@Model.cedulaPK" id="cedulaOld" type="text">
+                                <!--Campo Cedula-->
+                                <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
+                                @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none", @readonly = "true" } })
+                                <div id="errorCed"></div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <!--Se utiliza para pasarle informacion de info vieja al script de validacion -->
+                                <input hidden class="form-control" value="@Model.correo" id="correoOld" type="text">
+                                <!--Campo Email-->
+                                <h5 for="correo" style="width:200px">Correo *:</h5>
+                                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" , @type = "email"} })
+                                <div id="errorEma"></div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <!--Campo Telefono-->
+                                <h5 for="telefono" style="width:200px">Telefono:</h5>
+                                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
+                                <div id="errorTel"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-3">
+                                <!--Campo Empresa-->
+                                <h5 for="empresa" style="width:200px">Empresa *:</h5>
+                                @Html.EditorFor(model => model.empresa, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
+                                <div id="errorEmp"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2">
+                            <div class="col-3">
+                                <!--Campo Provincia-->
+                                <h5 for="provincia" style="width:200px">Provincia *:</h5>
+                                <div id="destino"></div>
+                                <div id="errorProv"></div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <!--Campo Canton-->
+                                <h5 for="canton" style="width:200px">Cantón *:</h5>
+                                <div id="destino2"></div>
+                                <div id="errorCant"></div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <!--Campo Distrito-->
+                                <h5 for="distrito" style="width:200px">Distrito *:</h5>
+                                <div id="destino3"></div>
+                                <div id="errorDistr"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row mb-2" style="padding-left:5px">
+                            <!--Campo Direccion Exacta-->
+                            <h5 for="direccionExacta" style="width:200px">Direccion Exacta *:</h5>
+                        </div>
+                        <div class="form-row" style="padding-left:5px; padding-right:15px;">
+                            <textarea class="form-control col-12" id="direccionExacta" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 100px;">@Model.direccionExacta</textarea>
+                            <div id="errorDir"></div>
+                        </div>
+                        <br><br>
+                        <h5>* Campos Requeridos</h5>
+                        <hr>
+                        <div class="row" style="max-width:1600px">
+                            <!--Boton Regresar-->
+                            <div class="col-4  text-center">
+                                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Clientes/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                            </div>
 
-                                <!--Boton Aceptar-->
-                                <div class="col-4  text-center">
-                                    <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                                        <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                                    </button>
-                                </div>
+                            <!--Boton Cancelar o Reset-->
+                            <div class="col-4 text-center">
+                                <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar" onclick="cargarDatos('@Model.provincia','@Model.canton','@Model.distrito')">
+                                    <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                </button>
+                            </div>
+
+                            <!--Boton Aceptar-->
+                            <div class="col-4  text-center">
+                                <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                    <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </fieldset>
-        </form>
+            </div>
+        </fieldset>
+    </form>
 
-        @Html.Partial("ScriptsCliente")
-        @Html.Partial("ScriptDropdown")
-    }
-    else
-    {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder editar los clientes</div>
-    }
+    @Html.Partial("ScriptsCliente")
+    @Html.Partial("ScriptDropdown")
 </body>
 
 @section Scripts {

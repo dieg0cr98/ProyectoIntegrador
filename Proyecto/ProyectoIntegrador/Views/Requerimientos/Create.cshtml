@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@model ProyectoIntegrador.BaseDatos.Requerimiento
+﻿@model ProyectoIntegrador.BaseDatos.Requerimiento
 
 @{
     ViewBag.Title = "Create";
@@ -7,17 +6,15 @@
 
 
 
-<head>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-</head>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    </head>
 
 
 
-<body>
-    @if (Request.IsAuthenticated)
-    {
+    <body>
         <br />
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
         <hr>
@@ -127,7 +124,7 @@
                         <div class="col-4">
                             @*Atributo fechaInicio*@
                             <div class="input-group">
-                                <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@DateTime.Now">
+                                <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@DateTime.Now.ToShortDateString()">
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, la fecha que fue creado</small>
                         </div>
@@ -194,7 +191,7 @@
                             @*Atributo Cédula Tester*@
                             <div class="input-group">
                                 <select class="custom-select" name="idTester">
-                                    <option value="" selected>No Asignar</option>
+                                    <option value=null selected>No Asignar</option>
                                     @foreach (var item in ViewBag.TestersDisponibles)
                                     {
                                         <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
@@ -235,7 +232,7 @@
                         <div class="col-4">
                             <div class="input-group">
                                 @*Atributo Estado del Resultado*@
-                                <input id="input2" class="form-control" style="text-align:center; max-width:none" type="text" readonly>
+                                <input id="input2" class="form-control" @*value="@item.estado"*@ style="text-align:center; max-width:none" type="text" readonly>
                             </div>
                         </div>
 
@@ -370,10 +367,4 @@
                 $('[data-toggle="tooltip"]').tooltip()
             })
         </script>
-    }
-    else
-    {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder agregar un requerimiento</div>
-    }
-
-</body>
+    </body>

@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
 using ProyectoIntegrador.Models;
-using System.Data.SqlClient;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -124,9 +123,8 @@ namespace ProyectoIntegrador.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
            [HttpPost]
-      
-        public ActionResult Edit(string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2,
-         string correo, DateTime? fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
+         public ActionResult Edit(string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2, 
+            string correo, DateTime fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
 
             Empleado empleado = db.Empleado.Find(cedulaVieja);
@@ -134,7 +132,7 @@ namespace ProyectoIntegrador.Controllers
             empleado.nombre = nombre;
             empleado.apellido1 = apellido1;
             empleado.apellido2 = apellido2;
-            empleado.fechaNacimiento = (DateTime)fechaNacimiento;
+            empleado.fechaNacimiento = fechaNacimiento;
             empleado.estado = estado;
             empleado.telefono = telefono;
             empleado.provincia = provincia;
@@ -143,17 +141,10 @@ namespace ProyectoIntegrador.Controllers
             empleado.direccion = direccion;
             empleado.tipoTrabajo = tipoTrabajo;
 
-
-            SqlParameter[] param = new SqlParameter[] {
-                new SqlParameter("@cedulaVieja", cedulaVieja),
-                new SqlParameter("@cedulaNueva",idEmpleadoPK),
-            };
-
-
-            //Revisa si no hay otro empleado con cedula ingresada
+            //Revisa si no hay otro cliente con cedula ingresada
             if (cedulaVieja != idEmpleadoPK)
             {
-                // System.Diagnostics.Debug.WriteLine("CedulaNueva es " + idEmpleadoPK + " and cedulaVieja is " + cedulaVieja);
+                System.Diagnostics.Debug.WriteLine("CedulaNueva es " + idEmpleadoPK + " and cedulaVieja is " + cedulaVieja);
                 if (db.Empleado.Where(i => i.idEmpleadoPK == idEmpleadoPK).FirstOrDefault() != null)
                 {
                     ViewBag.error = "Ya existe un emplado con la cedula: " + idEmpleadoPK;
@@ -162,15 +153,8 @@ namespace ProyectoIntegrador.Controllers
                 }
             }
 
-           
-           
-            
-             
-
             //En caso de que no existe se hace el cambio
-            // empleado.idEmpleadoPK = idEmpleadoPK;
-
-          
+            empleado.idEmpleadoPK = idEmpleadoPK;
 
             if (correo != empleado.correo)
             {
@@ -184,27 +168,27 @@ namespace ProyectoIntegrador.Controllers
 
             empleado.correo = correo;
 
-            
-           
-           db.Entry(empleado).State = EntityState.Modified;
-           db.SaveChanges();
-            //return RedirectToAction("Index");
-            ViewBag.idEmpleadoPK = new SelectList(db.Tester, "idEmpleadoFK", "idEmpleadoFK", empleado.idEmpleadoPK);
-            View(empleado);
-            try
-            {
-                ViewBag.idEmpleadoPK = db.Database.SqlQuery<Empleado>("USP_editEmployeeId @cedulaVieja, @cedulaNueva", param).ToList(); return View(empleado);
-                
 
-            }
-            catch
+            if (ModelState.IsValid)
             {
+                
+                db.Entry(empleado).State = EntityState.Modified;
+               
+                    if (empleado.tipoTrabajo == "Tester")
+                    {
+                        Tester tester = new Tester();
+                        tester.cantidadRequerimientos = 0;
+                        tester.idEmpleadoFK = empleado.idEmpleadoPK;
+                        db.Tester.Add(tester);
+                    }
+                
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //return View(empleado);
-           
-
+            ViewBag.idEmpleadoPK = new SelectList(db.Tester, "idEmpleadoFK", "idEmpleadoFK", empleado.idEmpleadoPK);
+            return View(empleado);
         }
+
         // GET: Empleados/Delete/5
         public ActionResult Delete(string id)
         {
@@ -256,34 +240,10 @@ namespace ProyectoIntegrador.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        /*
+
         public Empleado getTesterAsociado(string cedulaTester)
         {
            return db.Empleado.Where(E => E.idEmpleadoPK == cedulaTester).FirstOrDefault();
-        }
-        */
-       
-        public JsonResult CheckCedula(string cedulaPK, string oldcedulaPK)
-        {
-            //Hay que verificar si la nueva cedula ya existe en la base de datos
-            if ((cedulaPK != oldcedulaPK) && (db.Empleado.Where(i => i.idEmpleadoPK == cedulaPK).FirstOrDefault() != null))
-            {
-                //Existe un cliente con esa cedula
-                return new JsonResult { Data = false };
-            }
-            else
-                return new JsonResult { Data = true };
-        }
-        public JsonResult CheckEmail(string email, string oldEmail)
-        {
-            //Hay que verificar si el nuevo correo ya existe en la base de datos
-            if ((email != oldEmail) && (db.Empleado.Where(i => i.correo == email).FirstOrDefault() != null))
-            {
-                //Existe un cliente con ese correo
-                return new JsonResult { Data = false };
-            }
-            else
-                return new JsonResult { Data = true };
         }
     }
 }
