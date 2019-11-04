@@ -10,17 +10,15 @@
 namespace ProyectoIntegrador.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Proyecto
+    public partial class CA_TestersAsignados_Y_Disponibles_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Proyecto()
-        {
-            this.Requerimiento = new HashSet<Requerimiento>();
-            this.TrabajaEn = new HashSet<TrabajaEn>();
-        }
-    
+        public string nombre_Empleado { get; set; }
+        public string apellido1 { get; set; }
+        public string apellido2 { get; set; }
+        public string Estado_Empleado { get; set; }
+        public string tipoTrabajo { get; set; }
+        public string idEmpleadoPK { get; set; }
         public int idProyectoAID { get; set; }
         public string nombre { get; set; }
         public string objetivo { get; set; }
@@ -31,11 +29,5 @@ namespace ProyectoIntegrador.BaseDatos
         public System.DateTime fechaFinalizacion { get; set; }
         public string cedulaClienteFK { get; set; }
         public int cantidadReq { get; set; }
-    
-        public virtual Cliente Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Requerimiento> Requerimiento { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrabajaEn> TrabajaEn { get; set; }
     }
 }

@@ -85,7 +85,7 @@
                                 {
                                     <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
-                                
+
                                 { idCarta += 1; }
                             }
                         </div>
@@ -112,7 +112,7 @@
                                     @Html.Partial("FormularioIndex", item)
                                 </div>
                             }
-                            
+
                             //Le agrega un digito mas al idTab
                             { idTab += 1; }
                         }
@@ -122,11 +122,11 @@
         </div>
 
         @Html.Partial("ModalEliminar")
-    }
-    else
-    {
+     }
+     else
+     {
         <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los requerimientos</div>
-    }
+     }
 
     @Html.Partial("Scripts")
 </body>
