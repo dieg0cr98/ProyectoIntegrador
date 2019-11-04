@@ -65,14 +65,9 @@
 <body>
 
     <!--Bloque del título y botón de regresar-->>
-    <br>
     <div class="row">
-        <div class="col-2">
-            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.proyectoActual.idProyectoAID"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-        </div>
-
-        <div class="col">
-            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-right:300px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
+        <div class="col justify-content-center">
+            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
         </div> 
     </div>
     <hr> 
@@ -82,8 +77,6 @@
 
     <div class="container " draggable="false" style="max-width: 1800px">
         <div class="row">
-
-
 
             <!--La columna con empleados disponibles solo es visible para calidad,soporte y el líder-->
             @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
@@ -169,8 +162,11 @@
 
                 </div>
             </div>
+        </div>
 
-
+        <!--Boton de back-->
+        <div class="col justify-content-start">
+            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.proyectoActual.idProyectoAID"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
         </div>
     </div>>
 
