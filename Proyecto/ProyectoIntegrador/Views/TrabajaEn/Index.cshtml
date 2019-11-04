@@ -64,9 +64,21 @@
 
 <body>
 
+    <!--Bloque del título y botón de regresar-->>
     <br>
-    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
-    <hr> <!-- ??-->
+    <div class="row">
+        <div class="col-2">
+            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.proyectoActual.idProyectoAID"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+        </div>
+
+        <div class="col">
+            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-right:300px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
+        </div> 
+    </div>
+    <hr> 
+
+
+
 
     <div class="container " draggable="false" style="max-width: 1800px">
         <div class="row">
@@ -121,7 +133,7 @@
                 </div>
             }
 
-            <!--Segunda, contiene integrantes del equipo-->
+            <!--Segunda columna, contiene integrantes del equipo-->
             <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
                 <!--Navbar-->
@@ -130,13 +142,6 @@
                         <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="" draggable="false">
                         Lista de Integrantes
                     </a>
-
-                    @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
-                    {
-                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" draggable="false" data-placement="top" title="Editar estado de integrantes" href="#" class="btn">
-                            <img src="~/Content/edit.svg" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
-                        </a>
-                    }
                 </nav>
 
                 <!--Carta que contiene la lista de integrantes-->

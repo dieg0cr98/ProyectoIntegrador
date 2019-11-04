@@ -480,7 +480,6 @@
     <Content Include="Views\Requerimientos\Index.cshtml" />
     <Content Include="Views\Requerimientos\ModalEliminar.cshtml" />
     <Content Include="Views\Requerimientos\Scripts.cshtml" />
-    <Content Include="Views\TrabajaEn\Add.cshtml" />
     <Content Include="Views\TrabajaEn\Index.cshtml" />
     <Content Include="Views\TrabajaEn\ScriptsEquipo.cshtml" />
     <Content Include="Views\Clientes\Create.cshtml" />
