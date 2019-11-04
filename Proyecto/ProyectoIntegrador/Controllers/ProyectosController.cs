@@ -20,7 +20,6 @@ namespace ProyectoIntegrador.Controllers
     {
         private SeguridadController seguridad = new SeguridadController();
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
-        
 
         //Método que se encarga de devolver el nombre del proyecto para ser mostrado en los módulos de requerimientos y equipo.
         public string GetNombreProyecto(int idProyecto)
@@ -478,31 +477,6 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        public JsonResult CantidadReqTerminados(string estado, int idProyecto)
-        {
-            System.Diagnostics.Debug.WriteLine(estado + " " + idProyecto);
-            //Hay que verificar si el nuevo nombre ya existe en la base de datos
-            if (estado == "Terminado")
-            {
-
-                int cantidadReq = db.Proyecto.Where(p => p.idProyectoAID == idProyecto).Select(p => p.cantidadReq).FirstOrDefault();
-                int cantidadReqTerminados = db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.estado == "Terminado").Count();
-
-                if (cantidadReq == cantidadReqTerminados)
-                {
-                    return new JsonResult { Data = true };
-                }
-
-                else
-                {
-
-                    return new JsonResult { Data = false };
-                }
-            }
-            else
-                return new JsonResult { Data = true };
-
-        }
 
 
         //------------- ActionsResults -------------//

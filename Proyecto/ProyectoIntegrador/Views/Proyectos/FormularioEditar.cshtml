@@ -38,7 +38,7 @@
                 }
 
 
-                <input id="idProyecto" hidden class="form-control" value="@Model.idProyectoAID" name="id" type="text">
+                <input hidden class="form-control" value="@Model.idProyectoAID" name="id" type="text">
 
                 <!--Se utiliza para pasarle informacion al script de validacion -->
                 <input hidden class="form-control" value="@Model.nombre" id="nombreH" type="text">
@@ -65,7 +65,7 @@
                         @*Atributo Nombre*@
                         <div class="input-group">
 
-
+                       
                             @if (ViewBag.permisos.Item3[1] == 1)
                             {
                                 <input id="input2" class="form-control" value="@Model.nombre" style=" max-width:none; background-color:#D7CEC7; border-color:transparent" name="nombre" type="text">
@@ -93,7 +93,7 @@
 
                             @if (ViewBag.permisos.Item3[3] == 1)
                             {
-                                <select id="dropdownEstado" class="custom-select" style="text-align:center;max-width:200px; background-color:#D7CEC7; border-color:transparent" name="estado">
+                                <select class="custom-select" style="text-align:center;max-width:200px; background-color:#D7CEC7; border-color:transparent" name="estado">
 
 
                                     @switch (Model.estado)
@@ -102,7 +102,7 @@
                                             {
                                                 <option selected value="Preparación">Preparación</option>
                                                 <option value="Activo">Activo</option>
-                                                <option value="Cancelado">Cancelado</option>
+                                                <option value="">Cancelado</option>
                                                 <option value="Terminado">Terminado</option>
                                                 break;
                                             }
@@ -110,7 +110,7 @@
                                             {
                                                 <option value="Preparación">Preparación</option>
                                                 <option selected value="Activo">Activo</option>
-                                                <option value="Cancelado">Cancelado</option>
+                                                <option value="">Cancelado</option>
                                                 <option value="Terminado">Terminado</option>
                                                 break;
                                             }
@@ -118,7 +118,7 @@
                                             {
                                                 <option value="Preparación">Preparación</option>
                                                 <option value="Activo">Activo</option>
-                                                <option selected value="Cancelado">Cancelado</option>
+                                                <option selected value="">Cancelado</option>
                                                 <option value="Terminado">Terminado</option>
                                                 break;
                                             }
@@ -126,8 +126,8 @@
                                             {
                                                 <option value="Preparación">Preparación</option>
                                                 <option value="Activo">Activo</option>
-                                                <option value="Cancelado">Cancelado</option>
-                                                <option selected value="Terminado">Terminado</option>
+                                                <option selected value="">Cancelado</option>
+                                                <option value="Terminado">Terminado</option>
                                                 break;
                                             }
 
@@ -136,7 +136,7 @@
 
                                                 <option selected value="Preparación">Preparación</option>
                                                 <option value="Activo">Activo</option>
-                                                <option value="Cancelado">Cancelado</option>
+                                                <option value="">Cancelado</option>
                                                 <option value="Terminado">Terminado</option>
                                                 break;
                                             }
@@ -154,7 +154,7 @@
 
                             }
                         </div>
-                        <div id="errorEstado"></div>
+
 
 
                     </div>
@@ -251,7 +251,7 @@
                 @*Filas con las etiquetas de Duraciones *@
                 <div class="form-row">
                     <div class="col-5">
-                        <h5> Duración Estimada </h5>
+                        <h5> Duración Estimada * </h5>
                     </div>
 
                     <div class="col-2">
@@ -382,9 +382,9 @@
 
                         }
                     </select>
-                    @*<div class="input-group-append" style="width:180px">
+                    <div class="input-group-append" style="width:180px">
                         <a class="btn btn-danger" style="width:180px" href="/Proyectos/IndexCliente" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los Clientes">Clientes</a>
-                    </div>*@
+                    </div>
 
                 </div>
 
@@ -433,9 +433,9 @@
                         }
 
                     </select>
-                    @*<div class="input-group-append" style="width:180px">
+                    <div class="input-group-append" style="width:180px">
                         <a class="btn btn-danger" style="width:180px" href="/Proyectos/IndexEmpleado" role="button" data-toggle="tooltip" data-placement="top" title="Ver detalles de los empleados">Empleados</a>
-                    </div>*@
+                    </div>
                 </div>
 
 
@@ -483,25 +483,26 @@
 
     <script>
 
-        $('document').ready(function () {
+    $('document').ready(function () {
 
 
-            $('#loading').hide();
-
-
-
-        });
+         $('#loading').hide();
 
 
 
-        $('#btnsubmit').on('click', function () {
-            $('#acceptar').hide('fast');
+                            });
 
 
-            $('#loading').show('fast');
+
+    $('#btnsubmit').on('click',function()
+    {
+        $('#acceptar').hide('fast');
 
 
-        });
+        $('#loading').show('fast');
+
+
+                            });
 
     </script>
 
@@ -511,13 +512,13 @@
         $(function () {
             $("#commentForm").validate(
                 {
-                    rules:
+                     rules:
                     {
-                        nombre:
+                         nombre:
                         {
-                            required: true,
-                            minlength: 1,
-                            remote: {
+                             required: true,
+                             minlength: 1,
+                             remote: {
                                 url: "/Proyectos/CheckName",
                                 type: "post",
                                 delay: 1000,
@@ -525,23 +526,23 @@
                                     name: function () {
                                         return $("#input2").val();
                                     },
-                                    oldName: function () {
+                                    oldName:  function () {
                                         return $("#nombreH").val();
                                     }
-
+                                   
                                 }
                             }
                         },
                         objetivo:
                         {
 
-                            rangelength: [1, 200]
+                             rangelength: [1, 200]
 
                         },
                         duracionEstimada:
                         {
-                            required: true,
-                            min: 0
+                             required: true,
+                             min: 1
 
 
                         },
@@ -549,76 +550,45 @@
                         {
                             required: true,
                             min: 0
-                        },
-                        estado:
-                        {
-                            remote: {
-                                url: "/Proyectos/CantidadReqTerminados",
-                                type: "post",
-                                delay: 1000,
-                                data: {
-                                    //estado: function () {
-                                    //    return $( "#dropdownEstado option:selected" ).text();
-                                    //},
-                                    //idProyecto:  function () {
-                                    //    return $("#id").val();
-                                    //}
-
-                                    estado: function () {
-                                        //alert($( "#dropdownEstado option:selected" ).text());
-
-                                        return $("#dropdownEstado option:selected").text();
-                                    },
-                                    idProyecto: $("#idProyecto").val(),
-
-                                }
-
-                            }
-
                         }
 
 
 
                     },
-                    messages:
+                        messages:
                     {
-                        nombre:
-                        {
+                    nombre:
+                    {
+                          
+                        required: "Inserte al menos 1 caracter",
+                        remote: "Ya existe un Proyecto con ese nombre"
+                    },
+                    objetivo: "Rango [1-200] caracteres",
+                    duracionEstimada: "La duracion tiene que ser mayor que 0",
+                    duracionReal: "La duracion no puede ser negativa"
 
-                            required: "Inserte al menos 1 caracter",
-                            remote: "Ya existe un Proyecto con ese nombre"
-                        },
-                        objetivo: "Rango [1-200] caracteres",
-                        duracionEstimada: "La duracion tiene que ser mayor que 0",
-                        duracionReal: "La duracion no puede ser negativa",
-                        estado:
-                        {
-                            remote: "Existen Requerimientos En Ejecucion"
-                        }
 
                     },
 
                     errorPlacement: function (error, element) {
-                        if ((element.attr('name') === 'nombre')) {
-                            error.insertAfter($('#errorNombre'));
-                        }
-                        if ((element.attr('name') === 'objetivo')) {
-                            error.insertAfter($('#errorObjetivo'));
-                        }
-                        if ((element.attr('name') === 'duracionEstimada')) {
-                            error.insertAfter($('#errorDuracionEstimada'));
-                        }
-                        if ((element.attr('name') === 'duracionReal')) {
-                            error.insertAfter($('#errorDuracionReal'));
-                        }
-                        if ((element.attr('name') === 'estado')) {
-                            $('#Requerimientos').modal('show');
-                        }
+                                    if ((element.attr('name') === 'nombre')) {
+                                        error.insertAfter($('#errorNombre'));
+                                    }
+                                    if ((element.attr('name') === 'objetivo')) {
+                                        error.insertAfter($('#errorObjetivo'));
+                                    }
+                                    if ((element.attr('name') === 'duracionEstimada')) {
+                                        error.insertAfter($('#errorDuracionEstimada'));
+                                    }
+                                    if ((element.attr('name') === 'duracionReal')) {
+                                        error.insertAfter($('#errorDuracionReal'));
+                                    }
 
 
 
 
-                    },
+
+                                },
                     invalidHandler: function (form, validator) {
 
                         $('#loading').hide('fast');
@@ -636,33 +606,10 @@
 
 
     <script>
-
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="Requerimientos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h5 class="text-center">No se puede terminar el Proyecto</h5>
-                    <h5 class="text-center">Existen requerimientos en ejecución</h5>
-                </div>
-                <div class="modal-footer">
-                    <div class="col text-center">
-                        <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Aceptar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
 
 
 

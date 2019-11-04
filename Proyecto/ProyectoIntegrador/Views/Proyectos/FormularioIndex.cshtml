@@ -23,7 +23,7 @@
             @if ((ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2))
             {
 
-                if (Model.estado == "Cancelado" || Model.estado == "Preparación")
+                if (Model.estado != "Activo")
                 {
 
                     <!-- Button trigger modal -->
@@ -32,7 +32,7 @@
                 else
                 {
 
-                    <a href="#" class="btn" data-toggle="modal" data-whatever="@Model.estado" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                    <a href="#" class="btn" data-toggle="modal" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                 }
 
             }
