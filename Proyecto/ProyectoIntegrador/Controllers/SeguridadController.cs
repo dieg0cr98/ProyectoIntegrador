@@ -247,6 +247,51 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,2,2,2}
          };
 
+        /* 0 No puede editar el atributo
+         * 1 Si puede editar el atributo
+        */
+        private int[,] tablaSeguridadRequerimientosEditar = new int[,] {
+                                          /*Soporte/Calidad , Lider , Tester , Cliente*/
+          /*idRekPK*/                                 {0,0,0,0},
+          /*idProyectoFK*/                            {0,0,0,0},
+          /*cedulaTesterFK*/                          {1,1,0,0},
+          /*nombre*/                                  {1,1,0,0},
+          /*complejidad*/                             {1,1,0,0},
+          /*tiempoEstimado*/                          {1,1,0,0},
+          /*tiempoReal*/                              {1,1,1,0},
+          /*descripcíon*/                             {1,1,0,0},
+          /*fechaDeInicio*/                           {1,1,0,0},
+          /*fechaDeFinalizacion*/                     {1,1,1,0},
+          /*estado*/                                  {1,1,1,0},
+          /*resultado*/                               {1,1,1,0},
+          /*estadoResultado*/                         {1,1,1,0},
+          /*detallesResultado*/                       {1,1,1,0},
+          /*cantidadResultados*/                      {0,0,0,0}
+          };
+
+
+        /* 0 No puede editar el atributo
+         * 1 Si puede editar el atributo
+        */
+        private int[,] tablaSeguridadRequerimientosAgregar = new int[,] {
+                                          /*Soporte/Calidad , Lider , Tester , Cliente*/
+          /*idRekPK*/                                 {0,0,0,0},
+          /*idProyectoFK*/                            {1,0,0,0},
+          /*cedulaTesterFK*/                          {1,1,0,0},
+          /*nombre*/                                  {1,1,0,0},
+          /*complejidad*/                             {1,1,0,0},
+          /*tiempoEstimado*/                          {1,1,0,0},
+          /*tiempoReal*/                              {0,0,0,0},
+          /*descripcíon*/                             {1,1,0,0},
+          /*fechaDeInicio*/                           {1,1,0,0},
+          /*fechaDeFinalizacion*/                     {0,0,0,0},
+          /*estado*/                                  {1,1,0,0},
+          /*resultado*/                               {0,0,0,0},
+          /*estadoResultado*/                         {0,0,0,0},
+          /*detallesResultado*/                       {0,0,0,0},
+          /*cantidadResultados*/                      {0,0,0,0}
+        };
+
         /* 1 Pueder hacer la accion para todos los clientes(crud)
          * 2 Solo a los clientes que pertenece
          * 3 No puede hacer la accion 
