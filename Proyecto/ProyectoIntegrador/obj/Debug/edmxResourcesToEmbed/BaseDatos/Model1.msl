@@ -130,25 +130,10 @@
     <FunctionImportMapping FunctionImportName="USP_TestersDisponibleAsignado" FunctionName="Gr03Proy2Model.Store.USP_TestersDisponibleAsignado">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_TestersDisponibleAsignado_Result">
-    <FunctionImportMapping FunctionImportName="testersActivos" FunctionName="Gr03Proy2Model.Store.testersActivos">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.testersActivos_Result">
           <ScalarProperty Name="Nombre_Empleado" ColumnName="Nombre Empleado" />
           <ScalarProperty Name="Cedula" ColumnName="Cedula" />
           <ScalarProperty Name="estado" ColumnName="estado" />
           <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
-          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Gr03Proy2Model.Store.sp_alterdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Gr03Proy2Model.Store.sp_creatediagram" />
-    <FunctionImportMapping FunctionImportName="TestersAsignables" FunctionName="Gr03Proy2Model.Store.TestersAsignables">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.TestersAsignables_Result">
-          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -167,29 +152,6 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="USP_CantidadReqATester" FunctionName="Gr03Proy2Model.Store.USP_CantidadReqATester">
       <ResultMapping>
-    <FunctionImportMapping FunctionImportName="HabilidadesEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesEmpleado" />
-    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Gr03Proy2Model.Store.sp_dropdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Gr03Proy2Model.Store.sp_helpdiagramdefinition">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.sp_helpdiagramdefinition_Result">
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Gr03Proy2Model.Store.sp_helpdiagrams">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.sp_helpdiagrams_Result">
-          <ScalarProperty Name="Database" ColumnName="Database" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Owner" ColumnName="Owner" />
-          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Gr03Proy2Model.Store.sp_renamediagram" />
-    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Gr03Proy2Model.Store.sp_upgraddiagrams" />
         <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CantidadReqATester_Result">
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="apellido1" ColumnName="apellido1" />
@@ -198,68 +160,5 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="USP_editEmployeeId" FunctionName="Gr03Proy2Model.Store.USP_editEmployeeId" />
-    <FunctionImportMapping FunctionImportName="USP_EquipoCheckLider" FunctionName="Gr03Proy2Model.Store.USP_EquipoCheckLider" />
-    <FunctionImportMapping FunctionImportName="USP_EquipoCheckTesters" FunctionName="Gr03Proy2Model.Store.USP_EquipoCheckTesters" />
-    <FunctionImportMapping FunctionImportName="USP_GetEquipo" FunctionName="Gr03Proy2Model.Store.USP_GetEquipo">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetEquipo_Result">
-          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="USP_GetLideresDisponibles" FunctionName="Gr03Proy2Model.Store.USP_GetLideresDisponibles">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetLideresDisponibles_Result">
-          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-          <ScalarProperty Name="correo" ColumnName="correo" />
-          <ScalarProperty Name="telefono" ColumnName="telefono" />
-          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-          <ScalarProperty Name="distrito" ColumnName="distrito" />
-          <ScalarProperty Name="canton" ColumnName="canton" />
-          <ScalarProperty Name="provincia" ColumnName="provincia" />
-          <ScalarProperty Name="direccion" ColumnName="direccion" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="USP_GetTestersDisponibles" FunctionName="Gr03Proy2Model.Store.USP_GetTestersDisponibles">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetTestersDisponibles_Result">
-          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-          <ScalarProperty Name="correo" ColumnName="correo" />
-          <ScalarProperty Name="telefono" ColumnName="telefono" />
-          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-          <ScalarProperty Name="distrito" ColumnName="distrito" />
-          <ScalarProperty Name="canton" ColumnName="canton" />
-          <ScalarProperty Name="provincia" ColumnName="provincia" />
-          <ScalarProperty Name="direccion" ColumnName="direccion" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="USP_TestersDisponibleAsignado" FunctionName="Gr03Proy2Model.Store.USP_TestersDisponibleAsignado">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_TestersDisponibleAsignado_Result">
-          <ScalarProperty Name="Nombre_Empleado" ColumnName="Nombre Empleado" />
-          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="Nombre_Proyecto" ColumnName="Nombre Proyecto" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
   </EntityContainerMapping>
 </Mapping>
