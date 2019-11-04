@@ -11,197 +11,238 @@
 
 
 <head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
+    <style>
+
+        .error {
+            color: white;
+            background-color: red;
+            font-family: verdana, Helvetica;
+        }
+        input.error, input select.error {
+            background-color: white;
+            border-color: red;
+        }
+    </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <style type="text/css">
-    </style>
+        /*Cambia los colores de las listas activas*/
+        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+            color: #ffffff;
+            background-color: #76323f;
+            border-color: none;
+        }
+        /*Cambia los colores de los tooltips*/
+        .tooltip > .tooltip-inner {
+            background-color: #76323f;
+            color: white;
+        }
 
+        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+            border-bottom-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+            border-top-color: #76323f;
+        }
+
+        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+            border-left-color: #76323f
+        }
+
+        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+            border-right-color: #76323f
+        }
+    </style>
 </head>
 
 
 
 <hr />
-<body onload="getProvincias('Seleccione una provincia','Seleccione un cantón','Seleccione un distrito')">
+<body onload="getProvincias('San José','Central','Carmen')">
+   
+
+        <form id="employeeForm" class="cmxform" name="employeeForm" method="post" action="Create">
+            <fieldset>
+
+                <div id="errors"></div>
+                <div class="container justify-content-center bg-secondary" style="width:800px; padding-top:1px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+                    }
 
 
-    <form id="employeeForm" class="cmxform" name="employeeForm" method="post" action="Create">
-        <fieldset>
-
-            <div id="errors"></div>
-            <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color: rgba(192,159,128, 0.7)">
-
-                @if (ViewBag.error != null)
-                {
-                    <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
-                }
-                else
-                {
-                    <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
-                }
-
-
-                @*Primera fila*@
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo Nombre-->
-                        <h5 for="nombre" style="width:200px">Nombre *</h5>
-                        <input class="form-control" id="nombre" name="nombre" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
-                        <div id="errorNombre"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Primer Apellido-->
-                        <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
-                        <input class="form-control" id="apellido1" name="apellido1" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                        <div id="errorApellido"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Segundo Apellido-->
-                        <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                        <input class="form-control" id="apellido2" name="apellido2" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
-                        <div id="errorApellido2"></div>
-                    </div>
-                </div>
-                <br>
-
-                @*Segunda fila*@
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo Cedula-->
-                        <h5 for="idEmpleadoPK" style="width:200px">Cédula*:</h5>
-                        <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
-                        <div id="errorCedula"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Fecha de nacimiento-->
-                        <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
-                        <input id="fechaNacimiento" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaNacimiento" required>
-                        <div id="errorFechaNacimiento"></div>
-
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo correo-->
-                        <h5 for="correo" style="width:200px">Correo *</h5>
-                        <input class="form-control" id="correo" name="correo" type="email" placeholder="example@email.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                        <div id="errorCorreo"></div>
-                    </div>
-                </div>
-                <br>
-
-                @*Tercera fila*@
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo telefono-->
-                        <h5 for="telefono" style="width:200px">Tel&eacute;fono</h5>
-                        <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                        <div id="errorTel"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Estado-->
-                        <h5 for="correo" style="width:200px">Estado *</h5>
-                        <div class="input-group">
-
-                            <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
-                                <option value="">Escoja un estado...</option>
-                                <option value="Disponible">Disponible</option>
-                                <option value="Ocupado">Ocupado</option>
-                            </select>
+                    @*Primera fila*@
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo Nombre-->
+                            <h5 for="nombre" style="width:200px">Nombre *</h5>
+                            <input class="form-control" id="nombre" name="nombre" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                            <div id="errorNombre"></div>
                         </div>
-                        <div id="errorEstado"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Puesto-->
-                        <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
-                        <div class="input-group">
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Primer Apellido-->
+                            <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
+                            <input class="form-control" id="apellido1" name="apellido1" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
 
-                            <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
-                                <option value="">Escoja un estado...</option>
-                                <option value="Tester">Tester</option>
-                                <option value="Lider">Lider</option>
-                                <option value="Jefe de Calidad">Jefe de Calidad</option>
-                                <option value="Jefe de Soporte">Jefe de Soporte</option>
-                            </select>
                         </div>
-                        <div id="errorTipoTrabajo"></div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Segundo Apellido-->
+                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
+                            <input class="form-control" id="apellido2" name="apellido2" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                        </div>
+                    </div>
+                    <br>
+
+                    @*Segunda fila*@
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo Cedula-->
+                            <h5 for="idEmpleadoPK" style="width:200px">Cedula *</h5>
+                            <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" placeholder="000000000" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                            <div id="errorID"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Fecha de nacimiento-->
+                            <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
+                            <input id="fechaNacimiento" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaNacimiento" required>
+                            <div id="errorFechaNacimiento"></div>
+
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo correo-->
+                            <h5 for="correo" style="width:200px">Correo *</h5>
+                            <input class="form-control" id="correo" name="correo" type="email" placeholder="example@email.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                            <div id="errorCorreo"></div>
+                        </div>
+                    </div>
+                    <br>
+
+                    @*Tercera fila*@
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo telefono-->
+                            <h5 for="telefono" style="width:200px">Telefono</h5>
+                            <input class="form-control" id="telefono" name="telefono" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                            <div id="errorTel"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Estado-->
+                            <h5 for="correo" style="width:200px">Estado *</h5>
+                            <div class="input-group">
+
+                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
+
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="Ocupado">Ocupado</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                            <div id="errorEstado"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Puesto-->
+                            <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
+                            <div class="input-group">
+
+                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
+                                    <option value="Tester">Tester</option>
+                                    <option value="Lider">Lider</option>
+                                    <option value="Jefe de Calidad">Jefe de Calidad</option>
+                                    <option value="Jefe de Soporte">Jefe de Soporte</option>
+                                </select>
+                            </div>
+                            <div id="errorTipoTrabajo"></div>
+                        </div>
+                    </div>
+
+                    @*Cuarta fila*@
+                    <br>
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo Provincia-->
+                            <h5 for="provincia" style="width:100px">Provincia *</h5>
+                            <div id="destino"></div>
+                            <div id="errorProv"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Canton-->
+                            <h5 for="canton" style="width:100px">Cantón</h5>
+                            <div id="destino2"></div>
+                            <div id="errorCant"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Distrito-->
+                            <h5 for="distrito" style="width:100px">Distrito *</h5>
+                            <div id="destino3"></div>
+                            <div id="errorDistr"></div>
+                        </div>
+                    </div>
+                    @*Quinta fila*@
+                    <br>
+                    <div class="form-row mb-2" style="padding-left:5px">
+                        <!--Campo Direccion Exacta-->
+                        <h5 for="direccionExacta" style="width:400px">Direccion exacta</h5>
+                    </div>
+                    <div class="row" style="padding-left:15px; padding-right:15px;">
+                        <textarea class="form-control col-12" id="direccionExacta" maxlength="300" name="direccionExacta" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
+                        @*<div id="errorDir"></div>*@
+                    </div>
+                    <br>
+
+                    @*Habilidades Tecnicas*@
+                    <h5> * Campos requeridos</h5>
+
+                    <hr />
+
+                    <div class="row" style="max-width:1600px">
+                        <!--Boton Regresar-->
+                        <div class="col-4  text-center">
+                            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                        </div>
+
+                        <!--Boton Cancelar o Reset-->
+                        <div class="col-4 text-center">
+                            <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                                <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
+
+                        <!--Boton Aceptar-->
+                        <div class="col-4  text-center">
+                            <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
                     </div>
                 </div>
+            </fieldset>
+        </form>
+        
+        
 
-                @*Cuarta fila*@
-                <br>
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo Provincia-->
-                        <h5 for="provincia" style="width:100px">Provincia *</h5>
-                        <div id="destino"></div>
-                        <div id="errorProv"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Canton-->
-                        <h5 for="canton" style="width:100px">Cant&oacute;n *</h5>
-                        <div id="destino2"></div>
-                        <div id="errorCant"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Distrito-->
-                        <h5 for="distrito" style="width:100px">Distrito *</h5>
-                        <div id="destino3"></div>
-                        <div id="errorDistr"></div>
-                    </div>
-                </div>
-                @*Quinta fila*@
-                <br>
-                <div class="form-row mb-2" style="padding-left:5px">
-                    <!--Campo Dirección Exacta-->
-                    <h5 for="direccion" style="width:400px">Direccion exacta</h5>
-                </div>
-                <div class="row" style="padding-left:15px; padding-right:15px;">
-                    <textarea class="form-control col-12" id="direccion" maxlength="300" name="direccion" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
-                    @*<div id="errorDir"></div>*@
-                </div>
-                <br>
-
-                @*Habilidades Tecnicas*@
-                <h5> * Campos requeridos</h5>
-
-                <hr />
-
-                <div class="row" style="max-width:1600px">
-                    <!--Boton Regresar-->
-                    <div class="col-4  text-center">
-                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-                    </div>
-
-                    <!--Boton Cancelar o Reset-->
-                    <div class="col-4 text-center">
-                        <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
-                            <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                        </button>
-                    </div>
-
-                    <!--Boton Aceptar-->
-                    <div class="col-4  text-center">
-                        <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                            <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-    </form>
-
-    @*
-        @Html.Partial("ModalCancelar")
-        @Html.Partial("Scripts")
-        @Html.Partial("ScriptDropdown")*@
+    
+    @Html.Partial("ModalCancelar")
     @Html.Partial("Scripts")
     @Html.Partial("ScriptDropdown")
 </body>
@@ -209,203 +250,3 @@
     @Scripts.Render("~/bundles/jqueryval")
 
 }
-<script>
-    $(function () {
-        jQuery.validator.addMethod("lettersonly", function (value, element) {
-            return this.optional(element) || /^[a-z]+$/i.test(value);
-        }, "No se admiten números en los nombres");
-        $("#employeeForm").validate(
-            {
-                rules:
-                {
-                    nombre:
-                    {
-                        required: true,
-                        minlength: 2,
-                        lettersonly: true,
-                        maxlength: 20
-                    },
-                    apellido1:
-                    {
-                        required: true,
-                        minlength: 2,
-                        lettersonly: true,
-                        maxlength: 20
-                    },
-
-                    apellido2:
-                    {
-                        required: true,
-                        minlength: 2,
-                        lettersonly: true,
-                        maxlength: 20
-                    },
-
-                    idEmpleadoPK:
-                    {
-                        required: true,
-                        minlength: 8,
-                        number: true,
-                        maxlength: 20,
-                        remote:
-                        {
-                            url: "/Empleados/CheckCedula",
-                            type: "post",
-                            delay: 1000,
-                            data: {
-                                cedulaPK: function () {
-                                    return $("#idEmpleadoPK").val();
-                                },
-                                oldcedulaPK: null
-                            }
-                        }
-                    },
-                    fechaNacimiento:
-                    {
-                        required: true,
-                    },
-                    correo:
-                    {
-
-                        required: true,
-                        maxlength: 50,
-                        remote: {
-                            url: "/Empleados/CheckEmail",
-                            type: "post",
-                            delay: 1000,
-                            data: {
-                                email: function () {
-                                    return $("#correo").val();
-                                },
-                                oldEmail: null
-                            }
-                        }
-
-                    },
-                    estado:
-                    {
-                        required: true,
-
-                    },
-                    tipoTrabajo:
-                    {
-                        required: true,
-
-                    },
-                    provincia:
-                    {
-                        required: true
-                    },
-                    canton:
-                    {
-                        required: true
-                    },
-                    distrito:
-                    {
-                        required: true
-                    },
-
-                    telefono:
-                    {
-                        number: true,
-                        minlength: 8,
-                        maxlength: 15
-                    },
-
-                },
-                messages:
-                {
-                    idEmpleadoPK: {
-                        required: "La cédula es requerida",
-                        remote: "Ya existe esta cédula",
-                        number: "Solo se pueden ingresar numeros",
-                        minlength: "La cédula debe de tener al menos ocho digitos",
-                    },
-                    nombre:
-                    {
-                        required: "El nombre es requerido",
-                        lettersonly: "No se admiten números en el nombre",
-                        minlength: "Debe de tener más de una letra",
-                        maxlength: "El nombre debe de ser de menos de 20 letras"
-                    },
-                    apellido1:
-                    {
-                        required: "El primer apellido es requerido",
-                        lettersonly: "No se admiten números en el apellido",
-                        minlength: "Debe de tener más de una letra",
-                        maxlength: "El apellido debe de ser de menos de 20 letras"
-                    },
-
-                    apellido2:
-                    {
-                        required: "El segundo apellido es requerido",
-                        lettersonly: "No se admiten números en el apellido",
-                        minlength: "Debe de tener más de una letra",
-                        maxlength: "El apellido debe de ser de menos de 20 letras"
-                    },
-
-                    correo:
-                    {
-                        required: "Se requiere un email valido (ejemplo: email@email.com)",
-                        lettersonly: "No se admiten números en el nombre",
-                        remote: "Ya existe correo"
-                    },
-                    fechaNacimiento: "La fecha de nacimiento es requerida",
-                    estado: "El estado es requerido",
-                    tipoTrabajo: "El puesto es requerido",
-                    provincia: "La provincia es requerida",
-                    canton: "El cantón es requerido",
-                    distrito: "El distrito es requerido",
-
-                    telefono:
-                    {
-                        minlength: "Mínimo ocho dígitos",
-                        number: "Solo se aceptan números",
-                        maxlength: "Máximo 15 dígitos"
-                    }
-                },
-                errorPlacement: function (error, element) {
-                    if ((element.attr('name') === 'idEmpleadoPK')) {
-                        error.insertAfter($('#errorCedula'));
-                    }
-                    if ((element.attr('name') === 'nombre')) {
-                        error.insertAfter($('#errorNombre'));
-                    }
-                    if ((element.attr('name') === 'apellido1')) {
-                        error.insertAfter($('#errorApellido'));
-                    }
-                    if ((element.attr('name') === 'apellido2')) {
-                        error.insertAfter($('#errorApellido2'));
-                    }
-                    if ((element.attr('name') === 'correo')) {
-                        error.insertAfter($('#errorCorreo'));
-                    }
-                    if ((element.attr('name') === 'fechaNacimiento')) {
-                        error.insertAfter($('#errorFechaNacimiento'));
-                    }
-                    if ((element.attr('name') === 'estado')) {
-                        error.insertAfter($('#errorEstado'));
-                    }
-                    if ((element.attr('name') === 'tipoTrabajo')) {
-                        error.insertAfter($('#errorTipoTrabajo'));
-                    }
-                    if ((element.attr('name') === 'provincia')) {
-                        error.insertAfter($('#errorProv'));
-                    }
-                    if ((element.attr('name') === 'canton')) {
-                        error.insertAfter($('#errorCant'));
-                    }
-                    if ((element.attr('name') === 'distrito')) {
-                        error.insertAfter($('#errorDist'));
-                    }
-                    if ((element.attr('name') === 'telefono')) {
-                        error.insertAfter($('#errorTel'));
-                    }
-                },
-                invalidHandler: function (form, validator) {
-                    $('#loading').hide('fast');
-                    $('#acceptar').show('fast');
-                },
-            });
-    });
-</script>

@@ -82,6 +82,8 @@ namespace ProyectoIntegrador.Controllers
       */
         public int GetRoleUsuario(System.Security.Principal.IPrincipal user)
         {
+
+
             int rol = -1;
             if (user.IsInRole("Lider"))
             {
@@ -133,6 +135,7 @@ namespace ProyectoIntegrador.Controllers
                 }
                 else //Si no es cliente es un empleado
                 {
+                    var t = user.Identity.Name;
                     idUsuario = db.Empleado.Where(p => p.correo == user.Identity.Name).FirstOrDefault().idEmpleadoPK;
                 }
 
@@ -247,59 +250,8 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,2,2,2}
          };
 
-        /* 1 Pueder hacer la accion para todos los clientes(crud)
-         * 2 Solo a los clientes que pertenece
-         * 3 No puede hacer la accion 
-        */
-        private int[,] tablaSeguridadClientes = new int[,] {
-                       /*Soporte/Calidad , Lider , Tester , Cliente*/
-         /*Consultar*/                   {1,2,2,2},
-         /*Agregar*/                     {1,3,3,3},
-         /*Editar*/                      {1,3,3,3},
-         /*Eliminar*/                    {1,3,3,3}
-         };
         //---------------------------------------------------------------------------------------------------------------------------//
 
-        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
-         * Retorna un Tuple<int,string,int,int,int>, con los valores:
-         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
-         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
-         *              cedulaUsuario
-         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
-         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
-         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
-        */
-        public Tuple<int, string, int, int, int, int> ClienteConsultar(System.Security.Principal.IPrincipal user)
-        {
-
-            int permisoConsultar = 3; //Por defecto no puede consultar
-            string cedulaUsuario = "";
-            int permisoEditar = 3;   //Por defecto no puede editar
-            int permisoAgregar = 3;   //Por defecto no puede editar
-            int permisoBorrar = 3;   //Por defecto no puede editar
-
-
-            //Obtiene el rol del usuario
-            int rol = GetRoleUsuario(user);
-
-            if (rol >= 0)// Si el usuario tiene un rol asignado
-            {
-                //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadClientes[0, rol];
-                permisoAgregar = tablaSeguridadClientes[1, rol]; ;
-                permisoEditar = tablaSeguridadClientes[2, rol]; ;
-                permisoBorrar = tablaSeguridadClientes[3, rol]; ;
-
-                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
-                {
-                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
-                    cedulaUsuario = IdUsuario(user);
-                }
-
-            }
-
-            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
-        }
 
 
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
@@ -460,6 +412,73 @@ namespace ProyectoIntegrador.Controllers
 
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
+
+
+
+        //----Consultas Avanzadas--//
+
+        /* 1 Pueder realizar la consulta
+         * 2 Solo los datos en los que participa
+         * 3 No puede realizar la consulta
+        */
+        private int[,] tablaSeguridadProyectoGeneralConsultas = new int[,] {
+                       /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consulta1*/                   {1,2,3,3},
+         /*Consulta2*/                   {1,2,3,3},
+         /*Consulta3*/                   {1,2,3,3},
+         /*Consulta4*/                   {1,2,3,3},
+         /*Consulta5*/                   {1,2,3,3},
+         /*Consulta6*/                   {1,3,3,3},
+         /*Consulta7*/                   {1,3,3,3},
+         /*Consulta8*/                   {1,3,3,2},
+         /*Consulta9*/                   {1,3,3,2},
+         /*Consulta10*/                  {1,3,3,2}
+         };
+
+
+
+        /*Metodo para acceder a las consultas avanzadas
+         * Retorna un Tuple<int,List<int>>, con los valores:
+         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+         *              permisos (valor recuperado en la tabla de tablaSeguridadProyectoGeneralConsultas)
+         *              idUsuario (cedula)
+        */
+        public Tuple<int, List<int>, string> permisosConsultasAvanzadas(System.Security.Principal.IPrincipal user)
+        {
+            int consulta1 = 3; // Por defecto no puede realizar la consulta
+            int consulta2 = 3; // Por defecto no puede realizar la consulta
+            int consulta3 = 3; // Por defecto no puede realizar la consulta
+            int consulta4 = 3; // Por defecto no puede realizar la consulta
+            int consulta5 = 3; // Por defecto no puede realizar la consulta
+            int consulta6 = 3; // Por defecto no puede realizar la consulta
+            int consulta7 = 3; // Por defecto no puede realizar la consulta
+            int consulta8 = 3; // Por defecto no puede realizar la consulta
+            int consulta9 = 3; // Por defecto no puede realizar la consulta
+            int consulta10 = 3; // Por defecto no puede realizar la consulta
+            string cedulaUsuario = "";
+            List<int> permisos = new List<int>() { consulta1, consulta2, consulta3, consulta4, consulta5, consulta6, consulta7, consulta8, consulta9, consulta10 };
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                cedulaUsuario=IdUsuario(user);
+                //Obtiene los permisos de la tabla de Seguridad
+                for (int x =0; x < 10; x++)
+                {
+                    permisos[x] = tablaSeguridadProyectoGeneralConsultas[x, rol];
+                }
+
+            }
+
+            return Tuple.Create(rol, permisos,cedulaUsuario);
+        }
+
+
+
+
 
     }
 }
