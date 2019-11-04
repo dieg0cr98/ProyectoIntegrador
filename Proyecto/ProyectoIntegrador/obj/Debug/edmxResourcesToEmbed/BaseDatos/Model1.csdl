@@ -386,6 +386,10 @@
       <Parameter Name="idTester" Mode="In" Type="String" />
       <Parameter Name="reqs" Mode="InOut" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="sp_cambiar_cedulaCliente">
+      <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+      <Parameter Name="cedulaNueva" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
