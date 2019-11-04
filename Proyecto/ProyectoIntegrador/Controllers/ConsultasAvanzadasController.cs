@@ -14,25 +14,28 @@ namespace ProyectoIntegrador.Controllers
         private SeguridadController seguridad = new SeguridadController();
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
         private EmpleadosController empleados = new EmpleadosController();
+        private ProyectosController proyecto = new ProyectosController();
+
+
+
 
 
         // GET: ConsultasAvanzadas
         public ActionResult Index()
         {
-            
 
- 
+            ViewBag.permisosConsultas = seguridad.permisosConsultasAvanzadas(User);
+
             return View();
         }
 
 
-        public ActionResult Index2(int consulta)
-        {
-            
-            ViewBag.consulta = consulta;
-            return View();
 
-            if (permiso == 1)
+
+        public JsonResult consulta1(int permiso)
+        {
+
+            if (permiso != 3)
             {
                 var t = db.USP_TestersDisponibleAsignado().ToList();
                 var json = JsonConvert.SerializeObject(t);
@@ -67,6 +70,9 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
 
         }
+
+
+
 
 
     }

@@ -15,6 +15,10 @@
                 <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@Model.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
             }
+            else
+            {
+                <a class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+            }
         </div>
 
         <div class="col">
@@ -35,6 +39,10 @@
                     <a href="#" class="btn" data-toggle="modal" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                 }
 
+            }
+            else
+            {
+                <a class="btn"><img  src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
             }
 
 
