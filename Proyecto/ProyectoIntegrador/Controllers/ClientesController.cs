@@ -192,17 +192,17 @@ namespace ProyectoIntegrador.Controllers
                 cliente.cedulaPK = cedulaVieja;
                 cliente.correo = correo;
 
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cliente).State = EntityState.Modified;
-                    db.SaveChanges();
+                //if (ModelState.IsValid)
+                //{
+                //    db.Entry(cliente).State = EntityState.Modified;
+                //    db.SaveChanges();
 
-                    if (cedulaVieja != cedulaPK)
-                        db.sp_cambiar_cedulaCliente(cedulaVieja, cedulaPK);
+                //    if (cedulaVieja != cedulaPK)
+                //        db.sp_cambiar_cedulaCliente(cedulaVieja, cedulaPK);
 
 
-                    return RedirectToAction("Index");
-                }
+                //    return RedirectToAction("Index");
+                //}
             }
             else
             {

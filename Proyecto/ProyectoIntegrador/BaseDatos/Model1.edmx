@@ -305,8 +305,8 @@
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
         <Function Name="sp_cambiar_cedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cedulaVieja" Type="char" Mode="In" />
-          <Parameter Name="cedulaNueva" Type="char" Mode="In" />
+          <Parameter Name="cedulaVieja" Type="int" Mode="In" />
+          <Parameter Name="cedulaNueva" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -360,6 +360,11 @@
         </Function>
         <Function Name="USP_GetLideresDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_GetTestersDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_ObtenerProyectosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="permiso" Type="int" Mode="In" />
+          <Parameter Name="rol" Type="int" Mode="In" />
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_TestersDisponibleAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Gr03Proy2ModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
@@ -808,8 +813,13 @@
             <Parameter Name="reqs" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_cambiar_cedulaCliente">
-            <Parameter Name="cedulaVieja" Mode="In" Type="String" />
-            <Parameter Name="cedulaNueva" Mode="In" Type="String" />
+            <Parameter Name="cedulaVieja" Mode="In" Type="Int32" />
+            <Parameter Name="cedulaNueva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_ObtenerProyectosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result)">
+            <Parameter Name="permiso" Mode="In" Type="Int32" />
+            <Parameter Name="rol" Mode="In" Type="Int32" />
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -991,6 +1001,11 @@
           <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="USP_ObtenerProyectosUsuario_Result">
+          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1254,6 +1269,15 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
           <FunctionImportMapping FunctionImportName="sp_cambiar_cedulaCliente" FunctionName="Gr03Proy2Model.Store.sp_cambiar_cedulaCliente" />
+          <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result">
+                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
