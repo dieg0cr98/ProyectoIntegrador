@@ -59,19 +59,6 @@ namespace ProyectoIntegrador.Controllers
             }
         }
 
-        /*
-         * Efecto: Muestra la vista para agregar empleados al equipo del proyecto.
-         * Requiere: --
-         * Modifica: --
-         */
-        public ActionResult Add()
-        {
-            ViewBag.idEmpleadoFK = new SelectList(db.Empleado, "idEmpleadoPK", "nombre");
-            ViewBag.idProyectoFK = new SelectList(db.Proyecto, "idProyectoAID", "nombre");
-            return View();
-        }
-
-
         //---------------------------------------------------------------------------//
         //-----------------------------Rutinas del controlador-----------------------//
 
@@ -192,22 +179,14 @@ namespace ProyectoIntegrador.Controllers
             //Si el proyecto está activo guarda el empleado para cuestión de historial pero lo pone inactivo.
             if (proyecto.estado == "Activo")
             {
-                //Si se saca al lider del equipo el proyecto se congela.
+                //Si el proyecto esta activo.
                 if (empleado.tipoTrabajo == "Lider")
                 {
-                    empleado.estado = "Disponible";
-                    db.Entry(empleado).State = EntityState.Modified;
-
-                    trabaja.estado = "Inactivo";
-                    db.Entry(trabaja).State = EntityState.Modified;
-                    //Congelar proyecto aquí
-
                     ret = new
                     {
-                        flag = 1,
-                        msg = "Se ha sacado exitosamente al líder del equipo."
+                        flag = -1,
+                        msg = "No se puede sacar al líder de un proyecto activo."
                     };
-                    db.SaveChanges();
                 }
                 //Es un tester, revisar reqs
                 else
@@ -246,7 +225,7 @@ namespace ProyectoIntegrador.Controllers
             else
             {
                 
-                if (empleado.tipoTrabajo == "Lider") //Es lider, se elimina sin revisar requerimientos.
+                if (empleado.tipoTrabajo == "Lider") //Es lider, se elimina de proyecto no activo
                 {
                     db.TrabajaEn.Remove(trabaja);
                     empleado.estado = "Disponible";
@@ -287,32 +266,6 @@ namespace ProyectoIntegrador.Controllers
                 }
             }
             return Json(ret, JsonRequestBehavior.AllowGet);
-        }
-
-
-        // GET: TrabajaEn/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrabajaEn trabajaEn = db.TrabajaEn.Find(id);
-            if (trabajaEn == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trabajaEn);
-        }
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

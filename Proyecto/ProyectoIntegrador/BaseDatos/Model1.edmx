@@ -304,6 +304,10 @@
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="sp_cambiar_cedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaVieja" Type="char" Mode="In" />
+          <Parameter Name="cedulaNueva" Type="char" Mode="In" />
+        </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -803,6 +807,10 @@
             <Parameter Name="idTester" Mode="In" Type="String" />
             <Parameter Name="reqs" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_cambiar_cedulaCliente">
+            <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+            <Parameter Name="cedulaNueva" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1245,6 +1253,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
+          <FunctionImportMapping FunctionImportName="sp_cambiar_cedulaCliente" FunctionName="Gr03Proy2Model.Store.sp_cambiar_cedulaCliente" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

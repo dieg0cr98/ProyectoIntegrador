@@ -256,5 +256,18 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_ContarRequerimientosTester", idTesterParameter, reqs);
         }
+    
+        public virtual int sp_cambiar_cedulaCliente(string cedulaVieja, string cedulaNueva)
+        {
+            var cedulaViejaParameter = cedulaVieja != null ?
+                new ObjectParameter("cedulaVieja", cedulaVieja) :
+                new ObjectParameter("cedulaVieja", typeof(string));
+    
+            var cedulaNuevaParameter = cedulaNueva != null ?
+                new ObjectParameter("cedulaNueva", cedulaNueva) :
+                new ObjectParameter("cedulaNueva", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_cambiar_cedulaCliente", cedulaViejaParameter, cedulaNuevaParameter);
+        }
     }
 }
