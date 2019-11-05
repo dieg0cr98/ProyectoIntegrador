@@ -305,8 +305,8 @@
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
         <Function Name="sp_cambiar_cedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cedulaVieja" Type="int" Mode="In" />
-          <Parameter Name="cedulaNueva" Type="int" Mode="In" />
+          <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
+          <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -813,8 +813,8 @@
             <Parameter Name="reqs" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_cambiar_cedulaCliente">
-            <Parameter Name="cedulaVieja" Mode="In" Type="Int32" />
-            <Parameter Name="cedulaNueva" Mode="In" Type="Int32" />
+            <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+            <Parameter Name="cedulaNueva" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_ObtenerProyectosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result)">
             <Parameter Name="permiso" Mode="In" Type="Int32" />

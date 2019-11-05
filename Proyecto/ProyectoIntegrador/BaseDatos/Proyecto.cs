@@ -11,7 +11,7 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Proyecto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +24,7 @@ namespace ProyectoIntegrador.BaseDatos
         public int idProyectoAID { get; set; }
         public string nombre { get; set; }
         public string objetivo { get; set; }
-        public string estado { get; set; } = "Preparación";
+        public string estado { get; set; } = "PreparaciÃ³n";
         public int duracionReal { get; set; } = 0;
         public int duracionEstimada { get; set; } = 0;
         public System.DateTime fechaInicio { get; set; } = DateTime.Now.Date;
