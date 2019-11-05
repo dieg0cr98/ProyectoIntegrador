@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated && ViewBag.permisosEditar.Item2 == 1)
     {
         <br />
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Requerimiento</p>
@@ -513,6 +513,6 @@
     }
     else
     {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los requerimientos</div>
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red">Usted no posee los permisos requeridos para realizar esta acción</div>
     }
 </body>

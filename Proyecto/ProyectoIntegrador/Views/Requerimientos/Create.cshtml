@@ -16,7 +16,7 @@
 
 
 <body>
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated && ViewBag.permisosAgregar.Item2 == 1)
     {
         <br />
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Requerimientos</p>
@@ -28,7 +28,6 @@
                 <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
                     <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
                     <input type="hidden" id="idProy" name="idProyecto" value=@ViewBag.idProyecto>
-                    <input type="hidden" id="idReq" name="idRequerimiento" value=@ViewBag.idRequerimiento>
 
                     <div class="form-row">
                         @*Título de Atributo Nombre del Requerimiento*@
@@ -373,7 +372,7 @@
     }
     else
     {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder agregar un requerimiento</div>
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red">Usted no posee los permisos requeridos para realizar esta acción</div>
     }
 
 </body>

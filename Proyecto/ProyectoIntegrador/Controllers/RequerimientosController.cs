@@ -42,11 +42,11 @@ namespace ProyectoIntegrador.Controllers
         {
 
             //Se buscan los permisos del usuario que hizo la consulta
-            ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
-
+            ViewBag.permisosAgregar = seguridad.RequerimientosAgregar(User);
+            
+            //Se solicitan todos los testers asignables al requerimiento
             ViewBag.TestersDisponibles = db.TestersAsignables(idProyecto).ToList();
             ViewBag.idProyecto = idProyecto;
-            ViewBag.idRequerimiento = proyectos.GetCantidadRequerimientos(idProyecto) + 1;
 
             return View();
         }
@@ -55,7 +55,7 @@ namespace ProyectoIntegrador.Controllers
         // Este método se encarga de recibir los datos del formulario con el que se crea un requerimiento. Primero verifica que sean válidos, de ser así
         // los envía a la BD y de no serlo, vuelve a la vista de crear con un error.
         [HttpPost]
-        public ActionResult Create(int idRequerimiento, string nombre, string complejidad, string descripcion, string estado,
+        public ActionResult Create(string nombre, string complejidad, string descripcion, string estado,
             int? duracionEstimada, DateTime? fechai, int idProyecto, string idTester)
         {
             //Crea la instancia de requerimiento que será agregada.
@@ -63,7 +63,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.nombre = nombre;
             requerimiento.complejidad = complejidad;
             requerimiento.idProyectoFK = idProyecto;
-            requerimiento.idReqPK = idRequerimiento;
+            requerimiento.idReqPK = 0;
             requerimiento.descripcion = descripcion;
 
             //Valída los datos que podrían ser nulos.
@@ -91,8 +91,10 @@ namespace ProyectoIntegrador.Controllers
             db.Requerimiento.Add(requerimiento);
             db.SaveChanges();
 
+            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre).FirstOrDefault();
+
             //Vuelve a la vista de consultar.
-            return RedirectToAction("Index", new { idProyecto, idRequerimiento });
+            return RedirectToAction("Index", new { idProyecto, idRequerimiento = idReq.idReqPK });
         }
 
         // Método que llama a la vista de modificar un requerimiento
@@ -104,6 +106,9 @@ namespace ProyectoIntegrador.Controllers
             {
                 return HttpNotFound();
             }
+
+            //Se solicitan los permisos del usuario para analizar su puede editar, o no!
+            ViewBag.permisosEditar = seguridad.RequerimientosEditar(User);
 
             //Comentado pues se usará en el siguiente sprint
             ViewBag.testersDisponibles = db.TestersAsignables(idProyecto).ToList();
@@ -171,7 +176,7 @@ namespace ProyectoIntegrador.Controllers
             db.Entry(requerimiento).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = 0 });
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = requerimiento.idReqPK });
         }
 
         // Método que recibe la confirmación del usuario para eliminar un requerimiento.
@@ -180,9 +185,9 @@ namespace ProyectoIntegrador.Controllers
             if (Request.IsAuthenticated)
             {
                 Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
-                //db.Requerimiento.Remove(requerimiento);
-                requerimiento.estado = "Cancelado";
-                db.Entry(requerimiento).State = EntityState.Modified;
+                 db.Requerimiento.Remove(requerimiento);
+                //requerimiento.estado = "Cancelado";
+                //db.Entry(requerimiento).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = 0 });

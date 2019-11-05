@@ -242,7 +242,7 @@ namespace ProyectoIntegrador.Controllers
         private int[,] tablaSeguridadRequerimientosGeneral = new int[,] {
                        /*Soporte/Calidad , Lider , Tester , Cliente*/
          /*Consultar*/                   {1,1,1,1},
-         /*Agregar*/                     {1,2,2,2},
+         /*Agregar*/                     {1,1,2,2},
          /*Editar*/                      {1,1,1,2},
          /*Eliminar*/                    {1,2,2,2}
          };
@@ -476,11 +476,11 @@ namespace ProyectoIntegrador.Controllers
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
          * Retorna un Tuple<int,string,int,int,int>, con los valores:
          *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
-         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
+         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadRequerimientosGeneral)
          *              cedulaUsuario
-         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
-         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
-         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadProyectoGeneral)
+         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadRequerimientosGeneral)
+         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadRequerimientosGeneral)
+         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadRequerimientosGeneral)
         */
         public Tuple<int, int, int, int, int> RequerimientosConsultar(System.Security.Principal.IPrincipal user)
         {
@@ -490,7 +490,7 @@ namespace ProyectoIntegrador.Controllers
             int permisoAgregar = 2;   //Por defecto no puede agregar
             int permisoBorrar = 2;   //Por defecto no puede eliminar
 
-
+            
             //Obtiene el rol del usuario
             int rol = GetRoleUsuario(user);
 
@@ -505,13 +505,63 @@ namespace ProyectoIntegrador.Controllers
 
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
-            //----Consultas Avanzadas--//
 
-            /* 1 Pueder realizar la consulta
-             * 2 Solo los datos en los que participa
-             * 3 No puede realizar la consulta
-            */
-            private int[,] tablaSeguridadProyectoGeneralConsultas = new int[,] {
+        //Returna un Tuple <itn,int,list<int>> o Null en caso de que el rol no sea valido
+        //                  int = rol
+        //                  int = permiso de agregar
+        //                  list<int> = permisos por cada atributo
+        //
+        public Tuple<int, int, List<int>> RequerimientosAgregar(System.Security.Principal.IPrincipal user)
+        {
+            int rol = GetRoleUsuario(user);
+            if (rol >= 0)
+            {
+
+                List<int> permisos = new List<int>();
+                for (int i = 0; i < 15; i++)
+                {
+                    permisos.Add(tablaSeguridadRequerimientosAgregar[i, rol]);
+                }
+
+                return Tuple.Create(rol, tablaSeguridadRequerimientosGeneral[1, rol], permisos);
+
+            }
+            else return null;
+
+        }
+
+
+
+        //Returna un Tuple <itn,int,list<int>> o Null en caso de que el rol no sea valido
+        //                  int = rol
+        //                  int = permiso de editar
+        //                  list<int> = permisos por cada atributo
+        //
+        public Tuple<int, int, List<int>> RequerimientosEditar(System.Security.Principal.IPrincipal user)
+        {
+            int rol = GetRoleUsuario(user);
+            //Si tiene un rol asignado
+            if (rol >= 0)
+            {
+                List<int> permisos = new List<int>();
+                for (int i = 0; i < 15; i++)
+                {
+                    permisos.Add(tablaSeguridadRequerimientosEditar[i, rol]);
+                }
+
+                return Tuple.Create(rol, tablaSeguridadRequerimientosGeneral[2, rol], permisos);
+
+            }
+            else return null;
+        }
+
+        //----Consultas Avanzadas--//
+
+        /* 1 Pueder realizar la consulta
+         * 2 Solo los datos en los que participa
+         * 3 No puede realizar la consulta
+        */
+        private int[,] tablaSeguridadProyectoGeneralConsultas = new int[,] {
                            /*Soporte/Calidad , Lider , Tester , Cliente*/
              /*Consulta1*/                   {1,2,3,3},
              /*Consulta2*/                   {1,2,3,3},

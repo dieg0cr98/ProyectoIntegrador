@@ -49,7 +49,7 @@
 
 <body>
     <!-- Verifica que el llamado a la vista se haya hecho por un usuario registrado a la aplicación -->
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated && ViewBag.permisosGenerales.Item2 == 1)
     {
         <br />
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos: @ViewBag.nombre</p>
@@ -125,7 +125,7 @@
      }
      else
      {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los requerimientos</div>
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red">Usted no posee los permisos requeridos para realizar esta acción</div>
      }
 
     @Html.Partial("Scripts")

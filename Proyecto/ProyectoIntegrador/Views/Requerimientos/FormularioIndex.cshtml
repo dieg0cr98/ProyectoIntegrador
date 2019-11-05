@@ -12,11 +12,23 @@
             <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Requerimientos", new { idRequerimiento = Model.idReqPK, idProyecto = Model.idProyectoFK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px"></a>
         </div>
     }
+    else
+    {
+        <div class="col">
+            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px"></a>
+        </div>
+    }
 
     @if (ViewBag.permisosGenerales.Item5 == 1)
     {
         <div class="col " style="max-height: 32px">
             <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqPK" data-whatever2="@Model.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+        </div>
+    }
+    else
+    {
+        <div class="col " style="max-height: 32px">
+            <a href="#" class="btn"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
         </div>
     }
 </div>
@@ -68,6 +80,22 @@
             <div class="input-group">
                 @*Atributo Estado*@
                 <input id="input2" class="form-control" value="@Model.estado" style="text-align:center; max-width:none" type="text" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Título de atributo cedulaTesterFK*@
+        <div class="col-5">
+            <h5>Tester Asignado </h5>
+        </div>
+    </div>
+
+    <div class="form-row mb-4">
+        <div class="col-5">
+            @*Atributo Cédula Tester*@
+            <div class="input-group">
+                <input id="input2" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
             </div>
         </div>
     </div>
