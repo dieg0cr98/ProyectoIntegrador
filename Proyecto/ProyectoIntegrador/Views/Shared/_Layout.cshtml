@@ -51,23 +51,34 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link text-light" id="Proyectos"  draggable="false" href="~/Proyectos/Index/0">Proyectos<span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light" draggable="false" href="~/Proyectos/Index/0"><h5 id="Proyectos">Proyectos</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  text-light" draggable="false" href="~/Empleados">Empleados</a>
+                    <a class="nav-link  text-light" draggable="false" href="~/Empleados"><h5 id="Empleados">Empleados</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  text-light" draggable="false" href="~/Clientes">Clientes</a>
+                    <a class="nav-link  text-light" draggable="false" href="~/Clientes"><h5 id="Clientes">Clientes</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  text-light" draggable="false" href="@Url.Action("Index", "ConsultasAvanzadas")">Consultas Avanzadas</a>
+                    <a class="nav-link  text-light" draggable="false" href="@Url.Action("Index", "ConsultasAvanzadas")"><h5 id="ConsultasAvanzadas">Consultas Avanzadas</h5></a>
                 </li>
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </nav>
 
+    <script>
+        var t = window.location.href;
+        var t2 = t.replace("http://localhost:50131/", "");
+        var t3 = t2.split("/");
+        var d = document.getElementById(t3[0]);
 
+        if (d) {
+            d.style.textDecorationLine = "underline";
+            d.style.textDecorationColor = "#C09F80";
+        }
+        
+    </script>
 
 
 
