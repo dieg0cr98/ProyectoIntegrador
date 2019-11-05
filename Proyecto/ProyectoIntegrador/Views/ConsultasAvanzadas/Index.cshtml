@@ -242,7 +242,7 @@
 
 
                     //Se crea el html para la tabla
-                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Tester</th><th scope="col">Estado</th><th scope="col">Proyecto</th></tr></thead><tbody>';
+                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Proyectos</th><th scope="col">Nombre Tester</th><th scope="col">Estado Tester</th></tr></thead><tbody>';
 
                     //Recorre las tuplas para insertar los datos a la tabla
                     for (tupla in data2) {
@@ -250,6 +250,9 @@
 
                         console.log(data2[tupla].Nombre_Empleado);
                         table += '<tr>';
+
+                        var proyecto = data2[tupla].Nombre_Proyecto;
+                        table += '<td>' + proyecto + '</td>';
 
                         var nombreEmpleado = data2[tupla].Nombre_Empleado;
                         table += ' <th scope="row">' + nombreEmpleado + '</th>';
@@ -263,8 +266,7 @@
                         }
                         table += '<td>' + estado + '</td>';
 
-                        var proyecto = data2[tupla].Nombre_Proyecto;
-                        table += '<td>' + proyecto + '</td>';
+         
 
                         table += '</tr>';
 
@@ -289,7 +291,7 @@
                     }).then(function () {
                         var data = google.visualization.arrayToDataTable([
                             ['Tester', 'Estado'],
-                            ['Asignados', cantidadAsignados],
+                            ['Ocupados', cantidadAsignados],
                             ['Disponibles', cantiadadDisponibles],
 
                         ]);
@@ -300,6 +302,7 @@
                             pieHole: 0.4,
                             'width': 800,
                             'height': 800,
+                            legend: {position: 'top', textStyle: {fontSize: 20}},
                         };
 
                         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
