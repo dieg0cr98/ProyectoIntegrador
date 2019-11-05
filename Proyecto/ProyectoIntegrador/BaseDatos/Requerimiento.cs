@@ -11,6 +11,7 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Requerimiento
     {
@@ -20,12 +21,13 @@ namespace ProyectoIntegrador.BaseDatos
             this.Prueba = new HashSet<Prueba>();
             this.HistorialReqTester = new HashSet<HistorialReqTester>();
         }
-
+        [Key]
         public int idReqPK { get; set; }
+        [Key]
         public int idProyectoFK { get; set; }
         public string cedulaTesterFK { get; set; }
         public string nombre { get; set; }
-        public string complejidad { get; set; }
+        public string complejidad { get; set; } = "Medio";
         public int tiempoEstimado { get; set; } = 0;
         public Nullable<int> tiempoReal { get; set; }
         public string descripcion { get; set; }
