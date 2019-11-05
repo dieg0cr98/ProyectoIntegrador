@@ -130,13 +130,13 @@
     <div class="row">
         <div class="col-2 ">
 
-            <div style="margin-left:20px"><button id="toggleButton" type="button" onclick="opencloseNav()" class="btn btn-primary" style="height:60px"><h5>&#9776; Ver Consultas</h5></button></div>
+            <div style="margin-left:20px;"><button id="toggleButton" type="button" onclick="opencloseNav()" class="btn btn-primary" style="height:60px"><h5>&#9776; Ver Consultas</h5></button></div>
 
         </div>
 
         <div class="col">
 
-            <p class="font-weight-bold" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-left:350px">Consultas Avanzadas</p>
+            <p class="font-weight-bold " style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-left:350px">Consultas Avanzadas</p>
 
         </div>
 
@@ -242,7 +242,7 @@
 
 
                     //Se crea el html para la tabla
-                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th><th scope="col">Proyecto</th></tr></thead><tbody>';
+                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Tester</th><th scope="col">Estado</th><th scope="col">Proyecto</th></tr></thead><tbody>';
 
                     //Recorre las tuplas para insertar los datos a la tabla
                     for (tupla in data2) {
@@ -350,8 +350,8 @@
             //Limpia los datos
             document.getElementById("datosC1").innerHTML = " ";
 
-            //Agrega el titulo de la consulta
-            document.getElementById("nombreConsulta").innerText = "Datos sobre la cantidad total de requerimientos asignada a cada tester de un determinado proyecto (líder del proyecto) y de todos los proyectos (Jefe de Calidad).";
+            //Agrega el titulo de la consulta           
+            document.getElementById("nombreConsulta").innerText = "Cantidad total de requerimientos por tester en un determinado Proyecto";
 
             //Se crea el html de loading
             document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
@@ -381,7 +381,7 @@
 
 
                     //Se crea el html para la tabla
-                    var table = '<table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th></tr></thead><tbody>';
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Proyecto</th><th scope="col">Estado Del Proyecto</th></tr></thead><tbody>';
 
                     //Recorre las tuplas para insertar los datos a la tabla
                     for (tupla in data2) {
@@ -494,7 +494,7 @@
                             var apellido2 = data2[tupla].apellido2;
                             nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
                             var cantidad = data2[tupla].Cantidad;
-                            data.addRow([nombre, cantidad, nombreCompleto + '\n CantidadReq: ' + cantidad, '#76323f']);
+                            data.addRow([nombre, cantidad, nombreCompleto + '\n Cantidad Requerimientos: ' + cantidad, '#76323f']);
 
                         }
 

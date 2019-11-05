@@ -51,7 +51,10 @@ namespace ProyectoIntegrador.Controllers
         public JsonResult consulta3(int rol, int permiso, string idUsuario)
         {
 
-            var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
+            //var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
+
+            var t = db.USP_ObtenerProyectosUsuario(permiso,rol,idUsuario);
+
             var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore

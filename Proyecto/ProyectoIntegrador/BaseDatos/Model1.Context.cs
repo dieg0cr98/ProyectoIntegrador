@@ -256,5 +256,35 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_ContarRequerimientosTester", idTesterParameter, reqs);
         }
+    
+        public virtual int sp_cambiar_cedulaCliente(Nullable<int> cedulaVieja, Nullable<int> cedulaNueva)
+        {
+            var cedulaViejaParameter = cedulaVieja.HasValue ?
+                new ObjectParameter("cedulaVieja", cedulaVieja) :
+                new ObjectParameter("cedulaVieja", typeof(int));
+    
+            var cedulaNuevaParameter = cedulaNueva.HasValue ?
+                new ObjectParameter("cedulaNueva", cedulaNueva) :
+                new ObjectParameter("cedulaNueva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_cambiar_cedulaCliente", cedulaViejaParameter, cedulaNuevaParameter);
+        }
+    
+        public virtual ObjectResult<USP_ObtenerProyectosUsuario_Result> USP_ObtenerProyectosUsuario(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
+        {
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
+        }
     }
 }

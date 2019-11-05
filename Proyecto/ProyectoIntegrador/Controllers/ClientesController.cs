@@ -189,15 +189,20 @@ namespace ProyectoIntegrador.Controllers
                 cliente.provincia = provincia;
                 cliente.direccionExacta = direccionExacta;
                 cliente.telefono = telefono;
-                cliente.cedulaPK = cedulaPK;
+                cliente.cedulaPK = cedulaVieja;
                 cliente.correo = correo;
 
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cliente).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                //if (ModelState.IsValid)
+                //{
+                //    db.Entry(cliente).State = EntityState.Modified;
+                //    db.SaveChanges();
+
+                //    if (cedulaVieja != cedulaPK)
+                //        db.sp_cambiar_cedulaCliente(cedulaVieja, cedulaPK);
+
+
+                //    return RedirectToAction("Index");
+                //}
             }
             else
             {
@@ -251,7 +256,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 Cliente cliente = db.Cliente.Find(id); // Se busca el cliente en la bd
 
-                await seguridad.DeleteUsuarioAsync(cliente.correo); //crea cuenta de usuario en el sistema
+                await seguridad.DeleteUsuarioAsync(cliente.correo); //eliminar cuenta de usuario en el sistema
 
                 db.Cliente.Remove(cliente); // se elimina cliente de la bd
                 db.SaveChanges(); // se guardan los cambios
