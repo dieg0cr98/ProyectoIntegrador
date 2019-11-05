@@ -300,6 +300,8 @@
     <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
   </Function>
   <Function Name="sp_cambiar_cedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cedulaVieja" Type="int" Mode="In" />
+    <Parameter Name="cedulaNueva" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
