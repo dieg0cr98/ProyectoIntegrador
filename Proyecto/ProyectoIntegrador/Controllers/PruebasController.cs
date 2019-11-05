@@ -15,39 +15,65 @@ namespace ProyectoIntegrador.Controllers
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
 
         // GET: Pruebas
-        public ActionResult Index()
+        //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros
+        public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba)
         {
-            var prueba = db.Prueba.Include(p => p.Requerimiento);
-            return View(prueba.ToList());
+            //Se sacan las pruebas de la base de datos
+            var pruebas = db.Prueba.Where(P => P.idProyectoFK == idProyecto && P.idReqFK == idRequerimiento);
+
+            //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
+            ViewBag.seleccion = idPrueba;
+
+            //Se guardan los id de proyecto y requerimientos para que sean usados en el CRUD de pruebas.
+            ViewBag.idProyecto = idProyecto;
+            ViewBag.idRequerimiento = idRequerimiento;
+
+            return View(pruebas.ToList());
         }
 
-        // GET: Pruebas/Details/5
-        public ActionResult Details(int? id)
+        // Metodo que se llama al ingresar a la vista de editar prueba
+        public ActionResult Edit(int idProyecto, int idRequerimiento, int idPrueba)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Prueba prueba = db.Prueba.Find(id);
+            Prueba prueba = db.Prueba.Find(idProyecto,idRequerimiento,idPrueba); //Se saca la prueba de la base de datos
+
             if (prueba == null)
             {
                 return HttpNotFound();
             }
+
+            //Se guarda id y nombre del proyecto en el viewbag
+            ViewBag.idProyecto = idProyecto;
+            ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
+
+            //Se guarda id y nombre del requerimiento en el viewbag
+            ViewBag.idRequerimiento = idRequerimiento;
+            ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento).nombre;
+
             return View(prueba);
         }
 
         // GET: Pruebas/Create
-        public ActionResult Create()
+        //Metodo que se llama al ingresar a la vista de crear prueba
+        public ActionResult Create(int idProyecto, int idRequerimiento)
         {
-            ViewBag.idReqFK = new SelectList(db.Requerimiento, "idReqPK", "cedulaTesterFK");
+            //Se guarda id y nombre del proyecto en el viewbag
+            ViewBag.idProyecto = idProyecto;
+            ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
+
+            //Se guarda id y nombre del requerimiento en el viewbag
+            ViewBag.idRequerimiento = idRequerimiento;
+            Requerimiento req = db.Requerimiento.Find(idRequerimiento);
+            ViewBag.nombreRequerimiento = req.nombre;
+
+            ViewBag.idPrueba = req.cantidadDePruebas + 1;
+
+            //Ver si hace falta un trigger para sumar a la cantidad de pruebas en req, creo que si
+
             return View();
         }
 
         // POST: Pruebas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idProyectoFK,idReqFK,idPruebaPK,resultadoFinal,propositoPrueba,entradaDatos,resultadoEsperado,flujoPrueba,estado,imagen,descripcionError")] Prueba prueba)
         {
             if (ModelState.IsValid)
@@ -62,6 +88,8 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // GET: Pruebas/Edit/5
+        //CREO ESTE METODO NO HACE FALTA
+        /*
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,13 +103,11 @@ namespace ProyectoIntegrador.Controllers
             }
             ViewBag.idReqFK = new SelectList(db.Requerimiento, "idReqPK", "cedulaTesterFK", prueba.idReqFK);
             return View(prueba);
-        }
+        }*/
 
         // POST: Pruebas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idProyectoFK,idReqFK,idPruebaPK,resultadoFinal,propositoPrueba,entradaDatos,resultadoEsperado,flujoPrueba,estado,imagen,descripcionError")] Prueba prueba)
         {
             if (ModelState.IsValid)
@@ -94,39 +120,13 @@ namespace ProyectoIntegrador.Controllers
             return View(prueba);
         }
 
-        // GET: Pruebas/Delete/5
-        public ActionResult Delete(int? id)
+        // Método que recibe la confirmación del usuario para eliminar una prueba.
+        public ActionResult Eliminar(int idProyecto, int idRequerimiento, int idPrueba)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Prueba prueba = db.Prueba.Find(id);
-            if (prueba == null)
-            {
-                return HttpNotFound();
-            }
-            return View(prueba);
-        }
-
-        // POST: Pruebas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Prueba prueba = db.Prueba.Find(id);
-            db.Prueba.Remove(prueba);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            Prueba prueba = db.Prueba.Find(idProyecto, idRequerimiento, idPrueba); //Se saca la prueba de la base de datos
+            db.Prueba.Remove(prueba); //Se elimina la prueba
+            db.SaveChanges(); //Se guardan cambios
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = 0 }); //Retorna a la vista
         }
     }
 }
