@@ -268,7 +268,7 @@ namespace ProyectoIntegrador.Controllers
                     if (cedulaLider != cedulaLiderActual)
                     {
                         //Si aun no empieza el proyecto cambie el lider
-                        if (proyecto.estado == "Preparacion")
+                        if (proyecto.estado == "Preparación")
                         {
 
                             //Elimina el empleado anterior
