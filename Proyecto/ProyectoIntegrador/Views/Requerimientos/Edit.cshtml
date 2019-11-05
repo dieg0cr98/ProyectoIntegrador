@@ -428,71 +428,75 @@
             $(function () {
                 $("#commentForm").validate(
                     {
-                                    rules:
-                                        {
-                                        nombre:
-                                            {
-                                            required: true,
+                        rules:
+                            {
+                            nombre:
+                                {
+                                required: true,
                                 minlength: 1,
                                 remote:
-                                                {
-                                                url: "/Requerimientos/ReviseNombreRequerimiento",
+                                    {
+                                    url: "/Requerimientos/ReviseNombreRequerimiento",
                                     type: "post",
-                                    delay: 1000,
-                                    data: {
-                                                    name: function () {
-                                                            return $("#nomN").val();
-                                                        },
-                                        oldName: function () {
-                                                            return $("#nomV").val();
-                                                        }
-                                                    }
-                                                }
-
-                                            },
-                            duracionEstimada:
+                                     delay: 1000,
+                                    data:
+                                        {
+                                        name: function ()
                                             {
-                                            required: true,
+                                                return $("#nomN").val();
+                                            },
+                                        oldName: function ()
+                                            {
+                                                return $("#nomV").val();
+                                            }
+                                        }
+
+                                    }
+
+                                },
+                            duracionEstimada:
+                                {
+                                required: true,
                                 min: 0
 
-                            },
+                                },
                             fechai:
-                                            {
-                                            required: true,
-                            },
-                        },
-                        messages:
-                                        {
-                                        nombre:
-                                            {
-                                            required: "Inserte al menos 1 caractér",
+                                {
+                                required: true,
+                                    },
+                                },
+                            messages:
+                            {
+                            nombre:
+                                {
+                                required: "Inserte al menos 1 caractér",
                                 remote: "Ya existe un requerimiento con ese nombre",
-                            },
+                                },
                             duracionEstimada: "Tiene que ser un numero mayor a 0",
                             fechai: "Inserte una fecha"
 
-                        },
+                            },
 
-                        errorPlacement: function (error, element) {
-                                            if ((element.attr('name') === 'idRequerimientoNuevo')) {
-                                                error.insertAfter($('#errorIdRequerimientoNuevo'));
-                                            }
-                                            if ((element.attr('name') === 'nombre')) {
-                                                error.insertAfter($('#errorNombre'));
-                                            }
-                                            if ((element.attr('name') === 'fechai')) {
-                                                error.insertAfter($('#errorFechai'));
-                                            }
-                                            if ((element.attr('name') === 'duracionEstimada')) {
-                                                error.insertAfter($('#errorDuracionEstimada'));
-                                            }
-                                        },
-                        invalidHandler: function (form, validator) {
+                            errorPlacement: function (error, element) {
+                                                if ((element.attr('name') === 'idRequerimientoNuevo')) {
+                                                    error.insertAfter($('#errorIdRequerimientoNuevo'));
+                                                }
+                                                if ((element.attr('name') === 'nombre')) {
+                                                    error.insertAfter($('#errorNombre'));
+                                                }
+                                                if ((element.attr('name') === 'fechai')) {
+                                                    error.insertAfter($('#errorFechai'));
+                                                }
+                                                if ((element.attr('name') === 'duracionEstimada')) {
+                                                    error.insertAfter($('#errorDuracionEstimada'));
+                                                }
+                                            },
+                            invalidHandler: function (form, validator) {
 
-                            $('#loading').hide('fast');
-                            $('#acceptar').show('fast');
+                                $('#loading').hide('fast');
+                                $('#acceptar').show('fast');
 
-                                        },
+                            },
 
 
 

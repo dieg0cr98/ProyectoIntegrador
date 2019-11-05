@@ -95,7 +95,7 @@
         <div class="col-5">
             @*Atributo Cédula Tester*@
             <div class="input-group">
-                <input id="input2" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
+                <input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
             </div>
         </div>
     </div>
@@ -198,7 +198,7 @@
         <div class="col-4">
             <div class="input-group">
                 @*Atributo Resultado*@
-                <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" @*value="@item.resultado"*@ readonly>
+                <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="@Model.resultado" readonly>
             </div>
         </div>
 
@@ -209,7 +209,7 @@
         <div class="col-4">
             <div class="input-group">
                 @*Atributo Estado del Resultado*@
-                <input id="input2" class="form-control" @*value="@item.estado"*@ style="text-align:center; max-width:none" type="text" readonly>
+                <input id="input2" class="form-control" value="@Model.estadoResultado" style="text-align:center; max-width:none" type="text" readonly>
             </div>
         </div>
 
@@ -224,7 +224,7 @@
 
     @*Atributo detalle del resultado*@
     <div class="input-group mb-4  mx-6">
-        <textarea class="form-control" name="detalleResultado" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment" readonly>@*@item.descripcion*@</textarea>
+        <textarea class="form-control" name="detalleResultado" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment" readonly>@Model.detallesResultado</textarea>
     </div>
 
 </div>

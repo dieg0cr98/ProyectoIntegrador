@@ -218,5 +218,10 @@ namespace ProyectoIntegrador.Controllers
                 return new JsonResult { Data = true };
 
         }
+
+        public JsonResult GetNombreTester(int idProyecto, int idRequerimiento)
+        {
+            
+        }
     }
 }
