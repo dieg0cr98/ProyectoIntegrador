@@ -92,29 +92,17 @@
     </div>
 
     <div class="form-row mb-4">
-        <div class="col-5">
+        <div class="col-3">
             @*Atributo Cédula Tester*@
 
             <div class="input-group">
-                @*
-        @for (int i = 0; i < ViewBag.cedulaTesters.Count; i++)
-        {
-            if (Model.cedulaTesterFK == ViewBag.cedulaTesters[i])
-            {
-                <input id="cedula" class="form-control" value="@ViewBag.nombreTesters[i]" style="text-align:center; max-width:none" type="text" readonly>
-            }
-            else
-            {
-                //<input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
-            }
-        }
-                *@
-                @foreach (var item in ViewBag.datosTesters)
+                @for (int i = 0; i < ViewBag.cedulaTesters.Count; i++)
                 {
-                    if (Model.cedulaTesterFK == item.idEmpleadoPK)
+                    if (Model.cedulaTesterFK == ViewBag.cedulaTesters[i])
                     {
-                        <input id="cedula" class="form-control" value="@item.nombre @item.apellido1" style="text-align:center; max-width:none" type="text" readonly>
+                        <input id="cedula" class="form-control" value="@ViewBag.nombreTesters[i]" style="text-align:center; max-width:none" type="text" readonly>
                     }
+
                 }
             </div>
         </div>

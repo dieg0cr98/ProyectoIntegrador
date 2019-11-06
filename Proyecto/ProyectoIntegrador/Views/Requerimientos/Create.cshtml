@@ -107,6 +107,28 @@
                     </div>
 
                     <div class="form-row">
+                        @*Título de atributo cedulaTesterFK*@
+                        <div class="col-5">
+                            <h5> Asignar tester </h5>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-4">
+                        <div class="col-4">
+                            @*Atributo Cédula Tester*@
+                            <div class="input-group">
+                                <select class="custom-select" name="idTester">
+                                    <option value="" selected>No Asignar</option>
+                                    @foreach (var item in ViewBag.TestersDisponibles)
+                                    {
+                                        <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
                         @*Título de Atributo Fecha de Inicio*@
                         <div class="col-4 ">
                             <h5>Fecha de Inicio</h5>
@@ -182,28 +204,6 @@
                     </div>
 
                     <div class="form-row">
-                        @*Título de atributo cedulaTesterFK*@
-                        <div class="col-5">
-                            <h5> Asignar tester </h5>
-                        </div>
-                    </div>
-
-                    <div class="form-row mb-4">
-                        <div class="col-5">
-                            @*Atributo Cédula Tester*@
-                            <div class="input-group">
-                                <select class="custom-select" name="idTester">
-                                    <option value="" selected>No Asignar</option>
-                                    @foreach (var item in ViewBag.TestersDisponibles)
-                                    {
-                                        <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
                         @*Título de Atributo Cumplimiento de Requerimiento*@
                         <div class="col-4 ">
                             <h5> Resultado </h5>
@@ -231,7 +231,7 @@
 
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-5">
                             <div class="input-group">
                                 @*Atributo Estado del Resultado*@
                                 <input id="input2" class="form-control" style="text-align:center; max-width:none" type="text" readonly>
