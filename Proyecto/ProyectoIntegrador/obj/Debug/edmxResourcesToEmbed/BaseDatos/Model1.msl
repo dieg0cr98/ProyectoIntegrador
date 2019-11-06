@@ -266,5 +266,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="nombreTester" FunctionName="Gr03Proy2Model.Store.nombreTester" />
   </EntityContainerMapping>
 </Mapping>

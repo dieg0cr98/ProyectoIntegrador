@@ -219,9 +219,9 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-        public JsonResult GetNombreTester(int idProyecto, int idRequerimiento)
+        public JsonResult GetNombreTester(int idRequerimiento, int idProyecto)
         {
-            
+            return new JsonResult { Data = db.nombreTester(idProyecto, idRequerimiento) };
         }
     }
 }

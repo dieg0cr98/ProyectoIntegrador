@@ -295,6 +295,9 @@
         <Function Name="HabilidadesEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="nombreTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
+        </Function>
         <Function Name="ObtenerProyectoActualDelEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
         </Function>
@@ -821,6 +824,9 @@
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="nombreTester" ReturnType="Collection(String)">
+            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1278,6 +1284,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="nombreTester" FunctionName="Gr03Proy2Model.Store.nombreTester" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

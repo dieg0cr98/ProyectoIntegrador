@@ -33,5 +33,17 @@
 </script>
 
 <script>
-
+    function callGetTester(idProy, idReq) {
+        var xhttp = new XMLHttpRequest();
+        var formatUrl = '@Url.Action("GetNombreTester", "Requerimientos")';
+        formatUrl += '?idRequerimiento=' + idReq + '&idProyecto=' + idProy;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+                //alert(this.responseText);
+            }
+        };
+        xhttp.open("GET", formatUrl, true);
+        xhttp.send();
+    }
 </script>

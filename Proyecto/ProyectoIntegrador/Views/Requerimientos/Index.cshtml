@@ -79,11 +79,11 @@
                                 //Si el item.idProyectoAID es igual al ViewBag.proyectoSelec hay que seleccionar el tab con la instruccion show active
                                 if (ViewBag.seleccion == item.idReqPK)
                                 {
-                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" onclick="callGetTester(@item.idProyectoFK, @item.idReqPK)" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
                                 else
                                 {
-                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
+                                    <a class="list-group-item list-group-item-action list-group-item-secondary my-1" onclick="callGetTester(@item.idProyectoFK, @item.idReqPK)" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
 
                                 { idCarta += 1; }
