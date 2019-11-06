@@ -96,22 +96,26 @@
             @*Atributo Cédula Tester*@
 
             <div class="input-group">
-                <input id="cedula" class="form-control" value="@ViewBag.datosTesters" style="text-align:center; max-width:none" type="text" readonly>
                 @*
+        @for (int i = 0; i < ViewBag.cedulaTesters.Count; i++)
+        {
+            if (Model.cedulaTesterFK == ViewBag.cedulaTesters[i])
+            {
+                <input id="cedula" class="form-control" value="@ViewBag.nombreTesters[i]" style="text-align:center; max-width:none" type="text" readonly>
+            }
+            else
+            {
+                //<input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
+            }
+        }
+                *@
                 @foreach (var item in ViewBag.datosTesters)
                 {
-
-
                     if (Model.cedulaTesterFK == item.idEmpleadoPK)
                     {
-
+                        <input id="cedula" class="form-control" value="@item.nombre @item.apellido1" style="text-align:center; max-width:none" type="text" readonly>
                     }
-                    else
-                    {
-                        <input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
-
-                    }
-                }       *@
+                }
             </div>
         </div>
     </div>

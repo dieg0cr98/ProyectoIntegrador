@@ -49,12 +49,37 @@ namespace ProyectoIntegrador.Controllers
                 {
                     return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.estado != "Cancelado").ToList();
                 }
-
             }
+        }
 
+        public void getDatosTester(int idProyecto)
+        {
+            List<string> nombres = new List<string>();
+            List<string> cedulas = new List<string>();
+            string nombre;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter())
+                {
+                    da.SelectCommand = new SqlCommand("nombreTester", conn);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@idProyecto", idProyecto);
 
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "Empleados");
 
+                    DataTable dt = ds.Tables["Empleados"];
 
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        nombre = row.Field<string>("nombre") + " " + row.Field<string>("apellido1");
+                        nombres.Add(nombre);
+                        cedulas.Add(row.Field<string>("idEmpleadoPK"));
+                    }
+                }
+            }
+            ViewBag.nombreTesters = nombres;
+            ViewBag.cedulaTesters = cedulas;
         }
 
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
@@ -68,8 +93,8 @@ namespace ProyectoIntegrador.Controllers
             var requerimiento = GetRequerimientosUsuario(idProyecto, seguridad.GetRoleUsuario(User), seguridad.IdUsuario(User)).Reverse();
 
             //Obtiene los datos que se utilizarán para desplegar el nombre de los testers asociados a los requerimientos
-            var datosTesters = db.nombreTester(idProyecto);
-
+            //getDatosTester(idProyecto);
+            ViewBag.datosTesters = db.nombreTester(idProyecto);
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;
             //Se guarda el id del proyecto asociado para ser usado al llamar el CRUD de cualquier requerimiento.
