@@ -68,7 +68,7 @@ namespace ProyectoIntegrador.Controllers
             var requerimiento = GetRequerimientosUsuario(idProyecto, seguridad.GetRoleUsuario(User), seguridad.IdUsuario(User)).Reverse();
 
             //Obtiene los datos que se utilizarán para desplegar el nombre de los testers asociados a los requerimientos
-            getDatosTesters(idProyecto);
+            var datosTesters = db.nombreTester(idProyecto);
 
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;
