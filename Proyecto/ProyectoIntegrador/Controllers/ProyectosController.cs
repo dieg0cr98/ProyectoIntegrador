@@ -164,7 +164,6 @@ namespace ProyectoIntegrador.Controllers
         //              rol = 2 Tester
         //              rol = 3 Cliente
         //       string idUsuario (Es la cedula o identificador de un usuario) 
-        //       int tipoConsulta (0 = Regresa toda la tupla, 1 solo el nombre , id del proyecto y estado)
         //Devuelve una lista IEnumerable con los proyectos. Null en caso de que no puede ver ninguno
         public IEnumerable<ProyectoIntegrador.BaseDatos.Proyecto> GetProyectosUsuario(int permiso, int rol, string idUsuario)
         {
@@ -268,7 +267,7 @@ namespace ProyectoIntegrador.Controllers
                     if (cedulaLider != cedulaLiderActual)
                     {
                         //Si aun no empieza el proyecto cambie el lider
-                        if (proyecto.estado == "Preparacion")
+                        if (proyecto.estado == "Preparación")
                         {
 
                             //Elimina el empleado anterior

@@ -22,199 +22,201 @@
 
 <hr />
 <body onload="getProvincias('@Model.provincia','@Model.canton','@Model.distrito')">
+    @if (Request.IsAuthenticated)
+    {
+        <form id="employeeForm" class="cmxform" name="employeeForm" method="post" action="Create">
+            <fieldset>
 
+                <div id="errors"></div>
+                <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color: rgba(192,159,128, 0.7)">
 
-    <form id="employeeForm" class="cmxform" name="employeeForm" method="post" action="Create">
-        <fieldset>
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
+                    }
+                    <input type="hidden" value="@Model.idEmpleadoPK" name="cedulaVieja">
 
-            <div id="errors"></div>
-            <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color: rgba(192,159,128, 0.7)">
-
-                @if (ViewBag.error != null)
-                {
-                    <div class="alert alert-primary text-center m-3" style="color:white ; background-color:red">@ViewBag.error</div>
-                }
-                else
-                {
-                    <div class="alert alert-primary text-center m-3 pt-2" style=" border-color:transparent ; background-color:transparent; height:50px"></div>
-                }
-                <input type="hidden" value="@Model.idEmpleadoPK" name="cedulaVieja">
-
-                @*Primera fila*@
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo Nombre-->
-                        <h5 for="nombre" style="width:200px">Nombre *</h5>
-                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })                            
-                        <div id="errorNombre"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Primer Apellido-->
-                        <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
-                        @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Segundo Apellido-->
-                        <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                        @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
-                    </div>
-                </div>
-                <br>
-
-                @*Segunda fila*@
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <input hidden class="form-control" value="@Model.idEmpleadoPK" id="cedulaOld" type="text">
-                        <!--Campo Cedula-->
-                        <h5 for="idEmpleadoPK" style="width:200px">C&eacute;dula *</h5>
-                        @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none"} })
-                        <div id="errorID"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Fecha de nacimiento-->
-                        <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
-                        @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
-                        <div id="errorFechaNacimiento"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo correo-->
-                        <input hidden class="form-control" value="@Model.correo" id="correoOld" type="text">
-                        <h5 for="correo" style="width:200px">Correo *</h5>
-                        @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })                            
-                        <div id="errorCorreo"></div>
-                    </div>
-                </div>
-                <br>
-
-                @*Tercera fila*@
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo telefono-->
-                        <h5 for="telefono" style="width:200px">Tel&eacute;fono</h5>
-                        @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })                            
-                        <div id="errorFechaNacimiento"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Estado-->
-                        <h5 for="correo" style="width:200px">Estado *</h5>
-                        <div class="input-group">
-
-                            <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
-
-                                <option value="@Model.estado">@Model.estado</option>
-                                <option value="Disponible">Disponible</option>
-                                <option value="Ocupado">Ocupado</option>
-                                <option value="Inactivo">Inactivo</option>
-                            </select>
+                    @*Primera fila*@
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo Nombre-->
+                            <h5 for="nombre" style="width:200px">Nombre *</h5>
+                            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                            <div id="errorNombre"></div>
                         </div>
-                        <div id="errorEstado"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Puesto-->
-                        <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
-                        <div class="input-group">
-
-                            <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
-                                <option value="@Model.tipoTrabajo">@Model.tipoTrabajo</option>
-                                <option value="Tester">Tester</option>
-                                <option value="Lider">Lider</option>
-                                <option value="Jefe de Calidad">Jefe de Calidad</option>
-                                <option value="Jefe de Soporte">Jefe de Soporte</option>
-                            </select>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Primer Apellido-->
+                            <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
+                            @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
                         </div>
-                        <div id="errorTipoTrabajo"></div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Segundo Apellido-->
+                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
+                            @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                        </div>
+                    </div>
+                    <br>
+
+                    @*Segunda fila*@
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <input hidden class="form-control" value="@Model.idEmpleadoPK" id="cedulaOld" type="text">
+                            <!--Campo Cedula-->
+                            <h5 for="idEmpleadoPK" style="width:200px">Cedula *</h5>
+                            @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                            <div id="errorID"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Fecha de nacimiento-->
+                            <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
+                            @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
+                            <div id="errorFechaNacimiento"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo correo-->
+                            <input hidden class="form-control" value="@Model.correo" id="correoOld" type="text">
+                            <h5 for="correo" style="width:200px">Correo *</h5>
+                            @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } , maxlength="30"})
+                            <div id="errorCorreo"></div>
+                        </div>
+                    </div>
+                    <br>
+
+                    @*Tercera fila*@
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo telefono-->
+                            <h5 for="telefono" style="width:200px">Telefono</h5>
+                            @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } , maxlength="15"})
+                            <div id="errorFechaNacimiento"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Estado-->
+                            <h5 for="correo" style="width:200px">Estado *</h5>
+                            <div class="input-group">
+
+                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
+
+                                    <option value="@Model.estado">@Model.estado</option>
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="Ocupado">Ocupado</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                            <div id="errorEstado"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Puesto-->
+                            <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
+                            <div class="input-group">
+
+                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
+                                    <option value="@Model.tipoTrabajo">@Model.tipoTrabajo</option>
+                                    <option value="Tester">Tester</option>
+                                    <option value="Lider">Lider</option>
+                                    <option value="Jefe de Calidad">Jefe de Calidad</option>
+                                    <option value="Jefe de Soporte">Jefe de Soporte</option>
+                                </select>
+                            </div>
+                            <div id="errorTipoTrabajo"></div>
+                        </div>
+                    </div>
+
+                    @*Cuarta fila*@
+                    <br>
+                    <div class="form-row mb-2">
+                        <div class="col-3">
+                            <!--Campo Provincia-->
+                            <h5 for="provincia" style="width:100px">Provincia *</h5>
+                            <div id="destino"></div>
+                            <div id="errorProv"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Canton-->
+                            <h5 for="canton" style="width:100px">Cantón *</h5>
+                            <div id="destino2"></div>
+                            <div id="errorCant"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Distrito-->
+                            <h5 for="distrito" style="width:100px">Distrito *</h5>
+                            <div id="destino3"></div>
+                            <div id="errorDistr"></div>
+                        </div>
+                    </div>
+                    @*Quinta fila*@
+                    <br>
+                    <div class="form-row mb-2" style="padding-left:5px">
+                        <!--Campo Direccion Exacta-->
+                        <h5 for="direccion" style="width:400px">Direccion exacta</h5>
+                    </div>
+                    <div class="row" style="padding-left:15px; padding-right:15px;">
+                        @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
+
+                        @*<div id="errorDir"></div>*@
+                    </div>
+                    <br>
+
+                    @*Habilidades Tecnicas*@
+                    <h5> * Campos requeridos</h5>
+
+                    <hr />
+
+                    <div class="row" style="max-width:1600px">
+                        <!--Boton Regresar-->
+                        <div class="col-4  text-center">
+                            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                        </div>
+
+                        <!--Boton Cancelar o Reset-->
+                        <div class="col-4 text-center">
+                            <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                                <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
+
+                        <!--Boton Aceptar-->
+                        <div class="col-4  text-center">
+                            <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                @*Cuarta fila*@
-                <br>
-                <div class="form-row mb-2">
-                    <div class="col-3">
-                        <!--Campo Provincia-->
-                        <h5 for="provincia" style="width:100px">Provincia *</h5>
-                        <div id="destino"></div>
-                        <div id="errorProv"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Canton-->
-                        <h5 for="canton" style="width:100px">Cant&oacute;n *</h5>
-                        <div id="destino2"></div>
-                        <div id="errorCant"></div>
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col-3">
-                        <!--Campo Distrito-->
-                        <h5 for="distrito" style="width:100px">Distrito *</h5>
-                        <div id="destino3"></div>
-                        <div id="errorDistr"></div>
-                    </div>
-                </div>
-                @*Quinta fila*@
-                <br>
-                <div class="form-row mb-2" style="padding-left:5px">
-                    <!--Campo Direccion Exacta-->
-                    <h5 for="direccion" style="width:400px">Direcci&oacute;n exacta</h5>
-                </div>
-                <div class="row" style="padding-left:15px; padding-right:15px;">
-                    @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })                            
-                    
-                    @*<div id="errorDir"></div>*@
-                </div>
-                <br>
-
-                @*Habilidades Tecnicas*@
-                <h5> * Campos requeridos</h5>
-
-                <hr />
-
-                <div class="row" style="max-width:1600px">
-                    <!--Boton Regresar-->
-                    <div class="col-4  text-center">
-                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-                    </div>
-
-                    <!--Boton Cancelar o Reset-->
-                    <div class="col-4 text-center">
-                        <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
-                            <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                        </button>
-                    </div>
-
-                    <!--Boton Aceptar-->
-                    <div class="col-4  text-center">
-                        <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
-                            <img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
 
 
-    @*@Html.Partial("ModalCancelar")
-        @Html.Partial("Scripts")
-    *@ @Html.Partial("ScriptDropdown")
-
+        @*@Html.Partial("ModalCancelar")
+            @Html.Partial("Scripts")
+        *@ @Html.Partial("ScriptDropdown")
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login como Jefe de Calidad para poder editar los empleados</div>
+    }
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
 }
 <script>
-
     $(function () {
         jQuery.validator.addMethod("lettersonly", function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
         }, "No se admiten números en los nombres");
-
         $("#employeeForm").validate(
             {
                 rules:
@@ -222,19 +224,27 @@
                     nombre:
                     {
                         required: true,
-                        minlength: 1,
-                        maxlength: 30,
-                        lettersonly: true
+                        minlength: 2,
+                        lettersonly: true,
+                        maxlength: 20
                     },
                     apellido1:
                     {
                         required: true,
-                        minlength: 1,
-                        maxlength: 30,
-                        lettersonly: true
+                        minlength: 2,
+                        lettersonly: true,
+                        maxlength: 20
                     },
 
-                    idEmpleadoPK:
+                    apellido2:
+                    {
+                        required: true,
+                        minlength: 2,
+                        lettersonly: true,
+                        maxlength: 20
+                    },
+
+                   idEmpleadoPK:
                     {
                         required: true,
                         minlength: 8,
@@ -255,6 +265,7 @@
                             }
                         }
                     },
+
                     fechaNacimiento:
                     {
                         required: true,
@@ -284,7 +295,7 @@
                         required: true,
 
                     },
-                    puesto:
+                    tipoTrabajo:
                     {
                         required: true,
 
@@ -313,37 +324,66 @@
                 messages:
                 {
                     idEmpleadoPK: {
-                        required: "Cedula es requerida",
-                        remote: "Ya existe esta cedula",
-                        number: "Solo se pueden ingresar numeros"
+                        required: "La cédula es requerida",
+                        remote: "Ya existe esta cédula",
+                        number: "Solo se pueden ingresar numeros",
+                        minlength: "La cédula debe de tener al menos ocho digitos",
                     },
                     nombre:
                     {
-                        required: "Nombre es requerido",
-                        lettersonly: "No se admiten números en el nombre"
+                        required: "El nombre es requerido",
+                        lettersonly: "No se admiten números en el nombre",
+                        minlength: "Debe de tener más de una letra",
+                        maxlength: "El nombre debe de ser de menos de 20 letras"
+                    },
+                    apellido1:
+                    {
+                        required: "El primer apellido es requerido",
+                        lettersonly: "No se admiten números en el apellido",
+                        minlength: "Debe de tener más de una letra",
+                        maxlength: "El apellido debe de ser de menos de 20 letras"
+                    },
+
+                    apellido2:
+                    {
+                        required: "El segundo apellido es requerido",
+                        lettersonly: "No se admiten números en el apellido",
+                        minlength: "Debe de tener más de una letra",
+                        maxlength: "El apellido debe de ser de menos de 20 letras"
                     },
 
                     correo:
                     {
-                        required: "Se requiere un email valido, ejm: correo@email.com",
+                        required: "Se requiere un email valido (ejemplo: email@email.com)",
                         lettersonly: "No se admiten números en el nombre",
                         remote: "Ya existe correo"
                     },
-                    fechaNacimiento: "Se requiere una fecha de nacimiento",
-                    estado: "Se requiere el estado actual del Empleado",
-                    tipoTrabajo: "Se requiere el puesto del nuevo empleado",
-                    provincia: "Se requiere la provincia",
-                    canton: "Se requiere el canton",
-                    distrito: "Se requiere el distrito",
-                    telefono: "Solo se aceptan numeros, minimo ocho digitos"
-                },
+                    fechaNacimiento: "La fecha de nacimiento es requerida",
+                    estado: "El estado es requerido",
+                    tipoTrabajo: "El puesto es requerido",
+                    provincia: "La provincia es requerida",
+                    canton: "El cantón es requerido",
+                    distrito: "El distrito es requerido",
 
+                    telefono:
+                    {
+                        minlength: "Mínimo ocho dígitos",
+                        number: "Solo se aceptan números",
+                        maxlength: "Máximo 15 dígitos"
+                    }
+                },
                 errorPlacement: function (error, element) {
                     if ((element.attr('name') === 'idEmpleadoPK')) {
-                        error.insertAfter($('#errorID'));
+                        error.insertAfter($('#errorCedula'));
                     }
                     if ((element.attr('name') === 'nombre')) {
                         error.insertAfter($('#errorNombre'));
+                    }
+                    if ((element.attr('name') === 'apellido1')) {
+                        error.insertAfter($('#errorApellido'));
+                    }
+                    if ((element.attr('name') === 'apellido2')) {
+                        error.insertAfter($('#errorApellido2'));
                     }
                     if ((element.attr('name') === 'correo')) {
                         error.insertAfter($('#errorCorreo'));
@@ -370,7 +410,6 @@
                         error.insertAfter($('#errorTel'));
                     }
                 },
-
                 invalidHandler: function (form, validator) {
                     $('#loading').hide('fast');
                     $('#acceptar').show('fast');
