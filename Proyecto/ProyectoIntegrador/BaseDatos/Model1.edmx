@@ -825,7 +825,7 @@
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="nombreTester" ReturnType="Collection(String)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
