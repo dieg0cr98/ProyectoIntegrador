@@ -17,6 +17,45 @@ namespace ProyectoIntegrador.Controllers
         private ProyectosController proyectos = new ProyectosController();
         private EmpleadosController empleados = new EmpleadosController();
 
+
+
+
+        //Metodo para recuperar los requerimientos en los que participa un usuario.
+        //Recibe int idProyecto (identificador del proyecto)        
+        //       int rol (El usuario tiene que tener un rol asignado antes de llamar a este metodo)
+        //              rol = 0 Soporte/Calidad
+        //              rol = 1 Lider
+        //              rol = 2 Tester
+        //              rol = 3 Cliente
+        //       string idUsuario (Es la cedula o identificador de un usuario) 
+        //Devuelve una lista IEnumerable con los requerimientos. Null en caso de que no puede ver ninguno
+        public IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento> GetRequerimientosUsuario(int idProyecto,int rol, string idUsuario)
+        {
+
+            if (rol < 0)//Si no tiene permisos
+            {
+                return null;
+            }
+            else
+            {
+                //Pueden ver todos solo los requerimientos en los que participa
+                if (rol == 2)
+                {
+                    return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.estado != "Cancelado" && r.cedulaTesterFK == idUsuario).ToList();
+                }
+                else //Pueden ver todos
+                {
+                    return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.estado != "Cancelado").ToList();
+                }
+
+            }
+
+
+
+
+        }
+
+
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto, int idRequerimiento)
         {
@@ -25,7 +64,10 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.permisosGenerales = seguridad.RequerimientosConsultar(User);
 
             //Se obtienen los datos de todos los requerimientos asociados al proyecto.
-            var requerimiento = db.Requerimiento.Where(P => P.idProyectoFK == idProyecto && P.estado != "Cancelado");
+            var requerimiento = GetRequerimientosUsuario(idProyecto, seguridad.GetRoleUsuario(User), seguridad.IdUsuario(User)).Reverse();
+
+
+               // db.Requerimiento.Where(P => P.idProyectoFK == idProyecto && P.estado != "Cancelado");
 
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;

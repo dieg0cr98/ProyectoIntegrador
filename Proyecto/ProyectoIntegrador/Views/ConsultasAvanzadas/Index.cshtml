@@ -251,8 +251,18 @@
                         console.log(data2[tupla].Nombre_Empleado);
                         table += '<tr>';
 
+
                         var proyecto = data2[tupla].Nombre_Proyecto;
-                        table += '<td>' + proyecto + '</td>';
+                        console.log(proyecto.length);
+
+                        if (proyecto.length > 1) {
+                            table += '<td>' + proyecto + '</td>';
+                        }
+                        else {
+                            table += '<td>' + 'N/A' + '</td>';
+                        }
+
+                        
 
                         var nombreEmpleado = data2[tupla].Nombre_Empleado;
                         table += ' <th scope="row">' + nombreEmpleado + '</th>';
@@ -394,10 +404,11 @@
                         var datosDelScript = "consulta3LoadChart(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
 
 
+
                         table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
 
-
                         table += ' <th scope="row">' + nombreProyecto + '</th>';
+                        
 
                         var estado = data2[tupla].estado;
 
