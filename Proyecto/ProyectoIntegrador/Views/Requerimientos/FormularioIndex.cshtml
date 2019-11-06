@@ -94,10 +94,24 @@
     <div class="form-row mb-4">
         <div class="col-5">
             @*Atributo Cédula Tester*@
+
             <div class="input-group">
+                <input id="cedula" class="form-control" value="@ViewBag.datosTesters" style="text-align:center; max-width:none" type="text" readonly>
                 @*
-                <input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
-                *@
+                @foreach (var item in ViewBag.datosTesters)
+                {
+
+
+                    if (Model.cedulaTesterFK == item.idEmpleadoPK)
+                    {
+
+                    }
+                    else
+                    {
+                        <input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
+
+                    }
+                }       *@
             </div>
         </div>
     </div>

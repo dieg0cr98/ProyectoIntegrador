@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -55,7 +57,6 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-
         // Método que depliega el la consulta sobre los requerimientos del proyecto cuyo id llega como parámetro
         public ActionResult Index(int idProyecto, int idRequerimiento)
         {
@@ -66,8 +67,8 @@ namespace ProyectoIntegrador.Controllers
             //Se obtienen los datos de todos los requerimientos asociados al proyecto.
             var requerimiento = GetRequerimientosUsuario(idProyecto, seguridad.GetRoleUsuario(User), seguridad.IdUsuario(User)).Reverse();
 
-
-               // db.Requerimiento.Where(P => P.idProyectoFK == idProyecto && P.estado != "Cancelado");
+            //Obtiene los datos que se utilizarán para desplegar el nombre de los testers asociados a los requerimientos
+            getDatosTesters(idProyecto);
 
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;
@@ -259,11 +260,6 @@ namespace ProyectoIntegrador.Controllers
             else
                 return new JsonResult { Data = true };
 
-        }
-
-        public JsonResult GetNombreTester(int idRequerimiento, int idProyecto)
-        {
-            return new JsonResult { Data = db.nombreTester(idProyecto, idRequerimiento) };
         }
     }
 }
