@@ -45,20 +45,20 @@
                         <div class="col-3">
                             <!--Campo Nombre-->
                             <h5 for="nombre" style="width:200px">Nombre *</h5>
-                            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                             <div id="errorNombre"></div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
                             <!--Campo Primer Apellido-->
                             <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
-                            @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                            @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
                             <!--Campo Segundo Apellido-->
                             <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                            @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                            @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                         </div>
                     </div>
                     <br>
@@ -69,14 +69,14 @@
                             <input hidden class="form-control" value="@Model.idEmpleadoPK" id="cedulaOld" type="text">
                             <!--Campo Cedula-->
                             <h5 for="idEmpleadoPK" style="width:200px">Cedula *</h5>
-                            @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" }, maxlength="20" })
+                            @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                             <div id="errorID"></div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
                             <!--Campo Fecha de nacimiento-->
                             <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
-                            @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
+                            @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" } })
                             <div id="errorFechaNacimiento"></div>
                         </div>
                         <div class="col-1"></div>
@@ -84,7 +84,7 @@
                             <!--Campo correo-->
                             <input hidden class="form-control" value="@Model.correo" id="correoOld" type="text">
                             <h5 for="correo" style="width:200px">Correo *</h5>
-                            @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } , maxlength="30"})
+                            @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" } , maxlength="30"})
                             <div id="errorCorreo"></div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                         <div class="col-3">
                             <!--Campo telefono-->
                             <h5 for="telefono" style="width:200px">Telefono</h5>
-                            @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } , maxlength="15"})
+                            @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" } , maxlength="15"})
                             <div id="errorFechaNacimiento"></div>
                         </div>
                         <div class="col-1"></div>
@@ -104,7 +104,7 @@
                             <h5 for="correo" style="width:200px">Estado *</h5>
                             <div class="input-group">
 
-                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
+                                <select class="custom-select" style='background-color:#F9F9F9; border-color:transparent; width: 200px' name="estado">
 
                                     <option value="@Model.estado">@Model.estado</option>
                                     <option value="Disponible">Disponible</option>
@@ -120,7 +120,7 @@
                             <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
                             <div class="input-group">
 
-                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
+                                <select class="custom-select" style='background-color:#F9F9F9; border-color:transparent; width: 200px' name="tipoTrabajo">
                                     <option value="@Model.tipoTrabajo">@Model.tipoTrabajo</option>
                                     <option value="Tester">Tester</option>
                                     <option value="Lider">Lider</option>
@@ -163,7 +163,7 @@
                         <h5 for="direccion" style="width:400px">Direccion exacta</h5>
                     </div>
                     <div class="row" style="padding-left:15px; padding-right:15px;">
-                        @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
+                        @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" } })
 
                         @*<div id="errorDir"></div>*@
                     </div>
