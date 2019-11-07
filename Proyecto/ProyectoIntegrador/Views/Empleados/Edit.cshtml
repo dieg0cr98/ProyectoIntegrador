@@ -65,7 +65,7 @@
                         <div class="col-3">
                             <input hidden class="form-control" value="@Model.idEmpleadoPK" id="cedulaOld" type="text">
                             <!--Campo Cedula-->
-                            <h5 for="idEmpleadoPK" style="width:200px">Cedula *</h5>
+                            <h5 for="idEmpleadoPK" style="width:200px">Cédula *</h5>
                             @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                             <div id="errorID"></div>
                         </div>
@@ -91,7 +91,7 @@
                     <div class="form-row mb-2">
                         <div class="col-3">
                             <!--Campo telefono-->
-                            <h5 for="telefono" style="width:200px">Telefono</h5>
+                            <h5 for="telefono" style="width:200px">Télefono</h5>
                             @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" } , maxlength="15"})
                             <div id="errorFechaNacimiento"></div>
                         </div>
@@ -157,7 +157,7 @@
                     <br>
                     <div class="form-row mb-2" style="padding-left:5px">
                         <!--Campo Direccion Exacta-->
-                        <h5 for="direccion" style="width:400px">Direccion exacta</h5>
+                        <h5 for="direccion" style="width:400px">Dirección exacta</h5>
                     </div>
                     <div class="row" style="padding-left:15px; padding-right:15px;">
                         @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" } })
