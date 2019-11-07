@@ -93,11 +93,11 @@ namespace ProyectoIntegrador.Controllers
                 for (int i = 0; i < ex.Errors.Count; i++)
                 {
 
-                    errorMessages.Append("Index #" + i + "\n" +
-                    "Message: " + ex.Errors[i].Message + "\n" +
-                    "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                    "Source: " + ex.Errors[i].Source + "\n" +
-                    "Procedure: " + ex.Errors[i].Procedure + "\n");
+                    //errorMessages.Append("Index #" + i + "\n" +
+                    //"Message: " + ex.Errors[i].Message + "\n" +
+                    //"LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                    //"Source: " + ex.Errors[i].Source + "\n" +
+                    //"Procedure: " + ex.Errors[i].Procedure + "\n");
                 }
                 Console.WriteLine(errorMessages.ToString());
 
@@ -454,7 +454,7 @@ namespace ProyectoIntegrador.Controllers
 
         public JsonResult CheckCedula(string cedulaPK, string oldcedulaPK)
         {
-            Empleado emp2 = db.Empleado.Find(cedulaPK);
+            
             //Hay que verificar si la nueva cedula ya existe en la base de datos
             if ((cedulaPK != oldcedulaPK) && (db.Empleado.Where(i => i.idEmpleadoPK == cedulaPK).FirstOrDefault() != null))
             {
