@@ -46,10 +46,14 @@
                         rolEmpleado: rolEmpleado
                     },
                     success: function (data) {
-                       if (data.flag == 1) { //Se añadió correctamente al equipo
-                            alert(data.msg);
-                       } else {
-                            alert(data.msg);
+                        if (data.flag == 1) { //Se añadió correctamente al equipo
+                            document.getElementById('Msg').innerText = data.msg;
+                            $('#Modal').modal('show');
+                            //alert(data.msg);
+                        } else {
+                            document.getElementById('Msg').innerText = data.msg;
+                            $('#Modal').modal('show');
+                           // alert(data.msg);
                             ui.sender.sortable("cancel");
                        }
                     },
@@ -78,9 +82,13 @@
                     success: function (data) {
                         //var res = JSON.parse(data);
                         if (data.flag == 1) { //Se añadió correctamente al equipo
-                            alert(data.msg);
+                            document.getElementById('Msg').innerText = data.msg;
+                            $('#Modal').modal('show');
+                            //alert(data.msg);
                         } else {
-                            alert(data.msg);
+                            document.getElementById('Msg').innerText = data.msg;
+                            $('#Modal').modal('show');
+                           // alert(data.msg);
                             ui.sender.sortable("cancel");
                         }
                     },

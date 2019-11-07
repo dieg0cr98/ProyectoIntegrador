@@ -68,11 +68,11 @@
     {
         <!--Bloque del título-->
         <br>
-                
-        
-            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
-        
-            
+
+
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
+
+
         <hr>
 
 
@@ -170,6 +170,27 @@
             <!--Boton de back-->
             <div class="col justify-content-start">
                 <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.proyectoActual.idProyectoAID"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+            </div>
+        </div>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 id="Msg" class="text-center">Para eliminar un Proyecto todos los requerimientos deben estar terminados</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col text-center">
+                            <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Aceptar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
