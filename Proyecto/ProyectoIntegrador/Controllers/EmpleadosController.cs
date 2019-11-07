@@ -18,7 +18,7 @@ namespace ProyectoIntegrador.Controllers
          private HabilidadBlanda habilidadBlanda = new HabilidadBlanda();
         private HabilidadTecnica habilidadTecnica = new HabilidadTecnica();
 
-        private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
+       
 
         internal dynamic GetNombreEmpleado(string id)
         {
