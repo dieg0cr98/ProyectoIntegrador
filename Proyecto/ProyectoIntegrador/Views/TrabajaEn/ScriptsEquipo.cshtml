@@ -36,7 +36,6 @@
                 var idProyecto = $(ui.item).data('proyecto');
                 var idEmpleado = $(ui.item).data('empleado');
                 var rolEmpleado = $(ui.item).data('rol');
-                //alert('Sacando a  ' + idEmpleado + 'del equipo');
                 $.ajax({
                     type: "GET",
                     dataType: 'json',
@@ -66,7 +65,6 @@
                 var idProyecto = $(ui.item).data('proyecto');
                 var idEmpleado = $(ui.item).data('empleado');
                 var rolEmpleado = $(ui.item).data('rol');
-                alert('Agregando a ' + idEmpleado + ' al equipo');
                 $.ajax({
                     type: "GET",
                     dataType: 'json',

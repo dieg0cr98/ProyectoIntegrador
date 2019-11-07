@@ -64,113 +64,121 @@
 
 <body>
 
-    <!--Bloque del título y botón de regresar-->>
-    <div class="row">
-        <div class="col justify-content-center">
-            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
-        </div> 
-    </div>
-    <hr> 
-
-
-
-
-    <div class="container " draggable="false" style="max-width: 1800px">
+    @if (Request.IsAuthenticated)
+    {
+        <!--Bloque del título y botón de regresar-->
         <div class="row">
+            <div class="col justify-content-center">
+                <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Equipo del Proyecto: @ViewBag.proyectoActual.nombre</p>
+            </div>
+        </div>
+        <hr>
 
-            <!--La columna con empleados disponibles solo es visible para calidad,soporte y el líder-->
-            @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
-            {
-                <!--Primera columna, contiene lista de empleados disponibles-->
+
+
+
+        <div class="container " draggable="false" style="max-width: 1800px">
+            <div class="row">
+
+                <!--La columna con empleados disponibles solo es visible para calidad,soporte y el líder-->
+                @if (ViewBag.permisosActuales.Item1 == 0 || ViewBag.permisosActuales.Item1 == 1)
+                {
+                    <!--Primera columna, contiene lista de empleados disponibles-->
+                    <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                        <!--Navbar-->
+                        <nav class="navbar navbar-light bg-secondary">
+                            <a class="navbar-brand">
+                                <img src="~/Content/folder.svg" draggable="false" width="30" height="30" class="d-inline-block align-top" alt="">
+                                Empleados disponibles
+                            </a>
+
+                            <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
+                            <a data-toggle="tooltip" draggable="false" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Buscar" href="~/Home" class="btn">
+                                <img src="~/Content/buscar.svg" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                            </a>
+                        </nav>
+
+
+
+                        <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                            <ul id="listaDisponibles" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
+
+
+                                @foreach (var lider in ViewBag.lideres)
+                                {
+                                    <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
+                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@lider.idEmpleadoPK" data-rol="@lider.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">
+                                        <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                                        @lider.nombre @lider.apellido1
+                                    </li>
+                                }
+
+                                @foreach (var integrante in ViewBag.testers)
+                                {
+                                    <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
+                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">@integrante.nombre@integrante.apellido1</li>
+
+                                    }
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                }
+
+                <!--Segunda columna, contiene integrantes del equipo-->
                 <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
 
                     <!--Navbar-->
-                    <nav class="navbar navbar-light bg-secondary">
-                        <a class="navbar-brand">
-                            <img src="~/Content/folder.svg" draggable="false" width="30" height="30" class="d-inline-block align-top" alt="">
-                            Empleados disponibles
-                        </a>
-
-                        <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="filtrarEmpleados()" placeholder="Buscar Empleado">
-                        <a data-toggle="tooltip" draggable="false" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Búsqueda Avanzada" href="~/Home" class="btn">
-                            <img src="~/Content/buscar.svg" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                    <nav class="navbar navbar-light bg-secondary" draggable="false">
+                        <a class="navbar-brand" draggable="false">
+                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="" draggable="false">
+                            Lista de Integrantes
                         </a>
                     </nav>
 
-
-
+                    <!--Carta que contiene la lista de integrantes-->
                     <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                        <ul id="listaDisponibles" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
+                        <ul id="listaEquipo" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
 
 
-                            @foreach (var lider in ViewBag.lideres)
+
+                            @foreach (var integrante in ViewBag.equipoActual)
                             {
-                                <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
-                                    data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@lider.idEmpleadoPK" data-rol="@lider.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">
-                                    <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
-                                    @lider.nombre @lider.apellido1
-                                </li>
-                            }
-
-                            @foreach (var integrante in ViewBag.testers)
-                            {
-                                <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
-                                    data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">@integrante.nombre@integrante.apellido1</li>
-
+                                if (integrante.tipoTrabajo == "Lider")
+                                {
+                                    <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
+                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">
+                                        <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
+                                        @integrante.nombre @integrante.apellido1
+                                    </li>
                                 }
+                                else
+                                {
+                                    <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">@integrante.nombre @integrante.apellido1</li>
+                                }
+                            }
                         </ul>
 
                     </div>
-
-
                 </div>
-            }
+            </div>
 
-            <!--Segunda columna, contiene integrantes del equipo-->
-            <div class="col col-md-4 " draggable="false" style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
-
-                <!--Navbar-->
-                <nav class="navbar navbar-light bg-secondary" draggable="false">
-                    <a class="navbar-brand" draggable="false">
-                        <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="" draggable="false">
-                        Lista de Integrantes
-                    </a>
-                </nav>
-
-                <!--Carta que contiene la lista de integrantes-->
-                <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
-                    <ul id="listaEquipo" class="connectedSortable overflow-auto" style="border-radius: 0px 0px 00px 20px">
-
-
-
-                        @foreach (var integrante in ViewBag.equipoActual)
-                        {
-                            if (integrante.tipoTrabajo == "Lider")
-                            {
-                                <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1"
-                                    data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">
-                                    <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
-                                    @integrante.nombre @integrante.apellido1
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" id="list-home-list">@integrante.nombre @integrante.apellido1</li>
-                            }
-                        }
-                    </ul>
-
-                </div>
+            <!--Boton de back-->
+            <div class="col justify-content-start">
+                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.proyectoActual.idProyectoAID"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
             </div>
         </div>
 
-        <!--Boton de back-->
-        <div class="col justify-content-start">
-            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.proyectoActual.idProyectoAID"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-        </div>
-    </div>>
+
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los equipos</div>
+    }
+
 
     @{ Html.RenderPartial("ScriptsEquipo"); }
-
-
 </body>

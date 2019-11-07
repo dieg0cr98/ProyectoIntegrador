@@ -52,10 +52,19 @@ namespace ProyectoIntegrador.Controllers
             }
             else
             {
-                int id = idProyecto ?? default(int);
-                GetDatosVistaEquipo(id);
-                var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
-                return View(trabajaEn.ToList());
+                var permisosGenerales = seguridad.EquipoConsultar(User);
+             
+                //Verifica usuario registrado
+                if (permisosGenerales.Item1 >= 0)
+                {
+                    int id = idProyecto ?? default(int);
+                    GetDatosVistaEquipo(id);
+                    var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
+                    return View(trabajaEn.ToList());
+                } else
+                {
+                    return View();
+                }
             }
         }
 
