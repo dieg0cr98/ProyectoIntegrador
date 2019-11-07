@@ -7,7 +7,31 @@
 
 <!-- Busca en la lista de proyectos por la string del input -->
 <script>
-    function filtrarEmpleados() {
+    function desplegarEmpleados() {
+       if (!document.getElementById("myInput").value)
+        {
+                var input, filter, ul, li, a, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("listaDisponibles");
+                li = ul.getElementsByTagName("li");
+                for (i = 0; i < li.length; i++) {
+                    txtValue = li.textContent || li[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                    }
+                    else {
+                        li[i].style.display = "none";
+                    }
+                 }
+        }
+ 
+    }
+</script>
+
+<!--Script para filtrar por habilidades-->
+<script>
+    function filtrarPorTexto() {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
@@ -22,6 +46,7 @@
             }
         }
     }
+
 </script>
 
 <!--Script del drag and drop#1-->

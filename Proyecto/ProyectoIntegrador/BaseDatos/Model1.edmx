@@ -358,11 +358,20 @@
           <Parameter Name="idProyecto" Type="int" Mode="In" />
           <Parameter Name="testers" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_GetEmpleadosDeLider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaLider" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_GetEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_GetLideresDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_GetTestersDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_GetTestersPorHabilidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="habilidades" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_obtenerEdad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_ObtenerProyectosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="permiso" Type="int" Mode="In" />
           <Parameter Name="rol" Type="int" Mode="In" />
@@ -827,6 +836,15 @@
           <FunctionImport Name="nombreTester" ReturnType="Collection(String)">
           <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="USP_GetEmpleadosDeLider" ReturnType="Collection(Gr03Proy2Model.USP_GetEmpleadosDeLider_Result)">
+            <Parameter Name="cedulaLider" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_GetTestersPorHabilidades" ReturnType="Collection(String)">
+            <Parameter Name="habilidades" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_obtenerEdad" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1012,6 +1030,25 @@
           <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
           <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="USP_GetEmpleadosDeLider_Result">
+          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+          <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="idProyectoFK" Nullable="false" />
+          <Property Type="String" Name="idEmpleadoFK" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rol" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="estado1" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1285,6 +1322,31 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="nombreTester" FunctionName="Gr03Proy2Model.Store.nombreTester" />
+          <FunctionImportMapping FunctionImportName="USP_GetEmpleadosDeLider" FunctionName="Gr03Proy2Model.Store.USP_GetEmpleadosDeLider">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetEmpleadosDeLider_Result">
+                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="canton" ColumnName="canton" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
+                <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+                <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="estado1" ColumnName="estado1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetTestersPorHabilidades" FunctionName="Gr03Proy2Model.Store.USP_GetTestersPorHabilidades" />
+          <FunctionImportMapping FunctionImportName="USP_obtenerEdad" FunctionName="Gr03Proy2Model.Store.USP_obtenerEdad" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

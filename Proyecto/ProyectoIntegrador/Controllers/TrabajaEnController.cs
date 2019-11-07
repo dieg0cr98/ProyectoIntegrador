@@ -64,6 +64,7 @@ namespace ProyectoIntegrador.Controllers
                 } else
                 {
                     return View();
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Naughty");
                 }
             }
         }
@@ -276,5 +277,17 @@ namespace ProyectoIntegrador.Controllers
             }
             return Json(ret, JsonRequestBehavior.AllowGet);
         }
+
+        /**
+         * Efecto: Filtra los empleados de la vista de acuerdo a sus habilidades
+         * Requiere: Una string de texto para usar como filtro
+         * Modifica: N/A
+         */
+        public JsonResult filtrarEmpleadosVista(string filtro)
+        {
+            var ids = db.USP_GetTestersPorHabilidades(filtro);
+            return Json(ids, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

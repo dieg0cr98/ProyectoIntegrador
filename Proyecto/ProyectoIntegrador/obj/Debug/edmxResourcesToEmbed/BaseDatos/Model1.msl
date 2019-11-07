@@ -267,5 +267,30 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="nombreTester" FunctionName="Gr03Proy2Model.Store.nombreTester" />
+    <FunctionImportMapping FunctionImportName="USP_GetEmpleadosDeLider" FunctionName="Gr03Proy2Model.Store.USP_GetEmpleadosDeLider">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetEmpleadosDeLider_Result">
+          <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+          <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+          <ScalarProperty Name="distrito" ColumnName="distrito" />
+          <ScalarProperty Name="canton" ColumnName="canton" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="tipoTrabajo" ColumnName="tipoTrabajo" />
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+          <ScalarProperty Name="idEmpleadoFK" ColumnName="idEmpleadoFK" />
+          <ScalarProperty Name="rol" ColumnName="rol" />
+          <ScalarProperty Name="estado1" ColumnName="estado1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_GetTestersPorHabilidades" FunctionName="Gr03Proy2Model.Store.USP_GetTestersPorHabilidades" />
+    <FunctionImportMapping FunctionImportName="USP_obtenerEdad" FunctionName="Gr03Proy2Model.Store.USP_obtenerEdad" />
   </EntityContainerMapping>
 </Mapping>

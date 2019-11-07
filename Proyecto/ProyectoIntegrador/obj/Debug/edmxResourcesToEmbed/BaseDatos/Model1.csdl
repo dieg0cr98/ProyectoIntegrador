@@ -398,6 +398,15 @@
     <FunctionImport Name="nombreTester" ReturnType="Collection(String)">
       <Parameter Name="idProyecto" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="USP_GetEmpleadosDeLider" ReturnType="Collection(Gr03Proy2Model.USP_GetEmpleadosDeLider_Result)">
+      <Parameter Name="cedulaLider" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_GetTestersPorHabilidades" ReturnType="Collection(String)">
+      <Parameter Name="habilidades" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_obtenerEdad" ReturnType="Collection(Int32)">
+      <Parameter Name="id" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -583,5 +592,24 @@
     <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
     <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="USP_GetEmpleadosDeLider_Result">
+    <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="correo" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="fechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="distrito" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="canton" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="provincia" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="direccion" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="tipoTrabajo" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="idProyectoFK" Nullable="false" />
+    <Property Type="String" Name="idEmpleadoFK" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="rol" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="estado1" Nullable="false" MaxLength="30" />
   </ComplexType>
 </Schema>
