@@ -191,14 +191,12 @@
                                         <div class="col-1">
 
                                         </div>
-                                        @{edad = DateTime.Now.Year - item.fechaNacimiento.Year;}
 
                                         <div class="col-5">
 
                                             @* edad *@
                                             <div class="input-group">
-
-
+                                                @{int edad = DateTime.Now.Year - item.fechaNacimiento.Year;}
                                                 <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@edad" placeholder="@edad" name="Provincia" readonly>
 
                                             </div>
