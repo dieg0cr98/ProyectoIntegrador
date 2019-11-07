@@ -779,7 +779,7 @@ namespace ProyectoIntegrador.Controllers
             SetProyecto(proyecto, 1);
 
             //Actualiza/Agrega el lider al proyecto
-            ActualizarTrabajaEN(proyecto, ][cedulaLider, cedulaLiderActual);
+            ActualizarTrabajaEN(proyecto,cedulaLider, cedulaLiderActual);
 
 
             return RedirectToAction("Index", new { id = proyecto.idProyectoAID });
