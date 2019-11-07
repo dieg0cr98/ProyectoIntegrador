@@ -108,7 +108,7 @@
 
                                 @foreach (var lider in ViewBag.lideres)
                                 {
-                                    <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" id="@lider.idEmpleadoPK"
+                                    <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" id="@lider.idEmpleadoPK" filtro=" "
                                         data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@lider.idEmpleadoPK" data-rol="@lider.tipoTrabajo" style="border-radius:20px 20px 20px 20px">
                                         <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
                                         @lider.nombre @lider.apellido1
@@ -118,7 +118,7 @@
                                 @foreach (var integrante in ViewBag.testers)
                                 {
                                     <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" id="@integrante.idEmpleadoPK"
-                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" >@integrante.nombre@integrante.apellido1</li>
+                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px">@integrante.nombre@integrante.apellido1</li>
                                     }
                             </ul>
 
@@ -150,14 +150,14 @@
                                 if (integrante.tipoTrabajo == "Lider")
                                 {
                                     <li class="ui-state-default data-toggle=" tooltip" ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" id="@integrante.idEmpleadoPK"
-                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" >
+                                        data-proyecto="@ViewBag.proyectoActual.idProyectoAID" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px">
                                         <img src="~/Content/boss.svg" data-toggle="tooltip" title="Lider" draggable="false" class="rounded float-right" style="max-height:30px ; max-width:30px">
                                         @integrante.nombre @integrante.apellido1
                                     </li>
                                 }
                                 else
                                 {
-                                    <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" data-proyecto="@ViewBag.proyectoActual.idProyectoAID" id="@integrante.idEmpleadoPK" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px" >@integrante.nombre @integrante.apellido1</li>
+                                    <li class="ui-state-default ui-state-disabled list-group-item list-group-item-action list-group-item-secondary my-1" data-proyecto="@ViewBag.proyectoActual.idProyectoAID" id="@integrante.idEmpleadoPK" data-empleado="@integrante.idEmpleadoPK" data-rol="@integrante.tipoTrabajo" style="border-radius:20px 20px 20px 20px">@integrante.nombre @integrante.apellido1</li>
                                 }
                             }
                         </ul>

@@ -8,24 +8,23 @@
 <!-- Busca en la lista de proyectos por la string del input -->
 <script>
     function desplegarEmpleados() {
-       if (!document.getElementById("myInput").value)
-        {
-                var input, filter, ul, li, a, i, txtValue;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                ul = document.getElementById("listaDisponibles");
-                li = ul.getElementsByTagName("li");
-                for (i = 0; i < li.length; i++) {
-                    txtValue = li.textContent || li[i].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        li[i].style.display = "";
-                    }
-                    else {
-                        li[i].style.display = "none";
-                    }
-                 }
+        if (!document.getElementById("myInput").value) {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("listaDisponibles");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                txtValue = li.textContent || li[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                }
+                else {
+                    li[i].style.display = "none";
+                }
+            }
         }
- 
+
     }
 </script>
 
@@ -37,14 +36,31 @@
         filter = input.value.toUpperCase();
         ul = document.getElementById("listaDisponibles");
         li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-            txtValue = li.textContent || li[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
+
+        var filtro = filter;
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/TrabajaEn/filtrarEmpleadosVista",
+            data: {
+                filtro: filtro
+            },
+            success: function (data) {
+                for (j = 0; j < li.length; j++) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (li[j].id == data[i]) {
+                            //li[j].style.display = "";
+                            $(li[j]).show();
+                            break;
+                        } else {
+                            //li[j].style.display = "none";
+                            $(li[j]).hide();
+                        }
+                    }
+                }
+            },
+        });
+
     }
 
 </script>
@@ -78,9 +94,9 @@
                         } else {
                             document.getElementById('Msg').innerText = data.msg;
                             $('#Modal').modal('show');
-                           // alert(data.msg);
+                            // alert(data.msg);
                             ui.sender.sortable("cancel");
-                       }
+                        }
                     },
                 });
             },
@@ -113,7 +129,7 @@
                         } else {
                             document.getElementById('Msg').innerText = data.msg;
                             $('#Modal').modal('show');
-                           // alert(data.msg);
+                            // alert(data.msg);
                             ui.sender.sortable("cancel");
                         }
                     },
