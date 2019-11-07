@@ -227,15 +227,37 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: Empleados/Create
+         // POST: Empleados/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<ActionResult> Create(string idEmpleadoPK, string nombre, string apellido1, string apellido2, string correo, DateTime? fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
+        public async System.Threading.Tasks.Task<ActionResult> Create(string habilidadesTecnicas, string habilidadesBlandas, string idEmpleadoPK, string nombre, string apellido1, string apellido2, string correo, DateTime? fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
             var permisosGenerales = seguridad.EmpleadoConsultar(User);
 
+            
+            
+            if (habilidadesTecnicas != null) {
+                List<string> TagIds = habilidadesTecnicas.Split(',').ToList();
+                foreach (string v in TagIds)
+            {
+                HabilidadTecnica habilidad = new HabilidadTecnica();
+                habilidad.idEmpleadoFK = idEmpleadoPK;
+                habilidad.habilidad = v;
+                db.HabilidadTecnica.Add(habilidad);
+            }
+        }
+            if (habilidadesBlandas != null) {
+                List<string> TagBlanda = habilidadesBlandas.Split(',').ToList();
+                foreach (string v in TagBlanda)
+            {
+                HabilidadBlanda habilidadB = new HabilidadBlanda();
+                habilidadB.idEmpleadoFK = idEmpleadoPK;
+                habilidadB.habilidad = v;
+                db.HabilidadBlanda.Add(habilidadB);
+            }
+            }
 
             //Verifica que el usuario este registrado y que tenga permiso de crear = 1
             if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item5 == 1)
