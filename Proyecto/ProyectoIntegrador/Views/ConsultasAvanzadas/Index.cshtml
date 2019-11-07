@@ -255,12 +255,6 @@
                         var proyecto = data2[tupla].Nombre_Proyecto;
                         console.log(proyecto.length);
 
-                        if (proyecto.length > 1) {
-                            table += '<td>' + proyecto + '</td>';
-                        }
-                        else {
-                            table += '<td>' + 'N/A' + '</td>';
-                        }
 
                         
 
@@ -276,7 +270,13 @@
                         }
                         table += '<td>' + estado + '</td>';
 
-         
+                                 if (proyecto.length > 1) {
+                            table += '<td>' + proyecto + '</td>';
+                        }
+                        else {
+                            table += '<td>' + 'N/A' + '</td>';
+                        }
+
 
                         table += '</tr>';
 
