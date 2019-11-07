@@ -199,7 +199,7 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoReal = duracionReal;
             requerimiento.detallesResultado = detalleResultado;
-            requerimiento.tiempoReal = duracionEstimada;
+            requerimiento.tiempoReal = duracionReal;
 
             if (estado != "")
             {
