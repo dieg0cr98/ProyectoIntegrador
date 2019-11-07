@@ -272,6 +272,8 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ConsultasAvanzadasController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
+    <Compile Include="Controllers\HabilidadBlandasController.cs" />
+    <Compile Include="Controllers\HabilidadTecnicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
@@ -507,6 +509,16 @@
     <Content Include="Views\Requerimientos\FormularioIndex.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index2.cshtml" />
+    <Content Include="Views\HabilidadBlandas\Create.cshtml" />
+    <Content Include="Views\HabilidadBlandas\Delete.cshtml" />
+    <Content Include="Views\HabilidadBlandas\Details.cshtml" />
+    <Content Include="Views\HabilidadBlandas\Edit.cshtml" />
+    <Content Include="Views\HabilidadBlandas\Index.cshtml" />
+    <Content Include="Views\HabilidadTecnicas\Create.cshtml" />
+    <Content Include="Views\HabilidadTecnicas\Delete.cshtml" />
+    <Content Include="Views\HabilidadTecnicas\Details.cshtml" />
+    <Content Include="Views\HabilidadTecnicas\Edit.cshtml" />
+    <Content Include="Views\HabilidadTecnicas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
