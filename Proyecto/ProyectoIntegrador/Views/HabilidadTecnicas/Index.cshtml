@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.HabilidadTecnica>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Habilidades T&eacute;nicas</p>
+
+
+
+<div class="container justify-content-center">
+    <div class="container justify-content-center" style="padding:30px 30px ;width:500px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color:#c09f80">
+        @ViewBag.nombre
+        @foreach (var item in Model)
+        {
+
+
+            <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" role="tab">@Html.DisplayFor(modelItem => item.habilidad)</a>
+
+
+        }
+
+        <!--Boton Regresar-->
+        <div class="col-4  text-center">
+            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+        </div>
+
+    </div>
+
+</div>
+
