@@ -306,7 +306,7 @@ namespace ProyectoIntegrador.Controllers
                         join t in db.TrabajaEn on p.idProyectoAID equals t.idProyectoFK //Hace join con la tabla TrabajaEn
                         join e in db.Empleado on t.idEmpleadoFK equals e.idEmpleadoPK //Hace join con la tabla Empleado
                         join c in db.Cliente on p.cedulaClienteFK equals c.cedulaPK //hace join con proyecto y cliente
-                        where c.cedulaPK == idUsuario //Solo los clientes relacionados a su proyecto
+                        where e.idEmpleadoPK == idUsuario //Solo los clientes relacionados a su proyecto
                         select c; //Selecciona todo los atributos del proyecto
                         return innerJoinQuery.ToList();
                     }
