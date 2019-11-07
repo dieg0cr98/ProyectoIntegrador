@@ -30,7 +30,7 @@ namespace ProyectoIntegrador.Controllers
 
             //Selecciona todos los empelados que esten disponible y que sean tester
             ViewBag.testers = db.USP_GetTestersDisponibles().ToList();
-            
+
             //Selecciona todos los empelados que esten disponible y que sean Lider
             ViewBag.lideres = db.USP_GetLideresDisponibles().ToList();
 
@@ -53,7 +53,7 @@ namespace ProyectoIntegrador.Controllers
             else
             {
                 var permisosGenerales = seguridad.EquipoConsultar(User);
-             
+
                 //Verifica usuario registrado
                 if (permisosGenerales.Item1 >= 0)
                 {
@@ -61,9 +61,11 @@ namespace ProyectoIntegrador.Controllers
                     GetDatosVistaEquipo(id);
                     var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
                     return View(trabajaEn.ToList());
-                } else
+                }
+                else
                 {
                     return View();
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Naughty");
                 }
             }
         }
@@ -101,7 +103,7 @@ namespace ProyectoIntegrador.Controllers
                         ObjectParameter output = new ObjectParameter("liderFlag", typeof(Int32));
                         db.USP_EquipoCheckLider(idProyecto, output);
                         int numLider = (int)output.Value;
-                        System.Diagnostics.Debug.WriteLine("TIENE LIDER: "  + numLider);
+                        System.Diagnostics.Debug.WriteLine("TIENE LIDER: " + numLider);
                         if (numLider == 0) //Equipo sin lider, puede ser añadido
                         {
                             empleado.estado = "Ocupado";
@@ -115,10 +117,10 @@ namespace ProyectoIntegrador.Controllers
                             db.SaveChanges();
                             ret = new
                             {
-                               flag = 1, 
-                               msg = "Se ha agregado el líder exitosamente al equipo."
+                                flag = 1,
+                                msg = "Se ha agregado el líder exitosamente al equipo."
                             };
-                        }  
+                        }
                         else //Ya tiene lider
                         {
                             ret = new
@@ -128,14 +130,14 @@ namespace ProyectoIntegrador.Controllers
                             };
                             return Json(ret, JsonRequestBehavior.AllowGet);
                         }
-                      break;
+                        break;
                     }
-                    
+
                 case "Tester":
                     {
                         ObjectParameter output = new ObjectParameter("testers", typeof(Int32));
                         db.USP_EquipoCheckTesters(idProyecto, output);
-                        int numTesters = (int) output.Value;
+                        int numTesters = (int)output.Value;
                         System.Diagnostics.Debug.WriteLine("CANTIDAD TESTERS: " + numTesters);
                         if (numTesters < 5)
                         {
@@ -153,7 +155,7 @@ namespace ProyectoIntegrador.Controllers
                                 flag = 1,
                                 msg = "Se ha agregado el tester exitosamente al equipo."
                             };
-                        } 
+                        }
                         else
                         {
                             ret = new
@@ -178,7 +180,7 @@ namespace ProyectoIntegrador.Controllers
 
         public JsonResult QuitarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
-            
+
             Empleado empleado = db.Empleado.Find(idEmpleado);
             Proyecto proyecto = db.Proyecto.Find(idProyecto);
             TrabajaEn trabaja = db.TrabajaEn.Find(idProyecto, idEmpleado);
@@ -228,12 +230,12 @@ namespace ProyectoIntegrador.Controllers
                         };
                     }
                 }
-         
+
             }
             //Proyecto no activo, lo borra del equipo.
             else
             {
-                
+
                 if (empleado.tipoTrabajo == "Lider") //Es lider, se elimina de proyecto no activo
                 {
                     db.TrabajaEn.Remove(trabaja);
@@ -252,8 +254,8 @@ namespace ProyectoIntegrador.Controllers
                     db.USP_ContarRequerimientosTester(idEmpleado, output);
                     int reqs = (int)output.Value;
 
-                     if (reqs == 0) //No tiene requerimientos asignados, puede ser eliminado
-                     {
+                    if (reqs == 0) //No tiene requerimientos asignados, puede ser eliminado
+                    {
                         db.TrabajaEn.Remove(trabaja);
                         empleado.estado = "Disponible";
                         db.Entry(empleado).State = EntityState.Modified;
@@ -276,5 +278,18 @@ namespace ProyectoIntegrador.Controllers
             }
             return Json(ret, JsonRequestBehavior.AllowGet);
         }
+
+        /**
+         * Efecto: Filtra los empleados de la vista de acuerdo a sus habilidades
+         * Requiere: Una string de texto para usar como filtro
+         * Modifica: N/A
+         */
+        public JsonResult filtrarEmpleadosVista(string filtro)
+        {
+            var ids = db.USP_GetTestersPorHabilidades(filtro);
+            System.Diagnostics.Debug.WriteLine(ids.ToString());
+            return Json(ids, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

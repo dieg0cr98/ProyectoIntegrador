@@ -295,5 +295,32 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("nombreTester", idProyectoParameter);
         }
+    
+        public virtual ObjectResult<USP_GetEmpleadosDeLider_Result> USP_GetEmpleadosDeLider(string cedulaLider)
+        {
+            var cedulaLiderParameter = cedulaLider != null ?
+                new ObjectParameter("cedulaLider", cedulaLider) :
+                new ObjectParameter("cedulaLider", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetEmpleadosDeLider_Result>("USP_GetEmpleadosDeLider", cedulaLiderParameter);
+        }
+    
+        public virtual ObjectResult<string> USP_GetTestersPorHabilidades(string habilidades)
+        {
+            var habilidadesParameter = habilidades != null ?
+                new ObjectParameter("habilidades", habilidades) :
+                new ObjectParameter("habilidades", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("USP_GetTestersPorHabilidades", habilidadesParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> USP_obtenerEdad(string id)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_obtenerEdad", idParameter);
+        }
     }
 }

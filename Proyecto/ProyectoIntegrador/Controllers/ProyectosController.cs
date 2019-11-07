@@ -220,7 +220,7 @@ namespace ProyectoIntegrador.Controllers
         public void ActualizarTrabajaEN(Proyecto proyecto, string cedulaLider, string cedulaLiderActual)
         {
             int inProyectoAID = proyecto.idProyectoAID;
-            //Si selecciona un nuevo lider o eliminar al actual. Hay que actualizar datos
+            //Si 0selecciona un nuevo lider o eliminar al actual. Hay que actualizar datos
             if (!String.IsNullOrEmpty(cedulaLider))
             {
 
@@ -779,7 +779,7 @@ namespace ProyectoIntegrador.Controllers
             SetProyecto(proyecto, 1);
 
             //Actualiza/Agrega el lider al proyecto
-            ActualizarTrabajaEN(proyecto, cedulaLider, cedulaLiderActual);
+            ActualizarTrabajaEN(proyecto,cedulaLider, cedulaLiderActual);
 
 
             return RedirectToAction("Index", new { id = proyecto.idProyectoAID });

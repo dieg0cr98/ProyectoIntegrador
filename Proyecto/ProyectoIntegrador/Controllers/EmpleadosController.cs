@@ -15,6 +15,15 @@ namespace ProyectoIntegrador.Controllers
     public class EmpleadosController : Controller
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
+         private HabilidadBlanda habilidadBlanda = new HabilidadBlanda();
+        private HabilidadTecnica habilidadTecnica = new HabilidadTecnica();
+
+       
+
+        internal dynamic GetNombreEmpleado(string id)
+        {
+            return db.Empleado.Find(id).nombre +" "+ db.Empleado.Find(id).apellido1;
+        }
 
         private SeguridadController seguridad = new SeguridadController();
 

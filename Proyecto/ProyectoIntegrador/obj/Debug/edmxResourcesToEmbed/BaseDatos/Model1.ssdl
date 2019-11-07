@@ -353,11 +353,20 @@
     <Parameter Name="idProyecto" Type="int" Mode="In" />
     <Parameter Name="testers" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="USP_GetEmpleadosDeLider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cedulaLider" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="USP_GetEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id_proyecto" Type="int" Mode="In" />
   </Function>
   <Function Name="USP_GetLideresDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="USP_GetTestersDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="USP_GetTestersPorHabilidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="habilidades" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USP_obtenerEdad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="USP_ObtenerProyectosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="permiso" Type="int" Mode="In" />
     <Parameter Name="rol" Type="int" Mode="In" />

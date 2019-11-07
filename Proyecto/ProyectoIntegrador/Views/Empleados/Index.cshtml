@@ -13,6 +13,8 @@
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
+@{ int edad = 0;}
+
 <!---->
 <body>
     @if (Request.IsAuthenticated)
@@ -36,19 +38,11 @@
                             Lista de Empleados
                         </a>
 
-                        <!--Input para realizar busquedas de empleado-->
+                        <!--Inputa para realizar busquedas de empleado-->
                         <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleados">
 
                         <!--Imagen de agregar Empleado-->
-                        @*Pregunta si tiene permisos para crear*@
-                        @if (ViewBag.permisosEspecificos.Item5 == 1)
-                        {
-                            <a data-toggle="tooltip" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                        }
-                        else
-                        {
-                            <a data-toggle="tooltip" data-placement="top" title="No tiene permiso para crear un empleado" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                        }
+                        <a data-toggle="tooltip" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                     </nav>
 
                     <!--Tab izquierdo donde se muestran los empleados con el nombre en la BD-->
@@ -72,26 +66,18 @@
                         @foreach (var item in Model)
                         {
 
-                        <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                            <div class="row mx-4 mt-4 md-0" style="height:30px">
-                                <div class="col-8" style="max-height:30px">
-                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Empleado</p>
-                                </div>
+                            <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                                <div class="row mx-4 mt-4 md-0" style="height:30px">
+                                    <div class="col-8" style="max-height:30px">
+                                        <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;"></p>
+                                    </div>
 
-                                <!-- Botones de Editar -->
-                                @if (ViewBag.permisosEspecificos.Item4 == 1)
-                                {
+                                    <!-- Botones de Editar -->
                                     <div class="col" style="margin-left: 10%;">
                                         <a data-toggle="tooltip" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                     </div>
-                                }
-                                else
-                                {
-                                    <a data-toggle="tooltip" data-placement="left" title="No tiene permiso para editar un empleado" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
-                                }<!-- Button trigger modal para Borrar-->
-                                @if (ViewBag.permisosEspecificos.Item6 == 1)
-                                {
+                                    <!-- Button trigger modal para Borrar-->
                                     <div class="col" style="width:auto; height:auto;">
 
                                         @if (item.estado != "Ocupado")
@@ -104,274 +90,300 @@
 
                                         }
                                     </div>
-                                }
-                                else
-                                {
-                                    <a data-toggle="tooltip" class="btn" title="No tiene permiso para eliminar un empleado" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                                }
+                                </div>
+                                <hr />
+
+                                <!--Informacion del Empleado que se selecciona-->
+                                @*Filas con las etiquetas de Nombre y cedula *@
+                                <div class="container justify-content-center overflow-auto" style="max-height:550px; height:550px">
+                                    <div class="form-row">
+                                        <div class="col-5">
+                                            <h5> Nombre</h5>
+
+                                        </div>
+
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            <h5> C&eacute;dula </h5>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col-5">
+
+                                            @* Nombre *@
+                                            <div class="input-group">
+
+                                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.nombre " placeholder="@item.nombre @item.apellido1 @item.apellido2" name="Nombre" readonly>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+
+                                            @* Cedula *@
+                                            <div class="input-group">
+
+
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.idEmpleadoPK" name="cedula" readonly>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    @*Filas con las etiquetas de fecha Nacimiento y provincia *@
+                                    <div class="form-row">
+                                        <div class="col-5">
+                                            <h5> Fecha de nacimiento</h5>
+                                        </div>
+
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            <h5> Edad </h5>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col-5">
+
+                                            @* Fecha *@
+                                            <div class="input-group">
+
+                                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.fechaNacimiento" placeholder="@item.fechaNacimiento" name="Fecha de nacimiento" readonly>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-1">
+
+                                        </div>
+                                        @{edad = DateTime.Now.Year - item.fechaNacimiento.Year;}
+
+                                        <div class="col-5">
+
+                                            @* edad *@
+                                            <div class="input-group">
+
+
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@edad" placeholder="@edad" name="Provincia" readonly>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    @*Filas con las etiquetas de Provincia y canton *@
+                                    <div class="form-row">
+                                        <div class="col-5">
+                                            <h5> Provincia</h5>
+                                        </div>
+
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            <h5> Cant&oacute;n </h5>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col-5">
+                                            @* Provincia *@
+                                            <div class="input-group">
+
+
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.provincia" placeholder="@item.provincia" name="Provincia" readonly>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            @* Canton *@
+                                            <div class="input-group">
+
+                                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.canton" placeholder="@item.canton" name="Canton" readonly>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <h5> Distrito</h5>
+                                        </div>
+                                    </div>
+                                    @* Distrito *@
+                                    <div class="form-row mb-4">
+                                        <div class="col-5">
+                                            <div class="input-group">
+
+
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.distrito" placeholder="@item.distrito" name="Distrito" readonly>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    @*Fila con la etiqueta de Direccion*@
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <h5> Direcci&oacute;n</h5>
+                                        </div>
+                                    </div>
+
+
+                                    @*Atributo Objetivo*@
+
+                                    <div class="input-group mb-4  mx-6">
+                                        <textarea class="form-control" name="objetivo" value="@item.direccion" placeholder="@item.direccion" maxlength="200" aria-label="With textarea" style="max-width:none;background-color:#D7CEC7; border-color:transparent " id="comment" readonly></textarea>
+                                    </div>
+
+                                    @*Filas con las etiquetas de Correo telefono *@
+                                    <div class="form-row">
+                                        <div class="col-5">
+                                            <h5> Correo</h5>
+                                        </div>
+
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            <h5> Tel&eacute;fono </h5>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col-5">
+
+                                            @* correo *@
+                                            <div class="input-group">
+
+                                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.correo" placeholder="@item.correo" name="Correo" readonly>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+
+                                            @* Telefono *@
+                                            <div class="input-group">
+
+
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.telefono" placeholder="@item.telefono" name="Telefono" readonly>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    @*Filas con las etiquetas de Estado y puesto *@
+                                    <div class="form-row">
+                                        <div class="col-5">
+                                            <h5> Estado</h5>
+                                        </div>
+
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+                                            <h5> Puesto </h5>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-row mb-4">
+                                        <div class="col-5">
+
+                                            @* Estado *@
+                                            <div class="input-group">
+
+                                                <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.estado" placeholder="@item.estado" name="estado" readonly>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-1">
+
+                                        </div>
+
+                                        <div class="col-5">
+
+                                            @* Puesto *@
+                                            <div class="input-group">
+
+
+                                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.tipoTrabajo" placeholder="@item.tipoTrabajo" name="Puesto" readonly>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    @*Fila con la etiqueta de Habilidades*@
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <h5> Habilidades</h5>
+                                            <div class="form-row mb-4">
+                                                <div class="col-5">
+                                                    
+                                                    <a onclick="my_loading(this,'80px','80px')"class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Habilidades Blandas"  href="@Url.Action("Index","HabilidadBlandas", new { id = item.idEmpleadoPK })">Blandas</a>
+
+                                                </div>
+                                                <div class="col-1">
+                                                </div>
+                                                <div class="col-5">
+                                                    <a onclick="my_loading(this,'80px','80px')" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Habilidades Tecnicas" href="@Url.Action("Index","HabilidadTecnicas", new { id = item.idEmpleadoPK })">T&eacute;nicas</a>
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    
+
+                                </div>
                             </div>
-                            <hr />
 
-                            <!--Informacion del Empleado que se selecciona-->
-                            @*Filas con las etiquetas de Nombre y cedula *@
-                            <div class="container justify-content-center overflow-auto" style="max-height:550px; height:550px">
-                                <div class="form-row">
-                                    <div class="col-5">
-                                        <h5> Nombre</h5>
-                                    </div>
-
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-                                        <h5> Cedula </h5>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col-5">
-
-                                        @* Nombre *@
-                                        <div class="input-group">
-
-                                            <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.nombre " placeholder="@item.nombre @item.apellido1 @item.apellido2" name="Nombre" readonly>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-
-                                        @* Cedula *@
-                                        <div class="input-group">
-
-
-                                            <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.idEmpleadoPK" name="cedula" readonly>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                @*Filas con las etiquetas de fecha Nacimiento y provincia *@
-                                <div class="form-row">
-                                    <div class="col-5">
-                                        <h5> Fecha</h5>
-                                    </div>
-
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-                                        <h5> Provincia </h5>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col-5">
-
-                                        @* Fecha *@
-                                        <div class="input-group">
-
-                                            <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.fechaNacimiento" placeholder="@item.fechaNacimiento" name="Fecha de nacimiento" readonly>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-
-                                        @* Provincia *@
-                                        <div class="input-group">
-
-
-                                            <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.provincia" placeholder="@item.provincia" name="Provincia" readonly>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                @*Filas con las etiquetas de Canton y distrito *@
-                                <div class="form-row">
-                                    <div class="col-5">
-                                        <h5> Cantón</h5>
-                                    </div>
-
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-                                        <h5> Distrito </h5>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col-5">
-
-                                        @* Canton *@
-                                        <div class="input-group">
-
-                                            <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.canton" placeholder="@item.canton" name="Canton" readonly>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-
-                                        @* Distrito *@
-                                        <div class="input-group">
-
-
-                                            <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.distrito" placeholder="@item.distrito" name="Distrito" readonly>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                @*Fila con la etiqueta de Direccion*@
-                                <div class="form-row">
-                                    <div class="col">
-                                        <h5> Direccion</h5>
-                                    </div>
-                                </div>
-
-
-                                @*Atributo Objetivo*@
-
-                                <div class="input-group mb-4  mx-6">
-                                    <textarea class="form-control" name="objetivo" value="@item.direccion" placeholder="@item.direccion" maxlength="200" aria-label="With textarea" style="max-width:none;background-color:#D7CEC7; border-color:transparent " id="comment" readonly></textarea>
-                                </div>
-
-                                @*Filas con las etiquetas de Correo telefono *@
-                                <div class="form-row">
-                                    <div class="col-5">
-                                        <h5> Correo</h5>
-                                    </div>
-
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-                                        <h5> Telefono </h5>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col-5">
-
-                                        @* correo *@
-                                        <div class="input-group">
-
-                                            <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.correo" placeholder="@item.correo" name="Correo" readonly>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-
-                                        @* Telefono *@
-                                        <div class="input-group">
-
-
-                                            <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.telefono" placeholder="@item.telefono" name="Telefono" readonly>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                @*Filas con las etiquetas de Estado y puesto *@
-                                <div class="form-row">
-                                    <div class="col-5">
-                                        <h5> Estado</h5>
-                                    </div>
-
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-                                        <h5> Puesto </h5>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-row mb-4">
-                                    <div class="col-5">
-
-                                        @* Estado *@
-                                        <div class="input-group">
-
-                                            <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.estado" placeholder="@item.estado" name="estado" readonly>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-1">
-
-                                    </div>
-
-                                    <div class="col-5">
-
-                                        @* Puesto *@
-                                        <div class="input-group">
-
-
-                                            <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@item.tipoTrabajo" placeholder="@item.tipoTrabajo" name="Puesto" readonly>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                @*Fila con la etiqueta de Habilidades*@
-                                <div class="form-row">
-                                    <div class="col">
-                                        <h5> Habilidades</h5>
-                                    </div>
-                                </div>
-
-
-                                @*Atributo Habilidades*@
-
-                                <div class="input-group mb-4  mx-6">
-                                    <textarea class="form-control" name="objetivo" value="@item.HabilidadTecnica" placeholder="" maxlength="200" aria-label="With textarea" style="max-width:none;background-color:#D7CEC7; border-color:transparent " id="comment" readonly></textarea>
-                                </div>
-
-                            </div>
-                        </div>
-
-                            //Le agrega un digito mas al idTab
-                            { idTab += 1; }
-                        }
+                                                            //Le agrega un digito mas al idTab
+                                                            { idTab += 1; }
+                                                        }
                     </div>
                 </div>
             </div>
@@ -384,4 +396,5 @@
     <!--Carga todos los scripts-->
     @Html.Partial("ModalEliminar")
     @Html.Partial("Scripts")
+   
 </body>
