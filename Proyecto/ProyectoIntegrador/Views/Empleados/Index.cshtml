@@ -13,8 +13,6 @@
 @*Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id*@
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
-@{ int edad = 0;}
-
 <!---->
 <body>
     @if (Request.IsAuthenticated)
@@ -38,11 +36,19 @@
                             Lista de Empleados
                         </a>
 
-                        <!--Inputa para realizar busquedas de empleado-->
+                        <!--Input para realizar busquedas de empleado-->
                         <input type="text" style="border-radius:20px; background-color:#C4C4C4 ; border-color:transparent" id="myInput" onkeyup="myFunction()" placeholder="Buscar Empleados">
 
                         <!--Imagen de agregar Empleado-->
-                        <a data-toggle="tooltip" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        @*Pregunta si tiene permisos para crear*@
+                        @if (ViewBag.permisosEspecificos.Item5 == 1)
+                        {
+                            <a data-toggle="tooltip" data-placement="top" title="Agregar Empleado" href="~/Empleados/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        }
+                        else
+                        {
+                            <a data-toggle="tooltip" data-placement="top" title="No tiene permiso para crear un empleado" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        }
                     </nav>
 
                     <!--Tab izquierdo donde se muestran los empleados con el nombre en la BD-->
@@ -66,18 +72,26 @@
                         @foreach (var item in Model)
                         {
 
-                            <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                                <div class="row mx-4 mt-4 md-0" style="height:30px">
-                                    <div class="col-8" style="max-height:30px">
-                                        <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;"></p>
-                                    </div>
+                        <div class="tab-pane fade" style="max-width:1150px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                            <div class="row mx-4 mt-4 md-0" style="height:30px">
+                                <div class="col-8" style="max-height:30px">
+                                    <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:30px;">Informacion Empleado</p>
+                                </div>
 
-                                    <!-- Botones de Editar -->
+                                <!-- Botones de Editar -->
+                                @if (ViewBag.permisosEspecificos.Item4 == 1)
+                                {
                                     <div class="col" style="margin-left: 10%;">
                                         <a data-toggle="tooltip" data-placement="left" title="Editar" href="/Empleados/Edit/@item.idEmpleadoPK" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                                     </div>
+                                }
+                                else
+                                {
+                                    <a data-toggle="tooltip" data-placement="left" title="No tiene permiso para editar un empleado" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
-                                    <!-- Button trigger modal para Borrar-->
+                                }<!-- Button trigger modal para Borrar-->
+                                @if (ViewBag.permisosEspecificos.Item6 == 1)
+                                {
                                     <div class="col" style="width:auto; height:auto;">
 
                                         @if (item.estado != "Ocupado")
@@ -90,8 +104,13 @@
 
                                         }
                                     </div>
-                                </div>
-                                <hr />
+                                }
+                                else
+                                {
+                                    <a data-toggle="tooltip" class="btn" title="No tiene permiso para eliminar un empleado" data-whatever="@item.idEmpleadoPK"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                                }
+                            </div>
+                            <hr />
 
                                 <!--Informacion del Empleado que se selecciona-->
                                 @*Filas con las etiquetas de Nombre y cedula *@
