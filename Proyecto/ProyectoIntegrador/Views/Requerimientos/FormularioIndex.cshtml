@@ -18,19 +18,24 @@
             <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px"></a>
         </div>
     }
-
+<div class="col " style="max-height: 32px">
     @if (ViewBag.permisosGenerales.Item5 == 1)
     {
-        <div class="col " style="max-height: 32px">
-            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqPK" data-whatever2="@Model.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
-        </div>
+        if (Model.estado == "Cancelado")
+        {
+            <a href="#" class="btn" data-toggle="modal" data-target="#modalElim" data-whatever="@Model.idReqPK" data-whatever2="@Model.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+        }
+        else
+        {
+            <a href="#" class="btn" data-toggle="modal" data-target="#modalNotElim"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+        }
+
     }
     else
     {
-        <div class="col " style="max-height: 32px">
-            <a href="#" class="btn"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
-        </div>
+        <a href="#" class="btn"><img title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
     }
+</div>
 </div>
 
 <hr />

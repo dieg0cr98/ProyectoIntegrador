@@ -69,6 +69,10 @@
                         {
                             <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
+                        else
+                        {
+                            <a data-toggle="tooltip" data-placement="top" title="Agregar Requerimiento" href="#" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        }
 
                     </nav>
                     <!-- Se crea la tabla de la izquierda con los nombres de los requerimientos -->

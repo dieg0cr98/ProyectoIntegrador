@@ -43,11 +43,11 @@ namespace ProyectoIntegrador.Controllers
                 //Pueden ver todos solo los requerimientos en los que participa
                 if (rol == 2)
                 {
-                    return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.estado != "Cancelado" && r.cedulaTesterFK == idUsuario).ToList();
+                    return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto /*&& r.estado != "Cancelado"*/ && r.cedulaTesterFK == idUsuario).ToList();
                 }
                 else //Pueden ver todos
                 {
-                    return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.estado != "Cancelado").ToList();
+                    return db.Requerimiento.Where(r => r.idProyectoFK == idProyecto /*&& r.estado != "Cancelado"*/).ToList();
                 }
             }
         }

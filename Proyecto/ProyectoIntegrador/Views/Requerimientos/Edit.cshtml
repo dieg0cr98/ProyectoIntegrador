@@ -38,7 +38,14 @@
                         <div class="col-5">
                             @*Atributo nombre*@
                             <div class="input-group">
-                                <input id="nom" class="form-control" value="@Model.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
+                                @if (ViewBag.permisosEditar.Item3[3] == 1)
+                                {
+                                    <input id="nom" class="form-control" value="@Model.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required>
+                                }
+                                else
+                                {
+                                    <input id="nom" class="form-control" value="@Model.nombre" style="text-align:center" name="nombre" minlength="1" maxlength="40" type="text" required readonly>
+                                }
                             </div>
                             <div id="errorNombre"></div>
                         </div>
@@ -52,9 +59,16 @@
                     </div>
 
                     @*Atributo descripcion*@
-                    <div class="input-group mb-4  mx-6">
+                <div class="input-group mb-4  mx-6">
+                    @if (ViewBag.permisosEditar.Item3[7] == 1)
+                    {
                         <textarea class="form-control" name="descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment">@Model.descripcion</textarea>
-                    </div>
+                    }
+                    else
+                    {
+                        <textarea class="form-control" name="descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment" readonly>@Model.descripcion</textarea>
+                    }
+                </div>
 
                     <div class="form-row">
                         @*Título de Atributo Complejidad*@
@@ -76,46 +90,53 @@
                         <div class="col-4">
                             @*Atributo Complejidad*@
                             <div class="input-group">
-                                <select class="custom-select" name="complejidad" required>
-                                    @switch (Model.complejidad)
-                                    {
-                                        case "Simple":
-                                            <option value="Simple" selected>Simple</option>
-                                            <option value="Medio">Medio</option>
-                                            <option value="Complejo">Complejo</option>
-                                            <option value="Muy Complejo">Muy Complejo</option>
-                                            break;
+                                @if (ViewBag.permisosEditar.Item3[4] == 1)
+                                {
+                                    <select class="custom-select" name="complejidad" required>
+                                        @switch (Model.complejidad)
+                                        {
+                                            case "Simple":
+                                                <option value="Simple" selected>Simple</option>
+                                                <option value="Medio">Medio</option>
+                                                <option value="Complejo">Complejo</option>
+                                                <option value="Muy Complejo">Muy Complejo</option>
+                                                break;
 
-                                        case "Medio":
-                                            <option value="Simple">Simple</option>
-                                            <option value="Medio" selected>Medio</option>
-                                            <option value="Complejo">Complejo</option>
-                                            <option value="Muy Complejo">Muy Complejo</option>
-                                            break;
+                                            case "Medio":
+                                                <option value="Simple">Simple</option>
+                                                <option value="Medio" selected>Medio</option>
+                                                <option value="Complejo">Complejo</option>
+                                                <option value="Muy Complejo">Muy Complejo</option>
+                                                break;
 
-                                        case "Complejo":
-                                            <option value="Simple">Simple</option>
-                                            <option value="Medio">Medio</option>
-                                            <option value="Complejo" selected>Complejo</option>
-                                            <option value="Muy Complejo">Muy Complejo</option>
-                                            break;
+                                            case "Complejo":
+                                                <option value="Simple">Simple</option>
+                                                <option value="Medio">Medio</option>
+                                                <option value="Complejo" selected>Complejo</option>
+                                                <option value="Muy Complejo">Muy Complejo</option>
+                                                break;
 
-                                        case "Muy Complejo":
-                                            <option value="Simple">Simple</option>
-                                            <option value="Medio">Medio</option>
-                                            <option value="Complejo">Complejo</option>
-                                            <option value="Muy Complejo" selected>Muy Complejo</option>
-                                            break;
+                                            case "Muy Complejo":
+                                                <option value="Simple">Simple</option>
+                                                <option value="Medio">Medio</option>
+                                                <option value="Complejo">Complejo</option>
+                                                <option value="Muy Complejo" selected>Muy Complejo</option>
+                                                break;
 
-                                        default:
-                                            <option value="Simple">Simple</option>
-                                            <option value="Medio" selected>Medio</option>
-                                            <option value="Complejo">Complejo</option>
-                                            <option value="Muy Complejo">Muy Complejo</option>
-                                            break;
+                                            default:
+                                                <option value="Simple">Simple</option>
+                                                <option value="Medio" selected>Medio</option>
+                                                <option value="Complejo">Complejo</option>
+                                                <option value="Muy Complejo">Muy Complejo</option>
+                                                break;
 
-                                    }
-                                </select>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <input id="comp" class="form-control" value="@Model.complejidad" style="text-align:center" name="complejidad" type="text" required readonly>
+                                }
                             </div>
                             <div id="errorComplejidad"></div>
                         </div>
@@ -168,31 +189,72 @@
                         </div>
                     </div>
 
-                    <div class="form-row mb-4">
-                        <div class="col-4">
-                            @*Atributo Cédula Tester*@
-                            <div class="input-group">
-                                <select class="custom-select" name="idTester">
-                                    <option value="">No Asignar</option>
-                                    @foreach (var item in ViewBag.testersDisponibles)
-                                    {
-                                        if (ViewBag.testerAsociado == item.idEmpleadoPK)
+                    @if (ViewBag.permisosEditar.Item3[2] == 1)
+                    {
+                        <div class="form-row mb-4">
+                            <div class="col-4">
+                                @*Atributo Cédula Tester*@
+                                <div class="input-group">
+                                    <select class="custom-select" name="idTester">
+                                        <option value="">No Asignar</option>
+                                        @foreach (var item in ViewBag.testersDisponibles)
                                         {
-                                            if (ViewBag.testerAsociado != null)
+                                            if (ViewBag.testerAsociado == item.idEmpleadoPK)
                                             {
-                                                <option value="@item.idEmpleadoPK" selected> @item.nombre @item.apellido1</option>
+                                                if (ViewBag.testerAsociado != null)
+                                                {
+                                                    <option value="@item.idEmpleadoPK" selected> @item.nombre @item.apellido1</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
                                             }
                                         }
-                                        else
-                                        {
-                                            <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
-                                        }
-                                    }
 
-                                </select>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="form-row mb-4">
+                            <div class="col-4">
+                                @*Atributo Cédula Tester*@
+                                <div class="input-group">
+                                    <select class="custom-select" name="idTester" disabled>
+                                        <option value="">No Asignar</option>
+                                        @foreach (var item in ViewBag.testersDisponibles)
+                                        {
+                                            if (ViewBag.testerAsociado == item.idEmpleadoPK)
+                                            {
+                                                if (ViewBag.testerAsociado != null)
+                                                {
+                                                    <option value="@item.idEmpleadoPK" selected> @item.nombre @item.apellido1</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.idEmpleadoPK">@item.nombre @item.apellido1</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        foreach (var item in ViewBag.testersDisponibles)
+                        {
+                            if (ViewBag.testerAsociado == item.idEmpleadoPK)
+                            {
+                                <input type="hidden" id="idTester" name="idTester" value=@item.idEmpleadoPK>
+                            }
+
+                        }
+
+                    }
 
                     <div class="form-row">
                         @*Título de Atributo Fecha de Inicio*@
@@ -214,7 +276,14 @@
                         <div class="col-4">
                             @*Atributo fechaInicio*@
                             <div class="input-group">
-                                <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")">
+                                @if (ViewBag.permisosEditar.Item3[8] == 1)
+                                {
+                                    <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")">
+                                }
+                                else
+                                {
+                                    <input id="cfechai" class="form-control text-center" type="date" name="fechai" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" readonly>
+                                }
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, la fecha que fue creado</small>
                         </div>
@@ -254,7 +323,14 @@
                         <div class="col-2">
                             @*Atributo duracionEstimada*@
                             <div class="input-group">
-                                <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada" value="@Model.tiempoEstimado">
+                                @if (ViewBag.permisosEditar.Item3[5] == 1)
+                                {
+                                    <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada" value="@Model.tiempoEstimado">
+                                }
+                                else
+                                {
+                                    <input id="de" class="form-control" type="number" style=" text-align:center" name="duracionEstimada" value="@Model.tiempoEstimado" readonly>
+                                }
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, cero</small>
                         </div>
