@@ -9,7 +9,7 @@
             url: "https://ubicaciones.paginasweb.cr/provincias.json",
             data: {},
             success: function (data) {
-                var html = "<select id = 'abc' class='form-control' name = 'provincia' onchange = 'getCantones()' onclick = 'getCantones()' style = 'background-color:#D7CEC7; border-color:transparent; width: 200px' > ";
+                var html = "<select id = 'abc' class='form-control' name = 'provincia' onchange = 'getCantones()' onclick = 'getCantones()' style = 'background-color:#F9F9F9; border-color:transparent; width: 200px' > ";
                 for (key in data) {
                     if (provincia == data[key]) {
                         html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
@@ -35,7 +35,7 @@
             url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
             data: {},
             success: function (data) {
-                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='background-color:#D7CEC7; border-color:transparent; width: 200px'>";
+                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='background-color:#F9F9F9; border-color:transparent; width: 200px'>";
                 for (key in data) {
                     if (canton == data[key]) {
                         html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
@@ -62,7 +62,7 @@
             url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
             data: {},
             success: function (data) {
-                var html = "<select id='abc3' class='form-control' style='background-color:#D7CEC7; border-color:transparent; width: 200px' name='distrito'>";
+                var html = "<select id='abc3' class='form-control' style='background-color:#F9F9F9; border-color:transparent; width: 200px' name='distrito'>";
                 for (key in data) {
                     if (distrito == data[key]) {
                         html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";

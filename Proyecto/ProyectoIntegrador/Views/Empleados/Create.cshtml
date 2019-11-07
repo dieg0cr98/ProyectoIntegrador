@@ -15,8 +15,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
+
     <style type="text/css">
     </style>
+
+
 
 </head>
 
@@ -48,21 +56,21 @@
                         <div class="col-3">
                             <!--Campo Nombre-->
                             <h5 for="nombre" style="width:200px">Nombre *</h5>
-                            <input class="form-control" id="nombre" name="nombre" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                            <input class="form-control" id="nombre" name="nombre" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent;max-width:none" />
                             <div id="errorNombre"></div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
                             <!--Campo Primer Apellido-->
                             <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
-                            <input class="form-control" id="apellido1" name="apellido1" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                            <input class="form-control" id="apellido1" name="apellido1" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent; max-width:none" />
                             <div id="errorApellido"></div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
                             <!--Campo Segundo Apellido-->
                             <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                            <input class="form-control" id="apellido2" name="apellido2" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent;max-width:none" />
+                            <input class="form-control" id="apellido2" name="apellido2" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent;max-width:none" />
                             <div id="errorApellido2"></div>
                         </div>
                     </div>
@@ -73,14 +81,14 @@
                         <div class="col-3">
                             <!--Campo Cedula-->
                             <h5 for="idEmpleadoPK" style="width:200px">Cédula*:</h5>
-                            <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" maxlength="20" style="background-color:#D7CEC7; border-color:transparent; max-width:none" placeholder="000000000" />
+                            <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent; max-width:none" placeholder="000000000" />
                             <div id="errorCedula"></div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
                             <!--Campo Fecha de nacimiento-->
                             <h5 for="fechaNacimiento" style="width:200px">Fecha de nacimiento*</h5>
-                            <input id="fechaNacimiento" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaNacimiento" required>
+                            <input id="fechaNacimiento" class="form-control text-center" style="width:200px; background-color:#F9F9F9" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaNacimiento" required>
                             <div id="errorFechaNacimiento"></div>
 
                         </div>
@@ -88,7 +96,7 @@
                         <div class="col-3">
                             <!--Campo correo-->
                             <h5 for="correo" style="width:200px">Correo *</h5>
-                            <input class="form-control" id="correo" name="correo" type="email" placeholder="example@email.com" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                            <input class="form-control" id="correo" name="correo" type="email" placeholder="example@email.com" style="background-color:#F9F9F9; border-color:transparent; max-width:none" />
                             <div id="errorCorreo"></div>
                         </div>
                     </div>
@@ -99,7 +107,7 @@
                         <div class="col-3">
                             <!--Campo telefono-->
                             <h5 for="telefono" style="width:200px">Tel&eacute;fono</h5>
-                            <input class="form-control" id="telefono" name="telefono" type="text" maxlength="15" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                            <input class="form-control" id="telefono" name="telefono" type="text" maxlength="15" style="background-color:#F9F9F9; border-color:transparent; max-width:none" />
                             <div id="errorTel"></div>
                         </div>
                         <div class="col-1"></div>
@@ -108,7 +116,7 @@
                             <h5 for="correo" style="width:200px">Estado *</h5>
                             <div class="input-group">
 
-                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="estado">
+                                <select class="custom-select" style='background-color:#F9F9F9; border-color:transparent; width: 200px' name="estado">
                                     <option value="">Seleccione un estado...</option>
                                     <option value="Disponible">Disponible</option>
                                     <option value="Ocupado">Ocupado</option>
@@ -122,7 +130,7 @@
                             <h5 for="tipoTrabajo" style="width:200px">Puesto *</h5>
                             <div class="input-group">
 
-                                <select class="custom-select" style='background-color:#D7CEC7; border-color:transparent; width: 200px' name="tipoTrabajo">
+                                <select class="custom-select" style='background-color:#F9F9F9; border-color:transparent; width: 200px' name="tipoTrabajo">
                                     <option value="">Seleccione un estado...</option>
                                     <option value="Tester">Tester</option>
                                     <option value="Lider">Lider</option>
@@ -165,12 +173,40 @@
                         <h5 for="direccion" style="width:400px">Direccion exacta</h5>
                     </div>
                     <div class="row" style="padding-left:15px; padding-right:15px;">
-                        <textarea class="form-control col-12" id="direccion" maxlength="300" name="direccion" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
+                        <textarea class="form-control col-12" id="direccion" maxlength="300" name="direccion" style="background-color:#F9F9F9 ; border-color:transparent;height: 90px;"></textarea>
                         @*<div id="errorDir"></div>*@
                     </div>
                     <br>
 
                     @*Habilidades Tecnicas*@
+                    <br>
+                    <div class="form-row mb-2" style="padding-left:5px">
+
+                        <h5 for="habilidadesTecnicas" style="width:400px">Habilidades Tecnicas</h5>
+                    </div>
+                    
+
+
+                        <div class="row" style="padding-left:15px; padding-right:15px;">
+                            
+                            <input type="text" id="habilidadesTecnicas" name="habilidadesTecnicas" data-role="tagsinput" />
+                        </div>
+                 
+
+                    <br>
+                    <div class="form-row mb-2" style="padding-left:5px">
+
+                        <h5 for="habilidadesBlandas" style="width:400px">Habilidades Blandas</h5>
+                    </div>
+
+
+
+                    <div class="row" style="padding-left:15px; padding-right:15px;">
+
+                        <input type="text" id="habilidadesBlandas" name="habilidadesBlandas" data-role="tagsinput" />
+                    </div>
+
+
                     <h5> * Campos requeridos</h5>
 
                     <hr />
@@ -210,11 +246,36 @@
     {
         <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder crear empleados</div>
     }
+
+
 </body>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
 }
+<script>
+    Viewbag$("input").tagsinput('habilidadesTecnicas')
+</script>
+
+@*<script>
+    $(document).ready(function () {
+
+        $(".tagsinput").change(function (e) {
+            var value = $(this).val().replace(" ", "");
+            var words = value.split(",");
+
+            if (words.length > 20) {
+                alert("You are not allowed more than 20 tags!");
+
+                var lastword = value.split(",").pop();
+                value = value.replace(',' + lastword, '');
+                $(this).val(value);
+                $('.tagsinput').val() = value.substring(0, value.length - lastword.length);
+            }
+        });
+    })
+</script>*@
 <script>
     $(function () {
         jQuery.validator.addMethod("lettersonly", function (value, element) {
