@@ -1,83 +1,76 @@
-﻿
+﻿@*<html>
+<head>
+    <title>Google Charts Tutorial</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+    </script>
+    <script type="text/javascript">
+        google.charts.load("visualization", "1", { packages: ['corechart'] });
+    </script>
+</head>
 
+<body>
+    <div id="container" style="width: 850px; height: 400px; margin: 0 auto">
+    </div>
+    <script language="JavaScript">
+        function drawChart() {
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Proyecto');
+            data.addColumn('number', 'Estimada');
+            data.addColumn('number', 'Real');
 
-    <head>
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+            data.addRow(['Proyecto1', 80, 50]);
+            data.addRow(['Proyecto2', 50, 60]);
+            data.addRow(['Proyect3', 80, 100]);
+            data.addRow(['Proyecto4', 70, 68]);
+            
 
+            var options = {
+                'backgroundColor': 'transparent', 
+                          
+                title: 'Duraciones Estimada VS Real por Proyecto',
+                titleTextStyle: { fontSize: 25, },
+               
+            };
 
-        <style>
-
-            body {
-                font-family: Arial, Sans-serif;
-            }
-
-            .error {
-                color: red;
-                font-family: verdana, Helvetica;
-            }
-        </style>
-
-
-
-    </head>
-
-
-
-
-<form method="post" name="productform" id="productform">
-    <p>
-        <label for='prodid'>Product ID: (maxlength 10)</label><br>
-        <input type="text" name="prodid">
-    </p>
-    <p>
-        <label for='email'>Email: (minlength 10)</label><br>
-        <input type="text" name="email">
-    </p>
-    <p>
-        <label for='address'>Address( length between 10 and 250)</label><br>
-        <input type="text" name="address">
-    </p>
-    <p>
-        <label for='message'>Message:( length between 50 and 1050)</label> <br>
-        <textarea name="message"></textarea>
-    </p>
-
-    <input type="submit" name='submit' value="Post it !">
-</form>
-
-
-<script>
-
-    $(function()
-{
-    $("#productform").validate(
-      {
-        rules: 
-        {
-          prodid: 
-          {
-            required: true,
-            maxlength: 10
-          },
-          email: 
-          {
-            required: true,
-            email: true,
-            minlength:10
-          },
-          address:
-          {
-            required: true,
-            rangelength:[10,250]
-          },
-          message: 
-          {
-            rangelength:[50,1050]
-          }
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.ColumnChart(document.getElementById('container'));
+            chart.draw(data, options);
         }
-      });	
-});
+        google.charts.setOnLoadCallback(drawChart);
+    </script>
+</body>
+</html>*@
 
-</script>
+
+    <html>
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['timeline'] });
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var container = document.getElementById('timeline');
+                var chart = new google.visualization.Timeline(container);
+                var dataTable = new google.visualization.DataTable();
+                var ano = '2019';
+                dataTable.addColumn({ type: 'string', id: 'President' });
+                dataTable.addColumn({ type: 'date', id: 'Start' });
+                dataTable.addColumn({ type: 'date', id: 'End' });
+                dataTable.addRows([
+                    ['Proyecto1', new Date(ano, 1, 01), new Date(2019, 1, 20)],
+                    ['Proyecto2', new Date(2019, 1, 21), new Date(2019, 2, 20)],
+                    ['Proyecto3', new Date(2019, 2, 21), new Date(2019, 3, 15)]]);
+
+                chart.draw(dataTable);
+            }
+        </script>
+    </head>
+    <body>
+        </br>
+        </br>
+        </br>
+        </br>
+        <div id="timeline" style="height: 180px;"></div>
+    </body>
+    </html>

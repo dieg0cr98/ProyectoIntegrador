@@ -1,148 +1,121 @@
-﻿
-
-
-
-
-    <body onload="cargarDatos('Cartago','La Unión','Salitral')">
-        <div class="container-fluid text-center">
-
-            <div class="row">
-                <div class="col">
-                    @* <a href="#" id="enlaceajax">Obtener provincias</a>*@
-                    <div id="destino"></div>
-
-
-
-                </div>
-
-                <div class="col">
-
-
-                    <div id="destino2"></div>
-                </div>
-
-
-                <div class="col">
-
-                    <div id="destino3"></div>
-
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </body>
-
-
-
-
+﻿<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawTitleSubtitle);
 
-        function cargarDatos(provincia, canton, distrito) {
-            getProvincias(provincia,canton,distrito);
+        function drawTitleSubtitle() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('timeofday', 'Time of Day');
+            data.addColumn('number', 'Motivation Level');
+            data.addColumn('number', 'Energy Level');
 
+            data.addRows([
+                [{ v: [8, 0, 0], f: '8 am' }, 1, .25],
+                [{ v: [9, 0, 0], f: '9 am' }, 2, .5],
+                [{ v: [10, 0, 0], f: '10 am' }, 3, 1],
+                [{ v: [11, 0, 0], f: '11 am' }, 4, 2.25],
+                [{ v: [12, 0, 0], f: '12 pm' }, 5, 2.25],
+                [{ v: [13, 0, 0], f: '1 pm' }, 6, 3],
+                [{ v: [14, 0, 0], f: '2 pm' }, 7, 4],
+                [{ v: [15, 0, 0], f: '3 pm' }, 8, 5.25],
+                [{ v: [16, 0, 0], f: '4 pm' }, 9, 7.5],
+                [{ v: [17, 0, 0], f: '5 pm' }, 10, 10],
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Motivation and Energy Level Throughout the Day',
+                    subtitle: 'Based on a scale of 1 to 10'
+                },
+                hAxis: {
+                    title: 'Time of Day',
+                    format: 'h:mm a',
+                    viewWindow: {
+                        min: [7, 30, 0],
+                        max: [17, 30, 0]
+                    }
+                },
+                vAxis: {
+                    title: 'Rating (scale of 1-10)'
+                }
+            };
+
+            var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+            materialChart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <br><br>
+    <div id="chart_div" style="width: 800px; height: 500px;"></div>
+</body>
+</html>
+
+
+
+
+
+@*<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+
+        var chartDiv = document.getElementById('chart_div');
+        var data = new google.visualization.DataTable();
+        data.addColumn('timeofday', 'Time of Day');
+        data.addColumn('number', 'Motivation Level');
+        data.addColumn('number', 'Energy Level');
+
+        data.addRows([
+            [{ v: [8, 0, 0], f: '8 am' }, 1, .25],
+            [{ v: [9, 0, 0], f: '9 am' }, 2, .5],
+            [{ v: [10, 0, 0], f: '10 am' }, 3, 1],
+            [{ v: [11, 0, 0], f: '11 am' }, 4, 2.25],
+            [{ v: [12, 0, 0], f: '12 pm' }, 5, 2.25],
+            [{ v: [13, 0, 0], f: '1 pm' }, 6, 3],
+            [{ v: [14, 0, 0], f: '2 pm' }, 7, 4],
+            [{ v: [15, 0, 0], f: '3 pm' }, 8, 5.25],
+            [{ v: [16, 0, 0], f: '4 pm' }, 9, 7.5],
+            [{ v: [17, 0, 0], f: '5 pm' }, 10, 10],
+        ]);
+
+        //var data = google.visualization.arrayToDataTable([
+        //    ['Requerimiento', 'Estimado', 'Real'],
+        //    ['Canis Major Dwarf', 8000, 23.3],
+        //    ['Sagittarius Dwarf', 24000, 4.5],
+        //    ['Ursa Major II Dwarf', 30000, 14.3],
+        //    ['Lg. Magellanic Cloud', 50000, 0.9],
+        //    ['Bootes I', 60000, 13.1]
+        //]);
+
+        var materialOptions = {
+            width: 900,
+            chart: {
+                title: 'Nearby galaxies',
+                subtitle: 'distance on the left, brightness on the right'
+            },
+            series: {
+                0: { axis: 'Estimado' }, // Bind series 0 to an axis named 'distance'.
+                1: { axis: 'Real' } // Bind series 1 to an axis named 'brightness'.
+            },
+            axes: {
+                y: {
+                    distance: { label: 'parsecs' }, // Left y-axis.
+                    brightness: { side: 'right', label: 'apparent magnitude' } // Right y-axis.
+                }
+            }
+        };
+
+
+
+        function drawMaterialChart() {
+            var materialChart = new google.charts.Bar(chartDiv);
+            materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
         }
 
-
-
-    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
-    function getProvincias(provincia,canton,distrito) {
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincias.json",
-            data: {},
-            success: function (data) {
-
-                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()' onclick='getCantones()' style='width: 450px'>";
-                
-                for (key in data) {
-                    if (provincia == data[key]) {
-                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                    }
-                    else
-                    {
-                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-
-                    }
-
-                   
-                }
-                html += "</select";
-                $('#destino').html(html);
-
-                if (canton != null) {
-                    getCantones(canton,distrito);
-                }
-                
-            }
-        });
-    }
-
-
-    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
-        function getCantones(canton,distrito) {
-
-            var selected_option = $("#abc option:selected").data("t");
-
-
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='width: 450px'>";
-                for (key in data) {
-                    if (canton == data[key]) {
-                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                    }
-                    else
-                    {
-                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-
-                    }
-                }
-                html += "</select";
-                $('#destino2').html(html);
-                if (distrito != null) {
-                    getDistritos(distrito);
-                }
-
-            }
-        });
-
-
-    }
-
-    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
-    function getDistritos(distrito) {
-        var provincia = $("#abc option:selected").data('t');
-        var canton = $("#abc2 option:selected").data('t');
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id='abc3' class='form-control' style='width: 450px' name='distrito'>";
-                for (key in data) {
-                    if (distrito == data[key]) {
-                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                    }
-                    else
-                    {
-                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-
-                    }
-                }
-                html += "</select";
-                $('#destino3').html(html);
-            }
-        });
-    }
-
-    </script>
+        drawMaterialChart();
+    };
+</script>*@
