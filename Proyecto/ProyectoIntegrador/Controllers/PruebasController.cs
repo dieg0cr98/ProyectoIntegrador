@@ -16,7 +16,7 @@ namespace ProyectoIntegrador.Controllers
 
         // GET: Pruebas
         //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros
-        public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba)
+        public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba = 0)
         {
             //Se sacan las pruebas de la base de datos
             var pruebas = db.Prueba.Where(P => P.idProyectoFK == idProyecto && P.idReqFK == idRequerimiento);
@@ -24,9 +24,13 @@ namespace ProyectoIntegrador.Controllers
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idPrueba;
 
-            //Se guardan los id de proyecto y requerimientos para que sean usados en el CRUD de pruebas.
+            //Se guarda id y nombre del proyecto en el viewbag
             ViewBag.idProyecto = idProyecto;
+            ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
+
+            //Se guarda id y nombre del requerimiento en el viewbag
             ViewBag.idRequerimiento = idRequerimiento;
+            ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
 
             return View(pruebas.ToList());
         }
@@ -47,7 +51,7 @@ namespace ProyectoIntegrador.Controllers
 
             //Se guarda id y nombre del requerimiento en el viewbag
             ViewBag.idRequerimiento = idRequerimiento;
-            ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento).nombre;
+            ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
 
             return View(prueba);
         }
@@ -62,7 +66,7 @@ namespace ProyectoIntegrador.Controllers
 
             //Se guarda id y nombre del requerimiento en el viewbag
             ViewBag.idRequerimiento = idRequerimiento;
-            Requerimiento req = db.Requerimiento.Find(idRequerimiento);
+            Requerimiento req = db.Requerimiento.Find(idRequerimiento, idProyecto);
             ViewBag.nombreRequerimiento = req.nombre;
 
             ViewBag.idPrueba = req.cantidadDePruebas + 1;

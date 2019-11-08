@@ -468,10 +468,12 @@
     <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index2.cshtml" />
     <Content Include="Views\Pruebas\Create.cshtml" />
-    <Content Include="Views\Pruebas\Delete.cshtml" />
     <Content Include="Views\Pruebas\Details.cshtml" />
     <Content Include="Views\Pruebas\Edit.cshtml" />
     <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\Pruebas\formularioIndex.cshtml" />
+    <Content Include="Views\Pruebas\Scripts.cshtml" />
+    <Content Include="Views\Pruebas\ModalEliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

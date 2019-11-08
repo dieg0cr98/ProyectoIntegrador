@@ -1,0 +1,32 @@
+﻿<!-- Despliega el modal utilizado para eliminar -->
+<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var requerimiento = button.data('whatever') // Dato del requerimiento enviado por el modal
+        var proyecto = button.data('whatever2') // Dato del proyecto enviado por el modal
+        var prueba = button.data('whatever3') // Dato de la prueba enviado por el modal
+        var modal = $(this)
+
+        //Se contstruye el URL con el que se llama al POST de eliminar.
+        var a = document.getElementById('pager')
+        var format_href = '@Url.Action("Eliminar", "Pruebas")';
+        format_href += '?idProyecto=' + proyecto  + '&idRequerimiento='+ requerimiento + '&idPrueba='+ prueba; 
+        a.href = format_href;
+    })
+</script>
+
+<!--Agrega un loading a los elementos-->
+<script>
+    function my_loading(elemt) {
+        elemt.disabled = true;
+        elemt.innerHTML = '<div class="spinner-border text-black" role="status"><span class="sr-only">Loading...</span></div>';
+    }
+
+</script>
+
+<!-- Agrega Tooltips a los elementos -->
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
