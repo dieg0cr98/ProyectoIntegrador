@@ -525,6 +525,10 @@
     <Content Include="Views\HabilidadTecnicas\Details.cshtml" />
     <Content Include="Views\HabilidadTecnicas\Edit.cshtml" />
     <Content Include="Views\HabilidadTecnicas\Index.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta4.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta1.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta2.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

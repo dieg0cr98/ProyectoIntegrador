@@ -100,6 +100,16 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+        public JsonResult consulta4LoadGraphTester(int id, string idTester)
+        {
+
+            var t = db.USP_DuracionReqTester(id, idTester);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+
 
 
 

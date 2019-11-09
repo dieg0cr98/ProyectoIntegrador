@@ -1,0 +1,214 @@
+﻿<script>
+
+           function consulta3(permiso, idUsuario) {
+
+            //Cierra la lista de consultas
+            opencloseNav();
+
+            //Limpia los datos
+            document.getElementById("datosC1").innerHTML = " ";
+
+            //Agrega el titulo de la consulta           
+            document.getElementById("nombreConsulta").innerText = "Cantidad total de requerimientos por tester en un determinado Proyecto";
+
+            //Se crea el html de loading
+            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta3",
+                method: "GET",
+                data: {
+                    rol: function () {
+                        return document.getElementById("rol").value;
+                    },
+                    permiso: function () {
+                        return permiso;
+                    },
+                    idUsuario: function () {
+                        return idUsuario;
+                    },
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+
+                    //Crea el html
+                    var html = '<div class="row"><div class="col">';
+
+
+                    //Se crea el html para la tabla
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Proyecto</th><th scope="col">Estado Del Proyecto</th></tr></thead><tbody>';
+
+                    //Recorre las tuplas para insertar los datos a la tabla
+                    for (tupla in data2) {
+
+                        var idProyecto = data2[tupla].idProyectoAID;
+                        var nombreProyecto = data2[tupla].nombre;
+                        var datosDelScript = "consulta3LoadChart(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
+
+
+
+                        table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                        table += ' <th scope="row">' + nombreProyecto + '</th>';
+                        
+
+                        var estado = data2[tupla].estado;
+
+                        table += '<td>' + estado + '</td>';
+
+                        table += '</tr>';
+
+                    }
+
+
+                    table += '</tbody></table>';
+
+                    html += table;
+
+
+                    html += '</div > <div class="col"><div id="chartInterno"></div>';
+
+                    html += '</div></div>';
+
+                    document.getElementById("datosC1").innerHTML = html;
+
+
+
+
+
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+
+
+        }
+
+        function consulta3LoadChart(idProyecto, nombreProyecto) {
+
+
+            //Eliminar el Chart Anterior
+            if (document.contains(document.getElementById("columnChart"))) {
+                document.getElementById("columnChart").remove();
+            }
+
+            //Se crea el html de loading
+            document.getElementById("chartInterno").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta3LoadChart",
+                method: "GET",
+                data: {
+                    id: function () {
+                        return idProyecto;
+                    }
+
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+                    console.log(data2);
+
+                    //var data = new google.visualization.DataTable();
+                    //data.addColumn('Tester', 'CantidadReq', { role: 'style' }, { role: 'tooltip' });
+                    //data.addRows([
+                    //     ['Tester1', 8.94, '#76323f','Tester1 '+ 8.94],
+                    //        ['Tester2', 10.49, '#76323f','Tester2'],
+                    //        ['Tester3', 19.30, '#76323f','Tester3'],
+                    //        ['Tester4', 21.45, '#76323f', 'Tester4'],
+                    //        ['Tester5', 21.45, '#76323f','Tester5']
+
+
+                    //]);
+
+
+
+
+                    //Carga los datos del chart
+                    google.charts.load("visualization", "1", { packages: ["corechart"] }
+                    ).then(function () {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Tester');
+                        data.addColumn('number', 'CantidadReq');
+                        data.addColumn({ type: 'string', role: 'tooltip' });
+                        data.addColumn({ type: 'string', role: 'style' });
+
+                        for (tupla in data2) {
+                            var nombreCompleto = "";
+
+                            var nombre = data2[tupla].nombre;
+                            var apellido1 = data2[tupla].apellido1;
+                            var apellido2 = data2[tupla].apellido2;
+                            nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
+                            var cantidad = data2[tupla].Cantidad;
+                            data.addRow([nombre, cantidad, nombreCompleto + '\n Cantidad Requerimientos: ' + cantidad, '#76323f']);
+
+                        }
+
+
+
+                        //var data = google.visualization.arrayToDataTable([
+                        //    ['Tester', 'CantidadReq', { role: 'style' }, { role: 'tooltip' }],
+
+
+
+                        //    ['Tester1', 8.94, '#76323f','Tester1 '+ 8.94],
+                        //    ['Tester2', 10.49, '#76323f','Tester2'],
+                        //    ['Tester3', 19.30, '#76323f','Tester3'],
+                        //    ['Tester4', 21.45, '#76323f', 'Tester4'],
+                        //    ['Tester5', 21.45, '#76323f','Tester5']
+                        //]);
+
+                        var options = {
+
+                            'backgroundColor': 'transparent',
+                            title: nombreProyecto,
+                            titleTextStyle: { fontSize: 25, },
+                            legend: { position: 'none' },
+                            vAxes: {
+                                // Adds titles to each axis.
+                                0: { title: 'CANTIDAD DE REQUERIMIENTOS', titleTextStyle: { fontSize: 25, } },
+
+                            },
+
+
+
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('columnChart'));
+
+                        chart.draw(data, options);
+
+                    });
+
+                    //Se crea el html para el columnChart
+                    var chart = '<div id="columnChart" align="center" style="width: 900px; height: 500px;margin: 0 auto"></div>';
+
+
+                    document.getElementById("chartInterno").innerHTML = chart;
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+        }
+
+</script>

@@ -1,0 +1,264 @@
+﻿<script>
+       function consulta4(permiso,idUsuario) {
+            //Cierra la lista de consultas
+            opencloseNav();
+
+            //Limpia los datos
+            document.getElementById("datosC1").innerHTML = " ";
+
+
+             //Agrega el titulo de la consulta           
+            document.getElementById("nombreConsulta").innerText = "Duración estimada vs real por requerimientos de un tester";
+
+            //Se crea el html de loading
+            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta4",
+                method: "GET",
+                data: {
+                    rol: function () {
+                        return document.getElementById("rol").value;
+                    },
+                    permiso: function () {
+                        return permiso;
+                    },
+                    idUsuario: function () {
+                        return idUsuario;
+                    },
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+
+                    //Crea el html
+                    var html = '<div class="row"><div class="col">';
+
+
+                    //Se crea el html para la tabla
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Proyecto</th><th scope="col">Estado Del Proyecto</th></tr></thead><tbody>';
+
+                    //Recorre las tuplas para insertar los datos a la tabla
+                    for (tupla in data2) {
+
+                        var idProyecto = data2[tupla].idProyectoAID;
+                        var nombreProyecto = data2[tupla].nombre;
+                        var datosDelScript = "consulta4LoadTableTesters(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
+
+
+
+                        table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                        table += ' <th scope="row">' + nombreProyecto + '</th>';
+                        
+
+                        var estado = data2[tupla].estado;
+
+                        table += '<td>' + estado + '</td>';
+
+                        table += '</tr>';
+
+                    }
+
+
+                    table += '</tbody></table>';
+
+                    html += table;
+
+
+                    html += '</div > <div class="col"><div id="tableTesters"></div>';
+
+                    html += '</div>';
+
+                    document.getElementById("datosC1").innerHTML = html;
+
+
+
+
+
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+
+    }
+
+
+        function consulta4LoadTableTesters(idProyecto, nombreProyecto) {
+
+             //Eliminar el Chart Anterior
+            if (document.contains(document.getElementById("ca4graph"))) {
+                document.getElementById("ca4graph").remove();
+            }
+
+
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta4LoadTableTesters",
+                method: "GET",
+                data: {
+                    id: function () {
+                        return idProyecto;
+                    },
+
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+
+                    //Crea el html
+                    var html = '<div class="row"><div class="col">';
+
+
+                    //Se crea el html para la tabla
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Tester</th><th scope="col">Cantidad Requerimientos</th></tr></thead><tbody>';
+
+                    //Recorre las tuplas para insertar los datos a la tabla
+                    for (tupla in data2) {
+
+                        var idEmpleado = data2[tupla].idEmpleadoPK;
+                        var nombreCompleto = "";
+                        var nombre = data2[tupla].nombre;
+                        var apellido1 = data2[tupla].apellido1;
+                        var apellido2 = data2[tupla].apellido2;
+                        nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
+                        var cantidad = data2[tupla].Cantidad;
+
+                        var datosDelScript = "consulta4LoadGraphTester(" + idProyecto + ",'" + idEmpleado + "'" + ")";
+
+
+
+                        table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                        table += ' <th scope="row">' + nombreCompleto + '</th>';
+                        
+
+                        table += '<td>' + cantidad + '</td>';
+
+                        table += '</tr>';
+
+                    }
+
+
+                    table += '</tbody></table>';
+
+                    html += table;
+
+
+                   // html += '</div > <div class="col"><div id="chartInterno"></div>';
+
+
+                    document.getElementById("tableTesters").innerHTML = html;
+
+
+                    //Crea la otra fila para desplejar el graph
+                     document.getElementById("datosC1").innerHTML += '<div class="row" id="ca4graph"></div>';
+
+
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+
+        }
+
+        function consulta4LoadGraphTester(idProyecto,idTester) {
+                   //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta4LoadGraphTester",
+                method: "GET",
+                data: {
+                    id: function () {
+                        return idProyecto;
+                    },
+                    idTester: function () {
+                        return idTester;
+                    },
+
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+
+
+
+                    
+                    //Carga los datos del chart
+                    google.charts.load("visualization", "1", { packages: ["corechart"] }
+                    ).then(function () {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Requerimiento');
+                        data.addColumn('number', 'Estimada');
+                        data.addColumn('number', 'Real');
+       
+                        for (tupla in data2) {
+                            var nombreCompleto = "";
+
+                            var nombre = data2[tupla].nombre;
+   
+                            var tiempoEstimado = data2[tupla].tiempoEstimado;
+
+                            var tiempoReal = data2[tupla].tiempoReal;
+
+                            data.addRow([nombre, tiempoEstimado, tiempoReal]);
+
+                        }
+
+
+
+
+                        var options = {
+
+                            'backgroundColor': 'transparent',
+                            title: "Duraciones por Requerimiento (horas)",
+                            titleTextStyle: { fontSize: 25, },
+
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('columnChart'));
+
+                        chart.draw(data, options);
+
+                    });
+
+                    //Se crea el html para el columnChart
+                    var chart = '<div id="columnChart" align="center" style="width: 900px; height: 500px;margin: 0 auto"></div>';
+
+
+                    document.getElementById("ca4graph").innerHTML = chart;
+
+
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+        }
+    
+</script>
