@@ -1,0 +1,97 @@
+﻿
+<script>
+
+    function consulta5(permiso,idUsuario) {
+
+        //Cierra la lista de consultas
+        opencloseNav();
+
+        //Limpia los datos
+        document.getElementById("datosC1").innerHTML = " ";
+
+
+        //Agrega el titulo de la consulta           
+        document.getElementById("nombreConsulta").innerText = "Horas estimadas y reales requeridas por proyecto";
+
+        //Se crea el html de loading
+        document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+                    //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta5",
+                method: "GET",
+                data: {
+                    rol: function () {
+                        return document.getElementById("rol").value;
+                    },
+                    permiso: function () {
+                        return permiso;
+                    },
+                    idUsuario: function () {
+                        return idUsuario;
+                    },
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+                    console.log(data2);
+
+                    var html = '<div class"row">';
+                  
+                     //Carga los datos del chart
+                    google.charts.load("visualization", "1", { packages: ["corechart"] }
+                    ).then(function () {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Proyecto');
+                        data.addColumn('number', 'Estimada');
+                        data.addColumn('number', 'Real');
+       
+                        for (tupla in data2) {
+                            var nombreCompleto = "";
+
+                            var nombre = data2[tupla].nombre;
+   
+                            var duracionEstimada = data2[tupla].duracionEstimada;
+
+                            var duracionReal = data2[tupla].duracionReal;
+
+                            data.addRow([nombre, duracionEstimada, duracionReal]);
+
+                        }
+
+
+
+
+                        var options = {
+
+                            'backgroundColor': 'transparent',
+
+
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('columnChart'));
+
+                        chart.draw(data, options);
+
+                    });
+
+                    //Se crea el html para el columnChart
+                    var chart = '<div id="columnChart" align="center" style="width:100%; height:100%;margin: 0 auto"></div>';
+                    html += chart + '</div>';
+                    document.getElementById("datosC1").innerHTML = html;
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Ha ocurrido un error");
+                }
+
+
+            });
+
+
+    }
+
+</script>

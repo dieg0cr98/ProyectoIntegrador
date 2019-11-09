@@ -529,6 +529,7 @@
     <Content Include="Views\ConsultasAvanzadas\Consulta1.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta2.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta3.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta5.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

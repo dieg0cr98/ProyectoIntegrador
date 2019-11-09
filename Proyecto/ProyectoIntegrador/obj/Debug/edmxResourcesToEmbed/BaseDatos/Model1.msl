@@ -282,15 +282,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="USP_GetTestersPorHabilidades" FunctionName="Gr03Proy2Model.Store.USP_GetTestersPorHabilidades" />
     <FunctionImportMapping FunctionImportName="USP_obtenerEdad" FunctionName="Gr03Proy2Model.Store.USP_obtenerEdad" />
-    <FunctionImportMapping FunctionImportName="USP_DuracionesProyecto" FunctionName="Gr03Proy2Model.Store.USP_DuracionesProyecto">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_DuracionesProyecto_Result">
-          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
-          <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
-          <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="USP_DuracionReqTester" FunctionName="Gr03Proy2Model.Store.USP_DuracionReqTester">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_DuracionReqTester_Result">
@@ -309,6 +300,16 @@
           <ScalarProperty Name="apellido1" ColumnName="apellido1" />
           <ScalarProperty Name="apellido2" ColumnName="apellido2" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_DuracionesProyecto" FunctionName="Gr03Proy2Model.Store.USP_DuracionesProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_DuracionesProyecto_Result">
+          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+          <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

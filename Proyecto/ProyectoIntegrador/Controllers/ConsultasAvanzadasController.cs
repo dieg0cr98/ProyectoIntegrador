@@ -110,6 +110,14 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+        public JsonResult consulta5(int rol, int permiso, string idUsuario)
+        {
+            var t = db.USP_DuracionesProyecto(permiso, rol, idUsuario);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
 
 
 

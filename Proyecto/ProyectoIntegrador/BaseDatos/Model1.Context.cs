@@ -314,11 +314,6 @@ namespace ProyectoIntegrador.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_obtenerEdad", idParameter);
         }
     
-        public virtual ObjectResult<USP_DuracionesProyecto_Result> USP_DuracionesProyecto()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_DuracionesProyecto_Result>("USP_DuracionesProyecto");
-        }
-    
         public virtual ObjectResult<USP_DuracionReqTester_Result> USP_DuracionReqTester(Nullable<int> idProyecto, string idTester)
         {
             var idProyectoParameter = idProyecto.HasValue ?
@@ -339,6 +334,23 @@ namespace ProyectoIntegrador.BaseDatos
                 new ObjectParameter("idProyecto", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CantidadReqATester_Result>("USP_CantidadReqATester", idProyectoParameter);
+        }
+    
+        public virtual ObjectResult<USP_DuracionesProyecto_Result> USP_DuracionesProyecto(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
+        {
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_DuracionesProyecto_Result>("USP_DuracionesProyecto", permisoParameter, rolParameter, idUsuarioParameter);
         }
     }
 }

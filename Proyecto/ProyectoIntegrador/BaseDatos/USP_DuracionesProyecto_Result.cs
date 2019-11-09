@@ -14,6 +14,7 @@ namespace ProyectoIntegrador.BaseDatos
     public partial class USP_DuracionesProyecto_Result
     {
         public int idProyectoAID { get; set; }
+        public string nombre { get; set; }
         public int duracionEstimada { get; set; }
         public int duracionReal { get; set; }
     }

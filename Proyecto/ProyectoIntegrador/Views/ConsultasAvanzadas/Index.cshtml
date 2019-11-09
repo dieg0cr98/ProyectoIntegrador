@@ -87,7 +87,7 @@
         <!--Verifica permisos para ver la consulta-->
         @if (ViewBag.permisosConsultas.Item2[4] != 3)
         {
-            <a href="#" onclick="consulta5()"><h5>Horas estimadas y reales requeridas por proyecto</h5></a>
+            <a href="#" onclick="consulta5(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Horas estimadas y reales requeridas por proyecto</h5></a>
         }
 
         <!--Verifica permisos para ver la consulta-->
@@ -204,6 +204,7 @@
     @Html.Partial("Consulta1");
     @Html.Partial("Consulta3");
     @Html.Partial("Consulta4");
+    @Html.Partial("Consulta5");
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
