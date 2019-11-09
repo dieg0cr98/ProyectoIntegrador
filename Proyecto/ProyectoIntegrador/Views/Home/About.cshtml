@@ -1,121 +1,30 @@
 ﻿<html>
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
-        google.charts.load('current', { packages: ['corechart', 'bar'] });
-        google.charts.setOnLoadCallback(drawTitleSubtitle);
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['timeline'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var container = document.getElementById('timeline');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+            var ano = @DateTime.Now.Date.Year;
+            var dia =@DateTime.Now.Date.Day;
+            var mes =@DateTime.Now.Date.Month;
 
-        function drawTitleSubtitle() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('timeofday', 'Time of Day');
-            data.addColumn('number', 'Motivation Level');
-            data.addColumn('number', 'Energy Level');
+            dataTable.addColumn({ type: 'string', id: 'President' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addRows([
+                ['Washington', new Date(1789, 3, 30), null ],
+                ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+                ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
 
-            data.addRows([
-                [{ v: [8, 0, 0], f: '8 am' }, 1, .25],
-                [{ v: [9, 0, 0], f: '9 am' }, 2, .5],
-                [{ v: [10, 0, 0], f: '10 am' }, 3, 1],
-                [{ v: [11, 0, 0], f: '11 am' }, 4, 2.25],
-                [{ v: [12, 0, 0], f: '12 pm' }, 5, 2.25],
-                [{ v: [13, 0, 0], f: '1 pm' }, 6, 3],
-                [{ v: [14, 0, 0], f: '2 pm' }, 7, 4],
-                [{ v: [15, 0, 0], f: '3 pm' }, 8, 5.25],
-                [{ v: [16, 0, 0], f: '4 pm' }, 9, 7.5],
-                [{ v: [17, 0, 0], f: '5 pm' }, 10, 10],
-            ]);
-
-            var options = {
-                chart: {
-                    title: 'Motivation and Energy Level Throughout the Day',
-                    subtitle: 'Based on a scale of 1 to 10'
-                },
-                hAxis: {
-                    title: 'Time of Day',
-                    format: 'h:mm a',
-                    viewWindow: {
-                        min: [7, 30, 0],
-                        max: [17, 30, 0]
-                    }
-                },
-                vAxis: {
-                    title: 'Rating (scale of 1-10)'
-                }
-            };
-
-            var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
-            materialChart.draw(data, options);
+            chart.draw(dataTable);
         }
     </script>
 </head>
 <body>
-    <br><br>
-    <div id="chart_div" style="width: 800px; height: 500px;"></div>
+    <div id="timeline"></div>
 </body>
 </html>
-
-
-
-
-
-@*<script type="text/javascript">
-    google.charts.load('current', { 'packages': ['corechart', 'bar'] });
-    google.charts.setOnLoadCallback(drawStuff);
-
-    function drawStuff() {
-
-        var chartDiv = document.getElementById('chart_div');
-        var data = new google.visualization.DataTable();
-        data.addColumn('timeofday', 'Time of Day');
-        data.addColumn('number', 'Motivation Level');
-        data.addColumn('number', 'Energy Level');
-
-        data.addRows([
-            [{ v: [8, 0, 0], f: '8 am' }, 1, .25],
-            [{ v: [9, 0, 0], f: '9 am' }, 2, .5],
-            [{ v: [10, 0, 0], f: '10 am' }, 3, 1],
-            [{ v: [11, 0, 0], f: '11 am' }, 4, 2.25],
-            [{ v: [12, 0, 0], f: '12 pm' }, 5, 2.25],
-            [{ v: [13, 0, 0], f: '1 pm' }, 6, 3],
-            [{ v: [14, 0, 0], f: '2 pm' }, 7, 4],
-            [{ v: [15, 0, 0], f: '3 pm' }, 8, 5.25],
-            [{ v: [16, 0, 0], f: '4 pm' }, 9, 7.5],
-            [{ v: [17, 0, 0], f: '5 pm' }, 10, 10],
-        ]);
-
-        //var data = google.visualization.arrayToDataTable([
-        //    ['Requerimiento', 'Estimado', 'Real'],
-        //    ['Canis Major Dwarf', 8000, 23.3],
-        //    ['Sagittarius Dwarf', 24000, 4.5],
-        //    ['Ursa Major II Dwarf', 30000, 14.3],
-        //    ['Lg. Magellanic Cloud', 50000, 0.9],
-        //    ['Bootes I', 60000, 13.1]
-        //]);
-
-        var materialOptions = {
-            width: 900,
-            chart: {
-                title: 'Nearby galaxies',
-                subtitle: 'distance on the left, brightness on the right'
-            },
-            series: {
-                0: { axis: 'Estimado' }, // Bind series 0 to an axis named 'distance'.
-                1: { axis: 'Real' } // Bind series 1 to an axis named 'brightness'.
-            },
-            axes: {
-                y: {
-                    distance: { label: 'parsecs' }, // Left y-axis.
-                    brightness: { side: 'right', label: 'apparent magnitude' } // Right y-axis.
-                }
-            }
-        };
-
-
-
-        function drawMaterialChart() {
-            var materialChart = new google.charts.Bar(chartDiv);
-            materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
-        }
-
-        drawMaterialChart();
-    };
-</script>*@
