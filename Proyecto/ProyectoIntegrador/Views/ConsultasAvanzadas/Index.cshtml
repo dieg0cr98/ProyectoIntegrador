@@ -81,7 +81,7 @@
         <!--Verifica permisos para ver la consulta-->
         @if (ViewBag.permisosConsultas.Item2[3] != 3)
         {
-            <a href="#" onclick="consulta4()"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
+            <a href="#" onclick="consulta4(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
         }
 
         <!--Verifica permisos para ver la consulta-->
@@ -565,7 +565,99 @@
 
         }
 
+        function consulta4(permiso,idUsuario) {
+            //Cierra la lista de consultas
+            opencloseNav();
 
+            //Limpia los datos
+            document.getElementById("datosC1").innerHTML = " ";
+
+
+             //Agrega el titulo de la consulta           
+            document.getElementById("nombreConsulta").innerText = "Duración estimada vs real por requerimientos de un tester";
+
+            //Se crea el html de loading
+            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta4",
+                method: "GET",
+                data: {
+                    rol: function () {
+                        return document.getElementById("rol").value;
+                    },
+                    permiso: function () {
+                        return permiso;
+                    },
+                    idUsuario: function () {
+                        return idUsuario;
+                    },
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+
+                    //Crea el html
+                    var html = '<div class="row"><div class="col">';
+
+
+                    //Se crea el html para la tabla
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Proyecto</th><th scope="col">Estado Del Proyecto</th></tr></thead><tbody>';
+
+                    //Recorre las tuplas para insertar los datos a la tabla
+                    for (tupla in data2) {
+
+                        var idProyecto = data2[tupla].idProyectoAID;
+                        var nombreProyecto = data2[tupla].nombre;
+                        var datosDelScript = "consulta4LoadTableTesters(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
+
+
+
+                        table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                        table += ' <th scope="row">' + nombreProyecto + '</th>';
+                        
+
+                        var estado = data2[tupla].estado;
+
+                        table += '<td>' + estado + '</td>';
+
+                        table += '</tr>';
+
+                    }
+
+
+                    table += '</tbody></table>';
+
+                    html += table;
+
+
+                    html += '</div > <div class="col"><div id="chartInterno"></div>';
+
+                    html += '</div></div>';
+
+                    document.getElementById("datosC1").innerHTML = html;
+
+
+
+
+
+
+
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+
+
+            });
+
+
+        }
 
 
     </script>
