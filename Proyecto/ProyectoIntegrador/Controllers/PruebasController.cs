@@ -4,9 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
+using ProyectoIntegrador.Models;
 
 namespace ProyectoIntegrador.Controllers
 {
@@ -38,7 +40,7 @@ namespace ProyectoIntegrador.Controllers
         // Metodo que se llama al ingresar a la vista de editar prueba
         public ActionResult Edit(int idProyecto, int idRequerimiento, int idPrueba)
         {
-            Prueba prueba = db.Prueba.Find(idProyecto,idRequerimiento,idPrueba); //Se saca la prueba de la base de datos
+            Prueba prueba = db.Prueba.Find(idProyecto, idRequerimiento, idPrueba); //Se saca la prueba de la base de datos
 
             if (prueba == null)
             {
@@ -52,6 +54,8 @@ namespace ProyectoIntegrador.Controllers
             //Se guarda id y nombre del requerimiento en el viewbag
             ViewBag.idRequerimiento = idRequerimiento;
             ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
+
+            ViewBag.idPrueba = idPrueba;
 
             return View(prueba);
         }
@@ -78,50 +82,59 @@ namespace ProyectoIntegrador.Controllers
 
         // POST: Pruebas/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "idProyectoFK,idReqFK,idPruebaPK,resultadoFinal,propositoPrueba,entradaDatos,resultadoEsperado,flujoPrueba,estado,imagen,descripcionError")] Prueba prueba)
+        public ActionResult Create(int idProyecto, int idReq, string resultadoFinal, string propositoPrueba,
+            string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre)
         {
             if (ModelState.IsValid)
             {
+                Prueba prueba = new Prueba();
+                Requerimiento req = db.Requerimiento.Find(idReq, idProyecto);
+                prueba.idProyectoFK = idProyecto;
+                prueba.idReqFK = idReq;
+                prueba.idPruebaPK = req.cantidadDePruebas; //asignamos como el id de pruebas la cantidad de pruebas del req.
+                req.cantidadDePruebas += 1; //aumentamos en 1 la cantidad de pruebas del req
+                //prueba.nombre = nombre;
+                prueba.resultadoFinal = resultadoFinal;
+                prueba.propositoPrueba = propositoPrueba;
+                prueba.entradaDatos = entradaDatos;
+                prueba.resultadoEsperado = resultadoEsperado;
+                prueba.flujoPrueba = flujoPrueba;
+                prueba.estado = estado;
+                prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                prueba.descripcionError = descripcionError;
                 db.Prueba.Add(prueba);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = prueba.idPruebaPK }); //Retorna a la vista
             }
 
-            ViewBag.idReqFK = new SelectList(db.Requerimiento, "idReqPK", "cedulaTesterFK", prueba.idReqFK);
-            return View(prueba);
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq }); //Retorna a la vista
         }
-
-        // GET: Pruebas/Edit/5
-        //CREO ESTE METODO NO HACE FALTA
-        /*
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Prueba prueba = db.Prueba.Find(id);
-            if (prueba == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.idReqFK = new SelectList(db.Requerimiento, "idReqPK", "cedulaTesterFK", prueba.idReqFK);
-            return View(prueba);
-        }*/
 
         // POST: Pruebas/Edit/5
         // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "idProyectoFK,idReqFK,idPruebaPK,resultadoFinal,propositoPrueba,entradaDatos,resultadoEsperado,flujoPrueba,estado,imagen,descripcionError")] Prueba prueba)
+        public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
+        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre)
         {
             if (ModelState.IsValid)
             {
+                Prueba prueba = db.Prueba.Find(idProyecto,idReq,idPrueba);
+                //prueba.nombre = nombre;
+                prueba.resultadoFinal = resultadoFinal;
+                prueba.propositoPrueba = propositoPrueba;
+                prueba.entradaDatos = entradaDatos;
+                prueba.resultadoEsperado = resultadoEsperado;
+                prueba.flujoPrueba = flujoPrueba;
+                prueba.estado = estado;
+                prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                prueba.descripcionError = descripcionError;
+
                 db.Entry(prueba).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = prueba.idPruebaPK }); //Retorna a la vista
             }
-            ViewBag.idReqFK = new SelectList(db.Requerimiento, "idReqPK", "cedulaTesterFK", prueba.idReqFK);
-            return View(prueba);
+
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq }); //Retorna a la vista
         }
 
         // Método que recibe la confirmación del usuario para eliminar una prueba.
