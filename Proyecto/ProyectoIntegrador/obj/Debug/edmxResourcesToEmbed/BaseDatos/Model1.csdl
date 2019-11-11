@@ -87,7 +87,7 @@
     <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
     <Property Name="resultadoFinal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="propositoPrueba" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="entradaDatos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="entradaDatos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="resultadoEsperado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="flujoPrueba" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -415,6 +415,10 @@
       <Parameter Name="permiso" Mode="In" Type="Int32" />
       <Parameter Name="rol" Mode="In" Type="Int32" />
       <Parameter Name="idUsuario" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_CambiarCedulaCliente">
+      <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+      <Parameter Name="cedulaNueva" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
