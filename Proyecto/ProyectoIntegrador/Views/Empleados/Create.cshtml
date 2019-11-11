@@ -15,14 +15,46 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    @*<link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.less">*@
+
 
 
     <style type="text/css">
     </style>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/Paleta.css" />
+
+    <style>
+        .custom-validation-summary ul {
+            list-style-type: none;
+            color: red;
+            padding: 0;
+        }
+
+        .error {
+            color: red;
+            background-color: transparent;
+        }
+
+        input.error, input select.error {
+            background-color: white;
+            border-color: red;
+        }
+    </style>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/themes/base/css")
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/Paleta.css" />
+
 
 
 
@@ -34,6 +66,68 @@
 <body onload="getProvincias('Seleccione una provincia','Seleccione un cantón','Seleccione un distrito')">
     @if (Request.IsAuthenticated)
     {
+        <link rel="stylesheet" href="~/Content/Site.css" />
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
+
+            <a class="navbar-brand text-secondary" draggable="false" href="~/Home">Quality Experts S.A</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-light" draggable="false" href="~/Proyectos/Index/0"><h5 id="Proyectos">Proyectos</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-light" draggable="false" href="~/Empleados"><h5 id="Empleados">Empleados</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-light" draggable="false" href="~/Clientes"><h5 id="Clientes">Clientes</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-light" draggable="false" href="@Url.Action("Index", "ConsultasAvanzadas")"><h5 id="ConsultasAvanzadas">Consultas Avanzadas</h5></a>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </nav>
+
+        <script>
+            var t = window.location.href;
+            var t2 = t.replace("http://localhost:50131/", "");
+            var t3 = t2.split("/");
+            var d = document.getElementById(t3[0]);
+
+            if (d) {
+                d.style.textDecorationLine = "underline";
+                d.style.textDecorationColor = "#C09F80";
+            }
+
+        </script>
+
+        @*<div class="container-fluid body-content" style="position:relative">
+
+            @RenderBody()
+            <hr />
+
+            <div class="text-center" draggable="false">
+                <img src="~/Content/logo.png" class="rounded" style="max-height:200px ; max-width:300px">
+            </div>
+
+
+
+        </div>*@
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jqueryval")
+
+        @Scripts.Render("~/bundles/bootstrap")
+        @*@RenderSection("scripts", required: false)*@
 
         <form id="employeeForm" class="cmxform" name="employeeForm" method="post" action="Create">
             <fieldset>
@@ -170,7 +264,7 @@
                     <br>
                     <div class="form-row mb-2" style="padding-left:5px">
                         <!--Campo Dirección Exacta-->
-                        <h5 for="direccion" style="width:400px">Dirección exacta</h5>
+                        <h5 for="direccion" style="width:400px">Direccion exacta</h5>
                     </div>
                     <div class="row" style="padding-left:15px; padding-right:15px;">
                         <textarea class="form-control col-12" id="direccion" maxlength="300" name="direccion" style="background-color:#F9F9F9 ; border-color:transparent;height: 90px;"></textarea>
@@ -182,30 +276,32 @@
                     <br>
                     <div class="form-row mb-2" style="padding-left:5px">
 
-                        <h5 for="habilidadesTecnicas" style="width:400px">Habilidades Técnicas</h5>
+                        <h5 for="habilidadesTecnicas" style="width:400px">Habilidades Tecnicas</h5>
                     </div>
-                    
+
+                    <div class="bootstrap.min.less">
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+                        <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
+                        <div class="row" style="padding-left:15px; padding-right:15px;">
+
+                            <input type="text" id="habilidadesTecnicas" name="habilidadesTecnicas" data-role="tagsinput" style="background-color:#D7CEC7" />
+                        </div>
+
+
+                        <br>
+                        <div class="form-row mb-2" style="padding-left:5px">
+
+                            <h5 for="habilidadesBlandas" style="width:400px">Habilidades Blandas</h5>
+                        </div>
+
 
 
                         <div class="row" style="padding-left:15px; padding-right:15px;">
-                            
-                            <input type="text" id="habilidadesTecnicas" name="habilidadesTecnicas" data-role="tagsinput" />
+
+                            <input type="text" id="habilidadesBlandas" name="habilidadesBlandas" data-role="tagsinput" />
                         </div>
-                 
-
-                    <br>
-                    <div class="form-row mb-2" style="padding-left:5px">
-
-                        <h5 for="habilidadesBlandas" style="width:400px">Habilidades Blandas</h5>
                     </div>
-
-
-
-                    <div class="row" style="padding-left:15px; padding-right:15px;">
-
-                        <input type="text" id="habilidadesBlandas" name="habilidadesBlandas" data-role="tagsinput" />
-                    </div>
-
 
                     <h5> * Campos requeridos</h5>
 
@@ -258,24 +354,26 @@
     Viewbag$("input").tagsinput('habilidadesTecnicas')
 </script>
 
+
+
 @*<script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $(".tagsinput").change(function (e) {
-            var value = $(this).val().replace(" ", "");
-            var words = value.split(",");
+            $(".tagsinput").change(function (e) {
+                var value = $(this).val().replace(" ", "");
+                var words = value.split(",");
 
-            if (words.length > 20) {
-                alert("You are not allowed more than 20 tags!");
+                if (words.length > 20) {
+                    alert("You are not allowed more than 20 tags!");
 
-                var lastword = value.split(",").pop();
-                value = value.replace(',' + lastword, '');
-                $(this).val(value);
-                $('.tagsinput').val() = value.substring(0, value.length - lastword.length);
-            }
-        });
-    })
-</script>*@
+                    var lastword = value.split(",").pop();
+                    value = value.replace(',' + lastword, '');
+                    $(this).val(value);
+                    $('.tagsinput').val() = value.substring(0, value.length - lastword.length);
+                }
+            });
+        })
+    </script>*@
 <script>
     $(function () {
         jQuery.validator.addMethod("lettersonly", function (value, element) {
