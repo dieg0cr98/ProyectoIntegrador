@@ -35,6 +35,7 @@ namespace ProyectoIntegrador.Controllers
         public JsonResult consulta1(int permiso)
         {
 
+           
             if (permiso != 3)
             {
                 var t = db.USP_TestersDisponibleAsignado().ToList();
@@ -74,6 +75,48 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+        public JsonResult consulta4(int rol, int permiso,string idUsuario)
+        {
+            //var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
+
+            var t = db.USP_ObtenerProyectosUsuario(permiso, rol, idUsuario);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult consulta4LoadTableTesters(int id)
+        {
+
+            var t = db.USP_CantidadReqATester(id);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult consulta4LoadGraphTester(int id, string idTester)
+        {
+
+            var t = db.USP_DuracionReqTester(id, idTester);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult consulta5(int rol, int permiso, string idUsuario)
+        {
+            var t = db.USP_DuracionesProyecto(permiso, rol, idUsuario);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
 
 
 

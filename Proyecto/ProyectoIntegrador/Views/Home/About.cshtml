@@ -1,148 +1,30 @@
-﻿
+﻿<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['timeline'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var container = document.getElementById('timeline');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+            var ano = @DateTime.Now.Date.Year;
+            var dia =@DateTime.Now.Date.Day;
+            var mes =@DateTime.Now.Date.Month;
 
+            dataTable.addColumn({ type: 'string', id: 'President' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addRows([
+                ['Washington', new Date(1789, 3, 30), null ],
+                ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+                ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
 
-
-
-    <body onload="cargarDatos('Cartago','La Unión','Salitral')">
-        <div class="container-fluid text-center">
-
-            <div class="row">
-                <div class="col">
-                    @* <a href="#" id="enlaceajax">Obtener provincias</a>*@
-                    <div id="destino"></div>
-
-
-
-                </div>
-
-                <div class="col">
-
-
-                    <div id="destino2"></div>
-                </div>
-
-
-                <div class="col">
-
-                    <div id="destino3"></div>
-
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </body>
-
-
-
-
-    <script>
-
-        function cargarDatos(provincia, canton, distrito) {
-            getProvincias(provincia,canton,distrito);
-
+            chart.draw(dataTable);
         }
-
-
-
-    @* Metodo para sacar provincias y desplegarlos en un dropdown *@
-    function getProvincias(provincia,canton,distrito) {
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincias.json",
-            data: {},
-            success: function (data) {
-
-                var html = "<select id='abc' class='form-control' name='provincia' onchange='getCantones()' onclick='getCantones()' style='width: 450px'>";
-                
-                for (key in data) {
-                    if (provincia == data[key]) {
-                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                    }
-                    else
-                    {
-                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-
-                    }
-
-                   
-                }
-                html += "</select";
-                $('#destino').html(html);
-
-                if (canton != null) {
-                    getCantones(canton,distrito);
-                }
-                
-            }
-        });
-    }
-
-
-    @* Metodo para sacar cantones y desplegarlos en un dropdown *@
-        function getCantones(canton,distrito) {
-
-            var selected_option = $("#abc option:selected").data("t");
-
-
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincia/" + selected_option + "/cantones.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id = 'abc2' class='form-control' name='canton' onchange='getDistritos()' onclick='getDistritos()' style='width: 450px'>";
-                for (key in data) {
-                    if (canton == data[key]) {
-                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                    }
-                    else
-                    {
-                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-
-                    }
-                }
-                html += "</select";
-                $('#destino2').html(html);
-                if (distrito != null) {
-                    getDistritos(distrito);
-                }
-
-            }
-        });
-
-
-    }
-
-    @*Metodo para sacar distritos y desplegarlos en un dropdown*@
-    function getDistritos(distrito) {
-        var provincia = $("#abc option:selected").data('t');
-        var canton = $("#abc2 option:selected").data('t');
-
-        $.ajax({
-            dataType: "json",
-            url: "https://ubicaciones.paginasweb.cr/provincia/" + provincia + "/canton/" + canton + "/distritos.json",
-            data: {},
-            success: function (data) {
-                var html = "<select id='abc3' class='form-control' style='width: 450px' name='distrito'>";
-                for (key in data) {
-                    if (distrito == data[key]) {
-                        html += "<option selected value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-                    }
-                    else
-                    {
-                         html += "<option value='" + data[key] + "'  data-t='" + key + "'>" + data[key] + "</option>";
-
-                    }
-                }
-                html += "</select";
-                $('#destino3').html(html);
-            }
-        });
-    }
-
     </script>
+</head>
+<body>
+    <div id="timeline"></div>
+</body>
+</html>

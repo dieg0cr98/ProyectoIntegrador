@@ -184,15 +184,6 @@ namespace ProyectoIntegrador.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual ObjectResult<USP_CantidadReqATester_Result> USP_CantidadReqATester(Nullable<int> idProyecto)
-        {
-            var idProyectoParameter = idProyecto.HasValue ?
-                new ObjectParameter("idProyecto", idProyecto) :
-                new ObjectParameter("idProyecto", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CantidadReqATester_Result>("USP_CantidadReqATester", idProyectoParameter);
-        }
-    
         public virtual int USP_editEmployeeId(string cedulaVieja, string cedulaNueva)
         {
             var cedulaViejaParameter = cedulaVieja != null ?
@@ -321,6 +312,45 @@ namespace ProyectoIntegrador.BaseDatos
                 new ObjectParameter("id", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_obtenerEdad", idParameter);
+        }
+    
+        public virtual ObjectResult<USP_DuracionReqTester_Result> USP_DuracionReqTester(Nullable<int> idProyecto, string idTester)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            var idTesterParameter = idTester != null ?
+                new ObjectParameter("idTester", idTester) :
+                new ObjectParameter("idTester", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_DuracionReqTester_Result>("USP_DuracionReqTester", idProyectoParameter, idTesterParameter);
+        }
+    
+        public virtual ObjectResult<USP_CantidadReqATester_Result> USP_CantidadReqATester(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CantidadReqATester_Result>("USP_CantidadReqATester", idProyectoParameter);
+        }
+    
+        public virtual ObjectResult<USP_DuracionesProyecto_Result> USP_DuracionesProyecto(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
+        {
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_DuracionesProyecto_Result>("USP_DuracionesProyecto", permisoParameter, rolParameter, idUsuarioParameter);
         }
     }
 }

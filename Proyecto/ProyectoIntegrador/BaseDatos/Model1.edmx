@@ -346,6 +346,15 @@
           <Parameter Name="idTester" Type="char" Mode="In" />
           <Parameter Name="reqs" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_DuracionesProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="permiso" Type="int" Mode="In" />
+          <Parameter Name="rol" Type="int" Mode="In" />
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_DuracionReqTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
+          <Parameter Name="idTester" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_editEmployeeId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
           <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
@@ -799,9 +808,6 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="USP_CantidadReqATester" ReturnType="Collection(Gr03Proy2Model.USP_CantidadReqATester_Result)">
-          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="USP_editEmployeeId">
             <Parameter Name="cedulaVieja" Mode="In" Type="String" />
             <Parameter Name="cedulaNueva" Mode="In" Type="String" />
@@ -837,13 +843,25 @@
           <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_GetEmpleadosDeLider" ReturnType="Collection(Gr03Proy2Model.USP_GetEmpleadosDeLider_Result)">
-            <Parameter Name="cedulaLider" Mode="In" Type="String" />
+          <Parameter Name="cedulaLider" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_GetTestersPorHabilidades" ReturnType="Collection(String)">
-            <Parameter Name="habilidades" Mode="In" Type="String" />
+          <Parameter Name="habilidades" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_obtenerEdad" ReturnType="Collection(Int32)">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_DuracionReqTester" ReturnType="Collection(Gr03Proy2Model.USP_DuracionReqTester_Result)">
+            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+            <Parameter Name="idTester" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_CantidadReqATester" ReturnType="Collection(Gr03Proy2Model.USP_CantidadReqATester_Result)">
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_DuracionesProyecto" ReturnType="Collection(Gr03Proy2Model.USP_DuracionesProyecto_Result)">
+            <Parameter Name="permiso" Mode="In" Type="Int32" />
+            <Parameter Name="rol" Mode="In" Type="Int32" />
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -977,12 +995,6 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="USP_CantidadReqATester_Result">
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
-          <Property Type="Int32" Name="Cantidad" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="USP_GetEquipo_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
@@ -1049,6 +1061,25 @@
           <Property Type="String" Name="idEmpleadoFK" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="rol" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="estado1" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="USP_DuracionReqTester_Result">
+          <Property Type="Int32" Name="idReqPK" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="tiempoEstimado" Nullable="false" />
+          <Property Type="Int32" Name="tiempoReal" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_CantidadReqATester_Result">
+          <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido1" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido2" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_DuracionesProyecto_Result">
+          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
+          <Property Type="Int32" Name="duracionReal" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1238,16 +1269,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Gr03Proy2Model.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Gr03Proy2Model.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="USP_CantidadReqATester" FunctionName="Gr03Proy2Model.Store.USP_CantidadReqATester">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CantidadReqATester_Result">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_editEmployeeId" FunctionName="Gr03Proy2Model.Store.USP_editEmployeeId" />
           <FunctionImportMapping FunctionImportName="USP_EquipoCheckLider" FunctionName="Gr03Proy2Model.Store.USP_EquipoCheckLider" />
           <FunctionImportMapping FunctionImportName="USP_EquipoCheckTesters" FunctionName="Gr03Proy2Model.Store.USP_EquipoCheckTesters" />
@@ -1347,6 +1368,37 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_GetTestersPorHabilidades" FunctionName="Gr03Proy2Model.Store.USP_GetTestersPorHabilidades" />
           <FunctionImportMapping FunctionImportName="USP_obtenerEdad" FunctionName="Gr03Proy2Model.Store.USP_obtenerEdad" />
+          <FunctionImportMapping FunctionImportName="USP_DuracionReqTester" FunctionName="Gr03Proy2Model.Store.USP_DuracionReqTester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_DuracionReqTester_Result">
+                <ScalarProperty Name="idReqPK" ColumnName="idReqPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="tiempoEstimado" ColumnName="tiempoEstimado" />
+                <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_CantidadReqATester" FunctionName="Gr03Proy2Model.Store.USP_CantidadReqATester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CantidadReqATester_Result">
+                <ScalarProperty Name="idEmpleadoPK" ColumnName="idEmpleadoPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_DuracionesProyecto" FunctionName="Gr03Proy2Model.Store.USP_DuracionesProyecto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_DuracionesProyecto_Result">
+                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

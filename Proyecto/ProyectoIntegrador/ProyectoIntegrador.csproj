@@ -250,6 +250,12 @@
     <Compile Include="BaseDatos\USP_CantidadReqATester_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\USP_DuracionesProyecto_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\USP_DuracionReqTester_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\USP_GetEmpleadosDeLider_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -519,6 +525,11 @@
     <Content Include="Views\HabilidadTecnicas\Details.cshtml" />
     <Content Include="Views\HabilidadTecnicas\Edit.cshtml" />
     <Content Include="Views\HabilidadTecnicas\Index.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta4.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta1.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta2.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta3.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta5.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

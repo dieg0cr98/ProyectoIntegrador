@@ -11,12 +11,11 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     
-    public partial class USP_CantidadReqATester_Result
+    public partial class USP_DuracionReqTester_Result
     {
-        public string idEmpleadoPK { get; set; }
+        public int idReqPK { get; set; }
         public string nombre { get; set; }
-        public string apellido1 { get; set; }
-        public string apellido2 { get; set; }
-        public Nullable<int> Cantidad { get; set; }
+        public int tiempoEstimado { get; set; }
+        public Nullable<int> tiempoReal { get; set; }
     }
 }
