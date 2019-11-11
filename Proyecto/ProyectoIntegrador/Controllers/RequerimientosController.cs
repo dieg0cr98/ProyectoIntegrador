@@ -52,7 +52,7 @@ namespace ProyectoIntegrador.Controllers
             }
         }
 
-        public void getDatosTester(int idProyecto)
+        public void GetDatosTester(int idProyecto)
         {
             List<string> nombres = new List<string>();
             List<string> cedulas = new List<string>();
@@ -93,7 +93,7 @@ namespace ProyectoIntegrador.Controllers
             var requerimiento = GetRequerimientosUsuario(idProyecto, seguridad.GetRoleUsuario(User), seguridad.IdUsuario(User)).Reverse();
 
             //Obtiene los datos que se utilizarán para desplegar el nombre de los testers asociados a los requerimientos
-            getDatosTester(idProyecto);
+            GetDatosTester(idProyecto);
 
             //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
             ViewBag.seleccion = idRequerimiento;
@@ -199,7 +199,6 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.idProyectoFK = idProyecto;
             requerimiento.tiempoReal = duracionReal;
             requerimiento.detallesResultado = detalleResultado;
-            requerimiento.tiempoReal = duracionReal;
 
             if (estado != "")
             {

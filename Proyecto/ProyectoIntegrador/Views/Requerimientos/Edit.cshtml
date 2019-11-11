@@ -295,15 +295,24 @@
                         <div class="col-4">
                             @*Atributo fechaFin*@
                             <div class="input-group">
-                                <input id="cfechaf" class="form-control text-center" type="date" value="@if (Model.fechaDeFinalizacion.HasValue) { Model.fechaDeFinalizacion.ToString(); } ">
-                            </div>
-
-                        </div>
-
-                    </div>
+                                <input id="cfechaf" class="form-control text-center" type="date" name="fechaf" value="@if (Model.fechaDeFinalizacion.HasValue) { Model.fechaDeFinalizacion.Value.ToString("yyyy-MM-dd"); }">
+</div>
 
 
-                    <div class="form-row">
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+<div class="form-row">
                         @*Título de Atributo Duracion Estimada*@
                         <div class="col-4 ">
                             <h5> Duración Estimada</h5>
@@ -342,7 +351,7 @@
                         <div class="col-2">
                             @*Atributo duraciónReal*@
                             <div class="input-group">
-                                <input id="dr" class="form-control text-center" type="number" value="@Model.tiempoReal">
+                                <input id="dr" class="form-control text-center" name="duracionReal" type="number" value="@Model.tiempoReal">
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, cero</small>
                         </div>
