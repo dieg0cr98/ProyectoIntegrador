@@ -219,7 +219,19 @@
         <div class="col-4">
             <div class="input-group">
                 @*Atributo Resultado*@
-                <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="@Model.resultado" readonly>
+                @if (Model.resultado == true)
+                {
+                    <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="Cumplido" readonly>
+                }
+                else if (Model.resultado == false)
+                {
+                    <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="No cumplido" readonly>
+                }
+                else
+                {
+                    <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="No terminado" readonly>
+                }
+
             </div>
         </div>
 
