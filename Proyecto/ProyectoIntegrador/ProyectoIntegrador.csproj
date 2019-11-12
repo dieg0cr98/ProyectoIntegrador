@@ -256,6 +256,12 @@
     <Compile Include="BaseDatos\USP_DuracionReqTester_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\USP_FechaInicioFinRequerimiento_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\USP_FechaInioFinTesterProyecto_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\USP_GetEmpleadosDeLider_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -530,6 +536,8 @@
     <Content Include="Views\ConsultasAvanzadas\Consulta2.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta3.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta5.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta6.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\indexTester.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

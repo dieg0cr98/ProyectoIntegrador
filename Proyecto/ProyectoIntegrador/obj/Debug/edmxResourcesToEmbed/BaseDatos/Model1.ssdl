@@ -91,12 +91,12 @@
     <Property Name="idPruebaPK" Type="int" Nullable="false" />
     <Property Name="resultadoFinal" Type="varchar" MaxLength="30" />
     <Property Name="propositoPrueba" Type="varchar" MaxLength="50" />
-    <Property Name="entradaDatos" Type="varchar" MaxLength="30" />
     <Property Name="resultadoEsperado" Type="varchar" MaxLength="30" />
     <Property Name="flujoPrueba" Type="varchar" MaxLength="30" />
     <Property Name="estado" Type="varchar" MaxLength="30" />
     <Property Name="imagen" Type="varbinary(max)" />
     <Property Name="descripcionError" Type="varchar" MaxLength="100" />
+    <Property Name="entradaDatos" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Requerimiento">
     <Key>
@@ -287,9 +287,6 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-  <Function Name="HabilidadesEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="id" Type="varchar" Mode="In" />
-  </Function>
   <Function Name="nombreTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>
@@ -301,10 +298,6 @@
     <Parameter Name="owner_id" Type="int" Mode="In" />
     <Parameter Name="version" Type="int" Mode="In" />
     <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_cambiar_cedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
-    <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -361,6 +354,13 @@
   <Function Name="USP_EquipoCheckTesters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
     <Parameter Name="testers" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="USP_FechaInicioFinRequerimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idProyecto" Type="int" Mode="In" />
+    <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USP_FechaInioFinTesterProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idEmpleadoFK" Type="varchar" Mode="In" />
   </Function>
   <Function Name="USP_GetEmpleadosDeLider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="cedulaLider" Type="varchar" Mode="In" />

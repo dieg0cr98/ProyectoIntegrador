@@ -16,8 +16,8 @@
         //Se crea el html de loading
         document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
 
-                    //Pide los datos al controlador
-            $.ajax({
+        //Pide los datos al controlador
+        $.ajax({
                 url: "/ConsultasAvanzadas/consulta5",
                 method: "GET",
                 data: {

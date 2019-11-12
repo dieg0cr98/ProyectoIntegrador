@@ -160,7 +160,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="HabilidadesEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesEmpleado" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Gr03Proy2Model.Store.sp_dropdiagram" />
     <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Gr03Proy2Model.Store.sp_helpdiagramdefinition">
       <ResultMapping>
@@ -246,7 +245,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
-    <FunctionImportMapping FunctionImportName="sp_cambiar_cedulaCliente" FunctionName="Gr03Proy2Model.Store.sp_cambiar_cedulaCliente" />
     <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosUsuario">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result">
@@ -310,6 +308,27 @@
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
           <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_FechaInicioFinRequerimiento" FunctionName="Gr03Proy2Model.Store.USP_FechaInicioFinRequerimiento">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+          <ScalarProperty Name="horas" ColumnName="horas" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_FechaInioFinTesterProyecto" FunctionName="Gr03Proy2Model.Store.USP_FechaInioFinTesterProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result">
+          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+          <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+          <ScalarProperty Name="horas" ColumnName="horas" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

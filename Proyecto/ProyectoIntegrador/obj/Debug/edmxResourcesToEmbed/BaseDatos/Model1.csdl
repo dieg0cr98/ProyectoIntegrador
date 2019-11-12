@@ -87,7 +87,7 @@
     <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
     <Property Name="resultadoFinal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="propositoPrueba" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="entradaDatos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="entradaDatos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="resultadoEsperado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="flujoPrueba" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -416,6 +416,13 @@
       <Parameter Name="rol" Mode="In" Type="Int32" />
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="USP_FechaInicioFinRequerimiento" ReturnType="Collection(Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+      <Parameter Name="idEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
+      <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -633,5 +640,18 @@
     <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
     <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
     <Property Type="Int32" Name="duracionReal" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="horas" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="USP_FechaInioFinTesterProyecto_Result">
+    <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="horas" Nullable="true" />
   </ComplexType>
 </Schema>
