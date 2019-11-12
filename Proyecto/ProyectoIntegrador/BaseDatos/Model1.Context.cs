@@ -352,5 +352,18 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_DuracionesProyecto_Result>("USP_DuracionesProyecto", permisoParameter, rolParameter, idUsuarioParameter);
         }
+    
+        public virtual int USP_CambiarCedulaCliente(string cedulaVieja, string cedulaNueva)
+        {
+            var cedulaViejaParameter = cedulaVieja != null ?
+                new ObjectParameter("cedulaVieja", cedulaVieja) :
+                new ObjectParameter("cedulaVieja", typeof(string));
+    
+            var cedulaNuevaParameter = cedulaNueva != null ?
+                new ObjectParameter("cedulaNueva", cedulaNueva) :
+                new ObjectParameter("cedulaNueva", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CambiarCedulaCliente", cedulaViejaParameter, cedulaNuevaParameter);
+        }
     }
 }

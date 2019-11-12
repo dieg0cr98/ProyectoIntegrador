@@ -96,12 +96,12 @@
           <Property Name="idPruebaPK" Type="int" Nullable="false" />
           <Property Name="resultadoFinal" Type="varchar" MaxLength="30" />
           <Property Name="propositoPrueba" Type="varchar" MaxLength="50" />
-          <Property Name="entradaDatos" Type="varchar" MaxLength="30" />
           <Property Name="resultadoEsperado" Type="varchar" MaxLength="30" />
           <Property Name="flujoPrueba" Type="varchar" MaxLength="30" />
           <Property Name="estado" Type="varchar" MaxLength="30" />
           <Property Name="imagen" Type="varbinary(max)" />
           <Property Name="descripcionError" Type="varchar" MaxLength="100" />
+          <Property Name="entradaDatos" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
@@ -292,9 +292,6 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="HabilidadesEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="nombreTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
@@ -306,10 +303,6 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_cambiar_cedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
-          <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -338,6 +331,10 @@
         <Function Name="testersActivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="TestersAsignables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_CambiarCedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
+          <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
@@ -534,7 +531,7 @@
           <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
           <Property Name="resultadoFinal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="propositoPrueba" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="entradaDatos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="entradaDatos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="resultadoEsperado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="flujoPrueba" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -862,6 +859,10 @@
             <Parameter Name="permiso" Mode="In" Type="Int32" />
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_CambiarCedulaCliente">
+            <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+            <Parameter Name="cedulaNueva" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -1246,7 +1247,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="HabilidadesEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesEmpleado" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Gr03Proy2Model.Store.sp_dropdiagram" />
           <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Gr03Proy2Model.Store.sp_helpdiagramdefinition">
             <ResultMapping>
@@ -1332,7 +1332,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
-          <FunctionImportMapping FunctionImportName="sp_cambiar_cedulaCliente" FunctionName="Gr03Proy2Model.Store.sp_cambiar_cedulaCliente" />
           <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosUsuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result">
@@ -1399,6 +1398,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_CambiarCedulaCliente" FunctionName="Gr03Proy2Model.Store.USP_CambiarCedulaCliente" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

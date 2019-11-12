@@ -198,7 +198,7 @@ namespace ProyectoIntegrador.Controllers
                     db.SaveChanges();
 
                     if (cedulaVieja != cedulaPK)
-                        db.sp_cambiar_cedulaCliente(cedulaVieja, cedulaPK);
+                        db.USP_CambiarCedulaCliente(cedulaVieja, cedulaPK);
 
 
                     return RedirectToAction("Index");
