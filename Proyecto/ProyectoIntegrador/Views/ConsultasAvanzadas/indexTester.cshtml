@@ -147,11 +147,15 @@
                             var fechaInicio = data2[tupla].fechaInicio;
                             var fechaFin = data2[tupla].fechaFin;
 
-                            dataTable.addRow([nombre, new Date(fechaInicio.substring(0, 4), fechaInicio.substring(5, 7), fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4), fechaFin.substring(5, 7), fechaFin.substring(8, 10))]);
+                            dataTable.addRow([nombre, new Date(fechaInicio.substring(0, 4), parseInt(fechaInicio.substring(5, 7))-1, fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4), parseInt(fechaFin.substring(5, 7))-1, fechaFin.substring(8, 10))]);
                             dataTable.addRow(['ProyectoX', new Date(2019, 10, 05), new Date(2019, 10, 15)]);
                         }
 
-                        chart.draw(dataTable);
+
+                        var options = {
+                            colorbackgroundColors: 'none',
+                        };
+                        chart.draw(dataTable, options);
 
 
 
