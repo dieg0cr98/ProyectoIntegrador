@@ -294,25 +294,29 @@
 
                         <div class="col-4">
                             @*Atributo fechaFin*@
-                            <div class="input-group">
-                                <input id="cfechaf" class="form-control text-center" type="date" name="fechaf" value="@if (Model.fechaDeFinalizacion.HasValue) { Model.fechaDeFinalizacion.Value.ToString("yyyy-MM-dd"); }">
-</div>
+                            @if (Model.fechaDeFinalizacion.HasValue)
+                            {
+                                <div class="input-group">
+                                    <input id="cfechaf" class="form-control text-center" type="date" name="fechaf" value="@Model.fechaDeFinalizacion.Value.ToString("yyyy-MM-dd")">
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-group">
+                                    <input id="cfechaf" class="form-control text-center" type="date" name="fechaf" value="">
+                                </div>
+                            }
+
+
+                        </div>
+
+                    </div>
 
 
 
 
-</div>
 
-
-
-
-</div>
-
-
-
-
-
-<div class="form-row">
+                    <div class="form-row">
                         @*Título de Atributo Duracion Estimada*@
                         <div class="col-4 ">
                             <h5> Duración Estimada</h5>
