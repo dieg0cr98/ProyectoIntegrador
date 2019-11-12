@@ -11,6 +11,10 @@ using System.Data.Entity.Core.Objects;
 
 namespace ProyectoIntegrador.Controllers
 {
+    /*
+     * La clase TrabajaEnController actua como el controlador del módulo equipo. Esto implica que posee la lógica 
+     * requerida para su correcto funcionamiento y el manejo de las interacciones con la vista.
+     */
     public class TrabajaEnController : Controller
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
@@ -38,10 +42,10 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.equipoActual = db.USP_GetEquipo(idProyecto);
         }
 
-        //-------------------------ActionResults--------------------------//
+        //-------------------------Redireccionamiento de vistas--------------------------//
         /*
-         * Efecto: Mustra la vista principal del equipo.
-         * Requiere: --
+         * Efecto: Mustra la vista principal del equipo asociado a un proyecto.
+         * Requiere: Un id de proyecto válido.
          * Modifica: --
          */
         public ActionResult Index(int? idProyecto)
@@ -74,46 +78,50 @@ namespace ProyectoIntegrador.Controllers
         //-----------------------------Rutinas del controlador-----------------------//
 
         /*
-         * 
-         */
-        public List<Empleado> GetEmpleados()
-        {
-            return db.Empleado.ToList();
-        }
-
-
-        /*
          * Efecto: Agrega un integrante nuevo al equipo
-         * Requiere: Parámetros válidos que no hagan conflicto con la base de datos
-         * Modifica: El empleado que se integra al equipo y la tabla TrabajaEn
+         * Requiere: un id de proyecto, id de empleado y rol válidos.
+         * Modifica: El empleado que se integra al equipo y la tabla TrabajaEn.
+         * Retorna: Devuelve un JSON con el flag de éxito y el mensaje por desplegar en la vista.
          */
-        //deberia retornar json result para verificar
-        //[HttpGet]
         public JsonResult AgregarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
-
             //System.Diagnostics.Debug.WriteLine(idProyecto + " " + idEmpleado + " " + rolEmpleado);
             Empleado empleado = db.Empleado.Find(idEmpleado);
-            //empleado.estado = "Ocupado";
             dynamic ret;
             switch (empleado.tipoTrabajo)
             {
                 case "Lider":
                     {
+                        //Declara el parámetro de retorno para el procedimiento de la base y lo castea.
                         ObjectParameter output = new ObjectParameter("liderFlag", typeof(Int32));
                         db.USP_EquipoCheckLider(idProyecto, output);
                         int numLider = (int)output.Value;
-                        System.Diagnostics.Debug.WriteLine("TIENE LIDER: " + numLider);
-                        if (numLider == 0) //Equipo sin lider, puede ser añadido
+
+                        //Equipo sin lider, puede ser añadido
+                        if (numLider == 0)  
                         {
                             empleado.estado = "Ocupado";
-                            TrabajaEn trabaja = new TrabajaEn();
-                            trabaja.idProyectoFK = idProyecto;
-                            trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
-                            trabaja.rol = rolEmpleado;
-                            trabaja.estado = "Activo";
-                            db.Entry(empleado).State = EntityState.Modified;
-                            db.TrabajaEn.Add(trabaja);
+
+                            //Revisa si el empleado no existe dentro del proyecto de manera inactiva
+                            TrabajaEn checkInactivo = db.TrabajaEn.Find(idProyecto, idEmpleado);
+                            if (checkInactivo == null)
+                            {
+                                TrabajaEn trabaja = new TrabajaEn();
+                                trabaja.idProyectoFK = idProyecto;
+                                trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
+                                trabaja.rol = rolEmpleado;
+                                trabaja.estado = "Activo";
+                                db.Entry(empleado).State = EntityState.Modified;
+                                db.TrabajaEn.Add(trabaja);
+          
+                            }
+                            //Ya fue parte del equipo, lo marca como activo en vez de insertar.
+                            else
+                            {
+                                checkInactivo.estado = "Activo";
+                            }
+
+
                             db.SaveChanges();
                             ret = new
                             {
@@ -121,7 +129,8 @@ namespace ProyectoIntegrador.Controllers
                                 msg = "Se ha agregado el líder exitosamente al equipo."
                             };
                         }
-                        else //Ya tiene lider
+                        // El equipo ya tiene lider, no puede ser agregado otro.
+                        else
                         {
                             ret = new
                             {
@@ -135,20 +144,36 @@ namespace ProyectoIntegrador.Controllers
 
                 case "Tester":
                     {
+                        //Declara el parámetro de retorno para el procedimiento de la base y lo castea.
                         ObjectParameter output = new ObjectParameter("testers", typeof(Int32));
                         db.USP_EquipoCheckTesters(idProyecto, output);
                         int numTesters = (int)output.Value;
                         System.Diagnostics.Debug.WriteLine("CANTIDAD TESTERS: " + numTesters);
+
+                        //Hay menos testers que el máximo, puede ser agregado.
                         if (numTesters < 5)
                         {
                             empleado.estado = "Ocupado";
-                            TrabajaEn trabaja = new TrabajaEn();
-                            trabaja.idProyectoFK = idProyecto;
-                            trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
-                            trabaja.rol = rolEmpleado;
-                            trabaja.estado = "Activo";
-                            db.Entry(empleado).State = EntityState.Modified;
-                            db.TrabajaEn.Add(trabaja);
+
+                            //Revisa si el empleado no existe dentro del proyecto de manera inactiva
+                            TrabajaEn checkInactivo = db.TrabajaEn.Find(idProyecto, idEmpleado);
+                            if (checkInactivo == null)
+                            {
+                                TrabajaEn trabaja = new TrabajaEn();
+                                trabaja.idProyectoFK = idProyecto;
+                                trabaja.idEmpleadoFK = empleado.idEmpleadoPK;
+                                trabaja.rol = rolEmpleado;
+                                trabaja.estado = "Activo";
+                                db.Entry(empleado).State = EntityState.Modified;
+                                db.TrabajaEn.Add(trabaja);
+                            }
+                            //Ya fue parte del equipo, lo marca como activo en vez de insertar.
+                            else
+                            {
+                                checkInactivo.estado = "Activo";
+                            }
+                           
+
                             db.SaveChanges();
                             ret = new
                             {
@@ -156,6 +181,7 @@ namespace ProyectoIntegrador.Controllers
                                 msg = "Se ha agregado el tester exitosamente al equipo."
                             };
                         }
+                        //Ya no se pueden agregar mas testers al equipo
                         else
                         {
                             ret = new
@@ -177,7 +203,12 @@ namespace ProyectoIntegrador.Controllers
             return Json(ret, JsonRequestBehavior.AllowGet);
         }
 
-
+        /*
+         * Efecto: Elimina a un integrante del equipo asociado a un proyecto específico.
+         * Requiere: un id de proyecto, id de empleado y rol válidos.
+         * Modifica: El empleado que se integra al equipo y la tabla TrabajaEn.
+         * Retorna: Devuelve un JSON con el flag de éxito y el mensaje por desplegar en la vista.
+         */
         public JsonResult QuitarIntegrante(int idProyecto, string idEmpleado, string rolEmpleado)
         {
 
@@ -190,7 +221,7 @@ namespace ProyectoIntegrador.Controllers
             //Si el proyecto está activo guarda el empleado para cuestión de historial pero lo pone inactivo.
             if (proyecto.estado == "Activo")
             {
-                //Si el proyecto esta activo.
+                //Es lider
                 if (empleado.tipoTrabajo == "Lider")
                 {
                     ret = new
@@ -199,14 +230,17 @@ namespace ProyectoIntegrador.Controllers
                         msg = "No se puede sacar al líder de un proyecto activo."
                     };
                 }
+
                 //Es un tester, revisar reqs
                 else
                 {
+                    //Declara la variable de retorno para el procedimiento de la base y lo castea.
                     ObjectParameter output = new ObjectParameter("reqs", typeof(Int32));
                     db.USP_ContarRequerimientosTester(idEmpleado, output);
                     int reqs = (int)output.Value;
 
-                    if (reqs == 0) //No tiene requerimientos asignados, puede ser eliminado
+                    //No tiene requerimientos asignados, puede ser eliminado
+                    if (reqs == 0) 
                     {
                         empleado.estado = "Disponible";
                         db.Entry(empleado).State = EntityState.Modified;
@@ -235,8 +269,8 @@ namespace ProyectoIntegrador.Controllers
             //Proyecto no activo, lo borra del equipo.
             else
             {
-
-                if (empleado.tipoTrabajo == "Lider") //Es lider, se elimina de proyecto no activo
+                //Es lider, se elimina de proyecto no activo
+                if (empleado.tipoTrabajo == "Lider") 
                 {
                     db.TrabajaEn.Remove(trabaja);
                     empleado.estado = "Disponible";
@@ -248,13 +282,15 @@ namespace ProyectoIntegrador.Controllers
                     };
                     db.SaveChanges();
                 }
-                else //Es tester, se revisan los requerimientos.
+                //Es tester, se revisan los requerimientos.
+                else
                 {
                     ObjectParameter output = new ObjectParameter("reqs", typeof(Int32));
                     db.USP_ContarRequerimientosTester(idEmpleado, output);
                     int reqs = (int)output.Value;
 
-                    if (reqs == 0) //No tiene requerimientos asignados, puede ser eliminado
+                    //No tiene requerimientos asignados, puede ser eliminado
+                    if (reqs == 0) 
                     {
                         db.TrabajaEn.Remove(trabaja);
                         empleado.estado = "Disponible";
@@ -266,6 +302,7 @@ namespace ProyectoIntegrador.Controllers
                         };
                         db.SaveChanges();
                     }
+                    //Tiene requerimientos, no puede ser eliminado.
                     else
                     {
                         ret = new
