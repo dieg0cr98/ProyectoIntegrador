@@ -145,5 +145,14 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult consulta6Requerimiento(int idProyecto,string cedulaTester)
+        {
+            var t = db.USP_FechaInicioFinRequerimiento(idProyecto,cedulaTester);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

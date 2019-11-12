@@ -76,7 +76,7 @@
                     @foreach (var tupla in ViewBag.listaProyectos)
                     {
 
-                        <tr class="table-row" onclick="cargarRequerimientos(@tupla.idProyectoAID,@ViewBag.datosTester.Item1)">
+                        <tr class="table-row" onclick="cargarRequerimientos(@tupla.idProyectoAID,@ViewBag.datosTester.Item1,'@tupla.nombre')">
                             <th scope="row">@tupla.nombre</th>
                             <td>@tupla.horas</td>
 
@@ -88,12 +88,20 @@
             </table>
         </div>
 
-        <div class="col" id="graphProyecto">
+        <div class="col text-center" id="graphProyecto">
 
             <div id="timeline"></div>
 
 
         </div>
+
+    </div>
+
+    <h2 class="text-primary text-center font-weight-bold" id="proyName"></h2>
+    <div class="row" id="graphReq">
+
+
+
 
     </div>
 
@@ -116,42 +124,39 @@
                 },
                 success: function (data) {
 
+
+
+
+
                     data2 = JSON.parse(data);
-                    
-                     //Carga los datos del chart
+
+                    //Carga los datos del chart
                     google.charts.load("visualization", "1", { packages: ["timeline"] }
                     ).then(function () {
-                    // Define the chart to be drawn.
-                    var data = new google.visualization.DataTable();
-                    data.addColumn({ type: 'string', id: 'Proyecto:' });
-                    data.addColumn({ type: 'date', id: 'Inicio' });
-                    data.addColumn({ type: 'date', id: 'Fin' });
+
+                        var container = document.getElementById('timeline');
+                        var chart = new google.visualization.Timeline(container);
+                        var dataTable = new google.visualization.DataTable();
+
+                        dataTable.addColumn({ type: 'string', id: 'President' });
+                        dataTable.addColumn({ type: 'date', id: 'Start' });
+                        dataTable.addColumn({ type: 'date', id: 'End' });
+                        for (tupla in data2) {
+                            var nombre = data2[tupla].nombre;
+
+                            var fechaInicio = data2[tupla].fechaInicio;
+                            var fechaFin = data2[tupla].fechaFin;
+
+                            dataTable.addRow([nombre, new Date(fechaInicio.substring(0, 4), fechaInicio.substring(5, 7), fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4), fechaFin.substring(5, 7), fechaFin.substring(8, 10))]);
+                            dataTable.addRow(['ProyectoX', new Date(2019, 10, 05), new Date(2019, 10, 15)]);
+                        }
+
+                        chart.draw(dataTable);
 
 
-                    for (tupla in data2) {
-
-                        var nombre = data2[tupla].nombre;
-   
-                        var fechaInicio = data2[tupla].fechaInicio;
-                        var fechaFin = data2[tupla].fechaFin;
-                        
-
-                        data.addRow([nombre, new Date(fechaInicio.substring(0, 4),fechaInicio.substring(5, 7),fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4),fechaFin.substring(5, 7),fechaFin.substring(8, 10))]);
-
-                    }
-
-
-                    var options = {      
-                       width: '100%', 
-                       height: '100%'
-                    };
-                  
-                    // Instantiate and draw the chart.
-                    var chart = new google.visualization.Timeline(document.getElementById('timeline'));
-                    chart.draw(data, options);
 
                     });
-                  
+
 
 
                 }
@@ -166,8 +171,76 @@
         }
 
 
-        function cargarRequerimientos(idProyecto, cedulaTester) {
-            alert(idProyecto + " " + cedulaTester);
+        function cargarRequerimientos(idProyecto, cedulaTester,nombre) {
+            //Limpia los datos
+            document.getElementById("graphReq").innerHTML = " ";
+            document.getElementById("proyName").innerText = "Nombre Proyecto: "+nombre;
+            
+
+
+            //Se crea el html de loading
+            document.getElementById("graphReq").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta6Requerimiento",
+                method: "GET",
+                data: {
+                    idProyecto: function () {
+                        return idProyecto;
+                    },
+                    cedulaTester: function () {
+                        return cedulaTester;
+                    },
+
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+                    //console.log(data2);
+
+                    //Carga los datos del chart
+                    google.charts.load("visualization", "1", { packages: ["timeline"] }
+                    ).then(function () {
+                        // Define the chart to be drawn.
+                        var data = new google.visualization.DataTable();
+                        data.addColumn({ type: 'string', id: 'Requerimiento' });
+                        data.addColumn({ type: 'date', id: 'Inicio' });
+                        data.addColumn({ type: 'date', id: 'Fin' });
+
+
+                        for (tupla in data2) {
+
+                            var nombre = data2[tupla].nombre;
+
+                            var fechaInicio = data2[tupla].fechaInicio;
+                            var fechaFin = data2[tupla].fechaFin;
+
+                            data.addRow([nombre, new Date(fechaInicio.substring(0, 4), fechaInicio.substring(5, 7), fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4), fechaFin.substring(5, 7), fechaFin.substring(8, 10))]);
+
+                        }
+
+
+                        var options = {
+                            width: '100%',
+                            height: '500'
+                        };
+
+                        // Instantiate and draw the chart.
+                        var chart = new google.visualization.Timeline(document.getElementById('graphReq'));
+                        chart.draw(data, options);
+
+                    });
+
+                }
+                ,
+                error: function (err) {
+                    alert("Ha ocurrido un error");
+                }
+
+
+            });
         }
 
     </script>
