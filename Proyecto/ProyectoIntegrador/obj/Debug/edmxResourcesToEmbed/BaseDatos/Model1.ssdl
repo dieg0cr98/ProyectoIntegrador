@@ -327,6 +327,10 @@
   <Function Name="TestersAsignables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>
+  <Function Name="USP_CambiarCedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
+    <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>

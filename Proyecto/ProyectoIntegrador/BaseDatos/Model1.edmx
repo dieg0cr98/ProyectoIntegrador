@@ -332,6 +332,10 @@
         <Function Name="TestersAsignables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_CambiarCedulaCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaVieja" Type="varchar" Mode="In" />
+          <Parameter Name="cedulaNueva" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
@@ -863,12 +867,9 @@
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="USP_FechaInicioFinRequerimiento" ReturnType="Collection(Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
-            <Parameter Name="idEmpleado" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
-            <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
+          <FunctionImport Name="USP_CambiarCedulaCliente">
+            <Parameter Name="cedulaVieja" Mode="In" Type="String" />
+            <Parameter Name="cedulaNueva" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -1417,27 +1418,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_FechaInicioFinRequerimiento" FunctionName="Gr03Proy2Model.Store.USP_FechaInicioFinRequerimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-                <ScalarProperty Name="horas" ColumnName="horas" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_FechaInioFinTesterProyecto" FunctionName="Gr03Proy2Model.Store.USP_FechaInioFinTesterProyecto">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result">
-                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-                <ScalarProperty Name="horas" ColumnName="horas" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_CambiarCedulaCliente" FunctionName="Gr03Proy2Model.Store.USP_CambiarCedulaCliente" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

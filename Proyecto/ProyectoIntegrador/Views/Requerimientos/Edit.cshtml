@@ -286,6 +286,7 @@
                                 }
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, la fecha que fue creado</small>
+                            <div id="errorFechai"></div>
                         </div>
 
                         <div class="col-2">
@@ -294,14 +295,23 @@
 
                         <div class="col-4">
                             @*Atributo fechaFin*@
-                            <div class="input-group">
-                                <input id="cfechaf" class="form-control text-center" type="date" value="@if (Model.fechaDeFinalizacion.HasValue) { Model.fechaDeFinalizacion.ToString(); } ">
-                            </div>
+                            @if (Model.fechaDeFinalizacion.HasValue)
+                            {
+                                <div class="input-group">
+                                    <input id="cfechaf" class="form-control text-center" type="date" name="fechaf" value="@Model.fechaDeFinalizacion.Value.ToString("yyyy-MM-dd")">
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-group">
+                                    <input id="cfechaf" class="form-control text-center" type="date" name="fechaf" value="">
+                                </div>
+                            }
+
 
                         </div>
 
                     </div>
-
 
                     <div class="form-row">
                         @*Título de Atributo Duracion Estimada*@
@@ -333,6 +343,7 @@
                                 }
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, cero</small>
+                            <div id="errorDuracionEstimada"></div>
                         </div>
 
                         <div class="col-4">
@@ -342,9 +353,10 @@
                         <div class="col-2">
                             @*Atributo duraciónReal*@
                             <div class="input-group">
-                                <input id="dr" class="form-control text-center" type="number" value="@Model.tiempoReal">
+                                <input id="dr" class="form-control text-center" name="duracionReal" type="number" value="@Model.tiempoReal">
                             </div>
                             <small class="form-text text-left" style="color:black">Por defecto, cero</small>
+                            <div id="errorDuracionReal"></div>
                         </div>
                     </div>
 
@@ -536,6 +548,10 @@
                                 min: 0
 
                                 },
+                            duracionReal:
+                                {
+                                min: 0
+                                },
                             fechai:
                                 {
                                 required: true,
@@ -549,6 +565,7 @@
                                 remote: "Ya existe un requerimiento con ese nombre",
                                 },
                             duracionEstimada: "Tiene que ser un numero mayor a 0",
+                            duracionReal: "Tiene que ser un numero mayor a 0",
                             fechai: "Inserte una fecha"
 
                             },
@@ -565,6 +582,9 @@
                                                 }
                                                 if ((element.attr('name') === 'duracionEstimada')) {
                                                     error.insertAfter($('#errorDuracionEstimada'));
+                                                }
+                                                if ((element.attr('name') === 'duracionReal')) {
+                                                    error.insertAfter($('#errorDuracionReal'));
                                                 }
                                             },
                             invalidHandler: function (form, validator) {
