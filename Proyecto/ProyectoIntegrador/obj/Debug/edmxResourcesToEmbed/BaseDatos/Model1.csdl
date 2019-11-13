@@ -420,6 +420,13 @@
       <Parameter Name="cedulaVieja" Mode="In" Type="String" />
       <Parameter Name="cedulaNueva" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="USP_FechaInicioFinRequerimiento" ReturnType="Collection(Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+      <Parameter Name="idEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
+      <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
