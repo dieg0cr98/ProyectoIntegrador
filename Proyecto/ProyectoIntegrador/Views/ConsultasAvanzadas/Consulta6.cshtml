@@ -30,7 +30,7 @@
 
 
                 //Se crea el html para la tabla
-                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th></tr></thead><tbody>';
+                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2><table class="table table-bordered table-hover table-light"align="center" style="width:900px"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th></tr></thead><tbody>';
 
                 //Recorre las tuplas para insertar los datos a la tabla
                 for (tupla in data2) {
@@ -80,7 +80,7 @@
     function consulta6Tester(cedulaTester,nombre) {
 
     
-        window.open("/ConsultasAvanzadas/indexTester/?cedulaTester=" + cedulaTester + "&nombre=" + nombre )
+        window.open("/ConsultasAvanzadas/consulta6Index/?cedulaTester=" + cedulaTester + "&nombre=" + nombre )
         
 
     }

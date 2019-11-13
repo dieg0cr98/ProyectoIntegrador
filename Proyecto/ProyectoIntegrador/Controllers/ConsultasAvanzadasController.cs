@@ -128,21 +128,13 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        public ActionResult indexTester(string cedulaTester,string nombre)
+        public ActionResult consulta6Index(string cedulaTester,string nombre)
         {
             ViewBag.datosTester = Tuple.Create(cedulaTester, nombre);
             ViewBag.listaProyectos = db.USP_FechaInioFinTesterProyecto(cedulaTester).ToList();
             return View();
 
 
-        }
-
-        public JsonResult consulta6Proyecto(string cedulaTester)
-        {
-            var t = db.USP_FechaInioFinTesterProyecto(cedulaTester).ToList();
-            var json = JsonConvert.SerializeObject(t);
-
-            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
 
