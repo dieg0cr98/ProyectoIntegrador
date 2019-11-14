@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<ProyectoIntegrador.BaseDatos.Prueba>
+
+@{
+    ViewBag.Title = "Consulta Pruebas";
+}
+<!--Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id-->
+@{ var idCarta = "#a"; }
+@{ var idTab = "a"; }
+
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+    <!-- Verifica que el llamado a la vista se haya hecho por un usuario registrado a la aplicación -->
+    @*if (Request.IsAuthenticated)
+    {*@
+        <br />
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:35px ; letter-spacing: 1px">
+            <u>Proyecto</u>: @ViewBag.nombreProyecto<br>
+            <u>Requerimiento</u>: @ViewBag.nombreRequerimiento<br>
+            <u>Consultar Pruebas</u>
+        </p>
+        <hr>
+        <div class="container " style="max-width: 1800px">
+            <div class="row">
+                <div class="col col-md-4 " style="width:auto; height:600px; border-radius:20px 20px 20px 20px">
+
+                    @*NavBar con el titulo*@
+                    <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
+                        <a class="navbar-brand">
+                            <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Lista de requerimientos
+                        </a>
+                        <!-- Si el usuario no tiene permisos, no puede agregar requerimientos -->
+                        @*if (ViewBag.permisosGenerales.Item4 == 1)
+                        {*@
+                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        @*}*@
+
+                    </nav>
+                    <!-- Se crea la tabla de la izquierda con los nombres de los requerimientos -->
+                    <div class="card" style="border-radius: 0px 0px 20px 20px ; background-color:#C09F80 ; height:530px; box-shadow: -4px 31px 44px 0px  rgba(128,128,128,0.91)">
+                        <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
+                            @foreach (var item in Model)
+                            {
+
+                             <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@*Html.DisplayFor(modelItem => item.nombre)*@Nombre</a>
+
+                             { idCarta += 1; }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Se despliegan los datos de todos los requerimientos -->
+                <div class="col-12 col-md-8">
+                    <div class="tab-content d-block" style="height:580px; width:1100px; border-radius:20px 20px 20px 20px " id="nav-tabContent">
+
+
+                        @foreach (var item in Model)
+                        {
+                         <div class="tab-pane fade bg-secondary" style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                            @Html.Partial("FormularioIndex", item)
+                         </div>
+                            //Le agrega un digito mas al idTab
+                            { idTab += 1; }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Html.Partial("ModalEliminar")
+    @*}
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los requerimientos</div>
+    }*@
+
+    @Html.Partial("Scripts")
+</body>

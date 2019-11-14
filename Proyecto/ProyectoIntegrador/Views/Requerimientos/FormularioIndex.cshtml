@@ -265,6 +265,6 @@
 <hr />
 <div class="row justify-content-center" style="width:1150px ; height:100px">
     <div class="col-4  text-center">
-        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Administrar Pruebas" class="btn d-inline-block" href="#"><img src="~/Content/analyze.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Administrar Pruebas" class="btn d-inline-block" href="@Url.Action("Index", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = @Model.idReqPK })"><img src="~/Content/analyze.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
     </div>
 </div>

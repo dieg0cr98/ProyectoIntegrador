@@ -1,0 +1,150 @@
+﻿@model ProyectoIntegrador.BaseDatos.Prueba
+
+@{
+    ViewBag.Title = "Edit Pruebas";
+}
+
+
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+</head>
+
+
+
+<body>
+    <br />
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Prueba</p>
+    <hr>
+
+    <!-- Se crea el formulario con el que recibiremos los datos -->
+    <form class="cmxform" id="commentForm" method="post" action="Edit">
+        <fieldset>
+            <div class="container justify-content-center" style="padding-right:25px; width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color: rgba(192,159,128, 0.7)">
+                <br />
+                <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
+                <input type="hidden" id="idProyecto" name="idProyecto" value="@ViewBag.idProyecto">
+                <input type="hidden" id="idReq" name="idReq" value="@ViewBag.idRequerimiento">
+                <input type="hidden" id="idPrueba" name="idPrueba" value="@ViewBag.idPrueba">
+
+                <div class="form-row mb-2">
+                    <div class="col-5">
+                        <!--Campo Nombre-->
+                        <h5 for="nombre" style="width:200px">Nombre *:</h5>
+                        <input class="form-control" id="nombre" name="nombre" maxlength="30" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" required value="@*Model.nombre*@" />
+                        <div id="errorNombre"></div>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-5">
+                        @*Título de Atributo Proposito Prueba*@
+                        <h5 for="apellido1" style="width:200px">Proposito Prueba:</h5>
+                        <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" maxlength="50" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                    </div>
+                </div>
+                <br>
+                <div class="form-row mb-2">
+                    <div class="col-5">
+                        @*Título de Atributo Resultado Esperado*@
+                        <h5 for="resultadoEsperado" style="width:200px">Resultado Esperado:</h5>
+                        <input class="form-control" value="@Model.resultadoEsperado" id="resultadoEsperado" name="resultadoEsperado" maxlength="30" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-5">
+                        @*Título de Atributo Flujo Prueba*@
+                        <h5 for="flujoPrueba" style="width:200px">Flujo Prueba:</h5>
+                        <input class="form-control" id="flujoPrueba" value="@Model.flujoPrueba" name="flujoPrueba" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                    </div>
+                </div>
+                <br>
+                <div class="form-row mb-2">
+                    <div class="col-5">
+                        <!--Campo estado-->
+                        <h5 for="estado" style="width:200px">Estado:</h5>
+                        <input class="form-control" id="estado" value="@Model.estado" name="estado" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-5">
+                        <!--Campo Resultado Final-->
+                        <h5 for="resultadoFinal" style="width:200px">Resultado Final:</h5>
+                        <input class="form-control" id="resultadoFinal" value="@Model.resultadoFinal" name="resultadoFinal" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                    </div>
+                </div>
+                <br>
+                <div class="form-row mb-2" style="padding-left:5px">
+                    @*Atributo Pre-Requisitos(Entrada Datos)*@
+                    <h5 for="entradaDatos" style="width:400px">Pre-Requisitos:</h5>
+                </div>
+                <div class="row" style="padding-left:15px; padding-right:20px;">
+                    <textarea class="form-control col-12" id="entradaDatos" maxlength="100" name="entradaDatos" style="background-color:#D7CEC7; border-color:transparent;height: 90px;">@Model.entradaDatos</textarea>
+                </div>
+                <br>
+                <div class="form-row mb-2" style="padding-left:5px;">
+                    @*Título de Atributo Descripción Error*@
+                    <h5 for="descripcionError" style="width:400px">Descripción Error:</h5>
+                </div>
+                <div class="row" style="padding-left:15px; padding-right:20px;">
+                    <textarea class="form-control col-12" id="descripcionError" maxlength="100" name="descripcionError" style="background-color:#D7CEC7; border-color:transparent;height: 90px;">@Model.descripcionError</textarea>
+                </div>
+
+                <input type="hidden" id="imagen" name="imagen" value="">
+
+                <br><br>
+                <h5>* Campos Requeridos</h5>
+
+                <hr />
+
+                <div class="row" style="max-width:1800px">
+                    <!--Boton Regresar-->
+                    <div class="col-4  text-center">
+                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Index", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento, idPrueba = ViewBag.idPrueba})">
+                            <img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px">
+                        </a>
+                    </div>
+
+                    <!--Boton Cancelar o Reset-->
+                    <div class="col-4 text-center">
+                        <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                            <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                        </button>
+                    </div>
+
+                    <!--Boton Aceptar-->
+                    <div class="col-4  text-center">
+                        <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                            <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            <div id="loading" style="width:80px;height:80px" class="spinner-border text-black" role="status"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</body>
+
+
+
+<script>
+
+            $('document').ready(function () {
+
+
+                $('#loading').hide();
+
+
+
+            });
+
+
+
+            $('#btnsubmit').on('click', function () {
+                $('#acceptar').hide('fast');
+
+
+                $('#loading').show('fast');
+
+
+            });
+
+</script>
