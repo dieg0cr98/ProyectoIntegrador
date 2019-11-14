@@ -41,6 +41,15 @@
                         <div style="background-color:rgba(192,159,128,0.7); padding-left:20px; padding-top:10px; overflow-x:hidden;" class="col-12">
                             <div class="form-row mb-2">
                                 <div class="col-3">
+                                    <!--Se utiliza para pasarle informacion de info vieja al script de validacion -->
+                                    <input hidden class="form-control" value="@Model.cedulaPK" id="cedulaOld" type="text">
+                                    <!--Campo Cedula-->
+                                    <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
+                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none;", @maxlength = "20", @type = "text" } })
+                                    <div id="errorCed"></div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-3">
                                     <!--Campo Nombre-->
                                     <h5 for="nombre" style="width:200px">Nombre *:</h5>
                                     @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent; max-width:none" } })
@@ -53,23 +62,14 @@
                                     @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
                                     <div id="errorApe1"></div>
                                 </div>
-                                <div class="col-1"></div>
+                            </div>
+                            <br>
+                            <div class="form-row mb-2">
                                 <div class="col-3">
                                     <!--Campo Segundo Apellido-->
                                     <h5 for="apellido2" style="width:200px">Segundo Apellido:</h5>
                                     @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none" } })
                                     <div id="errorApe2"></div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-row mb-2">
-                                <div class="col-3">
-                                    <!--Se utiliza para pasarle informacion de info vieja al script de validacion -->
-                                    <input hidden class="form-control" value="@Model.cedulaPK" id="cedulaOld" type="text">
-                                    <!--Campo Cedula-->
-                                    <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#D7CEC7; border-color:transparent;max-width:none;", @maxlength = "20", @type = "text"} })
-                                    <div id="errorCed"></div>
                                 </div>
                                 <div class="col-1"></div>
                                 <div class="col-3">

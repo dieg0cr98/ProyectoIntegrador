@@ -96,16 +96,16 @@
                                     <div style=" height:auto;" class="col-12 align-content-center">
                                         <div class="row mb-2">
                                             <div class="col-5">
+                                                <!--Campo Cedula-->
+                                                <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
+                                                <input style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
+                                            </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-5">
                                                 <!--Campo Nombre-->
                                                 <h5 for="nombre" style="width:200px">Nombre:</h5>
                                                 <input value="@Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido1) @if (item.apellido2 != null)
                                                 {@Html.DisplayFor(modelItem => item.apellido2)}" style=" max-width:none; background-color:#D7CEC7; border-color:transparent;" readonly class="form-control">
-                                            </div>
-                                            <div class="col-2"></div>
-                                            <div class="col-5">
-                                                <!--Campo Cedula-->
-                                                <h5 for="cedulaPK" style="width:200px">Cédula:</h5>
-                                                <input style="background-color:#D7CEC7; border-color:transparent; max-width:none" readonly class="form-control" value="@Html.DisplayFor(modelItem => item.cedulaPK)">
                                             </div>
                                         </div>
                                         <br />
