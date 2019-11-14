@@ -119,7 +119,32 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+        public JsonResult consulta6()
+        {
+            var t = (from row in db.Empleado where row.tipoTrabajo == "Tester"  select new {row.idEmpleadoPK,row.nombre,row.apellido1,row.apellido2, row.estado });
+            var json = JsonConvert.SerializeObject(t);
 
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult consulta6Index(string cedulaTester,string nombre)
+        {
+            ViewBag.datosTester = Tuple.Create(cedulaTester, nombre);
+            ViewBag.listaProyectos = db.USP_FechaInioFinTesterProyecto(cedulaTester).ToList();
+            return View();
+
+
+        }
+
+
+        public JsonResult consulta6Requerimiento(int idProyecto,string cedulaTester)
+        {
+            var t = db.USP_FechaInicioFinRequerimiento(idProyecto,cedulaTester);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

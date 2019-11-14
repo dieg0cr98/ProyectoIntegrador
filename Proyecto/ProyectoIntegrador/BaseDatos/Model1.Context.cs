@@ -352,5 +352,40 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_DuracionesProyecto_Result>("USP_DuracionesProyecto", permisoParameter, rolParameter, idUsuarioParameter);
         }
+    
+        public virtual int USP_CambiarCedulaCliente(string cedulaVieja, string cedulaNueva)
+        {
+            var cedulaViejaParameter = cedulaVieja != null ?
+                new ObjectParameter("cedulaVieja", cedulaVieja) :
+                new ObjectParameter("cedulaVieja", typeof(string));
+    
+            var cedulaNuevaParameter = cedulaNueva != null ?
+                new ObjectParameter("cedulaNueva", cedulaNueva) :
+                new ObjectParameter("cedulaNueva", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CambiarCedulaCliente", cedulaViejaParameter, cedulaNuevaParameter);
+        }
+    
+        public virtual ObjectResult<USP_FechaInicioFinRequerimiento_Result> USP_FechaInicioFinRequerimiento(Nullable<int> idProyecto, string idEmpleado)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            var idEmpleadoParameter = idEmpleado != null ?
+                new ObjectParameter("idEmpleado", idEmpleado) :
+                new ObjectParameter("idEmpleado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_FechaInicioFinRequerimiento_Result>("USP_FechaInicioFinRequerimiento", idProyectoParameter, idEmpleadoParameter);
+        }
+    
+        public virtual ObjectResult<USP_FechaInioFinTesterProyecto_Result> USP_FechaInioFinTesterProyecto(string idEmpleadoFK)
+        {
+            var idEmpleadoFKParameter = idEmpleadoFK != null ?
+                new ObjectParameter("idEmpleadoFK", idEmpleadoFK) :
+                new ObjectParameter("idEmpleadoFK", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_FechaInioFinTesterProyecto_Result>("USP_FechaInioFinTesterProyecto", idEmpleadoFKParameter);
+        }
     }
 }

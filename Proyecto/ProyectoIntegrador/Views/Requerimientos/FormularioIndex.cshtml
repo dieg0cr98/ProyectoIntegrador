@@ -101,14 +101,22 @@
             @*Atributo Cédula Tester*@
 
             <div class="input-group">
-                @for (int i = 0; i < ViewBag.cedulaTesters.Count; i++)
+                @if (Model.cedulaTesterFK == null)
                 {
-                    if (Model.cedulaTesterFK == ViewBag.cedulaTesters[i])
-                    {
-                        <input id="cedula" class="form-control" value="@ViewBag.nombreTesters[i]" style="text-align:center; max-width:none" type="text" readonly>
-                    }
-
+                    <input id="cedula" class="form-control" value="" style="text-align:center; max-width:none" type="text" readonly>
                 }
+                else
+                {
+                    for (int i = 0; i < ViewBag.cedulaTesters.Count; i++)
+                    {
+                        if (Model.cedulaTesterFK == ViewBag.cedulaTesters[i])
+                        {
+                            <input id="cedula" class="form-control" value="@ViewBag.nombreTesters[i]" style="text-align:center; max-width:none" type="text" readonly>
+                        }
+
+                    }
+                }
+
             </div>
         </div>
     </div>
@@ -133,7 +141,7 @@
         <div class="col-3">
             @*Atributo fecha de inicio*@
             <div class="input-group">
-                <input id="cfecha" class="form-control text-center" style="max-width:none" type="date" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" placeholder="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
+                <input id="cfecha" class="form-control text-center" style="max-width:none" type="date" value="@Model.fechaDeInicio.ToString("yyyy-MM-dd")" name="Fecha De Inicio" readonly>
 
             </div>
 
@@ -146,7 +154,7 @@
         <div class="col-3">
             @*Atributo fecha de finalizacion*@
             <div class="input-group">
-                <input id="cfecha2" class="form-control text-center" style="max-width:none" type="date" value="@if (Model.fechaDeFinalizacion != null) { ((DateTime)Model.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" placeholder="@if (Model.fechaDeFinalizacion != null) { ((DateTime)Model.fechaDeFinalizacion).ToString("yyyy-MM-dd"); }}" name="Fecha de Finalizacion" readonly>
+                <input id="cfecha2" class="form-control text-center" style="max-width:none" type="date" value="@if (Model.fechaDeFinalizacion != null) { @Model.fechaDeFinalizacion.ToString("yyyy-MM-dd");}" name="Fecha de Finalizacion" readonly>
 
 
             </div>
@@ -186,7 +194,7 @@
 
             @*Atributo duracion Real*@
             <div class="input-group">
-                <input id="input5" class="form-control" type="number" style="max-width:none;   text-align:center" value="@Model.tiempoReal" placeholder="@Model.tiempoReal" name="Duracion Real" readonly>
+                <input id="input5" class="form-control" type="number" style="max-width:none; text-align:center" value="@Model.tiempoReal" placeholder="@Model.tiempoReal" name="Duracion Real" readonly>
             </div>
         </div>
     </div>
@@ -211,7 +219,19 @@
         <div class="col-4">
             <div class="input-group">
                 @*Atributo Resultado*@
-                <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="@Model.resultado" readonly>
+                @if (Model.resultado == true)
+                {
+                    <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="Cumplido" readonly>
+                }
+                else if (Model.resultado == false)
+                {
+                    <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="No cumplido" readonly>
+                }
+                else
+                {
+                    <input id="input3" class="form-control" type="text" style="text-align:center; max-width:none" value="No terminado" readonly>
+                }
+
             </div>
         </div>
 

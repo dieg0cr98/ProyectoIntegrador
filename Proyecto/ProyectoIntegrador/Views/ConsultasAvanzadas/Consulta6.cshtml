@@ -1,0 +1,88 @@
+﻿<script>
+
+    function consulta6(permiso,idUsuario) {
+
+        //Cierra la lista de consultas
+        opencloseNav();
+
+        //Limpia los datos
+        document.getElementById("datosC1").innerHTML = " ";
+
+
+        //Agrega el titulo de la consulta
+        document.getElementById("nombreConsulta").innerText = "Historial de participación por tester";
+
+        //Se crea el html de loading
+        document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+        //Pide los datos al controlador
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta6",
+            method: "GET",
+            success: function (data) {
+
+                data2 = JSON.parse(data);
+                //console.log(data2);
+
+
+                    //Crea el html
+                var html = '<div class="text-center">';
+
+
+                //Se crea el html para la tabla
+                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2><table class="table table-bordered table-hover table-light"align="center" style="width:900px"><thead class="thead-dark"><tr><th scope="col">Nombre</th><th scope="col">Estado</th></tr></thead><tbody>';
+
+                //Recorre las tuplas para insertar los datos a la tabla
+                for (tupla in data2) {
+
+                    var cedulaTester = data2[tupla].idEmpleadoPK;
+                    var nombreCompleto = "";
+                    var nombre = data2[tupla].nombre;
+                    var apellido1 = data2[tupla].apellido1;
+                    var apellido2 = data2[tupla].apellido2;
+                    nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
+                    var datosDelScript = "consulta6Tester('" + cedulaTester + "','" + nombreCompleto + "')";
+
+
+
+                    table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                    table += ' <th scope="row">' + nombreCompleto + '</th>';
+                        
+
+                    var estado = data2[tupla].estado;
+
+                    table += '<td>' + estado + '</td>';
+
+                    table += '</tr>';
+
+                }
+
+
+                table += '</tbody></table>';
+
+                html += table;
+
+                document.getElementById("datosC1").innerHTML = html;
+
+            }
+            ,
+            error: function (err) {
+                alert("Ha ocurrido un error");
+            }
+
+
+        });
+
+
+    }
+
+    function consulta6Tester(cedulaTester,nombre) {
+
+    
+        window.open("/ConsultasAvanzadas/consulta6Index/?cedulaTester=" + cedulaTester + "&nombre=" + nombre )
+        
+
+    }
+
+</script>
