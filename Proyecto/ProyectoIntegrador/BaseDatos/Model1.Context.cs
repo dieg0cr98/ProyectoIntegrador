@@ -32,11 +32,11 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<HabilidadBlanda> HabilidadBlanda { get; set; }
         public virtual DbSet<HabilidadTecnica> HabilidadTecnica { get; set; }
         public virtual DbSet<Proyecto> Proyecto { get; set; }
-        public virtual DbSet<Prueba> Prueba { get; set; }
         public virtual DbSet<Requerimiento> Requerimiento { get; set; }
         public virtual DbSet<Tester> Tester { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
+        public virtual DbSet<Prueba> Prueba { get; set; }
     
         public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
         {

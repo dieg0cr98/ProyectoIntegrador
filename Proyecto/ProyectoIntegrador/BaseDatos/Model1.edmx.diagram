@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadBlanda" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadTecnica" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Proyecto" Width="1.5" PointX="7.125" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.Prueba" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Requerimiento" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Tester" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.TrabajaEn" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
@@ -22,10 +21,11 @@
         <AssociationConnector Association="Gr03Proy2Model.FK_TrabajaEn_empleado" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Requerimiento_IdProy" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_TrabajaEn_proy" ManuallyRouted="false" />
-        <AssociationConnector Association="Gr03Proy2Model.FK_Prueba_Requerimiento" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Gr03Proy2Model.HistorialReqTester" Width="1.5" PointX="8.25" PointY="13" />
         <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" />
         <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.Prueba" Width="1.5" PointX="8.25" PointY="8.5" />
+        <AssociationConnector Association="Gr03Proy2Model.FK_Prueba_Requerimiento" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

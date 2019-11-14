@@ -19,10 +19,9 @@
     @*if (Request.IsAuthenticated)
     {*@
         <br />
-        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:35px ; letter-spacing: 1px">
-            <u>Proyecto</u>: @ViewBag.nombreProyecto<br>
-            <u>Requerimiento</u>: @ViewBag.nombreRequerimiento<br>
-            <u>Consultar Pruebas</u>
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 1px">
+            @ViewBag.nombreProyecto<br>
+            Consultar Pruebas: @ViewBag.nombreRequerimiento<br>
         </p>
         <hr>
         <div class="container " style="max-width: 1800px">
