@@ -94,14 +94,15 @@
           <Property Name="idProyectoFK" Type="int" Nullable="false" />
           <Property Name="idReqFK" Type="int" Nullable="false" />
           <Property Name="idPruebaPK" Type="int" Nullable="false" />
-          <Property Name="resultadoFinal" Type="varchar" MaxLength="30" />
-          <Property Name="propositoPrueba" Type="varchar" MaxLength="50" />
-          <Property Name="resultadoEsperado" Type="varchar" MaxLength="30" />
-          <Property Name="flujoPrueba" Type="varchar" MaxLength="30" />
-          <Property Name="estado" Type="varchar" MaxLength="30" />
+          <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="resultadoFinal" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="propositoPrueba" Type="varchar" MaxLength="60" />
+          <Property Name="entradaDatos" Type="varchar" MaxLength="200" />
+          <Property Name="resultadoEsperado" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="flujoPrueba" Type="varchar" MaxLength="60" />
+          <Property Name="estado" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="imagen" Type="varbinary(max)" />
-          <Property Name="descripcionError" Type="varchar" MaxLength="100" />
-          <Property Name="entradaDatos" Type="varchar" MaxLength="100" />
+          <Property Name="descripcionError" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
@@ -536,15 +537,16 @@
           <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
           <Property Name="idReqFK" Type="Int32" Nullable="false" />
           <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
-          <Property Name="resultadoFinal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="propositoPrueba" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="entradaDatos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoEsperado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="flujoPrueba" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="resultadoFinal" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="resultadoEsperado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flujoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="descripcionError" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
@@ -871,12 +873,12 @@
             <Parameter Name="cedulaVieja" Mode="In" Type="String" />
             <Parameter Name="cedulaNueva" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
+          <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="USP_FechaInicioFinRequerimiento" ReturnType="Collection(Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result)">
             <Parameter Name="idProyecto" Mode="In" Type="Int32" />
             <Parameter Name="idEmpleado" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
-            <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -1096,15 +1098,17 @@
           <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
           <Property Type="Int32" Name="duracionReal" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+        <ComplexType Name="USP_FechaInioFinTesterProyecto_Result">
+          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
           <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="horas" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="USP_FechaInioFinTesterProyecto_Result">
-          <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+        <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="complejidad" Nullable="false" MaxLength="20" />
           <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="horas" Nullable="true" />
@@ -1186,6 +1190,7 @@
           <EntitySetMapping Name="Prueba">
             <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
               <MappingFragment StoreEntitySet="Prueba">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
                 <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
                 <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
@@ -1426,9 +1431,10 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_CambiarCedulaCliente" FunctionName="Gr03Proy2Model.Store.USP_CambiarCedulaCliente" />
-          <FunctionImportMapping FunctionImportName="USP_FechaInicioFinRequerimiento" FunctionName="Gr03Proy2Model.Store.USP_FechaInicioFinRequerimiento">
+          <FunctionImportMapping FunctionImportName="USP_FechaInioFinTesterProyecto" FunctionName="Gr03Proy2Model.Store.USP_FechaInioFinTesterProyecto">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result">
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result">
+                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
                 <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
@@ -1436,11 +1442,12 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_FechaInioFinTesterProyecto" FunctionName="Gr03Proy2Model.Store.USP_FechaInioFinTesterProyecto">
+          <FunctionImportMapping FunctionImportName="USP_FechaInicioFinRequerimiento" FunctionName="Gr03Proy2Model.Store.USP_FechaInicioFinRequerimiento">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result">
-                <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
                 <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
                 <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
                 <ScalarProperty Name="horas" ColumnName="horas" />
