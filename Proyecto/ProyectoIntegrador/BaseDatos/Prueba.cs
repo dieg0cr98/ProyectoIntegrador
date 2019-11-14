@@ -18,12 +18,12 @@ namespace ProyectoIntegrador.BaseDatos
         public int idReqFK { get; set; }
         public int idPruebaPK { get; set; }
         public string nombre { get; set; }
-        public string resultadoFinal { get; set; }
+        public string resultadoFinal { get; set; } = "Incompleto";
         public string propositoPrueba { get; set; }
         public string entradaDatos { get; set; }
-        public string resultadoEsperado { get; set; }
+        public string resultadoEsperado { get; set; } = "Incompleto";
         public string flujoPrueba { get; set; }
-        public string estado { get; set; }
+        public string estado { get; set; } = "No iniciado";
         public byte[] imagen { get; set; }
         public string descripcionError { get; set; }
     
