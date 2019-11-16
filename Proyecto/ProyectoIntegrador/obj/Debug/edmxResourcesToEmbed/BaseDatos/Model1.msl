@@ -69,24 +69,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Prueba">
-      <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
-        <MappingFragment StoreEntitySet="Prueba">
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
-          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
-          <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
-          <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
-          <ScalarProperty Name="propositoPrueba" ColumnName="propositoPrueba" />
-          <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
-          <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
-          <ScalarProperty Name="flujoPrueba" ColumnName="flujoPrueba" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="imagen" ColumnName="imagen" />
-          <ScalarProperty Name="descripcionError" ColumnName="descripcionError" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Requerimiento">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Requerimiento">
         <MappingFragment StoreEntitySet="Requerimiento">
@@ -336,5 +318,23 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Prueba">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
+        <MappingFragment StoreEntitySet="Prueba">
+          <ScalarProperty Name="descripcionError" ColumnName="descripcionError" />
+          <ScalarProperty Name="imagen" ColumnName="imagen" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="flujoPrueba" ColumnName="flujoPrueba" />
+          <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
+          <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
+          <ScalarProperty Name="propositoPrueba" ColumnName="propositoPrueba" />
+          <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
+          <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+          <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
