@@ -22,96 +22,261 @@
     <!-- Se crea el formulario con el que recibiremos los datos -->
     <form class="cmxform" id="commentForm" method="post" action="Edit">
         <fieldset>
-            <div class="container justify-content-center" style="padding-right:25px; width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color: rgba(192,159,128, 0.7)">
-                <br />
+            <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91);  background-color: rgba(192,159,128, 0.7)">
                 <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
+                <!--Se pasa el id del proyecto asociado, del requerimiento y de las pruebas de manera oculta ya que al usuario no le interesa esto-->
                 <input type="hidden" id="idProyecto" name="idProyecto" value="@ViewBag.idProyecto">
                 <input type="hidden" id="idReq" name="idReq" value="@ViewBag.idRequerimiento">
                 <input type="hidden" id="idPrueba" name="idPrueba" value="@ViewBag.idPrueba">
-
-                <div class="form-row mb-2">
+                <input type="hidden" id="nomV" name="nombreViejo" value=@Model.nombre>
+                <br />
+                <div class="form-row">
+                    @*Título de Atributo Nombre del Requerimiento*@
                     <div class="col-5">
-                        <!--Campo Nombre-->
-                        <h5 for="nombre" style="width:200px">Nombre *:</h5>
-                        <input class="form-control" id="nombre" name="nombre" maxlength="30" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" required value="@Model.nombre" />
+                        <h5> Nombre de la Prueba: *</h5>
+                    </div>
+
+                    <div class="col-1">
+
+                    </div>
+
+                    @*Título del atributo propositoPrueba*@
+                    <div class="col-5">
+                        <h5>Proposito de la Prueba:</h5>
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="col-5">
+                        @*Atributo nombre de la prueba*@
+                        <div class="input-group">
+                            @*if (ViewBag.permisosEditar.Item3[3] == 1)
+                    {*@
+                            <input class="form-control" id="nombre" name="nombre" minlength="1" maxlength="60" type="text" style="text-align:center" required value="@Model.nombre" />
+                            @*}
+                    else
+                    {
+                        <input class="form-control" id="nombre" name="nombre" minlength="1" maxlength="60" type="text" style="text-align:center" required value="@Model.nombre" readonly/>
+                    }*@
+                        </div>
                         <div id="errorNombre"></div>
                     </div>
-                    <div class="col-2"></div>
+
+                    <div class="col-1">
+
+                    </div>
+
                     <div class="col-5">
-                        @*Título de Atributo Proposito Prueba*@
-                        <h5 for="apellido1" style="width:200px">Proposito Prueba:</h5>
-                        <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" maxlength="50" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        @*Atributo proposito de la prueba*@
+                        <div class="input-group">
+                            @*if (ViewBag.permisosEditar.Item3[3] == 1)
+                    {*@
+                            <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" />
+                            @*}
+                    else
+                    {
+                        <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" readonly/>
+                    }*@
+                        </div>
                     </div>
                 </div>
-                <br>
-                <div class="form-row mb-2">
-                    <div class="col-5">
+
+                @*Titulo de Atributo Descripción*@
+                <div class="form-row">
+                    <div class="col-4">
                         @*Título de Atributo Resultado Esperado*@
-                        <h5 for="resultadoEsperado" style="width:200px">Resultado Esperado:</h5>
-                        <input class="form-control" value="@Model.resultadoEsperado" id="resultadoEsperado" name="resultadoEsperado" maxlength="30" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <h5>Resultado Esperado:</h5>
                     </div>
-                    <div class="col-2"></div>
+
+                    <div class="col-2">
+                    </div>
+
                     <div class="col-5">
                         @*Título de Atributo Flujo Prueba*@
-                        <h5 for="flujoPrueba" style="width:200px">Flujo Prueba:</h5>
-                        <input class="form-control" id="flujoPrueba" value="@Model.flujoPrueba" name="flujoPrueba" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <h5>Flujo Prueba:</h5>
+                    </div>
+
+                </div>
+
+                @*Atributo resultado esperado*@
+                <div class="form-row mb-4">
+                    <div class="col-4">
+                        <div class="input-group">
+                            @*if (ViewBag.permisosEditar.Item3[4] == 1)
+                    {*@
+                            <select class="custom-select" name="resultadoEsperado" required>
+                                @switch (Model.resultadoEsperado)
+                                {
+                                    case "Incompleto":
+                                        <option value="Incompleto" selected>Incompleto</option>
+                                        <option value="Exitoso">Exitoso</option>
+                                        <option value="Fallido">Fallido</option>
+                                        break;
+
+                                    case "Fallido":
+                                        <option value="Incompleto">Incompleto</option>
+                                        <option value="Exitoso">Exitoso</option>
+                                        <option value="Fallido" selected>Fallido</option>
+                                        break;
+
+                                    case "Exitoso":
+                                        <option value="Incompleto">Incompleto</option>
+                                        <option value="Exitoso" selected>Exitoso</option>
+                                        <option value="Fallido">Fallido</option>
+                                        break;
+
+                                }
+                            </select>
+                            @*}
+                    else
+                    {
+                        <input id="resultadoEsperado" class="form-control" value="@Model.resultadoEsperado" style="text-align:center" name="resultadoEsperado" type="text" required readonly>
+                    }*@
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                    </div>
+
+                    <div class="col-5">
+                        <input id="flujoPrueba" class="form-control" value="@Model.flujoPrueba" style="text-align:center" name="flujoPrueba" type="text" required>
                     </div>
                 </div>
-                <br>
-                <div class="form-row mb-2">
-                    <div class="col-5">
+
+                <div class="form-row">
+                    @*Título del atributo estado*@
+                    <div class="col-4 ">
                         <!--Campo estado-->
-                        <h5 for="estado" style="width:200px">Estado:</h5>
-                        <input class="form-control" id="estado" value="@Model.estado" name="estado" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <h5>Estado:</h5>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-5">
-                        <!--Campo Resultado Final-->
-                        <h5 for="resultadoFinal" style="width:200px">Resultado Final:</h5>
-                        <input class="form-control" id="resultadoFinal" value="@Model.resultadoFinal" name="resultadoFinal" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+
+                    <div class="col-2">
+
                     </div>
-                </div>
-                <br>
-                <div class="form-row mb-2" style="padding-left:5px">
-                    @*Atributo Pre-Requisitos(Entrada Datos)*@
-                    <h5 for="entradaDatos" style="width:400px">Pre-Requisitos:</h5>
-                </div>
-                <div class="row" style="padding-left:15px; padding-right:20px;">
-                    <textarea class="form-control col-12" id="entradaDatos" maxlength="100" name="entradaDatos" style="background-color:#D7CEC7; border-color:transparent;height: 90px;">@Model.entradaDatos</textarea>
-                </div>
-                <br>
-                <div class="form-row mb-2" style="padding-left:5px;">
-                    @*Título de Atributo Descripción Error*@
-                    <h5 for="descripcionError" style="width:400px">Descripción Error:</h5>
-                </div>
-                <div class="row" style="padding-left:15px; padding-right:20px;">
-                    <textarea class="form-control col-12" id="descripcionError" maxlength="100" name="descripcionError" style="background-color:#D7CEC7; border-color:transparent;height: 90px;">@Model.descripcionError</textarea>
+
+                    @*Título del atributo resultado final*@
+                    <div class="col-4">
+                        <h5>Resultado Final:</h5>
+                    </div>
                 </div>
 
-                <input type="hidden" id="imagen" name="imagen" value="">
+                <div class="form-row mb-4">
+                    <div class="col-4">
+                        @*Atributo Estado*@
+                        <div class="input-group">
+                            @*if (ViewBag.permisosEditar.Item3[4] == 1)
+                    {*@
+                            <select class="custom-select" name="estado" required>
+                                @switch (Model.estado)
+                                {
+                                    case "No iniciado":
+                                        <option value="No iniciado" selected>No iniciado</option>
+                                        <option value="En ejecución">En ejecución</option>
+                                        <option value="Terminada">Terminada</option>
+                                        break;
 
-                <br><br>
-                <h5>* Campos Requeridos</h5>
+                                    case "En ejecución":
+                                        <option value="No iniciado" selected>No iniciado</option>
+                                        <option value="En ejecución">En ejecución</option>
+                                        <option value="Terminada">Terminada</option>
+                                        break;
+
+                                    case "Terminada":
+                                        <option value="No iniciado" selected>No iniciado</option>
+                                        <option value="En ejecución">En ejecución</option>
+                                        <option value="Terminada">Terminada</option>
+                                        break;
+                                }
+                            </select>
+                            @*}
+                    else
+                    {
+                        <input id="estado" class="form-control" value="@Model.estado" style="text-align:center" name="estado" type="text" required readonly>
+                    }*@
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+
+                    </div>
+
+                    <div class="col-4">
+                        <div class="input-group">
+                            @*if (ViewBag.permisosEditar.Item3[4] == 1)
+                    {*@
+                            <select class="custom-select" name="resultadoFinal" required>
+                                @switch (Model.resultadoFinal)
+                                {
+                                    case "Incompleto":
+                                        <option value="Incompleto" selected>Incompleto</option>
+                                        <option value="Exitoso">Exitoso</option>
+                                        <option value="Fallido">Fallido</option>
+                                        break;
+
+                                    case "Fallido":
+                                        <option value="Incompleto">Incompleto</option>
+                                        <option value="Exitoso">Exitoso</option>
+                                        <option value="Fallido" selected>Fallido</option>
+                                        break;
+
+                                    case "Exitoso":
+                                        <option value="Incompleto">Incompleto</option>
+                                        <option value="Exitoso" selected>Exitoso</option>
+                                        <option value="Fallido">Fallido</option>
+                                        break;
+                                }
+                            </select>
+                            @*}
+                    else
+                    {
+                        <input id="resultadoFinal" class="form-control" value="@Model.resultadoFinal" style="text-align:center" name="resultadoFinals" type="text" required readonly>
+                    }*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        @*Atributo Pre-Requisitos(Entrada Datos)*@
+                        <h5>Pre-Requisitos:</h5>
+                    </div>
+                </div>
+
+                @*Atributo detalle del resultado*@
+                <div class="input-group mb-4  mx-6">
+                    <textarea class="form-control" name="entradaDatos" maxlength="200" aria-label="With textarea" style="max-width:none" id="entradaDatos">@Model.entradaDatos</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        @*Título de Atributo Descripción Error*@
+                        <h5>Descripción Error:</h5>
+                    </div>
+                </div>
+
+                @*Atributo detalle del resultado*@
+                <div class="input-group mb-4  mx-6">
+                    <textarea class="form-control" name="descripcionError" maxlength="200" aria-label="With textarea" style="max-width:none" id="descripcionError">@Model.descripcionError</textarea>
+                </div>
+
+                <h5> * Campos requeridos</h5>
 
                 <hr />
 
-                <div class="row" style="max-width:1800px">
-                    <!--Boton Regresar-->
-                    <div class="col-4  text-center">
+                <div class="row justify-content-center" style="max-width:1150px">
+                    <div class="col-2  text-center">
                         <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Index", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento, idPrueba = ViewBag.idPrueba})">
                             <img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px">
                         </a>
                     </div>
 
-                    <!--Boton Cancelar o Reset-->
-                    <div class="col-4 text-center">
+                    <div class="col-5 text-right">
                         <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
                             <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
                         </button>
                     </div>
 
-                    <!--Boton Aceptar-->
-                    <div class="col-4  text-center">
+                    <div class="col-5  text-center">
                         <button type="submit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="top" title="Aceptar">
                             <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
                             <div id="loading" style="width:80px;height:80px" class="spinner-border text-black" role="status"></div>

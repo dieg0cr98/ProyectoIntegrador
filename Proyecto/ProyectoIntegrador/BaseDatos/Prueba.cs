@@ -11,11 +11,15 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Prueba
     {
+        [Key]
         public int idProyectoFK { get; set; }
+        [Key]
         public int idReqFK { get; set; }
+        [Key]
         public int idPruebaPK { get; set; }
         public string nombre { get; set; }
         public string resultadoFinal { get; set; } = "Incompleto";

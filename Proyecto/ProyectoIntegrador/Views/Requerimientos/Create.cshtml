@@ -25,10 +25,10 @@
         <!-- Se crea el formulario con el que recibiremos los datos -->
         <form class="cmxform" id="commentForm" method="post" action="Create">
             <fieldset>
-                <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+                <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91);  background-color: rgba(192,159,128, 0.7)">
                     <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
                     <input type="hidden" id="idProy" name="idProyecto" value=@ViewBag.idProyecto>
-
+                    <br />
                     <div class="form-row">
                         @*Título de Atributo Nombre del Requerimiento*@
                         <div class="col-5">
@@ -324,11 +324,17 @@
                                     url: "/Requerimientos/ReviseNombreRequerimiento",
                                     type: "post",
                                     delay: 1000,
-                                    data: {
-                                        name: function () {
+                                    data:
+                                    {
+                                        name: function ()
+                                        {
                                             return $("#nom").val();
                                         },
-                                        oldName: null
+                                        oldName: null,
+                                        idProyecto: function ()
+                                        {
+                                            return $("#idProy").val();
+                                        }
                                     }
                                 }
 

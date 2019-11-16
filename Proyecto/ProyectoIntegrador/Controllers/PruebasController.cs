@@ -88,11 +88,8 @@ namespace ProyectoIntegrador.Controllers
             if (ModelState.IsValid)
             {
                 Prueba prueba = new Prueba();
-                Requerimiento req = db.Requerimiento.Find(idReq, idProyecto);
                 prueba.idProyectoFK = idProyecto;
                 prueba.idReqFK = idReq;
-                prueba.idPruebaPK = req.cantidadDePruebas; //asignamos como el id de pruebas la cantidad de pruebas del req.
-                req.cantidadDePruebas += 1; //aumentamos en 1 la cantidad de pruebas del req
                 prueba.nombre = nombre;
                 prueba.resultadoFinal = resultadoFinal;
                 prueba.propositoPrueba = propositoPrueba;
