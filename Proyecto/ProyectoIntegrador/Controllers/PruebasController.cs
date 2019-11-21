@@ -15,67 +15,101 @@ namespace ProyectoIntegrador.Controllers
     public class PruebasController : Controller
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
-        
+        private SeguridadController seguridad = new SeguridadController();
+
         // GET: Pruebas
         //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros
-        public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba = 0)
+        public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba = 0 , string mensaje = null)
         {
-            //Se sacan las pruebas de la base de datos
-            var pruebas = db.Prueba.Where(P => P.idProyectoFK == idProyecto && P.idReqFK == idRequerimiento);
+            //Sacamos permisos generales de la vista.
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            ViewBag.permisosGenerales = permisosGenerales; //asignamos los permisos al viewbag
+            ViewBag.error = mensaje;
+            //Verifica que el usuario este registrado y que tenga permisos de consultar pruebas.
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
+            {
+                //Se sacan las pruebas de la base de datos
+                var pruebas = db.Prueba.Where(P => P.idProyectoFK == idProyecto && P.idReqFK == idRequerimiento);
 
-            //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
-            ViewBag.seleccion = idPrueba;
+                //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
+                ViewBag.seleccion = idPrueba;
 
-            //Se guarda id y nombre del proyecto en el viewbag
-            ViewBag.idProyecto = idProyecto;
-            ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
+                //Se guarda id y nombre del proyecto en el viewbag
+                ViewBag.idProyecto = idProyecto;
+                ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
 
-            //Se guarda id y nombre del requerimiento en el viewbag
-            ViewBag.idRequerimiento = idRequerimiento;
-            ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
+                //Se guarda id y nombre del requerimiento en el viewbag
+                ViewBag.idRequerimiento = idRequerimiento;
+                ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
 
-            return View(pruebas.ToList());
+
+                return View(pruebas.ToList());
+            }
+            else
+            {
+                ViewBag.error = "No posee permisos para realizar esa acción.";
+                return View();
+            }
         }
 
         // Metodo que se llama al ingresar a la vista de editar prueba
         public ActionResult Edit(int idProyecto, int idRequerimiento, int idPrueba)
         {
-            Prueba prueba = db.Prueba.Find(idProyecto, idRequerimiento, idPrueba); //Se saca la prueba de la base de datos
-
-            if (prueba == null)
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            
+            //Verifica que el usuario este registrado y que tenga permiso de editar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item4 == 1)
             {
-                return HttpNotFound();
+
+                Prueba prueba = db.Prueba.Find(idProyecto, idRequerimiento, idPrueba); //Se saca la prueba de la base de datos
+
+                if (prueba == null)
+                {
+                    return HttpNotFound();
+                }
+
+                //Se guarda id y nombre del proyecto en el viewbag
+                ViewBag.idProyecto = idProyecto;
+                ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
+
+                //Se guarda id y nombre del requerimiento en el viewbag
+                ViewBag.idRequerimiento = idRequerimiento;
+                ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
+
+                ViewBag.idPrueba = idPrueba;
+
+                return View(prueba);
             }
-
-            //Se guarda id y nombre del proyecto en el viewbag
-            ViewBag.idProyecto = idProyecto;
-            ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
-
-            //Se guarda id y nombre del requerimiento en el viewbag
-            ViewBag.idRequerimiento = idRequerimiento;
-            ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
-
-            ViewBag.idPrueba = idPrueba;
-
-            return View(prueba);
+            else
+            {
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = idPrueba,mensaje = "No posee permisos para realizar esa acción." }); //Retorna a la vista
+            }
         }
 
         // GET: Pruebas/Create
         //Metodo que se llama al ingresar a la vista de crear prueba
         public ActionResult Create(int idProyecto, int idRequerimiento)
         {
-            //Se guarda id y nombre del proyecto en el viewbag
-            ViewBag.idProyecto = idProyecto;
-            ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
+            var permisosGenerales = seguridad.PruebasPermisos(User);
 
-            //Se guarda id y nombre del requerimiento en el viewbag
-            ViewBag.idRequerimiento = idRequerimiento;
-            Requerimiento req = db.Requerimiento.Find(idRequerimiento, idProyecto);
-            ViewBag.nombreRequerimiento = req.nombre;
+            //Verifica que el usuario este registrado y que tenga permiso de agregar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item5 == 1)
+            {
+                //Se guarda id y nombre del proyecto en el viewbag
+                ViewBag.idProyecto = idProyecto;
+                ViewBag.nombreProyecto = db.Proyecto.Find(idProyecto).nombre;
 
-            //Ver si hace falta un trigger para sumar a la cantidad de pruebas en req, creo que si
+                //Se guarda id y nombre del requerimiento en el viewbag
+                ViewBag.idRequerimiento = idRequerimiento;
+                Requerimiento req = db.Requerimiento.Find(idRequerimiento, idProyecto);
+                ViewBag.nombreRequerimiento = req.nombre;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, mensaje = "No posee permisos para realizar esa acción." }); //Retorna a la vista
+            }
         }
 
         // POST: Pruebas/Create
@@ -83,29 +117,37 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Create(int idProyecto, int idReq, string resultadoFinal, string propositoPrueba,
             string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre)
         {
-            if (ModelState.IsValid)
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            string mensaje = "";
+            //Verifica que el usuario este registrado y que tenga permiso de agregar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item5 == 1)
             {
-                Prueba prueba = new Prueba();
-                prueba.idProyectoFK = idProyecto;
-                prueba.idReqFK = idReq;
-                prueba.nombre = nombre;
-                prueba.resultadoFinal = resultadoFinal;
-                prueba.propositoPrueba = propositoPrueba;
-                prueba.entradaDatos = entradaDatos;
-                prueba.resultadoEsperado = resultadoEsperado;
-                prueba.flujoPrueba = flujoPrueba;
-                prueba.estado = estado;
-                if (imagen != null)
+                if (ModelState.IsValid)
                 {
-                    prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                    Prueba prueba = new Prueba();
+                    prueba.idProyectoFK = idProyecto;
+                    prueba.idReqFK = idReq;
+                    prueba.nombre = nombre;
+                    prueba.resultadoFinal = resultadoFinal;
+                    prueba.propositoPrueba = propositoPrueba;
+                    prueba.entradaDatos = entradaDatos;
+                    prueba.resultadoEsperado = resultadoEsperado;
+                    prueba.flujoPrueba = flujoPrueba;
+                    prueba.estado = estado;
+                    if (imagen != null)
+                    {
+                        prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                    }
+                    prueba.descripcionError = descripcionError;
+                    db.Prueba.Add(prueba);
+                    db.SaveChanges();
                 }
-                prueba.descripcionError = descripcionError;
-                db.Prueba.Add(prueba);
-                db.SaveChanges();
-                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = prueba.idPruebaPK }); //Retorna a la vista
             }
-
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq }); //Retorna a la vista
+            else
+            {
+                mensaje = "No posee permisos para realizar esa acción.";
+            }
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, mensaje = mensaje }); //Retorna a la vista    
         }
 
         // POST: Pruebas/Edit/5
@@ -114,34 +156,52 @@ namespace ProyectoIntegrador.Controllers
         public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
         string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, byte[] imagen, string descripcionError, string nombre)
         {
-            if (ModelState.IsValid)
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            string mensaje = "";
+            //Verifica que el usuario este registrado y que tenga permiso de editar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item4 == 1)
             {
-                Prueba prueba = db.Prueba.Find(idProyecto,idReq,idPrueba);
-                //prueba.nombre = nombre;
-                prueba.resultadoFinal = resultadoFinal;
-                prueba.propositoPrueba = propositoPrueba;
-                prueba.entradaDatos = entradaDatos;
-                prueba.resultadoEsperado = resultadoEsperado;
-                prueba.flujoPrueba = flujoPrueba;
-                prueba.estado = estado;
-                prueba.imagen = imagen;
-                prueba.descripcionError = descripcionError;
+                if (ModelState.IsValid)
+                {
+                    Prueba prueba = db.Prueba.Find(idProyecto, idReq, idPrueba);
+                    //prueba.nombre = nombre;
+                    prueba.resultadoFinal = resultadoFinal;
+                    prueba.propositoPrueba = propositoPrueba;
+                    prueba.entradaDatos = entradaDatos;
+                    prueba.resultadoEsperado = resultadoEsperado;
+                    prueba.flujoPrueba = flujoPrueba;
+                    prueba.estado = estado;
+                    prueba.imagen = imagen;
+                    prueba.descripcionError = descripcionError;
 
-                db.Entry(prueba).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = prueba.idPruebaPK }); //Retorna a la vista
+                    db.Entry(prueba).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
-
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq }); //Retorna a la vista
+            else
+            {
+                mensaje = "No posee permisos para realizar esa acción.";
+            }
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, mensaje = mensaje }); //Retorna a la vista
         }
 
         // Método que recibe la confirmación del usuario para eliminar una prueba.
         public ActionResult Eliminar(int idProyecto, int idRequerimiento, int idPrueba)
         {
-            Prueba prueba = db.Prueba.Find(idProyecto, idRequerimiento, idPrueba); //Se saca la prueba de la base de datos
-            db.Prueba.Remove(prueba); //Se elimina la prueba
-            db.SaveChanges(); //Se guardan cambios
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = 0 }); //Retorna a la vista
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            string mensaje = "";
+            //Verifica que el usuario este registrado y que tenga permiso de editar = 1
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item6 == 1)
+            {
+                Prueba prueba = db.Prueba.Find(idProyecto, idRequerimiento, idPrueba); //Se saca la prueba de la base de datos
+                db.Prueba.Remove(prueba); //Se elimina la prueba
+                db.SaveChanges(); //Se guardan cambios
+            }
+            else
+            {
+                mensaje = "No posee permisos para realizar esa acción.";
+            }
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = 0, mensaje = mensaje }); //Retorna a la vista
         }
     }
 }

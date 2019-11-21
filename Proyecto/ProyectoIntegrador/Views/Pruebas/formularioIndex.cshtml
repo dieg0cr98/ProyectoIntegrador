@@ -7,9 +7,14 @@
 
     <!-- Botones de Editar y Borrar  -->
     <div class="col" style="height:70px;">
-        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Pruebas", new { idProyecto = Model.idProyectoFK, idRequerimiento = Model.idReqFK, idPrueba = Model.idPruebaPK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px;padding-top:5px"></a>
-
-        <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqFK" data-whatever2="@Model.idProyectoFK" data-whatever3="@Model.idPruebaPK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px; padding-top:5px"></a>
+        @if (ViewBag.permisosGenerales.Item4 == 1)
+        {
+            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Pruebas", new { idProyecto = Model.idProyectoFK, idRequerimiento = Model.idReqFK, idPrueba = Model.idPruebaPK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px;padding-top:5px"></a>
+        }
+        @if (ViewBag.permisosGenerales.Item6 == 1)
+        {
+            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqFK" data-whatever2="@Model.idProyectoFK" data-whatever3="@Model.idPruebaPK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px; padding-top:5px"></a>
+        }
     </div>
 </div>
 
