@@ -13,123 +13,128 @@
     </div>
 </div>
 
-        <hr />
+<hr />
 
-        <div class="container col-12" style="width:auto; height:auto; padding-right:25px;">
+<div class="container justify-content-center overflow-auto" style="max-height:600px; height:510px">
 
-            <div class="form-row">
-                @*Titulo de Atributo Nombre*@
-                <div class="col-5">
-                    <h5> Nombre</h5>
-                </div>
-                <div class="col-2"></div>
-                @*Título de Atributo Proposito Prueba*@
-                <div class="col-5 ">
-                    <h5> Proposito Prueba </h5>
-                </div>
-            </div>
-            <br />
-            <div class="form-row">
-                @*Atributo Nombre*@
-                <div class="col-5">
-                    <input class="form-control" name="nombre" value="@Model.nombre" maxlength="30" style="background-color:#D7CEC7; max-width:none" readonly />
-                </div>
-                <div class="col-2"></div>
-                <div class="col-5">
-                    @*Atributo propositoPrueba*@
-                    <input class="form-control" type="text" style="background-color:#D7CEC7; text-align:center; max-width:none" value="@Model.propositoPrueba" readonly>
-                </div>
-            </div>
-            <br />
-            <div class="form-row">
-                @*Título de Atributo Resultado Esperado*@
-                <div class="col-5">
-                    <h5> Resultado Esperado </h5>
-                </div>
-                <div class="col-2"></div>
-                @*Título de Atributo Flujo Prueba*@
-                <div class="col-5">
-                    <h5> Flujo Prueba </h5>
-                </div>
-            </div>
-            <br />
-            <div class="form-row">
-                <div class="col-5">
-                    @*Atributo resultadoEsperado*@
-                    <input class="form-control" value="@Model.resultadoEsperado" style="background-color:#D7CEC7; text-align:center; max-width:none" type="text" readonly>
-                </div>
-                <div class="col-2"></div>
-                @*Atributo flujoPrueba*@
-                <div class="col-5">
-                    <input class="form-control text-center" style="background-color:#D7CEC7; max-width:none" type="text" value="@Model.flujoPrueba" name="flujoPrueba" readonly>
-                </div>
-            </div>
-            <br />
-            <div class="form-row">
-                @*Título de Atributo estado*@
-                <div class="col-5">
-                    <h5> Estado </h5>
-                </div>
-
-                <div class="col-2"></div>
-                @*Título de Atributo Resultado Final*@
-                <div class="col-5">
-                    <h5> Resultado Final </h5>
-                </div>
-            </div>
-            <br />
-
-            <div class="form-row">
-                @*Atributo estado*@
-                <div class="col-5">
-                    <input class="form-control text-center" style="background-color:#D7CEC7; max-width:none" type="text" value="@Model.estado" name="estado" readonly>
-                </div>
-
-                <div class="col-2"></div>
-                @*Atributo Resultado Final*@
-                <div class="col-5">
-                    <input class="form-control" type="text" style="background-color:#D7CEC7; max-width:none;  text-align:center" value="@Model.resultadoFinal" name="resultadoFinal" readonly>
-                </div>
-            </div>
-            <br />
-            <div class="form-row">
-                @*Título de Pre-Requisitos(Entrada Datos)*@
-                <div class="col-5">
-                    <h5> Pre-Requisitos </h5>
-                </div>
-            </div>
-            <div class="form-row">
-                @*Atributo Pre-Requisitos(Entrada Datos)*@
-                <div class="input-group">
-                    <textarea class="form-control" type="text" style="background-color:#D7CEC7; max-width:none;" name="entradaDatos" readonly>@Model.entradaDatos</textarea>
-                </div>
-            </div>
-            <br />
-            <div class="form-row">
-                @*Título de Atributo Descripción Error*@
-                <div class="col-4 ">
-                    <h5> Descripción Error </h5>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="input-group">
-                    @*Atributo descripcionError*@
-                    <textarea class="form-control" type="text" style="background-color:#D7CEC7; max-width:none" readonly>@Model.descripcionError</textarea>
-                </div>
-            </div>
-            <br />
-
-            <div class="form-row">
-                @*Título de Atributo imagen *@
-                <div class="col-4">
-                    <h5> Imagen si es que se va a poner </h5>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="input-group">
-                    @*Atributo imagen
-                    <input class="form-control" value="@item.imagen" style="text-align:center; max-width:none" type="text" readonly>*@
-                </div>
-            </div>
-            
+    <div class="form-row">
+        @*Titulo de Atributo Nombre*@
+        <div class="col-5">
+            <h5> Nombre</h5>
         </div>
+        <div class="col-2"></div>
+        @*Título de Atributo Proposito Prueba*@
+        <div class="col-5 ">
+            <h5> Proposito Prueba </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo Nombre*@
+        <div class="col-5">
+            <input class="form-control" name="nombre" value="@Model.nombre" maxlength="30" style="text-align:center" readonly />
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5">
+            @*Atributo propositoPrueba*@
+            <input class="form-control" type="text" style="text-align:center" value="@Model.propositoPrueba" readonly>
+        </div>
+    </div>
+    <br />
+    <div class="form-row">
+        @*Título de Atributo Resultado Esperado*@
+        <div class="col-5">
+            <h5> Resultado Esperado </h5>
+        </div>
+        <div class="col-2"></div>
+        @*Título de Atributo Flujo Prueba*@
+        <div class="col-5">
+            <h5> Flujo Prueba </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-5">
+            @*Atributo resultadoEsperado*@
+            <input class="form-control" value="@Model.resultadoEsperado" style="text-align:center" type="text" readonly>
+        </div>
+        <div class="col-2"></div>
+        @*Atributo flujoPrueba*@
+        <div class="col-5">
+            <input class="form-control text-center" style="text-align:center" type="text" value="@Model.flujoPrueba" name="flujoPrueba" readonly>
+        </div>
+    </div>
+    <br />
+    <div class="form-row">
+        @*Título de Atributo estado*@
+        <div class="col-5">
+            <h5> Estado </h5>
+        </div>
+
+        <div class="col-2"></div>
+        @*Título de Atributo Resultado Final*@
+        <div class="col-5">
+            <h5> Resultado Final </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo estado*@
+        <div class="col-5">
+            <input class="form-control text-center" style="text-align:center" type="text" value="@Model.estado" name="estado" readonly>
+        </div>
+
+        <div class="col-2"></div>
+        @*Atributo Resultado Final*@
+        <div class="col-5">
+            <input class="form-control" type="text" style="text-align:center" value="@Model.resultadoFinal" name="resultadoFinal" readonly>
+        </div>
+    </div>
+    <br />
+    <div class="form-row">
+        @*Título de Pre-Requisitos(Entrada Datos)*@
+        <div class="col">
+            <h5> Pre-Requisitos </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo Pre-Requisitos(Entrada Datos)*@
+        <div class="input-group mb-4  mx-6">
+            <textarea class="form-control" maxlength="200" aria-label="With textarea" style="max-width:none" id="entradaDatos" name="entradaDatos" readonly>@Model.entradaDatos</textarea>
+        </div>
+    </div>
+    <br />
+    <div class="form-row">
+        @*Título de Atributo Descripción Error*@
+        <div class="col">
+            <h5> Descripción Error </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="input-group mb-4  mx-6">
+            @*Atributo descripcionError*@
+            <textarea class="form-control" maxlength="200" aria-label="With textarea" style="max-width:none" id="descripcionError" name="descripcionError" readonly>@Model.descripcionError</textarea>
+        </div>
+    </div>
+    <hr />
+    <br />
+    <div class="form-row">
+        @*Título de Atributo imagen *@
+        <div class="col-4">
+            <h5> Imagen del error: </h5>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-group">
+            <!--Atributo imagen-->
+            @*{
+                var base64 = Convert.ToBase64String(Model.imagen);
+                var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
+            }*@
+            <img src="@Model.imagen" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+
+</div>

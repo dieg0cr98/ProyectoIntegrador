@@ -16,14 +16,13 @@
 
 <body>
     <br />
-    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Agregar Prueba</p>
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Prueba</p>
     <hr>
 
     <!-- Se crea el formulario con el que recibiremos los datos -->
-    <form class="cmxform" id="commentForm" method="post" action="Edit">
+    <form class="cmxform" id="commentForm" method="post" action="Edit"><!--enctype="multipart/form-data"-->
         <fieldset>
             <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91);  background-color: rgba(192,159,128, 0.7)">
-                <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
                 <!--Se pasa el id del proyecto asociado, del requerimiento y de las pruebas de manera oculta ya que al usuario no le interesa esto-->
                 <input type="hidden" id="idProyecto" name="idProyecto" value="@ViewBag.idProyecto">
                 <input type="hidden" id="idReq" name="idReq" value="@ViewBag.idRequerimiento">
@@ -42,7 +41,7 @@
 
                     @*Título del atributo propositoPrueba*@
                     <div class="col-5">
-                        <h5>Proposito de la Prueba:</h5>
+                        <h5>Propósito de la Prueba:</h5>
                     </div>
                 </div>
 
@@ -80,22 +79,26 @@
                         </div>
                     </div>
                 </div>
+                <hr />
+                <h3>Diseño de la prueba</h3>
+                <br />
+                <div class="form-row">
+                    <div class="col">
+                        @*Título del Atributo Pre-Requisitos(Entrada Datos)*@
+                        <h5>Datos de entrada:</h5>
+                    </div>
+                </div>
 
-                @*Titulo de Atributo Descripción*@
+                @*Atributo pre-requisitos*@
+                <div class="input-group mb-4  mx-6">
+                    <textarea class="form-control" name="entradaDatos" maxlength="200" aria-label="With textarea" style="max-width:none" id="entradaDatos">@Model.entradaDatos</textarea>
+                </div>
+
                 <div class="form-row">
                     <div class="col-4">
                         @*Título de Atributo Resultado Esperado*@
                         <h5>Resultado Esperado:</h5>
                     </div>
-
-                    <div class="col-2">
-                    </div>
-
-                    <div class="col-5">
-                        @*Título de Atributo Flujo Prueba*@
-                        <h5>Flujo Prueba:</h5>
-                    </div>
-
                 </div>
 
                 @*Atributo resultado esperado*@
@@ -134,13 +137,18 @@
                     }*@
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-2">
+                <div class="form-row">
+                    <div class="col">
+                        @*Título de Atributo Flujo Prueba*@
+                        <h5>Flujo Prueba:</h5>
                     </div>
+                </div>
 
-                    <div class="col-5">
-                        <input id="flujoPrueba" class="form-control" value="@Model.flujoPrueba" style="text-align:center" name="flujoPrueba" type="text" required>
-                    </div>
+                @*Atributo pre-requisitos*@
+                <div class="input-group mb-4  mx-6">
+                    <textarea class="form-control" name="flujoPrueba" maxlength="200" aria-label="With textarea" style="max-width:none" id="flujoPrueba">@Model.flujoPrueba</textarea>
                 </div>
 
                 <div class="form-row">
@@ -148,15 +156,6 @@
                     <div class="col-4 ">
                         <!--Campo estado-->
                         <h5>Estado:</h5>
-                    </div>
-
-                    <div class="col-2">
-
-                    </div>
-
-                    @*Título del atributo resultado final*@
-                    <div class="col-4">
-                        <h5>Resultado Final:</h5>
                     </div>
                 </div>
 
@@ -195,11 +194,20 @@
                     }*@
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-2">
+                <hr />
+                <h3>Resultados</h3>
+                <br />
 
+                <div class="form-row">
+                    @*Título del atributo resultado final*@
+                    <div class="col-4">
+                        <h5>Resultado Final:</h5>
                     </div>
+                </div>
 
+                <div class="form-row mb-4">
                     <div class="col-4">
                         <div class="input-group">
                             @*if (ViewBag.permisosEditar.Item3[4] == 1)
@@ -237,18 +245,6 @@
 
                 <div class="form-row">
                     <div class="col">
-                        @*Atributo Pre-Requisitos(Entrada Datos)*@
-                        <h5>Pre-Requisitos:</h5>
-                    </div>
-                </div>
-
-                @*Atributo detalle del resultado*@
-                <div class="input-group mb-4  mx-6">
-                    <textarea class="form-control" name="entradaDatos" maxlength="200" aria-label="With textarea" style="max-width:none" id="entradaDatos">@Model.entradaDatos</textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="col">
                         @*Título de Atributo Descripción Error*@
                         <h5>Descripción Error:</h5>
                     </div>
@@ -259,6 +255,19 @@
                     <textarea class="form-control" name="descripcionError" maxlength="200" aria-label="With textarea" style="max-width:none" id="descripcionError">@Model.descripcionError</textarea>
                 </div>
 
+                <hr />
+
+                <div class="form-row">
+                    <div class="col">
+                        @*Título del campo de la imagen*@
+                        <h5>Imagen del error:</h5>
+                    </div>
+                </div>
+
+                <div>
+                    <input name="imagen" type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <br />
                 <h5> * Campos requeridos</h5>
 
                 <hr />

@@ -9,13 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using ProyectoIntegrador.BaseDatos;
 using ProyectoIntegrador.Models;
+using System.Linq;
 
 namespace ProyectoIntegrador.Controllers
 {
     public class PruebasController : Controller
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
-
+        
         // GET: Pruebas
         //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros
         public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba = 0)
@@ -73,8 +74,6 @@ namespace ProyectoIntegrador.Controllers
             Requerimiento req = db.Requerimiento.Find(idRequerimiento, idProyecto);
             ViewBag.nombreRequerimiento = req.nombre;
 
-            ViewBag.idPrueba = req.cantidadDePruebas + 1;
-
             //Ver si hace falta un trigger para sumar a la cantidad de pruebas en req, creo que si
 
             return View();
@@ -97,7 +96,10 @@ namespace ProyectoIntegrador.Controllers
                 prueba.resultadoEsperado = resultadoEsperado;
                 prueba.flujoPrueba = flujoPrueba;
                 prueba.estado = estado;
-                prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                if (imagen != null)
+                {
+                    prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                }
                 prueba.descripcionError = descripcionError;
                 db.Prueba.Add(prueba);
                 db.SaveChanges();
@@ -111,7 +113,7 @@ namespace ProyectoIntegrador.Controllers
         // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
         public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
-        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre)
+        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, byte[] imagen, string descripcionError, string nombre)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +125,7 @@ namespace ProyectoIntegrador.Controllers
                 prueba.resultadoEsperado = resultadoEsperado;
                 prueba.flujoPrueba = flujoPrueba;
                 prueba.estado = estado;
-                prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                prueba.imagen = imagen;
                 prueba.descripcionError = descripcionError;
 
                 db.Entry(prueba).State = EntityState.Modified;
