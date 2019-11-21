@@ -31,60 +31,75 @@
                 <div class="form-row mb-2">
                     <div class="col-5">
                         <!--Campo Nombre-->
-                        <h5 for="nombre" style="width:200px">Nombre *:</h5>
-                        <input class="form-control" id="nombre" name="nombre" maxlength="30" type="text" style="background-color:#D7CEC7; border-color:transparent;max-width:none" required />
+                        <h5 for="nombre" style="width:200px">Nombre: *</h5>
+                        <input class="form-control" id="nombre" name="nombre" minlength="1" maxlength="60" type="text" required />
                         <div id="errorNombre"></div>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-5">
                         @*Título de Atributo Proposito Prueba*@
-                        <h5 for="apellido1" style="width:200px">Proposito Prueba:</h5>
-                        <input class="form-control" id="propositoPrueba" name="propositoPrueba" maxlength="50" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <h5 for="propositoPrueba" style="width:200px">Proposito Prueba:</h5>
+                        <input class="form-control" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" />
                     </div>
                 </div>
-                <br>
-                <div class="form-row mb-2">
-                    <div class="col-5">
-                        @*Título de Atributo Resultado Esperado*@
-                        <h5 for="resultadoEsperado" style="width:200px">Resultado Esperado:</h5>
-                        <input class="form-control" id="resultadoEsperado" name="resultadoEsperado" maxlength="30" type="text" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-5">
-                        @*Título de Atributo Flujo Prueba*@
-                        <h5 for="flujoPrueba" style="width:200px">Flujo Prueba:</h5>
-                        <input class="form-control" id="flujoPrueba" name="flujoPrueba" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
-                    </div>
+                <hr>
+                <h3><u>Diseño de la prueba</u></h3>
+                <br />
+                <div class="form-row mb-2" style="padding-left:5px">
+                    @*Atributo Pre-Requisitos(Entrada Datos)*@
+                    <h5 for="entradaDatos" style="width:400px">Datos de entrada:</h5>
+                </div>
+                <div class="row" style="padding-left:15px; padding-right:20px;">
+                    <textarea class="form-control col-12" id="entradaDatos" maxlength="200" name="entradaDatos"></textarea>
+                </div>
+                <br />
+                <div class="form-row mb-2" style="padding-left:5px">
+                    @*Título de Atributo Resultado Esperado*@
+                    <h5 for="resultadoEsperado" style="width:200px">Resultado Esperado:</h5>
+                </div>
+                <div class="row" style="padding-left:15px; padding-right:20px;">
+                    <textarea class="form-control col-12" id="resultadoEsperado" maxlength="200" name="resultadoEsperado"></textarea>
                 </div>
                 <br>
+                <div class="form-row mb-2" style="padding-left:5px">
+                    @*Título de Atributo Flujo Prueba*@
+                    <h5 for="flujoPrueba" style="width:200px">Flujo Prueba:</h5>
+                </div>
+                <div class="row" style="padding-left:15px; padding-right:20px;">
+                    <textarea class="form-control col-12" id="flujoPrueba" maxlength="200" name="flujoPrueba"></textarea>
+                </div>
+                <br>
+
+
                 <div class="form-row mb-2">
                     <div class="col-5">
                         <!--Campo estado-->
                         <h5 for="estado" style="width:200px">Estado:</h5>
-                        <input class="form-control" id="estado" name="estado" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <select class="custom-select" name="estado" required>
+                            <option value="No iniciado" selected>No iniciado</option>
+                            <option value="En ejecución">En ejecución</option>
+                        </select>
                     </div>
-                    <div class="col-2"></div>
+                </div>
+                <hr />
+                <h3><u>Resultados</u></h3>
+                <br />
+                <div class="form-row mb-2">
                     <div class="col-5">
                         <!--Campo Resultado Final-->
                         <h5 for="resultadoFinal" style="width:200px">Resultado Final:</h5>
-                        <input class="form-control" id="resultadoFinal" name="resultadoFinal" type="text" maxlength="30" style="background-color:#D7CEC7; border-color:transparent; max-width:none" />
+                        <select class="custom-select" name="resultadoFinal">
+                            <option value="Incompleto" selected>Incompleto</option>
+                        </select>
                     </div>
                 </div>
-                <br>
-                <div class="form-row mb-2" style="padding-left:5px">
-                    @*Atributo Pre-Requisitos(Entrada Datos)*@
-                    <h5 for="entradaDatos" style="width:400px">Pre-Requisitos:</h5>
-                </div>
-                <div class="row" style="padding-left:15px; padding-right:20px;">
-                    <textarea class="form-control col-12" id="entradaDatos" maxlength="100" name="entradaDatos" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
-                </div>
-                <br>
+                <br />
                 <div class="form-row mb-2" style="padding-left:5px;">
                     @*Título de Atributo Descripción Error*@
                     <h5 for="descripcionError" style="width:400px">Descripción Error:</h5>
                 </div>
                 <div class="row" style="padding-left:15px; padding-right:20px;">
-                    <textarea class="form-control col-12" id="descripcionError" maxlength="100" name="descripcionError" style="background-color:#D7CEC7; border-color:transparent;height: 90px;"></textarea>
+                    <textarea class="form-control col-12" id="descripcionError" maxlength="200" name="descripcionError"></textarea>
                 </div>
 
                 <input type="hidden" id="imagen" name="imagen" value="">
