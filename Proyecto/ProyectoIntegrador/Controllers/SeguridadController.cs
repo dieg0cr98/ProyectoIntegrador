@@ -316,15 +316,66 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,3,3,3}
          };
         //---------------------------------------------------------------------------------------------------------------------------//
- /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
-     * Retorna un Tuple<int,string,int,int,int>, con los valores:
-     *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
-     *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
-     *              cedulaUsuario
-     *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
-     *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
-     *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
-    */
+            /* 1 Pueder hacer la accion para todos las pruebas(CRUD)
+             * 2 Solo a las pruebas en que trabaja
+             * 3 No puede hacer la accion
+            */
+        private int[,] tablaSeguridadPruebas = new int[,] {
+                            /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consultar*/                   {1,1,1,1},
+         /*Agregar*/                     {1,1,1,3},
+         /*Editar*/                      {1,1,1,3},
+         /*Eliminar*/                    {1,1,1,3}
+         };
+        //---------------------------------------------------------------------------------------------------------------------------//
+        /*Metodo para acceder a los permisos del usuario en las vistas de pruebas
+         * Retorna un Tuple<int,string,int,int,int>, con los valores:
+         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+         *              cedulaUsuario
+         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+        */
+        public Tuple<int, string, int, int, int, int> PruebasPermisos(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede agregar
+            int permisoBorrar = 3;   //Por defecto no puede borrar
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtiene los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadPruebas[0, rol];
+                permisoAgregar = tablaSeguridadPruebas[1, rol]; ;
+                permisoEditar = tablaSeguridadPruebas[2, rol]; ;
+                permisoBorrar = tablaSeguridadPruebas[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver las pruebas a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+            }
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
+
+
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
+            * Retorna un Tuple<int,string,int,int,int>, con los valores:
+            *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+            *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+            *              cedulaUsuario
+            *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+            *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+            *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+           */
         public Tuple<int, string, int, int, int, int> EmpleadoConsultar(System.Security.Principal.IPrincipal user)
         {
 

@@ -16,13 +16,16 @@
 
 <body>
     <!-- Verifica que el llamado a la vista se haya hecho por un usuario registrado a la aplicación -->
-    @*if (Request.IsAuthenticated)
-    {*@
+    @if (Request.IsAuthenticated)
+    {
         <br />
         <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 1px">
             @ViewBag.nombreProyecto<br>
             Consultar Pruebas: @ViewBag.nombreRequerimiento<br>
         </p>
+        <div style="margin-left:25%">
+            @if(ViewBag.error != null){<div class="alert alert-primary text-center" style="color:white ; background-color:red; width:67%;"> @ViewBag.error </div>}
+        </div>
         <hr>
         <div class="container " style="max-width: 1800px">
             <div class="row">
@@ -34,11 +37,11 @@
                             <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                             Lista de Pruebas
                         </a>
-                        <!-- Si el usuario no tiene permisos, no puede agregar requerimientos -->
-                        @*if (ViewBag.permisosGenerales.Item4 == 1)
-                        {*@
-                        <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Prueba" href="@Url.Action("Create", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                        @*}*@
+                        <!-- Si el usuario no tiene permisos, no puede agregar pruebas -->
+                        @if (ViewBag.permisosGenerales.Item5 == 1)
+                        {
+                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Prueba" href="@Url.Action("Create", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        }
 
                     </nav>
                     <!-- Se crea la tabla de la izquierda con los nombres de los requerimientos -->
@@ -49,7 +52,7 @@
 
                                 <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
 
-                             { idCarta += 1; }
+                                { idCarta += 1; }
                             }
                         </div>
                     </div>
@@ -62,9 +65,9 @@
 
                         @foreach (var item in Model)
                         {
-                         <div class="tab-pane fade bg-secondary" style="max-width:1150px;height:588.75px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
-                            @Html.Partial("FormularioIndex", item)
-                         </div>
+                            <div class="tab-pane fade bg-secondary" style="max-width:1150px;height:588.75px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
+                                @Html.Partial("FormularioIndex", item)
+                            </div>
                             //Le agrega un digito mas al idTab
                             { idTab += 1; }
                         }
@@ -74,11 +77,11 @@
         </div>
 
         @Html.Partial("ModalEliminar")
-    @*}
+    }
     else
     {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver los requerimientos</div>
-    }*@
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver las pruebas</div>
+    }
 
     @Html.Partial("Scripts")
 </body>
