@@ -616,8 +616,8 @@
     <Property Name="resultadoFinal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="resultadoEsperado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-    <Property Name="flujoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />

@@ -49,14 +49,7 @@
                     <div class="col-5">
                         @*Atributo nombre de la prueba*@
                         <div class="input-group">
-                            @*if (ViewBag.permisosEditar.Item3[3] == 1)
-                    {*@
-                            <input class="form-control" id="nomN" name="nombre" minlength="1" maxlength="60" type="text" style="text-align:center" required value="@Model.nombre" />
-                            @*}
-                    else
-                    {
-                        <input class="form-control" id="nombre" name="nombre" minlength="1" maxlength="60" type="text" style="text-align:center" required value="@Model.nombre" readonly/>
-                    }*@
+                            <input class="form-control" id="nomN" name="nombre" minlength="1" maxlength="60" type="text" style="text-align:center" required value="@Model.nombre"/>
                         </div>
                         <div id="errorNombre"></div>
                     </div>
@@ -107,6 +100,7 @@
                     <div class="input-group mb-4  mx-6">
                         <textarea class="form-control" name="resultadoEsperado" maxlength="200" aria-label="With textarea" style="max-width:none" id="resultadoEsperado" required>@Model.resultadoEsperado</textarea>
                     </div>
+                    <div id="errorResultadoEsperado"></div>
                 </div>
 
                 <div class="form-row">
