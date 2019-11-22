@@ -39,13 +39,13 @@
 
 
                     //Se crea el html para la tabla
-                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Proyecto</th><th scope="col">Estado Del Proyecto</th></tr></thead><tbody>';
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre del Proyecto</th><th scope="col">Líder del Proyecto</th></tr></thead><tbody>';
 
                     //Recorre las tuplas para insertar los datos a la tabla
                     for (tupla in data2) {
 
-                        var idProyecto = data2[tupla].idProyectoAID;
-                        var nombreProyecto = data2[tupla].nombre;
+                        var idProyecto = data2[tupla].idProyecto;
+                        var nombreProyecto = data2[tupla].nombreProyecto;
                         var datosDelScript = "consulta4LoadTableTesters(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
 
 
@@ -55,9 +55,9 @@
                         table += ' <th scope="row">' + nombreProyecto + '</th>';
                         
 
-                        var estado = data2[tupla].estado;
+                        var nombreEmpleado = data2[tupla].nombreEmpleado;
 
-                        table += '<td>' + estado + '</td>';
+                        table += '<td>' + nombreEmpleado + '</td>';
 
                         table += '</tr>';
 
