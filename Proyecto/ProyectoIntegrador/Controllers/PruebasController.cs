@@ -82,7 +82,7 @@ namespace ProyectoIntegrador.Controllers
             }
             else
             {
-                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = idPrueba,mensaje = "No posee permisos para realizar esa acción." }); //Retorna a la vista
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = idPrueba, mensaje = "No posee permisos para realizar esa acción." }); //Retorna a la vista
             }
         }
 
@@ -134,10 +134,7 @@ namespace ProyectoIntegrador.Controllers
                     prueba.resultadoEsperado = resultadoEsperado;
                     prueba.flujoPrueba = flujoPrueba;
                     prueba.estado = estado;
-                    if (imagen != null)
-                    {
-                        prueba.imagen = Encoding.ASCII.GetBytes(imagen);
-                    }
+                    prueba.imagen = Encoding.ASCII.GetBytes(imagen);
                     prueba.descripcionError = descripcionError;
                     db.Prueba.Add(prueba);
                     db.SaveChanges();
@@ -153,7 +150,7 @@ namespace ProyectoIntegrador.Controllers
         // POST: Pruebas/Edit/5
         // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
-        public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
+        public ActionResult Edit(int idProy, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
         string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, byte[] imagen, string descripcionError, string nombre)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
@@ -163,7 +160,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Prueba prueba = db.Prueba.Find(idProyecto, idReq, idPrueba);
+                    Prueba prueba = db.Prueba.Find(idProy, idReq, idPrueba);
                     //prueba.nombre = nombre;
                     prueba.resultadoFinal = resultadoFinal;
                     prueba.propositoPrueba = propositoPrueba;
@@ -182,7 +179,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 mensaje = "No posee permisos para realizar esa acción.";
             }
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, mensaje = mensaje }); //Retorna a la vista
+            return RedirectToAction("Index", new { idProyecto = idProy, idRequerimiento = idReq, mensaje = mensaje }); //Retorna a la vista
         }
 
         // Método que recibe la confirmación del usuario para eliminar una prueba.
@@ -202,6 +199,19 @@ namespace ProyectoIntegrador.Controllers
                 mensaje = "No posee permisos para realizar esa acción.";
             }
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = 0, mensaje = mensaje }); //Retorna a la vista
+        }
+
+        public JsonResult ReviseNombrePRueba(string name, string oldName, int idProyecto, int idRequerimiento)
+        {
+            //Hay que verificar si el nuevo nombre ya existe en la base de datos
+            if ((name != oldName) && (db.Prueba.Where(p => p.nombre == name && p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento).FirstOrDefault() != null))
+            {
+                //Existe un proyecto con ese nombre
+                return new JsonResult { Data = false };
+            }
+            else
+                return new JsonResult { Data = true };
+
         }
     }
 }
