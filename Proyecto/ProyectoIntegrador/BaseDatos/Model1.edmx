@@ -98,11 +98,11 @@
           <Property Name="resultadoFinal" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="propositoPrueba" Type="varchar" MaxLength="60" />
           <Property Name="entradaDatos" Type="varchar" MaxLength="200" />
-          <Property Name="resultadoEsperado" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="flujoPrueba" Type="varchar" MaxLength="60" />
+          <Property Name="resultadoEsperado" Type="varchar" MaxLength="200" />
           <Property Name="estado" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="imagen" Type="varbinary(max)" />
           <Property Name="descripcionError" Type="varchar" MaxLength="200" />
+          <Property Name="flujoPrueba" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
@@ -1061,8 +1061,8 @@
           <Property Name="resultadoFinal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoEsperado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="flujoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
