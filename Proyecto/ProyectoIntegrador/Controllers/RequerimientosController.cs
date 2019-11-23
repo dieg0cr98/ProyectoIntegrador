@@ -315,5 +315,29 @@ namespace ProyectoIntegrador.Controllers
                 return new JsonResult { Data = true };
 
         }
+
+        public JsonResult CantidadPruebasTerminadas(string estado, int idProyecto, int idRequerimiento)
+        {
+            if (estado == "Terminado")
+            {
+
+                int cantidadPruebas = db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.idReqPK == idRequerimiento).Select(r => r.cantidadDePruebas).FirstOrDefault();
+                int cantidadPuebasTerminadas = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento && p.estado == "Terminado").Count();
+
+                if (cantidadPruebas == cantidadPuebasTerminadas)
+                {
+                    return new JsonResult { Data = true };
+                }
+
+                else
+                {
+
+                    return new JsonResult { Data = false };
+                }
+            }
+            else
+                return new JsonResult { Data = true };
+
+        }
     }
 }
