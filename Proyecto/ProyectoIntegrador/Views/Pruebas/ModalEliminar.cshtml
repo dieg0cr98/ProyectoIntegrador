@@ -24,3 +24,24 @@
         </div>
     </div>
 </div>
+
+<!-- Código del modal que se desplegará cuando no es posible eliminar el requerimiento-->
+<div class="modal fade" id="modalNotElim" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">No es posible eliminar la prueba, asegurese que este se encuentre cancelada.</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Aceptar-->
+                        <div class="col text-center">
+                            <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,14 @@
         }
         @if (ViewBag.permisosGenerales.Item6 == 1)
         {
-            <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqFK" data-whatever2="@Model.idProyectoFK" data-whatever3="@Model.idPruebaPK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px; padding-top:5px"></a>
+            if (Model.estado == "Cancelado")
+            {
+                <a class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqFK" data-whatever2="@Model.idProyectoFK" data-whatever3="@Model.idPruebaPK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px; padding-top:5px"></a>
+            }
+            else
+            {
+                <a class="btn" data-toggle="modal" data-target="#modalNotElim"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+            }
         }
     </div>
 </div>

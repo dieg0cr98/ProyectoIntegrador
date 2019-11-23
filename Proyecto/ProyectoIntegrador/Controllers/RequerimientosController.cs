@@ -179,7 +179,7 @@ namespace ProyectoIntegrador.Controllers
             db.Requerimiento.Add(requerimiento);
             db.SaveChanges();
 
-            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre).FirstOrDefault();
+            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre && R.idProyectoFK == idProyecto).FirstOrDefault();
 
             //Vuelve a la vista de consultar.
             return RedirectToAction("Index", new { idProyecto, idRequerimiento = idReq.idReqPK });

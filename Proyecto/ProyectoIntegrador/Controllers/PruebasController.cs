@@ -29,7 +29,7 @@ namespace ProyectoIntegrador.Controllers
             if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
             {
                 //Se sacan las pruebas de la base de datos
-                var pruebas = db.Prueba.Where(P => P.idProyectoFK == idProyecto && P.idReqFK == idRequerimiento);
+                IEnumerable<ProyectoIntegrador.BaseDatos.Prueba> pruebas = db.Prueba.Where(P => P.idProyectoFK == idProyecto && P.idReqFK == idRequerimiento).ToList();
 
                 //Se guarda la selección que se debe desplegar automáticamente a la hora de llamar la vista de consulta.
                 ViewBag.seleccion = idPrueba;
@@ -43,7 +43,7 @@ namespace ProyectoIntegrador.Controllers
                 ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
 
 
-                return View(pruebas.ToList());
+                return View(pruebas.Reverse());
             }
             else
             {
@@ -75,7 +75,7 @@ namespace ProyectoIntegrador.Controllers
                 //Se guarda id y nombre del requerimiento en el viewbag
                 ViewBag.idRequerimiento = idRequerimiento;
                 ViewBag.nombreRequerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto).nombre;
-
+                ViewBag.nombreViejo = prueba.nombre;
                 ViewBag.idPrueba = idPrueba;
 
                 return View(prueba);
@@ -144,13 +144,22 @@ namespace ProyectoIntegrador.Controllers
             {
                 mensaje = "No posee permisos para realizar esa acción.";
             }
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, mensaje = mensaje }); //Retorna a la vista    
+
+            var Prueba = db.Prueba.Where(P => P.nombre == nombre && P.idProyectoFK == idProyecto && P.idReqFK == idReq).FirstOrDefault();
+            if (Prueba == null)
+            {
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = 0, mensaje = mensaje }); //Retorna a la vista    
+            }
+            else {
+                return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = Prueba.idPruebaPK, mensaje = mensaje }); //Retorna a la vista    
+            }
+            
         }
 
         // POST: Pruebas/Edit/5
         // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
-        public ActionResult Edit(int idProy, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
+        public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
         string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, byte[] imagen, string descripcionError, string nombre)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
@@ -160,7 +169,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Prueba prueba = db.Prueba.Find(idProy, idReq, idPrueba);
+                    Prueba prueba = db.Prueba.Find(idProyecto, idReq, idPrueba);
                     //prueba.nombre = nombre;
                     prueba.resultadoFinal = resultadoFinal;
                     prueba.propositoPrueba = propositoPrueba;
@@ -179,7 +188,7 @@ namespace ProyectoIntegrador.Controllers
             {
                 mensaje = "No posee permisos para realizar esa acción.";
             }
-            return RedirectToAction("Index", new { idProyecto = idProy, idRequerimiento = idReq, mensaje = mensaje }); //Retorna a la vista
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba, mensaje = mensaje }); //Retorna a la vista
         }
 
         // Método que recibe la confirmación del usuario para eliminar una prueba.
