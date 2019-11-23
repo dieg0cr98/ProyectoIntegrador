@@ -321,8 +321,9 @@ namespace ProyectoIntegrador.Controllers
             if (estado == "Terminado")
             {
 
-                int cantidadPruebas = db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.idReqPK == idRequerimiento).Select(r => r.cantidadDePruebas).FirstOrDefault();
-                int cantidadPuebasTerminadas = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento && p.estado == "Terminado").Count();
+                //int cantidadPruebas = db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.idReqPK == idRequerimiento).Select(r => r.cantidadDePruebas).FirstOrDefault();
+                int cantidadPruebas = db.Prueba.Count(r => r.idProyectoFK == idProyecto && r.idReqFK == idRequerimiento);
+                int cantidadPuebasTerminadas = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento && (p.estado == "Terminada" || p.estado == "Cancelada")).Count();
 
                 if (cantidadPruebas == cantidadPuebasTerminadas)
                 {

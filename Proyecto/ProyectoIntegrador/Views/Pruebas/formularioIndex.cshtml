@@ -13,7 +13,7 @@
         }
         @if (ViewBag.permisosGenerales.Item6 == 1)
         {
-            if (Model.estado == "Cancelado")
+            if (Model.estado == "Cancelada")
             {
                 <a class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqFK" data-whatever2="@Model.idProyectoFK" data-whatever3="@Model.idPruebaPK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px; padding-top:5px"></a>
             }
@@ -52,6 +52,7 @@
             <input class="form-control" type="text" style="text-align:center" value="@Model.propositoPrueba" readonly>
         </div>
     </div>
+    <br />
     <hr />
     <h3>Diseño de la prueba</h3>
     <br />
@@ -112,7 +113,7 @@
             <input class="form-control text-center" style="text-align:center" type="text" value="@Model.estado" name="estado" readonly>
         </div>
     </div>
-
+    <br />
     <hr />
     <h3>Resultados</h3>
     <br />
