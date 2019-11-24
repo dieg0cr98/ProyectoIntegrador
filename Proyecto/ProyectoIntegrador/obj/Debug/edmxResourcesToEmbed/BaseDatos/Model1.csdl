@@ -393,6 +393,11 @@
       <End Role="Prueba" EntitySet="Prueba" />
     </AssociationSet>
     <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
+    <EntitySet Name="SeguridadClientesGeneral" EntityType="Gr03Proy2Model.SeguridadClientesGeneral" />
+    <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Gr03Proy2Model.SeguridadEmpleadosGeneral" />
+    <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
+    <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
+    <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -663,6 +668,56 @@
     </ReferentialConstraint>
   </Association>
   <EntityType Name="SeguridadProyectoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadClientesGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEmpleadosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadRequerimientosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEquipoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadPruebasGeneral">
     <Key>
       <PropertyRef Name="Rol" />
     </Key>

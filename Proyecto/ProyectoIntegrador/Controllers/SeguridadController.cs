@@ -72,16 +72,16 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-
-        /*Metodo para saber el rol del usuario logueado
-        Recibe System.Security.Principal.IPrincipal user . Con los datos del usuario registrado actualmenten 
-        Retorna un int. Posible valores:
+        /*
+         * Efecto: Metodo para saber el rol del usuario logueado
+         * Requiere: System.Security.Principal.IPrincipal user . Con los datos del usuario registrado actualmenten
+         * Retorna:  un int. Posible valores:
             -1 El usuario no tiene rol o tiene uno distinto a los definidos
              0 Soporte y Calidad
              1 Lider
              2 Tester
              3 Cliente
-      */
+         */
         public int GetRoleUsuario(System.Security.Principal.IPrincipal user)
         {
             int rol = -1;
@@ -116,9 +116,14 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        //Metodo para recuperar el id del usuario registrado actualmente
-        //Recibe como parametro un objeto tipo System.Security.Principal.IPrincipal con los datos del usuario logueado                      
-        //Devuelve una string con el id del usuario. En caso de que no exista returna una string vacia
+
+
+        /*
+        * Efecto: Metodo para recuperar el id del usuario registrado actualmente
+        * Requiere: Recibe como parametro un objeto tipo System.Security.Principal.IPrincipal con los datos del usuario logueado   
+        * Modifica:
+        * Retorna:string con el id del usuario. En caso de que no exista returna una string vacia
+        */
         public string IdUsuario(System.Security.Principal.IPrincipal user)
         {
 
@@ -163,8 +168,20 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,3,3,3}
          };
 
-        //Metodo Set para modificar datos de la tabla SeguridadProyectoGeneral
-        //Recibe int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente               
+
+        /*
+        * Efecto: 
+        * Requiere: 
+        * Modifica:
+        * Retorna:  
+        */
+
+       /*
+       * Efecto: Metodo Set para modificar datos de la tabla SeguridadProyectoGeneral
+       * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+       * Modifica: datos de la tabla SeguridadProyectoGeneral 
+       * Retorna:  
+       */            
         public void setTablaSeguridadProyectoGeneral(int rol,List<int> permisos)
         {
             SeguridadProyectoGeneral tabla = db.SeguridadProyectoGeneral.Find(rol);
@@ -179,8 +196,12 @@ namespace ProyectoIntegrador.Controllers
  
         }
 
-        //Metodo Get para obtner la tabla SeguridadProyectoGeneral
-        //Devuelve una matrix 4x4 con los permisos 
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadProyectoGeneral
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
         public int[,] getTablaSeguridadProyectoGeneral()
         {
            
@@ -389,6 +410,58 @@ namespace ProyectoIntegrador.Controllers
             {1,1,0,0} //estado
         };
 
+
+        /*
+        * Efecto: Metodo Set para modificar datos de la tabla SeguridadEquipoGeneral
+        * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+        * Modifica: datos de la tabla SeguridadEquipoGeneral
+        * Retorna:  
+        */
+        public void setTablaSeguridadEquipoGeneral(int rol, List<int> permisos)
+        {
+            SeguridadEquipoGeneral tabla = db.SeguridadEquipoGeneral.Find(rol);
+            tabla.Consultar = permisos[0];
+            tabla.Agregar = permisos[1];
+            tabla.Editar = permisos[2];
+            tabla.Eliminar = permisos[3];
+
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadEquipoGeneral
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
+        public int[,] getTablaSeguridadEquipoGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadEquipoGeneral tabla = db.SeguridadEquipoGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
+
+
+
+
         /*Metodo para acceder a los permisos del usuario en la vista general de equipo.
 * Retorna un Tuple<int,int,int,int>, con los valores:
 *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
@@ -408,11 +481,12 @@ namespace ProyectoIntegrador.Controllers
 
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
+                var tabla = getTablaSeguridadEquipoGeneral();
                 //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadEquipoGeneral[0, rol];
-                permisoAgregar = tablaSeguridadEquipoGeneral[1, rol]; ;
-                permisoEditar = tablaSeguridadEquipoGeneral[2, rol]; ;
-                permisoBorrar = tablaSeguridadEquipoGeneral[3, rol]; ;
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol]; ;
+                permisoEditar = tabla[2, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
             }
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
@@ -479,7 +553,52 @@ namespace ProyectoIntegrador.Controllers
           /*cantidadResultados*/                      {0,0,0,0}
         };
 
+        /*
+        * Efecto: Metodo Set para modificar datos de la tabla SeguridadRequerimientosGeneral
+        * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+        * Modifica: datos de la tabla SeguridadRequerimientosGeneral
+        * Retorna:  
+        */
+        public void setTablaSeguridadRequerimientosGeneral(int rol, List<int> permisos)
+        {
+            SeguridadRequerimientosGeneral tabla = db.SeguridadRequerimientosGeneral.Find(rol);
+            tabla.Consultar = permisos[0];
+            tabla.Agregar = permisos[1];
+            tabla.Editar = permisos[2];
+            tabla.Eliminar = permisos[3];
 
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadRequerimientosGeneral
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
+        public int[,] getTablaSeguridadRequerimientosGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadRequerimientosGeneral tabla = db.SeguridadRequerimientosGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
 
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
          * Retorna un Tuple<int,string,int,int,int>, con los valores:
@@ -504,11 +623,12 @@ namespace ProyectoIntegrador.Controllers
 
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
+                var tabla = getTablaSeguridadRequerimientosGeneral();
                 //Obtiene los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadRequerimientosGeneral[0, rol];
-                permisoEditar = tablaSeguridadRequerimientosGeneral[2, rol]; ;
-                permisoAgregar = tablaSeguridadRequerimientosGeneral[1, rol]; ;
-                permisoBorrar = tablaSeguridadRequerimientosGeneral[3, rol]; ;
+                permisoConsultar = tabla[0, rol];
+                permisoEditar = tabla[2, rol]; ;
+                permisoAgregar = tabla[1, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
             }
 
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
@@ -579,6 +699,56 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,3,3,3}
          };
 
+
+        /*
+        * Efecto: Metodo Set para modificar datos de la tabla SeguridadClientesGeneral
+        * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+        * Modifica: datos de la tabla SeguridadClientesGeneral
+        * Retorna:  
+        */
+        public void setTablaSeguridadClientesGeneral(int rol, List<int> permisos)
+        {
+            SeguridadClientesGeneral tabla = db.SeguridadClientesGeneral.Find(rol);
+            tabla.Consultar = permisos[0];
+            tabla.Agregar = permisos[1];
+            tabla.Editar = permisos[2];
+            tabla.Eliminar = permisos[3];
+
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadClientesGeneral
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
+        public int[,] getTablaSeguridadClientesGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadClientesGeneral tabla = db.SeguridadClientesGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
+
+
         /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
  * Retorna un Tuple<int,string,int,int,int>, con los valores:
  *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
@@ -603,11 +773,12 @@ namespace ProyectoIntegrador.Controllers
 
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
+                var tabla = getTablaSeguridadClientesGeneral();
                 //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadClientes[0, rol];
-                permisoAgregar = tablaSeguridadClientes[1, rol]; ;
-                permisoEditar = tablaSeguridadClientes[2, rol]; ;
-                permisoBorrar = tablaSeguridadClientes[3, rol]; ;
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol]; ;
+                permisoEditar = tabla[2, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
 
                 if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
                 {
@@ -635,6 +806,54 @@ namespace ProyectoIntegrador.Controllers
          };
 
 
+        /*
+        * Efecto: Metodo Set para modificar datos de la tabla SeguridadEmpleadosGeneral
+        * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+        * Modifica: datos de la tabla SeguridadEmpleadosGeneral
+        * Retorna:  
+        */
+        public void setTablaSeguridadEmpleadosGeneral(int rol, List<int> permisos)
+        {
+            SeguridadEmpleadosGeneral tabla = db.SeguridadEmpleadosGeneral.Find(rol);
+            tabla.Consultar = permisos[0];
+            tabla.Agregar = permisos[1];
+            tabla.Editar = permisos[2];
+            tabla.Eliminar = permisos[3];
+
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadEmpleadosGeneral
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
+        public int[,] getTablaSeguridadEmpleadosGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadEmpleadosGeneral tabla = db.SeguridadEmpleadosGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
+
         /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
       * Retorna un Tuple<int,string,int,int,int>, con los valores:
       *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
@@ -659,11 +878,13 @@ namespace ProyectoIntegrador.Controllers
 
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
+
+                var tabla = getTablaSeguridadEmpleadosGeneral();
                 //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadEmpleados[0, rol];
-                permisoAgregar = tablaSeguridadEmpleados[1, rol]; ;
-                permisoEditar = tablaSeguridadEmpleados[2, rol]; ;
-                permisoBorrar = tablaSeguridadEmpleados[3, rol]; ;
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol]; ;
+                permisoEditar = tabla[2, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
 
                 if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
                 {
@@ -676,10 +897,57 @@ namespace ProyectoIntegrador.Controllers
             return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
 
+        //----------------------------------------------------------------Tablas de Pruebas------------------------------------------------//
+
+        /*
+        * Efecto: Metodo Set para modificar datos de la tabla SeguridadPruebasGeneral
+        * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+        * Modifica: datos de la tabla SeguridadPruebasGeneral
+        * Retorna:  
+        */
+        public void setTablaSeguridadPruebasGeneral(int rol, List<int> permisos)
+        {
+            SeguridadPruebasGeneral tabla = db.SeguridadPruebasGeneral.Find(rol);
+            tabla.Consultar = permisos[0];
+            tabla.Agregar = permisos[1];
+            tabla.Editar = permisos[2];
+            tabla.Eliminar = permisos[3];
+
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadPruebasGeneral
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
+        public int[,] getTablaSeguridadPruebasGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
 
 
 
-       //----------------------------------------------------------------Tablas de Consultas Avanzadas------------------------------------------------//
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadPruebasGeneral tabla = db.SeguridadPruebasGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
+
+        //----------------------------------------------------------------Tablas de Consultas Avanzadas------------------------------------------------//
 
 
 
@@ -743,6 +1011,9 @@ namespace ProyectoIntegrador.Controllers
 
                 return Tuple.Create(rol, permisos, cedulaUsuario);
             }
+
+
+
 
 
 

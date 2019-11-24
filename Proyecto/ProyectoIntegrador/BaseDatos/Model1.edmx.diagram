@@ -26,7 +26,12 @@
         <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Prueba" Width="1.5" PointX="8.25" PointY="8.5" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Prueba_Requerimiento" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" Width="1.5" PointX="9.25" PointY="1" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadClientesGeneral" Width="1.5" PointX="9.25" PointY="3.5" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadEmpleadosGeneral" Width="1.5" PointX="11.5" PointY="1" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" Width="1.5" PointX="11.5" PointY="3.5" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" Width="1.5" PointX="13.625" PointY="1" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" Width="1.5" PointX="13.625" PointY="3.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

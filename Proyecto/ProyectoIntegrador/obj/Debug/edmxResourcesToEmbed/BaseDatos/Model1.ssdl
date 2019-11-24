@@ -120,7 +120,57 @@
     <Property Name="estadoResultado" Type="varchar" MaxLength="30" />
     <Property Name="cantidadDePruebas" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="SeguridadClientesGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEmpleadosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEquipoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="SeguridadProyectoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadPruebasGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadRequerimientosGeneral">
     <Key>
       <PropertyRef Name="Rol" />
     </Key>
@@ -406,7 +456,12 @@
     <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Self.SeguridadRequerimientosGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_HabilidadBlanda_idEmpleadoFK" Association="Self.FK_HabilidadBlanda_idEmpleadoFK">

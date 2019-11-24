@@ -38,6 +38,11 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
         public virtual DbSet<Prueba> Prueba { get; set; }
         public virtual DbSet<SeguridadProyectoGeneral> SeguridadProyectoGeneral { get; set; }
+        public virtual DbSet<SeguridadClientesGeneral> SeguridadClientesGeneral { get; set; }
+        public virtual DbSet<SeguridadEmpleadosGeneral> SeguridadEmpleadosGeneral { get; set; }
+        public virtual DbSet<SeguridadRequerimientosGeneral> SeguridadRequerimientosGeneral { get; set; }
+        public virtual DbSet<SeguridadEquipoGeneral> SeguridadEquipoGeneral { get; set; }
+        public virtual DbSet<SeguridadPruebasGeneral> SeguridadPruebasGeneral { get; set; }
     
         public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
         {
