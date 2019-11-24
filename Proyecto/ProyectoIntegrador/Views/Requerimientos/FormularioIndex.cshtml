@@ -23,7 +23,7 @@
     {
         if (Model.estado == "Cancelado")
         {
-            <a href="#" class="btn" data-toggle="modal" data-target="#modalElim" data-whatever="@Model.idReqPK" data-whatever2="@Model.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+            <a class="btn" data-toggle="modal" data-target="#modalElim" data-whatever="@Model.idReqPK" data-whatever2="@Model.idProyectoFK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
         }
         else
         {
@@ -265,6 +265,6 @@
 <hr />
 <div class="row justify-content-center" style="width:1150px ; height:100px">
     <div class="col-4  text-center">
-        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Administrar Pruebas" class="btn d-inline-block" href="#"><img src="~/Content/analyze.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="top" title="Administrar Pruebas" class="btn d-inline-block" href="@Url.Action("Index", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = @Model.idReqPK })"><img src="~/Content/analyze.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
     </div>
 </div>

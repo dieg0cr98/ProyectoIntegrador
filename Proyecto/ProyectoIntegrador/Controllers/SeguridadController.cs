@@ -18,7 +18,7 @@ namespace ProyectoIntegrador.Controllers
 {
     public class SeguridadController : Controller
     {
-     
+
 
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
 
@@ -176,13 +176,13 @@ namespace ProyectoIntegrador.Controllers
         * Retorna:  
         */
 
-       /*
-       * Efecto: Metodo Set para modificar datos de la tabla SeguridadProyectoGeneral
-       * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
-       * Modifica: datos de la tabla SeguridadProyectoGeneral 
-       * Retorna:  
-       */            
-        public void setTablaSeguridadProyectoGeneral(int rol,List<int> permisos)
+        /*
+        * Efecto: Metodo Set para modificar datos de la tabla SeguridadProyectoGeneral
+        * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+        * Modifica: datos de la tabla SeguridadProyectoGeneral 
+        * Retorna:  
+        */
+        public void setTablaSeguridadProyectoGeneral(int rol, List<int> permisos)
         {
             SeguridadProyectoGeneral tabla = db.SeguridadProyectoGeneral.Find(rol);
             tabla.Consultar = permisos[0];
@@ -193,7 +193,7 @@ namespace ProyectoIntegrador.Controllers
 
             db.Entry(tabla).State = EntityState.Modified;
             db.SaveChanges();
- 
+
         }
 
         /*
@@ -204,7 +204,7 @@ namespace ProyectoIntegrador.Controllers
         */
         public int[,] getTablaSeguridadProyectoGeneral()
         {
-           
+
             int[,] permisos = new int[4, 4];
 
 
