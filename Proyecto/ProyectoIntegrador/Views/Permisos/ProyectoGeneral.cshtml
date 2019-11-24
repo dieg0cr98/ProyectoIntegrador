@@ -1,0 +1,686 @@
+﻿
+@{
+    string[] tipo = { "Total", "Parcial", "Ninguno" };
+
+}
+
+<body onload="modalSaved(@ViewBag.saved)">
+
+    @if (Request.IsAuthenticated)
+    {
+
+        <br />
+
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Modificar Permisos Proyecto</p>
+
+        <form class="cmxform" id="proyectoForm" name="proyectoForm" method="post" action="ProyectoGeneral">
+            <fieldset>
+                <table class="table table-bordered table-striped table-secondary">
+                    <thead>
+                        <tr>
+                            <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                            <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                            <th class="align-text-top" scope="col">Lider</th>
+                            <th class="align-text-top" scope="col">Tester</th>
+                            <th class="align-text-top" scope="col">Cliente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+
+                            <th scope="row">Consultar</th>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CS">
+                                    @switch (tipo[ViewBag.permisos[0, 0] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CL">
+                                    @switch (tipo[ViewBag.permisos[0, 1] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CT">
+                                    @switch (tipo[ViewBag.permisos[0, 2] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CC">
+                                    @switch (tipo[ViewBag.permisos[0, 3] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Agregar</th>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="AS">
+                                    @switch (tipo[ViewBag.permisos[1, 0] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="AL">
+                                    @switch (tipo[ViewBag.permisos[1, 1] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="AT">
+                                    @switch (tipo[ViewBag.permisos[1, 2] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="AC">
+                                    @switch (tipo[ViewBag.permisos[1, 3] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Editar</th>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ES">
+                                    @switch (tipo[ViewBag.permisos[2, 0] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EL">
+                                    @switch (tipo[ViewBag.permisos[2, 1] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ET">
+                                    @switch (tipo[ViewBag.permisos[2, 2] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EC">
+                                    @switch (tipo[ViewBag.permisos[2, 3] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Eliminar</th>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="BS">
+                                    @switch (tipo[ViewBag.permisos[3, 0] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="BL">
+                                    @switch (tipo[ViewBag.permisos[3, 1] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="BT">
+                                    @switch (tipo[ViewBag.permisos[3, 2] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+
+
+                            </td>
+                            <td>
+                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="BC">
+                                    @switch (tipo[ViewBag.permisos[3, 3] - 1])
+                                    {
+                                        case "Total":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Parcial":
+                                            {
+
+                                                <option value="Total">Total</option>
+                                                <option selected value="Parcial">Parcial</option>
+                                                <option value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                        case "Ninguno":
+                                            {
+
+                                                <option selected value="Total">Total</option>
+                                                <option value="Parcial">Parcial</option>
+                                                <option selected value="Ninguno">Ninguno</option>
+
+                                                break;
+                                            }
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row justify-content-center" style="max-width:1150px">
+                    <div class="col-2  text-center">
+                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Permisos/Index"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                    </div>
+
+                    <div class="col-5 text-right">
+
+                        <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                            <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+
+                        </button>
+                    </div>
+
+                    <div class="col-5  text-center">
+
+                        <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
+                            <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                        </button>
+
+                    </div>
+                </div>
+
+
+            </fieldset>
+        </form>
+
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para acceder al sistema</div>
+    }
+
+    <!-- Modal -->
+    <div class="modal fade" id="saved" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="text-center">Los cambios fueron guardados con exito.</h5>
+                </div>
+                <div class="modal-footer">
+                    <div class="col text-center">
+                        <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Aceptar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script>
+            function modalSaved(saved) {
+
+                if (saved == 1) {
+                    $('#saved').modal('show');
+                }
+
+
+            }
+
+    </script>
+
+</body>
+
+
+

@@ -98,11 +98,11 @@
           <Property Name="resultadoFinal" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="propositoPrueba" Type="varchar" MaxLength="60" />
           <Property Name="entradaDatos" Type="varchar" MaxLength="200" />
-          <Property Name="resultadoEsperado" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="flujoPrueba" Type="varchar" MaxLength="60" />
+          <Property Name="resultadoEsperado" Type="varchar" MaxLength="200" />
           <Property Name="estado" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="imagen" Type="varbinary(max)" />
           <Property Name="descripcionError" Type="varchar" MaxLength="200" />
+          <Property Name="flujoPrueba" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
@@ -124,6 +124,16 @@
           <Property Name="detallesResultado" Type="varchar" MaxLength="250" />
           <Property Name="estadoResultado" Type="varchar" MaxLength="30" />
           <Property Name="cantidadDePruebas" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tester">
           <Key>
@@ -401,6 +411,7 @@
           <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_HabilidadBlanda_idEmpleadoFK" Association="Self.FK_HabilidadBlanda_idEmpleadoFK">
@@ -844,6 +855,7 @@
             <End Role="Requerimiento" EntitySet="Requerimiento" />
             <End Role="Prueba" EntitySet="Prueba" />
           </AssociationSet>
+          <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1090,8 +1102,8 @@
           <Property Name="resultadoFinal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoEsperado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="flujoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -1113,6 +1125,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SeguridadProyectoGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1451,6 +1473,17 @@
                 <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
                 <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
                 <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadProyectoGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoGeneral">
+              <MappingFragment StoreEntitySet="SeguridadProyectoGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

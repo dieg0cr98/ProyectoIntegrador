@@ -11,12 +11,14 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProyectoIntegrador.Models;
 using System.Web.Security;
-
+using System.IO;
+using System.Data.Entity;
 
 namespace ProyectoIntegrador.Controllers
 {
     public class SeguridadController : Controller
     {
+     
 
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
 
@@ -146,11 +148,14 @@ namespace ProyectoIntegrador.Controllers
 
         //----------------------------------------------------------------Tablas de seguridad------------------------------------------------//
 
+
+
+        //----------------------------------------------------------------Proyecto------------------------------------------------//
         /* 1 Pueder hacer la accion para todos los proyectos(crud)
          * 2 Solo a los proyectos que pertenece
          * 3 No puede hacer la accion (crud)
         */
-        private int[,] tablaSeguridadProyectoGeneral = new int[,] {
+        public int[,] tablaSeguridadProyectoGeneral = new int[,] {
                        /*Soporte/Calidad , Lider , Tester , Cliente*/
          /*Consultar*/                   {1,2,2,2},
          /*Agregar*/                     {1,3,3,3},
@@ -158,11 +163,50 @@ namespace ProyectoIntegrador.Controllers
          /*Eliminar*/                    {1,3,3,3}
          };
 
+        //Metodo Set para modificar datos de la tabla SeguridadProyectoGeneral
+        //Recibe int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente               
+        public void setTablaSeguridadProyectoGeneral(int rol,List<int> permisos)
+        {
+            SeguridadProyectoGeneral tabla = db.SeguridadProyectoGeneral.Find(rol);
+            tabla.Consultar = permisos[0];
+            tabla.Agregar = permisos[1];
+            tabla.Editar = permisos[2];
+            tabla.Eliminar = permisos[3];
+
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+ 
+        }
+
+        //Metodo Get para obtner la tabla SeguridadProyectoGeneral
+        //Devuelve una matrix 4x4 con los permisos 
+        public int[,] getTablaSeguridadProyectoGeneral()
+        {
+           
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadProyectoGeneral tabla = db.SeguridadProyectoGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
 
         /* 0 No puede editar el atributo
          * 1 Si puede editar el atributo
         */
-        private int[,] tablaSeguridadProyectoEditar = new int[,] {
+        public int[,] tablaSeguridadProyectoEditar = new int[,] {
                                           /*Soporte/Calidad , Lider , Tester , Cliente*/
           /*idProyecto*/                                    {0,0,0,0},
           /*nombre*/                                        {1,0,0,0},
@@ -181,7 +225,7 @@ namespace ProyectoIntegrador.Controllers
         /* 0 No puede editar el atributo
          * 1 Si puede editar el atributo
         */
-        private int[,] tablaSeguridadProyectoAgregar = new int[,] {
+        public int[,] tablaSeguridadProyectoAgregar = new int[,] {
                                           /*Soporte/Calidad , Lider , Tester , Cliente*/
           /*idProyecto*/                                    {0,0,0,0},
           /*nombre*/                                        {1,0,0,0},
@@ -196,207 +240,7 @@ namespace ProyectoIntegrador.Controllers
           /*cedulaLider*/                                   {1,0,0,0}
         };
 
-        /*
-       * Define los permisos para acceder los cruds de los equipos.
-       * 1 = Todos los equipos.
-       * 2 = Solo los que participa.
-       * 3 = Ningún equipo.
-       * Orden de usuarios: Soporte y Calidad, Lider, Tester, Cliente
-       */
-        private int[,] tablaSeguridadEquipoGeneral = new int[,] {
-            {1,2,2,2}, //Consultar
-            {1,2,3,3}, //Agregar
-            {1,2,3,3}, //Editar
-            {1,3,3,3} //Eliminar
-        };
 
-        /*
-         * Define los permisos para agregar valores a los atributos de equipo.
-         * 0 = No puede agregar al atributo
-         * 1 = Puede agregar al atributo
-         * Orden de usuarios: {Soporte y Calidad, Lider, Tester, Cliente}
-         */
-        private int[,] tablaSeguridadEquipoAgregar = new int[,] {
-            {0,0,0,0}, //idProyectoFK
-            {0,0,0,0}, //idEmpleadoFK
-            {1,0,0,0}, //rol
-            {1,1,0,0} //estado
-        };
-
-        /*
-         * Define los permisos para editar  los valores de los atributos de equipo.
-         * 0 = No puede editar el atributo
-         * 1 = Puede editar el atributo
-         * Orden de usuarios: {Soporte y Calidad, Lider, Tester, Cliente}
-        */
-        private int[,] tablaSeguridadEquipoEditar = new int[,] {
-            {0,0,0,0}, //idProyectoFK
-            {0,0,0,0}, //idEmpleadoFK
-            {1,0,0,0}, //rol
-            {1,1,0,0} //estado
-        };
-
-        /* 1 Pueder ver la acción para realizarla
-         * 2 No puede verla porque no la puede realizar
-        */
-        private int[,] tablaSeguridadRequerimientosGeneral = new int[,] {
-                       /*Soporte/Calidad , Lider , Tester , Cliente*/
-         /*Consultar*/                   {1,1,1,1},
-         /*Agregar*/                     {1,1,2,2},
-         /*Editar*/                      {1,1,1,2},
-         /*Eliminar*/                    {1,2,2,2}
-         };
-
-        /* 0 No puede editar el atributo
-         * 1 Si puede editar el atributo
-        */
-        private int[,] tablaSeguridadRequerimientosEditar = new int[,] {
-                                          /*Soporte/Calidad , Lider , Tester , Cliente*/
-          /*idRekPK*/                                 {0,0,0,0},
-          /*idProyectoFK*/                            {0,0,0,0},
-          /*cedulaTesterFK*/                          {1,1,0,0},
-          /*nombre*/                                  {1,1,0,0},
-          /*complejidad*/                             {1,1,0,0},
-          /*tiempoEstimado*/                          {1,1,0,0},
-          /*tiempoReal*/                              {1,1,1,0},
-          /*descripcíon*/                             {1,1,0,0},
-          /*fechaDeInicio*/                           {1,1,0,0},
-          /*fechaDeFinalizacion*/                     {1,1,1,0},
-          /*estado*/                                  {1,1,1,0},
-          /*resultado*/                               {1,1,1,0},
-          /*estadoResultado*/                         {1,1,1,0},
-          /*detallesResultado*/                       {1,1,1,0},
-          /*cantidadResultados*/                      {0,0,0,0}
-          };
-
-
-        /* 0 No puede editar el atributo
-         * 1 Si puede editar el atributo
-        */
-        private int[,] tablaSeguridadRequerimientosAgregar = new int[,] {
-                                          /*Soporte/Calidad , Lider , Tester , Cliente*/
-          /*idRekPK*/                                 {0,0,0,0},
-          /*idProyectoFK*/                            {1,0,0,0},
-          /*cedulaTesterFK*/                          {1,1,0,0},
-          /*nombre*/                                  {1,1,0,0},
-          /*complejidad*/                             {1,1,0,0},
-          /*tiempoEstimado*/                          {1,1,0,0},
-          /*tiempoReal*/                              {0,0,0,0},
-          /*descripcíon*/                             {1,1,0,0},
-          /*fechaDeInicio*/                           {1,1,0,0},
-          /*fechaDeFinalizacion*/                     {0,0,0,0},
-          /*estado*/                                  {1,1,0,0},
-          /*resultado*/                               {0,0,0,0},
-          /*estadoResultado*/                         {0,0,0,0},
-          /*detallesResultado*/                       {0,0,0,0},
-          /*cantidadResultados*/                      {0,0,0,0}
-        };
-
-        /* 1 Pueder hacer la accion para todos los clientes(crud)
-         * 2 Solo a los clientes que pertenece
-         * 3 No puede hacer la accion 
-        */
-        private int[,] tablaSeguridadClientes = new int[,] {
-                       /*Soporte/Calidad , Lider , Tester , Cliente*/
-         /*Consultar*/                   {1,2,2,2},
-         /*Agregar*/                     {1,3,3,3},
-         /*Editar*/                      {1,3,3,3},
-         /*Eliminar*/                    {1,3,3,3}
-         };
-        //---------------------------------------------------------------------------------------------------------------------------//
-/* 1 Pueder hacer la accion para todos los empleados(CRUD)
-     * 2 Solo a los empleados que trabajan en un proyecto donde el es el lider
-     * 3 No puede hacer la accion 
-    */
-        private int[,] tablaSeguridadEmpleados = new int[,] {
-                       /*Soporte/Calidad , Lider , Tester , Cliente*/
-         /*Consultar*/                   {1,2,2,3},
-         /*Agregar*/                     {1,3,3,3},
-         /*Editar*/                      {1,3,3,3},
-         /*Eliminar*/                    {1,3,3,3}
-         };
-        //---------------------------------------------------------------------------------------------------------------------------//
- /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
-     * Retorna un Tuple<int,string,int,int,int>, con los valores:
-     *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
-     *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
-     *              cedulaUsuario
-     *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
-     *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
-     *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
-    */
-        public Tuple<int, string, int, int, int, int> EmpleadoConsultar(System.Security.Principal.IPrincipal user)
-        {
-
-            int permisoConsultar = 3; //Por defecto no puede consultar
-            string cedulaUsuario = "";
-            int permisoEditar = 3;   //Por defecto no puede editar
-            int permisoAgregar = 3;   //Por defecto no puede editar
-            int permisoBorrar = 3;   //Por defecto no puede editar
-
-
-            //Obtiene el rol del usuario
-            int rol = GetRoleUsuario(user);
-
-            if (rol >= 0)// Si el usuario tiene un rol asignado
-            {
-                //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadEmpleados[0, rol];
-                permisoAgregar = tablaSeguridadEmpleados[1, rol]; ;
-                permisoEditar = tablaSeguridadEmpleados[2, rol]; ;
-                permisoBorrar = tablaSeguridadEmpleados[3, rol]; ;
-
-                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
-                {
-                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
-                    cedulaUsuario = IdUsuario(user);
-                }
-
-            }
-
-            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
-        }
-
-        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
-         * Retorna un Tuple<int,string,int,int,int>, con los valores:
-         *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
-         *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
-         *              cedulaUsuario
-         *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
-         *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
-         *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
-        */
-        public Tuple<int, string, int, int, int, int> ClienteConsultar(System.Security.Principal.IPrincipal user)
-        {
-
-            int permisoConsultar = 3; //Por defecto no puede consultar
-            string cedulaUsuario = "";
-            int permisoEditar = 3;   //Por defecto no puede editar
-            int permisoAgregar = 3;   //Por defecto no puede editar
-            int permisoBorrar = 3;   //Por defecto no puede editar
-
-
-            //Obtiene el rol del usuario
-            int rol = GetRoleUsuario(user);
-
-            if (rol >= 0)// Si el usuario tiene un rol asignado
-            {
-                //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadClientes[0, rol];
-                permisoAgregar = tablaSeguridadClientes[1, rol]; ;
-                permisoEditar = tablaSeguridadClientes[2, rol]; ;
-                permisoBorrar = tablaSeguridadClientes[3, rol]; ;
-
-                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
-                {
-                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
-                    cedulaUsuario = IdUsuario(user);
-                }
-
-            }
-
-            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
-        }
 
 
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
@@ -424,10 +268,12 @@ namespace ProyectoIntegrador.Controllers
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
                 //Obtine los permisos de la tabla de Seguridad
-                permisoConsultar = tablaSeguridadProyectoGeneral[0, rol];
-                permisoAgregar = tablaSeguridadProyectoGeneral[1, rol]; ;
-                permisoEditar = tablaSeguridadProyectoGeneral[2, rol]; ;
-                permisoBorrar = tablaSeguridadProyectoGeneral[3, rol]; ;
+
+                var tabla = getTablaSeguridadProyectoGeneral();
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol];
+                permisoEditar = tabla[2, rol];
+                permisoBorrar = tabla[3, rol];
 
                 if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
                 {
@@ -448,6 +294,7 @@ namespace ProyectoIntegrador.Controllers
         public Tuple<int, int, List<int>> ProyectoAgregar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
+            var tabla = getTablaSeguridadProyectoGeneral();
             if (rol >= 0)
             {
 
@@ -457,7 +304,7 @@ namespace ProyectoIntegrador.Controllers
                     permisos.Add(tablaSeguridadProyectoAgregar[i, rol]);
                 }
 
-                return Tuple.Create(rol, tablaSeguridadProyectoGeneral[1, rol], permisos);
+                return Tuple.Create(rol, tabla[1, rol], permisos);
 
             }
             else return null;
@@ -474,6 +321,7 @@ namespace ProyectoIntegrador.Controllers
         public Tuple<int, int, List<int>> ProyectoEditar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
+            var tabla = getTablaSeguridadProyectoGeneral();
             //Si tiene un rol asignado
             if (rol >= 0)
             {
@@ -483,7 +331,7 @@ namespace ProyectoIntegrador.Controllers
                     permisos.Add(tablaSeguridadProyectoEditar[i, rol]);
                 }
 
-                return Tuple.Create(rol, tablaSeguridadProyectoGeneral[2, rol], permisos);
+                return Tuple.Create(rol, tabla[2, rol], permisos);
 
             }
             else return null;
@@ -497,14 +345,58 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        /*Metodo para acceder a los permisos del usuario en la vista general de equipo.
-        * Retorna un Tuple<int,int,int,int>, con los valores:
-        *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
-        *              permisoConsultar (valor recuperado en la tabla general de permisos para equipo)
-        *              permisoAgregar (valor recuperado en la tabla general de permisos para equipo)
-        *              permisoEditar  (valor recuperado en la tabla general de permisos para equipo)
-        *              permisoBorrar (valor recuperado en la tabla general de permisos para equipo)
+
+
+        //----------------------------------------------------------------Tablas de Equipo------------------------------------------------//
+
+        /*
+       * Define los permisos para acceder los cruds de los equipos.
+       * 1 = Todos los equipos.
+       * 2 = Solo los que participa.
+       * 3 = Ningún equipo.
+       * Orden de usuarios: Soporte y Calidad, Lider, Tester, Cliente
        */
+        public int[,] tablaSeguridadEquipoGeneral = new int[,] {
+            {1,2,2,2}, //Consultar
+            {1,2,3,3}, //Agregar
+            {1,2,3,3}, //Editar
+            {1,3,3,3} //Eliminar
+        };
+
+        /*
+         * Define los permisos para agregar valores a los atributos de equipo.
+         * 0 = No puede agregar al atributo
+         * 1 = Puede agregar al atributo
+         * Orden de usuarios: {Soporte y Calidad, Lider, Tester, Cliente}
+         */
+        public int[,] tablaSeguridadEquipoAgregar = new int[,] {
+            {0,0,0,0}, //idProyectoFK
+            {0,0,0,0}, //idEmpleadoFK
+            {1,0,0,0}, //rol
+            {1,1,0,0} //estado
+        };
+
+        /*
+         * Define los permisos para editar  los valores de los atributos de equipo.
+         * 0 = No puede editar el atributo
+         * 1 = Puede editar el atributo
+         * Orden de usuarios: {Soporte y Calidad, Lider, Tester, Cliente}
+        */
+        public int[,] tablaSeguridadEquipoEditar = new int[,] {
+            {0,0,0,0}, //idProyectoFK
+            {0,0,0,0}, //idEmpleadoFK
+            {1,0,0,0}, //rol
+            {1,1,0,0} //estado
+        };
+
+        /*Metodo para acceder a los permisos del usuario en la vista general de equipo.
+* Retorna un Tuple<int,int,int,int>, con los valores:
+*              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+*              permisoConsultar (valor recuperado en la tabla general de permisos para equipo)
+*              permisoAgregar (valor recuperado en la tabla general de permisos para equipo)
+*              permisoEditar  (valor recuperado en la tabla general de permisos para equipo)
+*              permisoBorrar (valor recuperado en la tabla general de permisos para equipo)
+*/
         public Tuple<int, int, int, int, int> EquipoConsultar(System.Security.Principal.IPrincipal user)
         {
             int rol = GetRoleUsuario(user);
@@ -525,6 +417,70 @@ namespace ProyectoIntegrador.Controllers
             return Tuple.Create(rol, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
         }
 
+
+
+
+        //----------------------------------------------------------------Tablas de Requerimientos------------------------------------------------//
+
+
+        /* 1 Pueder ver la acción para realizarla
+         * 2 No puede verla porque no la puede realizar
+        */
+        public int[,] tablaSeguridadRequerimientosGeneral = new int[,] {
+                       /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consultar*/                   {1,1,1,1},
+         /*Agregar*/                     {1,1,2,2},
+         /*Editar*/                      {1,1,1,2},
+         /*Eliminar*/                    {1,2,2,2}
+         };
+
+        /* 0 No puede editar el atributo
+         * 1 Si puede editar el atributo
+        */
+        public int[,] tablaSeguridadRequerimientosEditar = new int[,] {
+                                          /*Soporte/Calidad , Lider , Tester , Cliente*/
+          /*idRekPK*/                                 {0,0,0,0},
+          /*idProyectoFK*/                            {0,0,0,0},
+          /*cedulaTesterFK*/                          {1,1,0,0},
+          /*nombre*/                                  {1,1,0,0},
+          /*complejidad*/                             {1,1,0,0},
+          /*tiempoEstimado*/                          {1,1,0,0},
+          /*tiempoReal*/                              {1,1,1,0},
+          /*descripcíon*/                             {1,1,0,0},
+          /*fechaDeInicio*/                           {1,1,0,0},
+          /*fechaDeFinalizacion*/                     {1,1,1,0},
+          /*estado*/                                  {1,1,1,0},
+          /*resultado*/                               {1,1,1,0},
+          /*estadoResultado*/                         {1,1,1,0},
+          /*detallesResultado*/                       {1,1,1,0},
+          /*cantidadResultados*/                      {0,0,0,0}
+          };
+
+
+        /* 0 No puede editar el atributo
+         * 1 Si puede editar el atributo
+        */
+        public int[,] tablaSeguridadRequerimientosAgregar = new int[,] {
+                                          /*Soporte/Calidad , Lider , Tester , Cliente*/
+          /*idRekPK*/                                 {0,0,0,0},
+          /*idProyectoFK*/                            {1,0,0,0},
+          /*cedulaTesterFK*/                          {1,1,0,0},
+          /*nombre*/                                  {1,1,0,0},
+          /*complejidad*/                             {1,1,0,0},
+          /*tiempoEstimado*/                          {1,1,0,0},
+          /*tiempoReal*/                              {0,0,0,0},
+          /*descripcíon*/                             {1,1,0,0},
+          /*fechaDeInicio*/                           {1,1,0,0},
+          /*fechaDeFinalizacion*/                     {0,0,0,0},
+          /*estado*/                                  {1,1,0,0},
+          /*resultado*/                               {0,0,0,0},
+          /*estadoResultado*/                         {0,0,0,0},
+          /*detallesResultado*/                       {0,0,0,0},
+          /*cantidadResultados*/                      {0,0,0,0}
+        };
+
+
+
         /*Metodo para acceder a los permisos del usuario en la vista de consultarProyectos
          * Retorna un Tuple<int,string,int,int,int>, con los valores:
          *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
@@ -542,7 +498,7 @@ namespace ProyectoIntegrador.Controllers
             int permisoAgregar = 2;   //Por defecto no puede agregar
             int permisoBorrar = 2;   //Por defecto no puede eliminar
 
-            
+
             //Obtiene el rol del usuario
             int rol = GetRoleUsuario(user);
 
@@ -607,13 +563,133 @@ namespace ProyectoIntegrador.Controllers
             else return null;
         }
 
+
+        //----------------------------------------------------------------Tablas de Clientes------------------------------------------------//
+
+
+        /* 1 Pueder hacer la accion para todos los clientes(crud)
+         * 2 Solo a los clientes que pertenece
+         * 3 No puede hacer la accion 
+        */
+        public int[,] tablaSeguridadClientes = new int[,] {
+                       /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consultar*/                   {1,2,2,2},
+         /*Agregar*/                     {1,3,3,3},
+         /*Editar*/                      {1,3,3,3},
+         /*Eliminar*/                    {1,3,3,3}
+         };
+
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
+ * Retorna un Tuple<int,string,int,int,int>, con los valores:
+ *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+ *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+ *              cedulaUsuario
+ *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+ *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+ *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+*/
+        public Tuple<int, string, int, int, int, int> ClienteConsultar(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede editar
+            int permisoBorrar = 3;   //Por defecto no puede editar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadClientes[0, rol];
+                permisoAgregar = tablaSeguridadClientes[1, rol]; ;
+                permisoEditar = tablaSeguridadClientes[2, rol]; ;
+                permisoBorrar = tablaSeguridadClientes[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+
+            }
+
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
+
+
+        //----------------------------------------------------------------Tablas de Empleados------------------------------------------------//
+        /* 1 Pueder hacer la accion para todos los empleados(CRUD)
+             * 2 Solo a los empleados que trabajan en un proyecto donde el es el lider
+             * 3 No puede hacer la accion 
+            */
+        public int[,] tablaSeguridadEmpleados = new int[,] {
+                       /*Soporte/Calidad , Lider , Tester , Cliente*/
+         /*Consultar*/                   {1,2,2,3},
+         /*Agregar*/                     {1,3,3,3},
+         /*Editar*/                      {1,3,3,3},
+         /*Eliminar*/                    {1,3,3,3}
+         };
+
+
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
+      * Retorna un Tuple<int,string,int,int,int>, con los valores:
+      *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+      *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              cedulaUsuario
+      *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+     */
+        public Tuple<int, string, int, int, int, int> EmpleadoConsultar(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede editar
+            int permisoBorrar = 3;   //Por defecto no puede editar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tablaSeguridadEmpleados[0, rol];
+                permisoAgregar = tablaSeguridadEmpleados[1, rol]; ;
+                permisoEditar = tablaSeguridadEmpleados[2, rol]; ;
+                permisoBorrar = tablaSeguridadEmpleados[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+
+            }
+
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
+
+
+
+
+       //----------------------------------------------------------------Tablas de Consultas Avanzadas------------------------------------------------//
+
+
+
         //----Consultas Avanzadas--//
 
         /* 1 Pueder realizar la consulta
          * 2 Solo los datos en los que participa
          * 3 No puede realizar la consulta
         */
-        private int[,] tablaSeguridadProyectoGeneralConsultas = new int[,] {
+        public int[,] tablaSeguridadProyectoGeneralConsultas = new int[,] {
                            /*Soporte/Calidad , Lider , Tester , Cliente*/
              /*Consulta1*/                   {1,2,3,3},
              /*Consulta2*/                   {1,2,3,3},
@@ -625,7 +701,7 @@ namespace ProyectoIntegrador.Controllers
              /*Consulta8*/                   {1,3,3,2},
              /*Consulta9*/                   {1,3,3,2},
              /*Consulta10*/                  {1,3,3,2}
-             };
+        };
 
 
 

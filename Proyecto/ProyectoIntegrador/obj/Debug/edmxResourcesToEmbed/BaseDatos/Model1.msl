@@ -336,5 +336,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadProyectoGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoGeneral">
+        <MappingFragment StoreEntitySet="SeguridadProyectoGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

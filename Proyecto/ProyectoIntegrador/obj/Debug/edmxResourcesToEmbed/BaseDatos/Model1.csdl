@@ -392,6 +392,7 @@
       <End Role="Requerimiento" EntitySet="Requerimiento" />
       <End Role="Prueba" EntitySet="Prueba" />
     </AssociationSet>
+    <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -638,8 +639,8 @@
     <Property Name="resultadoFinal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="resultadoEsperado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-    <Property Name="flujoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -661,4 +662,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="SeguridadProyectoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

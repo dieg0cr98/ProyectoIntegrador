@@ -517,7 +517,16 @@ namespace ProyectoIntegrador.Controllers
             //Verifica que el usuario este registrado
             if(permisosGenerales.Item1 >= 0 )
             {
-                return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3).Reverse());
+                var temp = GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3);
+                if(temp != null)
+                {
+                    return View(temp.Reverse());
+                }
+                else
+                {
+                    return View();
+                }
+              
             }
             else
             {

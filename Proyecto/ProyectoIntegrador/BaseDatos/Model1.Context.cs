@@ -37,6 +37,7 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
         public virtual DbSet<Prueba> Prueba { get; set; }
+        public virtual DbSet<SeguridadProyectoGeneral> SeguridadProyectoGeneral { get; set; }
     
         public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
         {

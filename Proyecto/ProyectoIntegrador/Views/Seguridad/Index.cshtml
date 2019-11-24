@@ -1,0 +1,380 @@
+﻿
+
+@{
+    string[] tipo = { "Total", "Parcial", "Ninguno" };
+    string[] permiso = { "Consultar", "Agregar", "Editar", "Eliminar" };
+
+}
+
+
+@if (Request.IsAuthenticated)
+{
+
+    <br />
+
+    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Modificar Permisos</p>
+
+
+
+
+    <div class="row pb-5">
+
+        <!-- Empleado -->
+        <div class="col">
+
+            <div class="row" style="height:50px">
+
+                <div class="col-10 text-center">
+
+                    <p class="font-weight-bold text-center text-primary" style="font-family:PlayfairDisplay-Bold; font-size:30px">Empleado</p>
+
+                </div>
+
+                <div class="col-2">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'20px','20px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </div>
+
+            </div>
+
+
+            <table class="table table-bordered table-striped table-secondary">
+                <thead>
+                    <tr>
+                        <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                        <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                        <th class="align-text-top" scope="col">Lider</th>
+                        <th class="align-text-top" scope="col">Tester</th>
+                        <th class="align-text-top" scope="col">Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int x = 0; x < 4; x++)
+                    {
+
+                        <tr>
+                            <th scope="row">@permiso[x]</th>
+
+                            @for (int y = 0; y < 4; y++)
+                            {
+                                <td>
+                                    @tipo[ViewBag.empleado[x, y] - 1]
+                                </td>
+                            }
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <!-- Cliente-->
+        <div class="col">
+
+            <div class="row" style="height:50px">
+
+                <div class="col-10 text-center">
+
+                    <p class="font-weight-bold text-center text-primary" style="font-family:PlayfairDisplay-Bold; font-size:30px">Cliente</p>
+
+                </div>
+
+                <div class="col-2">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'20px','20px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </div>
+
+            </div>
+
+
+            <table class="table table-bordered table-striped table-secondary">
+                <thead>
+                    <tr>
+                        <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                        <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                        <th class="align-text-top" scope="col">Lider</th>
+                        <th class="align-text-top" scope="col">Tester</th>
+                        <th class="align-text-top" scope="col">Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int x = 0; x < 4; x++)
+                    {
+
+                        <tr>
+                            <th scope="row">@permiso[x]</th>
+
+                            @for (int y = 0; y < 4; y++)
+                            {
+                                <td>
+                                    @tipo[ViewBag.cliente[x, y] - 1]
+                                </td>
+                            }
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+    <div class="row pb-5">
+
+        <!-- Proyecto-->
+        <div class="col">
+
+            <div class="row" style="height:50px">
+
+                <div class="col-10 text-center">
+
+                    <p class="font-weight-bold text-center text-primary" style="font-family:PlayfairDisplay-Bold; font-size:30px">Proyecto</p>
+
+                </div>
+
+                <div class="col-2">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'20px','20px')" data-placement="left" title="Editar" href="/Seguridad/ProyectoGeneral" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </div>
+
+            </div>
+
+
+            <table class="table table-bordered table-striped table-secondary">
+                <thead>
+                    <tr>
+                        <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                        <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                        <th class="align-text-top" scope="col">Lider</th>
+                        <th class="align-text-top" scope="col">Tester</th>
+                        <th class="align-text-top" scope="col">Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int x = 0; x < 4; x++)
+                    {
+
+                        <tr>
+                            <th scope="row">@permiso[x]</th>
+
+                            @for (int y = 0; y < 4; y++)
+                            {
+                                <td>
+                                    @tipo[ViewBag.proyecto[x, y] - 1]
+                                </td>
+                            }
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <!-- Equipo-->
+        <div class="col">
+
+            <div class="row" style="height:50px">
+
+                <div class="col-10 text-center">
+
+                    <p class="font-weight-bold text-center text-primary" style="font-family:PlayfairDisplay-Bold; font-size:30px">Equipo</p>
+
+                </div>
+
+                <div class="col-2">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'20px','20px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered table-striped table-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                        <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                        <th class="align-text-top" scope="col">Lider</th>
+                        <th class="align-text-top" scope="col">Tester</th>
+                        <th class="align-text-top" scope="col">Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int x = 0; x < 4; x++)
+                    {
+
+                        <tr>
+                            <th scope="row">@permiso[x]</th>
+
+                            @for (int y = 0; y < 4; y++)
+                            {
+                                <td>
+                                    @tipo[ViewBag.equipo[x, y] - 1]
+                                </td>
+                            }
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+    <div class="row pb-5">
+
+        <!-- Requerimientos-->
+        <div class="col">
+
+            <div class="row" style="height:50px">
+
+                <div class="col-10 text-center">
+
+                    <p class="font-weight-bold text-center text-primary" style="font-family:PlayfairDisplay-Bold; font-size:30px">Requerimiento</p>
+
+                </div>
+
+                <div class="col-2">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'20px','20px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </div>
+
+            </div>
+
+
+            <table class="table table-bordered table-striped table-secondary">
+                <thead>
+                    <tr>
+                        <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                        <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                        <th class="align-text-top" scope="col">Lider</th>
+                        <th class="align-text-top" scope="col">Tester</th>
+                        <th class="align-text-top" scope="col">Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int x = 0; x < 4; x++)
+                    {
+
+                        <tr>
+                            <th scope="row">@permiso[x]</th>
+
+                            @for (int y = 0; y < 4; y++)
+                            {
+                                <td>
+                                    @tipo[ViewBag.req[x, y] - 1]
+                                </td>
+                            }
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Pruebas-->
+        <div class="col">
+
+            <div class="row" style="height:50px">
+
+                <div class="col-10 text-center">
+
+                    <p class="font-weight-bold text-center text-primary" style="font-family:PlayfairDisplay-Bold; font-size:30px">Pruebas</p>
+
+                </div>
+
+                <div class="col-2">
+                    <a data-toggle="tooltip" onclick="my_loading(this,'20px','20px')" data-placement="left" title="Editar" href="#" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                </div>
+
+            </div>
+
+
+            <table class="table table-bordered table-striped table-secondary">
+                <thead>
+                    <tr>
+                        <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                        <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                        <th class="align-text-top" scope="col">Lider</th>
+                        <th class="align-text-top" scope="col">Tester</th>
+                        <th class="align-text-top" scope="col">Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int x = 0; x < 4; x++)
+                    {
+
+                        <tr>
+                            <th scope="row">@permiso[x]</th>
+
+                            @for (int y = 0; y < 4; y++)
+                            {
+                                <td>
+                                    @tipo[ViewBag.prueba[x, y] - 1]
+                                </td>
+                            }
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+    <!--Agrega un loading al Edit-->
+    <script>
+        function my_loading(elemt, w, h) {
+            var i = '<div class="spinner-border text-black" role="status" style=""';
+            i += 'height: ' + w + 'px ; width:' + h + 'px"' + '></div>';
+            var t = '<div class="spinner-border text-black" role="status" style="height:' + w + '; width: ' + h + ' "></div>'
+            elemt.disabled = true;
+            elemt.innerHTML = t;
+        }
+
+    </script>
+
+
+    <!-- Agrega Tooltips a los elementos -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+}
+else
+{
+    <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para acceder al sistema</div>
+}
+

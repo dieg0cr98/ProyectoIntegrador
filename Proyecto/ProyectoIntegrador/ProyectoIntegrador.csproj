@@ -226,6 +226,9 @@
     <Compile Include="BaseDatos\Requerimiento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\SeguridadProyectoGeneral.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -288,6 +291,7 @@
     <Compile Include="Controllers\HabilidadTecnicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
@@ -538,11 +542,15 @@
     <Content Include="Views\ConsultasAvanzadas\Consulta5.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta6.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\consulta6Index.cshtml" />
+    <Content Include="Views\Seguridad\Index.cshtml" />
+    <Content Include="Views\Seguridad\ProyectoGeneral.cshtml" />
+    <Content Include="Views\Permisos\Index.cshtml" />
+    <Content Include="Views\Permisos\ProyectoGeneral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomAttribute\" />
-    <Folder Include="Views\Seguridad\" />
+    <Folder Include="Permisos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

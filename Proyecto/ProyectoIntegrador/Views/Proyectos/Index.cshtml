@@ -79,9 +79,13 @@
 
 
                         @*Pregunta si tiene permisos para crear*@
-                        @if (ViewBag.permisosEspecificos.Item2 == 1)
+                        @if (ViewBag.permisosEspecificos.Item5 == 1)
                         {
-                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" id="AgregarProyecto"  data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" id="AgregarProyecto" data-placement="top" title="Agregar Proyecto" href="/Proyectos/Create" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                        }
+                        else
+                        {
+                            <a data-toggle="tooltip" data-placement="top" title="No tiene permisos para Agregar un Proyecto"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
 
 
