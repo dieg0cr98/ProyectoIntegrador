@@ -227,7 +227,7 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = 0, mensaje = mensaje }); //Retorna a la vista
         }
 
-        public JsonResult ReviseNombrePRueba(string name, string oldName, int idProyecto, int idRequerimiento)
+        public JsonResult ReviseNombrePrueba(string name, string oldName, int idProyecto, int idRequerimiento)
         {
             //Hay que verificar si el nuevo nombre ya existe en la base de datos
             if ((name != oldName) && (db.Prueba.Where(p => p.nombre == name && p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento).FirstOrDefault() != null))
