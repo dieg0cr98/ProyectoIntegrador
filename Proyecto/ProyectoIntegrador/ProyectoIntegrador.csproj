@@ -578,6 +578,8 @@
     <Content Include="Views\Pruebas\formularioIndex.cshtml" />
     <Content Include="Views\Pruebas\Scripts.cshtml" />
     <Content Include="Views\Pruebas\ModalEliminar.cshtml" />
+    <Content Include="Views\Pruebas\Edit2.cshtml" />
+    <Content Include="Views\Pruebas\AgregarImagen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

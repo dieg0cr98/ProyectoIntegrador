@@ -158,6 +158,8 @@
             <!--Atributo imagen-->
             @if (Model.imagen != null)
             {
+
+
                 var base64 = Convert.ToBase64String(Model.imagen);
                 var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
                 <img src="@imgsrc" class="img-fluid" alt="Responsive image">

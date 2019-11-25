@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -16,6 +18,15 @@ namespace ProyectoIntegrador.Controllers
     {
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
         private SeguridadController seguridad = new SeguridadController();
+
+
+        // convert image to byte array
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
+        }
 
         // GET: Pruebas
         //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros
@@ -124,6 +135,11 @@ namespace ProyectoIntegrador.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
+                    string dirImage = "C:\\Users\\dieg0\\Documents\\Consulta4.png";
+                    Image imagen2 = Image.FromFile(dirImage);
+                    var t = imageToByteArray(imagen2);
+
                     Prueba prueba = new Prueba();
                     prueba.idProyectoFK = idProyecto;
                     prueba.idReqFK = idReq;
@@ -134,7 +150,7 @@ namespace ProyectoIntegrador.Controllers
                     prueba.resultadoEsperado = resultadoEsperado;
                     prueba.flujoPrueba = flujoPrueba;
                     prueba.estado = estado;
-                    prueba.imagen = Encoding.ASCII.GetBytes(imagen);
+                    prueba.imagen = t;
                     prueba.descripcionError = descripcionError;
                     db.Prueba.Add(prueba);
                     db.SaveChanges();
@@ -160,7 +176,7 @@ namespace ProyectoIntegrador.Controllers
         // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
         public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
-        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, byte[] imagen, string descripcionError, string nombre)
+        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre, HttpPostedFileBase pic)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
             string mensaje = "";
@@ -169,6 +185,8 @@ namespace ProyectoIntegrador.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
+
                     Prueba prueba = db.Prueba.Find(idProyecto, idReq, idPrueba);
                     //prueba.nombre = nombre;
                     prueba.resultadoFinal = resultadoFinal;
@@ -176,8 +194,7 @@ namespace ProyectoIntegrador.Controllers
                     prueba.entradaDatos = entradaDatos;
                     prueba.resultadoEsperado = resultadoEsperado;
                     prueba.flujoPrueba = flujoPrueba;
-                    prueba.estado = estado;
-                    prueba.imagen = imagen;
+                    prueba.estado = estado;                    
                     prueba.descripcionError = descripcionError;
 
                     db.Entry(prueba).State = EntityState.Modified;
@@ -221,6 +238,58 @@ namespace ProyectoIntegrador.Controllers
             else
                 return new JsonResult { Data = true };
 
+        }
+
+
+        public ActionResult AgregarImagen(int proyecto, int requerimiento, int prueba)
+        {
+            ViewBag.proyecto = proyecto;
+            ViewBag.requerimiento = requerimiento;
+            ViewBag.prueba = prueba;
+
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult AgregarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    //string path = Path.Combine(Server.MapPath("~/Images"),
+                    //                           Path.GetFileName(file.FileName));
+                    //file.SaveAs(path);
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    byte[] data = target.ToArray();
+
+                    Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
+                    prueba.imagen = data;
+
+                    db.Entry(prueba).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    ViewBag.Message = "File uploaded successfully";
+                    ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+
+            ViewBag.proyecto = proyectoID;
+            ViewBag.requerimiento = requerimientoID;
+            ViewBag.prueba = pruebaID;
+
+            return View();
         }
     }
 }

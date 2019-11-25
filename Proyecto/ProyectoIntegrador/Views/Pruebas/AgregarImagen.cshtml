@@ -1,0 +1,47 @@
+﻿
+
+@using (Html.BeginForm("AgregarImagen",
+                        "Pruebas",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+
+
+
+    <label for="file">Agregar Imagen:</label>
+    <input type="file" name="file" id="file" />
+    <br>
+    <br>
+
+  
+    <input hidden type="number" value="@ViewBag.proyecto" name="proyectoID" />
+    <input hidden type="number" value="@ViewBag.requerimiento" name="requerimientoID" />
+    <input hidden type="number" value="@ViewBag.prueba" name="pruebaID" />
+
+    <div class="row">
+
+        <div class="col">
+                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Edit","Pruebas",new {idProyecto = ViewBag.proyecto, idRequerimiento = ViewBag.requerimiento , idPrueba = ViewBag.prueba })"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+        </div>
+
+        <div class="col">
+            <input type="submit" value="Guardar Imagen" />
+
+        </div>
+
+    </div>
+
+  
+
+
+    <br>
+    <br>
+
+    <h1 class="font-weight-bold"> @ViewBag.Message</h1>
+    <img src=" @ViewBag.pic" />
+   
+
+
+
+}
+
