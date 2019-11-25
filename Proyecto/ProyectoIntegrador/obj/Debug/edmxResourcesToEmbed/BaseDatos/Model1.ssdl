@@ -150,6 +150,21 @@
     <Property Name="Editar" Type="int" Nullable="false" />
     <Property Name="Eliminar" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="SeguridadProyectoEditar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="int" Nullable="false" />
+    <Property Name="Objetivo" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+    <Property Name="DuracionReal" Type="int" Nullable="false" />
+    <Property Name="FechaInicio" Type="int" Nullable="false" />
+    <Property Name="FechaFin" Type="int" Nullable="false" />
+    <Property Name="CedulaCliente" Type="int" Nullable="false" />
+    <Property Name="CedulaLider" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="SeguridadProyectoGeneral">
     <Key>
       <PropertyRef Name="Rol" />
@@ -459,6 +474,7 @@
     <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadProyectoEditar" EntityType="Self.SeguridadProyectoEditar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Self.SeguridadRequerimientosGeneral" Schema="dbo" store:Type="Tables" />

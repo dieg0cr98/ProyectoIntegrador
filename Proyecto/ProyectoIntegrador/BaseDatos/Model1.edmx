@@ -155,6 +155,21 @@
           <Property Name="Editar" Type="int" Nullable="false" />
           <Property Name="Eliminar" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SeguridadProyectoEditar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="int" Nullable="false" />
+          <Property Name="Objetivo" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+          <Property Name="DuracionReal" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="int" Nullable="false" />
+          <Property Name="FechaFin" Type="int" Nullable="false" />
+          <Property Name="CedulaCliente" Type="int" Nullable="false" />
+          <Property Name="CedulaLider" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SeguridadProyectoGeneral">
           <Key>
             <PropertyRef Name="Rol" />
@@ -464,6 +479,7 @@
           <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadProyectoEditar" EntityType="Self.SeguridadProyectoEditar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Self.SeguridadRequerimientosGeneral" Schema="dbo" store:Type="Tables" />
@@ -916,6 +932,7 @@
           <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
           <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
           <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
+          <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1244,6 +1261,21 @@
           <Property Name="Agregar" Type="Int32" Nullable="false" />
           <Property Name="Editar" Type="Int32" Nullable="false" />
           <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoEditar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="Int32" Nullable="false" />
+          <Property Name="Objetivo" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+          <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+          <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+          <Property Name="FechaFin" Type="Int32" Nullable="false" />
+          <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+          <Property Name="CedulaLider" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1648,6 +1680,22 @@
                 <ScalarProperty Name="Editar" ColumnName="Editar" />
                 <ScalarProperty Name="Agregar" ColumnName="Agregar" />
                 <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadProyectoEditar">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoEditar">
+              <MappingFragment StoreEntitySet="SeguridadProyectoEditar">
+                <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+                <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+                <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
               </MappingFragment>
             </EntityTypeMapping>

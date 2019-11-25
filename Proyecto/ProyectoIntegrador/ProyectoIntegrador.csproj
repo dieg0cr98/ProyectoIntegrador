@@ -235,6 +235,9 @@
     <Compile Include="BaseDatos\SeguridadEquipoGeneral.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\SeguridadProyectoEditar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\SeguridadProyectoGeneral.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -566,6 +569,7 @@
     <Content Include="Views\Permisos\PruebaGeneral.cshtml" />
     <Content Include="Views\Permisos\ClienteGeneral.cshtml" />
     <Content Include="Views\Permisos\EmpleadoGeneral.cshtml" />
+    <Content Include="Views\Permisos\ProyectoEditar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -67,7 +67,7 @@
                         <div class="input-group">
 
 
-                            @if (ViewBag.permisos.Item3[1] == 1)
+                            @if (ViewBag.permisos.Item3[0] == 1)
                             {
                                 <input id="input2" class="form-control" value="@Model.nombre" style=" max-width:none; background-color:white; border-color:transparent" name="nombre" type="text">
 
@@ -92,7 +92,7 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[3] == 1)
+                            @if (ViewBag.permisos.Item3[2] == 1)
                             {
                                 <select id="dropdownEstado" class="custom-select" style="text-align:center;max-width:200px; background-color:white; border-color:transparent" name="estado">
 
@@ -171,7 +171,7 @@
 
                 @*Atributo Objetivo*@
                 <div class="input-group mb-4">
-                    @if (ViewBag.permisos.Item3[2] == 1)
+                    @if (ViewBag.permisos.Item3[1] == 1)
                     {
                         <textarea class="form-control" name="objetivo" value="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:white; border-color:transparent" id="comment">@Model.objetivo</textarea>
 
@@ -210,7 +210,7 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[6] == 1)
+                            @if (ViewBag.permisos.Item3[5] == 1)
                             {
                                 <input id="cfecha" class="form-control text-center" style="width:200px; background-color:white; border-color:transparent" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" required>
                             }
@@ -232,7 +232,7 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[7] == 1)
+                            @if (ViewBag.permisos.Item3[6] == 1)
                             {
                                 <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:white; border-color:transparent" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" required>
                             }
@@ -271,7 +271,7 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[4] == 1)
+                            @if (ViewBag.permisos.Item3[3] == 1)
                             {
                                 <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:white; border-color:transparent" value="@Model.duracionEstimada" name="duracionEstimada" required>
 
@@ -299,7 +299,7 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[5] == 1)
+                            @if (ViewBag.permisos.Item3[4] == 1)
                             {
                                 <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:white; border-color:transparent" value="@Model.duracionReal" name="duracionReal" required>
 
@@ -342,7 +342,7 @@
                 <div class="input-group mb-4">
 
                     <select class="custom-select" name="cedulaCliente" style="max-width:none; background-color:white; border-color:transparent" id="inputGroupSelect03">
-                        @if (ViewBag.permisos.Item3[9] == 1)
+                        @if (ViewBag.permisos.Item3[7] == 1)
                         {
 
                             if (ViewBag.clienteActual != null)
@@ -410,7 +410,7 @@
                 <div class="input-group mb-4">
 
                     <select class="custom-select" id="inputGroupSelect01" style="max-width:none; background-color:white; border-color:transparent" name="cedulaLider">
-                        @if (ViewBag.permisos.Item3[10] == 1)
+                        @if (ViewBag.permisos.Item3[8] == 1)
                         {
                             if (ViewBag.liderActual != null)
                             {
@@ -430,7 +430,16 @@
                         }
                         else
                         {
-                            <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+
+                            if (ViewBag.liderActual != null)
+                            {
+                                <option selected value="@ViewBag.liderActual.idEmpleadoPK">@ViewBag.liderActual.nombre @ViewBag.liderActual.apellido1  </option>
+                            }
+                            else
+                            {
+                                <option selected value="">Ninguno</option>
+                            }
+
                         }
 
                     </select>
