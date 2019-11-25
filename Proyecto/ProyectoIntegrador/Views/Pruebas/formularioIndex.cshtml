@@ -1,0 +1,172 @@
+﻿<div class="row mx-4 mt-0 md-0 " style="height:48px">
+
+    <div class="col-10 " style="max-height:48px">
+        <!--Nombre de la prueba, se puede agregar el estado-->
+        <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@Model.nombre</p>
+    </div>
+
+    <!-- Botones de Editar y Borrar  -->
+    <div class="col" style="height:70px;">
+        @if (ViewBag.permisosGenerales.Item4 == 1)
+        {
+            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="@Url.Action("Edit", "Pruebas", new { idProyecto = Model.idProyectoFK, idRequerimiento = Model.idReqFK, idPrueba = Model.idPruebaPK })" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:32px ; max-width:32px;padding-top:5px"></a>
+        }
+        @if (ViewBag.permisosGenerales.Item6 == 1)
+        {
+            if (Model.estado == "Cancelada")
+            {
+                <a class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idReqFK" data-whatever2="@Model.idProyectoFK" data-whatever3="@Model.idPruebaPK"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px; padding-top:5px"></a>
+            }
+            else
+            {
+                <a class="btn" data-toggle="modal" data-target="#modalNotElim"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:35px ; max-width:32px"></a>
+            }
+        }
+    </div>
+</div>
+
+<hr />
+
+<div class="container justify-content-center overflow-auto" style="max-height:600px; height:510px">
+
+    <div class="form-row">
+        @*Titulo de Atributo Nombre*@
+        <div class="col-5">
+            <h5> Nombre</h5>
+        </div>
+        <div class="col-2"></div>
+        @*Título de Atributo Proposito Prueba*@
+        <div class="col-5 ">
+            <h5> Proposito Prueba </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo Nombre*@
+        <div class="col-5">
+            <input class="form-control" name="nombre" value="@Model.nombre" maxlength="30" style="text-align:center" readonly />
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5">
+            @*Atributo propositoPrueba*@
+            <input class="form-control" type="text" style="text-align:center" value="@Model.propositoPrueba" readonly>
+        </div>
+    </div>
+    <br />
+    <hr />
+    <h3>Diseño de la prueba</h3>
+    <br />
+    <div class="form-row">
+        @*Título de Pre-Requisitos(Entrada Datos)*@
+        <div class="col">
+            <h5>Entrada de datos</h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo Pre-Requisitos(Entrada Datos)*@
+        <div class="input-group mb-4  mx-6">
+            <textarea class="form-control" maxlength="200" aria-label="With textarea" style="max-width:none" id="entradaDatos" name="entradaDatos" readonly>@Model.entradaDatos</textarea>
+        </div>
+    </div>
+    <br />
+
+    <div class="form-row">
+        @*Título de Atributo Resultado Esperado*@
+        <div class="col-5">
+            <h5> Resultado Esperado </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-5">
+            @*Atributo resultadoEsperado*@
+            <input class="form-control" value="@Model.resultadoEsperado" style="text-align:center" type="text" readonly>
+        </div>
+    </div>
+    <br />
+
+    <div class="form-row">
+        @*Título de Atributo Flujo Prueba*@
+        <div class="col">
+            <h5> Flujo Prueba </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo flujoPrueba*@
+        <div class="input-group mb-4  mx-6">
+            <textarea class="form-control" maxlength="200" aria-label="With textarea" style="max-width:none" id="entradaDatos" name="entradaDatos" readonly>@Model.flujoPrueba</textarea>
+        </div>
+    </div>
+    <br />
+    <div class="form-row">
+        @*Título de Atributo estado*@
+        <div class="col">
+            <h5> Estado </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo estado*@
+        <div class="col-5">
+            <input class="form-control text-center" style="text-align:center" type="text" value="@Model.estado" name="estado" readonly>
+        </div>
+    </div>
+    <br />
+    <hr />
+    <h3>Resultados</h3>
+    <br />
+
+    <div class="form-row">
+        @*Título de Atributo Resultado Final*@
+        <div class="col-5">
+            <h5> Resultado Final </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        @*Atributo Resultado Final*@
+        <div class="col-5">
+            <input class="form-control" type="text" style="text-align:center" value="@Model.resultadoFinal" name="resultadoFinal" readonly>
+        </div>
+    </div>
+    <br />
+
+    <div class="form-row">
+        @*Título de Atributo Descripción Error*@
+        <div class="col">
+            <h5> Descripción Error </h5>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="input-group mb-4  mx-6">
+            @*Atributo descripcionError*@
+            <textarea class="form-control" maxlength="200" aria-label="With textarea" style="max-width:none" id="descripcionError" name="descripcionError" readonly>@Model.descripcionError</textarea>
+        </div>
+    </div>
+    <hr />
+    <div class="form-row">
+        @*Título de Atributo imagen *@
+        <div class="col-4">
+            <h3> Imagen del error: </h3>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-group">
+            <!--Atributo imagen-->
+            @if (Model.imagen != null)
+            {
+                var base64 = Convert.ToBase64String(Model.imagen);
+                var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgsrc" class="img-fluid" alt="Responsive image">
+            }
+            else
+            {
+                <img src="@Model.imagen" class="img-fluid" alt="Responsive image">
+            }
+        </div>
+    </div>
+
+</div>

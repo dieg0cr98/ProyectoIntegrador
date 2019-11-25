@@ -179,7 +179,7 @@ namespace ProyectoIntegrador.Controllers
             db.Requerimiento.Add(requerimiento);
             db.SaveChanges();
 
-            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre).FirstOrDefault();
+            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre && R.idProyectoFK == idProyecto).FirstOrDefault();
 
             //Vuelve a la vista de consultar.
             return RedirectToAction("Index", new { idProyecto, idRequerimiento = idReq.idReqPK });
@@ -303,13 +303,38 @@ namespace ProyectoIntegrador.Controllers
         // Recibe string name. Contiene el nombre que se quiere verificar
         //        string oldName. Contiene el nombre actual del reqeurimiento (Se utiliza en caso de editar un requerimiento)
         // Devuelve un JsonResult con un True si ya existe un requerimiento y un false si no
-        public JsonResult ReviseNombreRequerimiento(string name, string oldName)
+        public JsonResult ReviseNombreRequerimiento(string name, string oldName, int idProyecto)
         {
             //Hay que verificar si el nuevo nombre ya existe en la base de datos
-            if ((name != oldName) && (db.Requerimiento.Where(r => r.nombre == name).FirstOrDefault() != null))
+            if ((name != oldName) && (db.Requerimiento.Where(r => r.nombre == name && r.idProyectoFK == idProyecto).FirstOrDefault() != null))
             {
                 //Existe un proyecto con ese nombre
                 return new JsonResult { Data = false };
+            }
+            else
+                return new JsonResult { Data = true };
+
+        }
+
+        public JsonResult CantidadPruebasTerminadas(string estado, int idProyecto, int idRequerimiento)
+        {
+            if (estado == "Terminado")
+            {
+
+                //int cantidadPruebas = db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.idReqPK == idRequerimiento).Select(r => r.cantidadDePruebas).FirstOrDefault();
+                int cantidadPruebas = db.Prueba.Count(r => r.idProyectoFK == idProyecto && r.idReqFK == idRequerimiento);
+                int cantidadPuebasTerminadas = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento && (p.estado == "Terminada" || p.estado == "Cancelada")).Count();
+
+                if (cantidadPruebas == cantidadPuebasTerminadas)
+                {
+                    return new JsonResult { Data = true };
+                }
+
+                else
+                {
+
+                    return new JsonResult { Data = false };
+                }
             }
             else
                 return new JsonResult { Data = true };

@@ -311,6 +311,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
+    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Controllers\TrabajaEnController.cs" />
@@ -570,6 +571,13 @@
     <Content Include="Views\Permisos\ClienteGeneral.cshtml" />
     <Content Include="Views\Permisos\EmpleadoGeneral.cshtml" />
     <Content Include="Views\Permisos\ProyectoEditar.cshtml" />
+    <Content Include="Views\Pruebas\Create.cshtml" />
+    <Content Include="Views\Pruebas\Details.cshtml" />
+    <Content Include="Views\Pruebas\Edit.cshtml" />
+    <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\Pruebas\formularioIndex.cshtml" />
+    <Content Include="Views\Pruebas\Scripts.cshtml" />
+    <Content Include="Views\Pruebas\ModalEliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

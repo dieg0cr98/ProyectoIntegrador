@@ -22,11 +22,12 @@
         <!-- Se crea el formulario con el que recibiremos los datos -->
         <form class="cmxform" id="commentForm" method="post" action="Edit">
             <fieldset>
-                <div class="container justify-content-center bg-secondary" style="width:800px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91)">
+                <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91);  background-color: rgba(192,159,128, 0.7)">
                     <!--Se pasa el id del proyecto asociado y del requerimiento de manera oculta ya que al usuario no le interesa esto-->
                     <input type="hidden" id="idProy" name="idProyecto" value=@ViewBag.idProyecto>
                     <input type="hidden" id="idReq" name="idRequerimiento" value=@ViewBag.idRequerimiento>
                     <input type="hidden" id="nomV" name="nombreViejo" value=@Model.nombre>
+                    <br />
                     <div class="form-row">
                         @*Título de Atributo Nombre del Requerimiento*@
                         <div class="col-5">
@@ -59,16 +60,16 @@
                     </div>
 
                     @*Atributo descripcion*@
-                <div class="input-group mb-4  mx-6">
-                    @if (ViewBag.permisosEditar.Item3[7] == 1)
-                    {
-                        <textarea class="form-control" name="descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment">@Model.descripcion</textarea>
-                    }
-                    else
-                    {
-                        <textarea class="form-control" name="descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment" readonly>@Model.descripcion</textarea>
-                    }
-                </div>
+                    <div class="input-group mb-4  mx-6">
+                        @if (ViewBag.permisosEditar.Item3[7] == 1)
+                        {
+                            <textarea class="form-control" name="descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment">@Model.descripcion</textarea>
+                        }
+                        else
+                        {
+                            <textarea class="form-control" name="descripcion" maxlength="100" aria-label="With textarea" style="max-width:none" id="comment" readonly>@Model.descripcion</textarea>
+                        }
+                    </div>
 
                     <div class="form-row">
                         @*Título de Atributo Complejidad*@
@@ -149,7 +150,7 @@
 
                             @*Atributo Estado*@
                             <div class="input-group">
-                                <select class="custom-select" name="estado">
+                                <select id="dropdownEstado" class="custom-select" name="estado">
                                     @switch (Model.estado)
                                     {
                                         case "Preparacion":
@@ -179,6 +180,7 @@
                                     }
                                 </select>
                             </div>
+                            <div id="errorEstado"></div>
                         </div>
                     </div>
 
@@ -189,7 +191,7 @@
                         </div>
                     </div>
 
-                    @if (ViewBag.permisosEditar.Item3[2] == 1)
+                    @if (ViewBag.permisosEditar.Item3[2] == 1 || Model.estado != "Cancelado")
                     {
                         <div class="form-row mb-4">
                             <div class="col-4">
@@ -496,7 +498,7 @@
 
 
 
-                                    });
+            });
 
 
             $('#btnsubmit').on('click', function () {
@@ -506,7 +508,7 @@
                 $('#loading').show('fast');
 
 
-                                    });
+            });
 
         </script>
 
@@ -517,82 +519,103 @@
                 $("#commentForm").validate(
                     {
                         rules:
-                            {
+                        {
                             nombre:
-                                {
+                            {
                                 required: true,
                                 minlength: 1,
                                 remote:
-                                    {
+                                {
                                     url: "/Requerimientos/ReviseNombreRequerimiento",
                                     type: "post",
-                                     delay: 1000,
+                                    delay: 1000,
                                     data:
-                                        {
-                                        name: function ()
-                                            {
-                                                return $("#nomN").val();
-                                            },
-                                        oldName: function ()
-                                            {
-                                                return $("#nomV").val();
-                                            }
+                                    {
+                                        name: function () {
+                                            return $("#nomN").val();
+                                        },
+                                        oldName: function () {
+                                            return $("#nomV").val();
+                                        },
+                                        idProyecto: function () {
+                                            return $("#idProy").val();
                                         }
-
                                     }
 
-                                },
+                                }
+
+                            },
                             duracionEstimada:
-                                {
+                            {
                                 required: true,
                                 min: 0
 
-                                },
+                            },
                             duracionReal:
-                                {
-                                min: 0
-                                },
-                            fechai:
-                                {
-                                required: true,
-                                    },
-                                },
-                            messages:
                             {
+                                min: 0
+                            },
+                            fechai:
+                            {
+                                required: true,
+                            },
+                            estado:
+                            {
+                                remote: {
+                                    url: "/Requerimientos/CantidadPruebasTerminadas",
+                                    type: "post",
+                                    delay: 1000,
+                                    data: {
+                                        estado: function () {
+                                            return $("#dropdownEstado option:selected").text();
+                                        },
+                                        idProyecto: $("#idProy").val(),
+                                        idRequerimiento: $("#idReq").val(),
+                                    }
+
+                                }
+
+                            },
+                        },
+                        messages:
+                        {
                             nombre:
-                                {
+                            {
                                 required: "Inserte al menos 1 caractér",
                                 remote: "Ya existe un requerimiento con ese nombre",
-                                },
+                            },
                             duracionEstimada: "Tiene que ser un numero mayor a 0",
                             duracionReal: "Tiene que ser un numero mayor a 0",
                             fechai: "Inserte una fecha"
 
-                            },
+                        },
 
-                            errorPlacement: function (error, element) {
-                                                if ((element.attr('name') === 'idRequerimientoNuevo')) {
-                                                    error.insertAfter($('#errorIdRequerimientoNuevo'));
-                                                }
-                                                if ((element.attr('name') === 'nombre')) {
-                                                    error.insertAfter($('#errorNombre'));
-                                                }
-                                                if ((element.attr('name') === 'fechai')) {
-                                                    error.insertAfter($('#errorFechai'));
-                                                }
-                                                if ((element.attr('name') === 'duracionEstimada')) {
-                                                    error.insertAfter($('#errorDuracionEstimada'));
-                                                }
-                                                if ((element.attr('name') === 'duracionReal')) {
-                                                    error.insertAfter($('#errorDuracionReal'));
-                                                }
-                                            },
-                            invalidHandler: function (form, validator) {
+                        errorPlacement: function (error, element) {
+                            if ((element.attr('name') === 'idRequerimientoNuevo')) {
+                                error.insertAfter($('#errorIdRequerimientoNuevo'));
+                            }
+                            if ((element.attr('name') === 'nombre')) {
+                                error.insertAfter($('#errorNombre'));
+                            }
+                            if ((element.attr('name') === 'fechai')) {
+                                error.insertAfter($('#errorFechai'));
+                            }
+                            if ((element.attr('name') === 'duracionEstimada')) {
+                                error.insertAfter($('#errorDuracionEstimada'));
+                            }
+                            if ((element.attr('name') === 'duracionReal')) {
+                                error.insertAfter($('#errorDuracionReal'));
+                            }
+                            if ((element.attr('name') === 'estado')) {
+                                $('#pruebas').modal('show');
+                            }
+                        },
+                        invalidHandler: function (form, validator) {
 
-                                $('#loading').hide('fast');
-                                $('#acceptar').show('fast');
+                            $('#loading').hide('fast');
+                            $('#acceptar').show('fast');
 
-                            },
+                        },
 
 
 
@@ -615,4 +638,24 @@
     {
         <div class="alert alert-primary text-center" style="color:white ; background-color:red">Usted no posee los permisos requeridos para realizar esta acción</div>
     }
+
+    <!-- Modal pruebas terminadas -->
+    <div class="modal fade" id="pruebas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="text-center">Existen pruebas en ejecución.</h5>
+                    <h5 class="text-center">Para eliminar una requerimiento todas las pruebas deben estar terminadas</h5>
+                </div>
+                <div class="modal-footer">
+                    <div class="col text-center">
+                        <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Aceptar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </body>

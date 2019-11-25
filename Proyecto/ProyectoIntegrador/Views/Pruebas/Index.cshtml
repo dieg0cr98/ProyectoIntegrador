@@ -1,10 +1,9 @@
-﻿@model IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento>
-@using Microsoft.AspNet.Identity
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<ProyectoIntegrador.BaseDatos.Prueba>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Consulta Pruebas";
 }
-
 <!--Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id-->
 @{ var idCarta = "#a"; }
 @{ var idTab = "a"; }
@@ -12,47 +11,21 @@
 <head>
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <style>
-        /*Cambia los colores de las listas activas*/
-        .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-            color: #ffffff;
-            background-color: #76323f;
-            border-color: none;
-        }
-
-        /*Cambia los colores de los tooltips*/
-        .tooltip > .tooltip-inner {
-            background-color: #76323f;
-            color: white;
-        }
-
-        .bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
-            border-bottom-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
-            border-top-color: #76323f;
-        }
-
-        .bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
-            border-left-color: #76323f
-        }
-
-        .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-            border-right-color: #76323f
-        }
-    </style>
-
 </head>
 
 
 <body>
     <!-- Verifica que el llamado a la vista se haya hecho por un usuario registrado a la aplicación -->
-    @if (Request.IsAuthenticated && ViewBag.permisosGenerales.Item2 == 1)
+    @if (Request.IsAuthenticated)
     {
         <br />
-        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Consultar Requerimientos: @ViewBag.nombre</p>
+        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 1px">
+            @ViewBag.nombreProyecto<br>
+            Consultar Pruebas: @ViewBag.nombreRequerimiento<br>
+        </p>
+        <div style="margin-left:25%">
+            @if(ViewBag.error != null){<div class="alert alert-primary text-center" style="color:white ; background-color:red; width:67%;"> @ViewBag.error </div>}
+        </div>
         <hr>
         <div class="container " style="max-width: 1800px">
             <div class="row">
@@ -62,16 +35,12 @@
                     <nav class="navbar navbar-light bg-secondary" style="border-radius:20px 20px 0px 0px">
                         <a class="navbar-brand">
                             <img src="~/Content/folder.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                            Lista de Requerimientos
+                            Lista de Pruebas
                         </a>
-                        <!-- Si el usuario no tiene permisos, no puede agregar requerimientos -->
-                        @if (ViewBag.permisosGenerales.Item4 == 1)
+                        <!-- Si el usuario no tiene permisos, no puede agregar pruebas -->
+                        @if (ViewBag.permisosGenerales.Item5 == 1)
                         {
-                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Requerimiento" href="@Url.Action("Create", "Requerimientos", new { idProyecto = ViewBag.idProyecto })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                        }
-                        else
-                        {
-                            <a data-toggle="tooltip" data-placement="top" title="No posee permisos para agregar requerimientos" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+                            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="top" title="Agregar Prueba" href="@Url.Action("Create", "Pruebas", new { idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento })" class="btn"><img src="~/Content/plus.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
                         }
 
                     </nav>
@@ -80,8 +49,8 @@
                         <div class="list-group h-100 overflow-auto" style="max-height: 650px" id="list-tab" role="tablist">
                             @foreach (var item in Model)
                             {
-                                //Si el item.idReqPK es igual al ViewBag.seleccion hay que seleccionar el tab con la instruccion show active
-                                if (ViewBag.seleccion == item.idReqPK)
+                                //Si el item.idPruebaPK es igual al ViewBag.seleccion hay que seleccionar el tab con la instruccion show active
+                                if (ViewBag.seleccion == item.idPruebaPK)
                                 {
                                     <a class="list-group-item list-group-item-action list-group-item-secondary my-1 active" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
@@ -89,7 +58,6 @@
                                 {
                                     <a class="list-group-item list-group-item-action list-group-item-secondary my-1" style="border-radius:20px 20px 20px 20px" id="list-home-list" data-toggle="list" href=@idCarta role="tab">@Html.DisplayFor(modelItem => item.nombre)</a>
                                 }
-
                                 { idCarta += 1; }
                             }
                         </div>
@@ -103,8 +71,8 @@
 
                         @foreach (var item in Model)
                         {
-                            //Si el item.idReqPK es igual al ViewBag.seleccion hay que seleccionar el tab con la instruccion show active
-                            if (ViewBag.seleccion == item.idReqPK)
+                            //Si el item.idPruebaPK es igual al ViewBag.seleccion hay que seleccionar el tab con la instruccion show active
+                            if (ViewBag.seleccion == item.idPruebaPK)
                             {
                                 <div class="tab-pane fade bg-secondary show active" style="max-width:1150px;border-radius:20px 20px 20px 20px" id=@idTab role="tabpanel" aria-labelledby="list-home-list">
                                     @Html.Partial("FormularioIndex", item)
@@ -116,7 +84,6 @@
                                     @Html.Partial("FormularioIndex", item)
                                 </div>
                             }
-
                             //Le agrega un digito mas al idTab
                             { idTab += 1; }
                         }
@@ -126,11 +93,11 @@
         </div>
 
         @Html.Partial("ModalEliminar")
-     }
-     else
-     {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red">Usted no posee los permisos requeridos para realizar esta acción</div>
-     }
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para poder ver las pruebas</div>
+    }
 
     @Html.Partial("Scripts")
 </body>
