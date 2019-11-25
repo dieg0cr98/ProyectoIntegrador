@@ -175,7 +175,15 @@ namespace ProyectoIntegrador.Controllers
 
                 }
                 //El tester solo se puede ver su informacion
-                else return null;
+                else
+                {
+                    var innerJoin =
+                    from e in db.Empleado //Selecciona la tabla de Empleado
+                    where e.idEmpleadoPK == "Despedido" //Solo los empleados que no estan despedidos
+                    select e; //Selecciona todo los atributos del empleado
+                    return innerJoin.ToList();
+                }
+
 
             }
         }
