@@ -7,40 +7,92 @@
 {
 
 
-
-    <label for="file">Agregar Imagen:</label>
-    <input type="file" name="file" id="file" />
     <br>
     <br>
 
-  
-    <input hidden type="number" value="@ViewBag.proyecto" name="proyectoID" />
-    <input hidden type="number" value="@ViewBag.requerimiento" name="requerimientoID" />
-    <input hidden type="number" value="@ViewBag.prueba" name="pruebaID" />
+
+    <div class="row text-center">
+
+        <div class="col">
+            <h2>Agregar Imagen:</h2>
+        </div>
+    </div>
 
     <div class="row">
+        <div class="col text-center">
 
-        <div class="col">
-                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Edit","Pruebas",new {idProyecto = ViewBag.proyecto, idRequerimiento = ViewBag.requerimiento , idPrueba = ViewBag.prueba })"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
-        </div>
+            
 
-        <div class="col">
-            <input type="submit" value="Guardar Imagen" />
+            <input type='file' name="file" id="file" onchange="readURL(this);" />
+
 
         </div>
 
     </div>
 
-  
+    <div class="row ">z
+        <div class="col text-center">
+
+            <h5>Imagen Seleccionada</h5>
+
+            <img style="max-height:600px; max-width:1800px" id="blah" src="#" />
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <input hidden type="number" value="@ViewBag.proyecto" name="proyectoID" />
+    <input hidden type="number" value="@ViewBag.requerimiento" name="requerimientoID" />
+    <input hidden type="number" value="@ViewBag.prueba" name="pruebaID" />
+
+
+    <div class="row text-center">
+        <div class="col">
+            <input type="submit" value="Guardar Imagen" />
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col">
+            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Edit","Pruebas",new {idProyecto = ViewBag.proyecto, idRequerimiento = ViewBag.requerimiento , idPrueba = ViewBag.prueba })"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+        </div>
+
+
+    </div>
+
+
 
 
     <br>
     <br>
 
     <h1 class="font-weight-bold"> @ViewBag.Message</h1>
-    <img src=" @ViewBag.pic" />
-   
 
+
+    <script>
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 
 }
