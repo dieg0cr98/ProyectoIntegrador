@@ -271,7 +271,7 @@ namespace ProyectoIntegrador.Controllers
                     db.Entry(prueba).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    ViewBag.Message = "File uploaded successfully";
+                    ViewBag.Message = "Imagen guardada exitosamente";
                     ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
 
                     
@@ -282,7 +282,7 @@ namespace ProyectoIntegrador.Controllers
                 }
             else
             {
-                ViewBag.Message = "You have not specified a file.";
+                ViewBag.Message = "Ninguna Imagen seleccionada";
             }
 
             ViewBag.proyecto = proyectoID;
@@ -294,19 +294,63 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-        public ActionResult ModicarImagen(int proyecto, int requerimiento, int prueba)
+        public ActionResult ModificarImagen(int proyecto, int requerimiento, int prueba)
         {
+            Prueba p = db.Prueba.Find(proyecto, requerimiento, prueba);
+            ViewBag.oldPic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(p.imagen))  ;
+            ViewBag.proyecto = proyecto;
+            ViewBag.requerimiento = requerimiento;
+            ViewBag.prueba = prueba;
 
-
-            return View();
+            return View("CambiarImagen");
         }
 
         [HttpPost]
-        public ActionResult ModicarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
+        public ActionResult ModificarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
         {
 
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    //string path = Path.Combine(Server.MapPath("~/Images"),
+                    //                           Path.GetFileName(file.FileName));
+                    //file.SaveAs(path);
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    byte[] data = target.ToArray();
 
-            return View();
+                    Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
+                    prueba.imagen = data;
+
+                    db.Entry(prueba).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    ViewBag.Message = "Imagen guardada exitosamente";
+                    ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
+
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+
+                Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
+                prueba.imagen = null;
+
+                db.Entry(prueba).State = EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "Se ha eliminado de forma exitosa la imagen";
+            }
+
+
+            ViewBag.proyecto = proyectoID;
+            ViewBag.requerimiento = requerimientoID;
+            ViewBag.prueba = pruebaID;
+
+            return View("CambiarImagen");
         }
 
     }
