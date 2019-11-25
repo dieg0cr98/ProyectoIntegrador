@@ -291,5 +291,23 @@ namespace ProyectoIntegrador.Controllers
 
             return View();
         }
+
+
+
+        public ActionResult ModicarImagen(int proyecto, int requerimiento, int prueba)
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ModicarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
+        {
+
+
+            return View();
+        }
+
     }
 }
