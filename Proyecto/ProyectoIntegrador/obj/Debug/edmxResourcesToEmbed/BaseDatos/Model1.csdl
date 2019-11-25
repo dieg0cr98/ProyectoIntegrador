@@ -398,6 +398,7 @@
     <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
     <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
     <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
+    <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -726,5 +727,20 @@
     <Property Name="Agregar" Type="Int32" Nullable="false" />
     <Property Name="Editar" Type="Int32" Nullable="false" />
     <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoEditar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="Int32" Nullable="false" />
+    <Property Name="Objetivo" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+    <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+    <Property Name="FechaFin" Type="Int32" Nullable="false" />
+    <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+    <Property Name="CedulaLider" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

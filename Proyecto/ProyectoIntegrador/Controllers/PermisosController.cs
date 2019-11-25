@@ -11,7 +11,7 @@ namespace ProyectoIntegrador.Controllers
     public class PermisosController : Controller
     {
         private string[] tipo = { "Total", "Parcial", "Ninguno" };
-
+        private string[] tipo2 = {"Ninguno", "Total" };
         private SeguridadController seguridad = new SeguridadController();
 
 
@@ -118,6 +118,96 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.saved = 1;
             return View("ProyectoGeneral");
         }
+
+
+
+        /*
+* Efecto: Carga la vista de permisos generales para Proyecto
+* Requiere: 
+* Modifica: Agrega permisos al ViewBag
+* Retorna:  La vista de permisos generales para Proyecto
+*/
+        public ActionResult ProyectoEditar()
+        {
+            ViewBag.permisos = seguridad.getTablaSeguridadProyectoEditar();
+            ViewBag.saved = 0;
+            return View("ProyectoEditar");
+        }
+
+
+
+
+        /*
+        * Efecto: Modificar permisos generales para Proyecto
+        * Requiere: CS = Permiso Consultar Soporte/Calidad
+        *           CL = Permiso Consultar Lider
+        *           CT = Permiso Consultar Tester
+        *           CC = Permiso Consultar Cliente
+        *           AS = Permiso Agregar Soporte/Calidad
+        *           AL = Permiso Agregar Lider
+        *           AT = Permiso Agregar Tester
+        *           AC = Permiso Agregar Cliente
+        *           ES = Permiso Editar Soporte/Calidad
+        *           EL = Permiso Editar Lider
+        *           ET = Permiso Editar Tester
+        *           EC = Permiso Editar Cliente
+        *           BS = Permiso Eliminar Soporte/Calidad
+        *           BL = Permiso Eliminar Lider
+        *           BT = Permiso Eliminar Tester
+        *           BC = Permiso Eliminar Cliente
+        * Modifica: Permisos generales para Proyecto
+        * Retorna:  La vista de permisos generales post para Proyecto
+        */
+        [HttpPost]
+        public ActionResult ProyectoEditar(string NS, string NL, string NT, string NC,
+            string OS, string OL, string OT, string OC,
+            string ES, string EL, string ET, string EC,
+            string DES, string DEL, string DET, string DEC,
+            string DRS, string DRL, string DRT, string DRC,
+            string FIS, string FIL, string FIT, string FIC,
+            string FFS, string FFL, string FFT, string FFC,
+            string CCS, string CCL, string CCT, string CCC,
+            string CLS, string CLL, string CLT, string CLC)
+        {
+
+
+            //Cambia los permisos para los Jefe de Calidad / Soporte
+            seguridad.setTablaSeguridadProyectoEditar(0, new List<int>() { Array.IndexOf(tipo2, NS), Array.IndexOf(tipo2, OS) ,
+                Array.IndexOf(tipo2, ES) , Array.IndexOf(tipo2, DES), Array.IndexOf(tipo2, DRS) ,
+                Array.IndexOf(tipo2, FIS) , Array.IndexOf(tipo2, FFS), Array.IndexOf(tipo2, CCS) , Array.IndexOf(tipo2, CLS) });
+
+            //Cambia los permisos para los Liders
+            seguridad.setTablaSeguridadProyectoEditar(1, new List<int>() { Array.IndexOf(tipo2, NL), Array.IndexOf(tipo2, OL) ,
+                Array.IndexOf(tipo2, EL) , Array.IndexOf(tipo2, DEL), Array.IndexOf(tipo2, DRL) ,
+                Array.IndexOf(tipo2, FIL) , Array.IndexOf(tipo2, FFL), Array.IndexOf(tipo2, CCL) , Array.IndexOf(tipo2, CLL) });
+
+            //////Cambia los permisos para los Tester
+            seguridad.setTablaSeguridadProyectoEditar(2, new List<int>() { Array.IndexOf(tipo2, NT), Array.IndexOf(tipo2, OT) ,
+                Array.IndexOf(tipo2, ET) , Array.IndexOf(tipo2, DET), Array.IndexOf(tipo2, DRT) ,
+                Array.IndexOf(tipo2, FIT) , Array.IndexOf(tipo2, FFT), Array.IndexOf(tipo2, CCT) , Array.IndexOf(tipo2, CLT) });
+
+            //////Cambia los permisos para los Clientes
+            seguridad.setTablaSeguridadProyectoEditar(3, new List<int>() { Array.IndexOf(tipo2, NC), Array.IndexOf(tipo2, OC) ,
+                Array.IndexOf(tipo2, EC) , Array.IndexOf(tipo2, DEC), Array.IndexOf(tipo2, DRC) ,
+                Array.IndexOf(tipo2, FIC) , Array.IndexOf(tipo2, FFC), Array.IndexOf(tipo2, CCC) , Array.IndexOf(tipo2, CLC) });
+            return RedirectToAction("ProyectoEditarPost");
+
+        }
+
+        /*
+        * Efecto: Carga la vista de permisos generales para Proyecto con un mensaje de confirmacion
+        * Requiere: 
+        * Modifica: Agrega permisos al ViewBag
+        * Retorna:  La vista de permisos generales para Proyecto
+        */
+        public ActionResult ProyectoEditarPost()
+        {
+            ViewBag.permisos = seguridad.getTablaSeguridadProyectoEditar();
+            ViewBag.saved = 1;
+            return View("ProyectoEditar");
+        }
+
+
 
         //--------------------------Equipo--------------------------//
 

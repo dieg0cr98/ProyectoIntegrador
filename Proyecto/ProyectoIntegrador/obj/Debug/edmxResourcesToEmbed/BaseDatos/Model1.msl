@@ -402,5 +402,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadProyectoEditar">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoEditar">
+        <MappingFragment StoreEntitySet="SeguridadProyectoEditar">
+          <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+          <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+          <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
