@@ -1011,6 +1011,50 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
+* Retorna un Tuple<int,string,int,int,int>, con los valores:
+*              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+*              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+*              cedulaUsuario
+*              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+*              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+*              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+*/
+        public Tuple<int, string, int, int, int, int> PruebasPermisos(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede editar
+            int permisoBorrar = 3;   //Por defecto no puede editar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+
+                var tabla = getTablaSeguridadPruebasGeneral();
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol]; ;
+                permisoEditar = tabla[2, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+
+            }
+
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
+
         //----------------------------------------------------------------Tablas de Consultas Avanzadas------------------------------------------------//
 
 
