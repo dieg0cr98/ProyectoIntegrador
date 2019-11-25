@@ -72,6 +72,7 @@
     <EntitySetMapping Name="Prueba">
       <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
         <MappingFragment StoreEntitySet="Prueba">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
           <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
           <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
@@ -245,15 +246,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="USP_ContarRequerimientosTester" FunctionName="Gr03Proy2Model.Store.USP_ContarRequerimientosTester" />
-    <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosUsuario">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result">
-          <ScalarProperty Name="idProyectoAID" ColumnName="idProyectoAID" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="nombreTester" FunctionName="Gr03Proy2Model.Store.nombreTester" />
     <FunctionImportMapping FunctionImportName="USP_GetEmpleadosDeLider" FunctionName="Gr03Proy2Model.Store.USP_GetEmpleadosDeLider">
       <ResultMapping>
@@ -330,6 +322,17 @@
           <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
           <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
           <ScalarProperty Name="horas" ColumnName="horas" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HabilidadesBlandasEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesBlandasEmpleado" />
+    <FunctionImportMapping FunctionImportName="HabilidadesTecnicasEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesTecnicasEmpleado" />
+    <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result">
+          <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+          <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

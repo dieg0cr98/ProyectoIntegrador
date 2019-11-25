@@ -25,6 +25,7 @@ namespace ProyectoIntegrador.BaseDatos
         public string estado { get; set; }
         public byte[] imagen { get; set; }
         public string descripcionError { get; set; }
+        public string nombre { get; set; }
     
         public virtual Requerimiento Requerimiento { get; set; }
     }
