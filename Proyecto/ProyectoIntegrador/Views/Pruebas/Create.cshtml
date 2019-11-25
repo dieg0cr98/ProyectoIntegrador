@@ -33,8 +33,9 @@
                         <!--Campo Nombre-->
                         <h5 for="nombre" style="width:200px">Nombre: *</h5>
                         <input class="form-control" id="nombre" name="nombre" minlength="1" maxlength="60" type="text" required />
-                        <div id="errorNombre"></div>
+
                     </div>
+                    <div id="errorNombre"></div>
                     <div class="col-2"></div>
                     <div class="col-5">
                         @*Título de Atributo Proposito Prueba*@
@@ -60,6 +61,7 @@
                 <div class="row" style="padding-left:15px; padding-right:20px;">
                     <textarea class="form-control col-12" id="resultadoEsperado" maxlength="200" name="resultadoEsperado"></textarea>
                 </div>
+                <div id="errorResultadoEsperado"></div>
                 <br>
                 <div class="form-row mb-2" style="padding-left:5px">
                     @*Título de Atributo Flujo Prueba*@
@@ -137,28 +139,95 @@
     </form>
 </body>
 
+<script>
+    $(function () {
+        $("#commentForm").validate(
+        {
+            rules:
+            {
+                nombre:
+                {
+                    required: true,
+                    minlength: 1,
+                    remote:
+                    {
+                        url: "/Pruebas/ReviseNombrePrueba",
+                        type: "post",
+                        delay: 1000,
+                        data:
+                        {
+                            name: function () {
+                                return $("#nomN").val();
+                            },
+                            oldName: null,
+                            idProyecto: function () {
+                                return $("#idProy").val();
+                            },
+                            idRequerimiento: function () {
+                                return $("#idReq").val();
+                            }
+                        }
 
+                    }
+
+                },
+                resultadoEsperado:
+                {
+                    required: true,
+                    minlength: 1
+
+                },
+            },
+            messages:
+            {
+                nombre:
+                {
+                    remote: "Ya existe una prueba con ese nombre",
+                    required: "Inserte al menos 1 caractér",
+                    
+                },
+                resultadoEsperado: "Debe proporcionar un resultado esperado"
+
+            },
+
+            errorPlacement: function (error, element) {
+                if ((element.attr('name') === 'nombre')) {
+                    error.insertAfter($('#errorNombre'));
+                }
+                if ((element.attr('name') === 'resultadoEsperado')) {
+                    error.insertAfter($('#errorResultadoEsperado'));
+                }
+            },
+            invalidHandler: function (form, validator) {
+
+                $('#loading').hide('fast');
+                $('#acceptar').show('fast');
+
+            },
+        });
+    });
+
+
+</script>
 
 <script>
 
-            $('document').ready(function () {
+    $('document').ready(function () {
 
 
-                $('#loading').hide();
-
-
-
-            });
+        $('#loading').hide();
 
 
 
-            $('#btnsubmit').on('click', function () {
-                $('#acceptar').hide('fast');
+    });
+
+    $('#btnsubmit').on('click', function () {
+        $('#acceptar').hide('fast');
 
 
-                $('#loading').show('fast');
+        $('#loading').show('fast');
 
 
-            });
+    });
 
 </script>
