@@ -804,32 +804,70 @@ namespace ProyectoIntegrador.Controllers
 
         public ActionResult Eliminar(int id)
         {
-            int p = seguridad.ProyectoEliminar(User);
-            if (p == 1)
+            var permisos = seguridad.getTablaSeguridadProyectoGeneral();
+            int rol = seguridad.GetRoleUsuario(User);
+
+            if(permisos[3,rol] != 3)
             {
 
-
-
-                //Busca el proyecto
-                Proyecto proyecto = GetProyecto(id);
-
-
-
-                //Verifica si el proyecto existe
-                if (proyecto != null)
+                //Puede editar solo en los que el participa
+                if (permisos[3, rol] == 2)
                 {
-                    //Elimina el proyecto
-                    SetProyecto(proyecto, 2);
+
+                    //Regresa una lista de los proyectos en los que participa el usuario
+                    var proyectosList = GetProyectosUsuario(2, rol, seguridad.IdUsuario(User));
+
+                    //Busca si el proyecto que se quiere borrar pertenece a esta persona
+                    if (proyectosList.Where(proyecto => proyecto.idProyectoAID == id).Any())
+                    {
+                        //Si no pertenece devuelve a la vista un null
+                        return RedirectToAction("Index", new { id = 0 });
+                    }
+                    else
+                    {
+                        //Busca el proyecto
+                        Proyecto proyecto = GetProyecto(id);
+
+
+
+                        //Verifica si el proyecto existe
+                        if (proyecto != null)
+                        {
+                            //Elimina el proyecto
+                            SetProyecto(proyecto, 2);
+
+                        }
+
+                        return RedirectToAction("Index", new { id = 0 });
+
+                    }
 
                 }
+                else
+                {
+                    //Busca el proyecto
+                    Proyecto proyecto = GetProyecto(id);
 
-                return RedirectToAction("Index", new { id = 0 });
 
+
+                    //Verifica si el proyecto existe
+                    if (proyecto != null)
+                    {
+                        //Elimina el proyecto
+                        SetProyecto(proyecto, 2);
+
+                    }
+                    return RedirectToAction("Index", new { id = 0 });
+
+                }
             }
             else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", new { id = 0 });
+
             }
+
+            
 
         }
 

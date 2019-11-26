@@ -13,8 +13,8 @@ namespace ProyectoIntegrador.BaseDatos
     
     public partial class USP_ObtenerProyectosUsuario_Result
     {
-        public int idProyectoAID { get; set; }
-        public string nombre { get; set; }
-        public string estado { get; set; }
+        public int idProyecto { get; set; }
+        public string nombreProyecto { get; set; }
+        public string nombreEmpleado { get; set; }
     }
 }

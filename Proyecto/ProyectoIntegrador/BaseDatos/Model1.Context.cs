@@ -268,23 +268,6 @@ namespace ProyectoIntegrador.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_cambiar_cedulaCliente", cedulaViejaParameter, cedulaNuevaParameter);
         }
     
-        public virtual ObjectResult<USP_ObtenerProyectosUsuario_Result> USP_ObtenerProyectosUsuario(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
-        {
-            var permisoParameter = permiso.HasValue ?
-                new ObjectParameter("permiso", permiso) :
-                new ObjectParameter("permiso", typeof(int));
-    
-            var rolParameter = rol.HasValue ?
-                new ObjectParameter("rol", rol) :
-                new ObjectParameter("rol", typeof(int));
-    
-            var idUsuarioParameter = idUsuario != null ?
-                new ObjectParameter("idUsuario", idUsuario) :
-                new ObjectParameter("idUsuario", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
-        }
-    
         public virtual ObjectResult<string> nombreTester(Nullable<int> idProyecto)
         {
             var idProyectoParameter = idProyecto.HasValue ?
@@ -393,6 +376,23 @@ namespace ProyectoIntegrador.BaseDatos
                 new ObjectParameter("idEmpleado", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_FechaInicioFinRequerimiento_Result>("USP_FechaInicioFinRequerimiento", idProyectoParameter, idEmpleadoParameter);
+        }
+    
+        public virtual ObjectResult<USP_ObtenerProyectosUsuario_Result> USP_ObtenerProyectosUsuario(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
+        {
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
         }
     }
 }
