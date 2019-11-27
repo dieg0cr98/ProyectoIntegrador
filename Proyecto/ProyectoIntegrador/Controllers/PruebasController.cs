@@ -353,5 +353,12 @@ namespace ProyectoIntegrador.Controllers
             return View("CambiarImagen");
         }
 
+        public ActionResult EliminarImagen(int idProyecto, int idReq, int idPrueba) {
+            Prueba prueba = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idReq && p.idPruebaPK == idPrueba).FirstOrDefault();
+            prueba.imagen = null;
+            db.Entry(prueba).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba}); //Retorna a la vista
+        }
     }
 }

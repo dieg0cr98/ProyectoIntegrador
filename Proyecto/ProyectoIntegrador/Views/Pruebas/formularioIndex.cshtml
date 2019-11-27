@@ -154,19 +154,18 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="input-group">
+        <div class="input-group" style="display:inline-block">
             <!--Atributo imagen-->
             @if (Model.imagen != null)
             {
-
-
                 var base64 = Convert.ToBase64String(Model.imagen);
                 var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
-                <img src="@imgsrc" class="img-fluid" alt="Responsive image">
+                <img src="@imgsrc" style="max-height:390px" class="rounded mx-auto d-block" alt="Responsive image">
             }
             else
             {
-                <img src="@Model.imagen" class="img-fluid" alt="Responsive image">
+                @*<img src="@Model.imagen" class="img-fluid" alt="Responsive image">*@
+                <p><h5>No hay imagen disponible</h5></p>
             }
         </div>
     </div>
