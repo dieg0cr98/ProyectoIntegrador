@@ -26,19 +26,6 @@ namespace ProyectoIntegrador.Controllers
         {
             return db.Proyecto.Find(idProyecto).nombre;
         }
-        //Método que se encarga de buscar cual es la cantidad de requerimientos actual para asignar el id al nuevo requerimiento.
-        public int GetCantidadRequerimientos(int idProyecto)
-        {
-            return db.Proyecto.Find(idProyecto).cantidadReq;
-        }
-        //Método que cambia el atributo de cantidad de requerimientos en la base de datos
-        public void SetCantidadRequerimientos(int idProyecto, int nuevaCantidad)
-        {
-            Proyecto proyecto = db.Proyecto.Find(idProyecto);
-            proyecto.cantidadReq = nuevaCantidad;
-            db.Entry(proyecto).State = EntityState.Modified;
-            db.SaveChanges();
-        }
 
         //Metodo que regresa el contexto de la tabla proyectos, para poder realizar joins
         //Retorna el contexto de la base de datos

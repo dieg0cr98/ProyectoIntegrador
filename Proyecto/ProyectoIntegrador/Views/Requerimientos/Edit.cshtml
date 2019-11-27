@@ -27,6 +27,7 @@
                     <input type="hidden" id="idProy" name="idProyecto" value=@ViewBag.idProyecto>
                     <input type="hidden" id="idReq" name="idRequerimiento" value=@ViewBag.idRequerimiento>
                     <input type="hidden" id="nomV" name="nombreViejo" value=@Model.nombre>
+                    <input type="hidden" id="idV" name="idTesterViejo" value="@ViewBag.testerAsociado">
                     <br />
                     <div class="form-row">
                         @*Título de Atributo Nombre del Requerimiento*@
@@ -197,7 +198,7 @@
                             <div class="col-4">
                                 @*Atributo Cédula Tester*@
                                 <div class="input-group">
-                                    <select class="custom-select" name="idTester">
+                                    <select class="custom-select" name="idTesterNuevo">
                                         <option value="">No Asignar</option>
                                         @foreach (var item in ViewBag.testersDisponibles)
                                         {
@@ -225,7 +226,7 @@
                             <div class="col-4">
                                 @*Atributo Cédula Tester*@
                                 <div class="input-group">
-                                    <select class="custom-select" name="idTester" disabled>
+                                    <select class="custom-select" name="idTesterNuevo" disabled>
                                         <option value="">No Asignar</option>
                                         @foreach (var item in ViewBag.testersDisponibles)
                                         {
@@ -251,7 +252,7 @@
                         {
                             if (ViewBag.testerAsociado == item.idEmpleadoPK)
                             {
-                                <input type="hidden" id="idTester" name="idTester" value=@item.idEmpleadoPK>
+                                <input type="hidden" id="idTesterNuevo" name="idTesterNuevo" value=@item.idEmpleadoPK>
                             }
 
                         }
