@@ -347,11 +347,6 @@
       <Parameter Name="cedulaVieja" Mode="In" Type="String" />
       <Parameter Name="cedulaNueva" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="USP_ObtenerProyectosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result)">
-      <Parameter Name="permiso" Mode="In" Type="Int32" />
-      <Parameter Name="rol" Mode="In" Type="Int32" />
-      <Parameter Name="idUsuario" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="nombreTester" ReturnType="Collection(String)">
       <Parameter Name="idProyecto" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -399,6 +394,11 @@
     <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
     <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
     <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
+    <FunctionImport Name="USP_ObtenerProyectosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result)">
+      <Parameter Name="permiso" Mode="In" Type="Int32" />
+      <Parameter Name="rol" Mode="In" Type="Int32" />
+      <Parameter Name="idUsuario" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -574,11 +574,6 @@
     <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="Nombre_Proyecto" Nullable="false" MaxLength="30" />
   </ComplexType>
-  <ComplexType Name="USP_ObtenerProyectosUsuario_Result">
-    <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
-    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
-    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-  </ComplexType>
   <ComplexType Name="USP_GetEmpleadosDeLider_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
     <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
@@ -743,4 +738,9 @@
     <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
     <Property Name="CedulaLider" Type="Int32" Nullable="false" />
   </EntityType>
+  <ComplexType Name="USP_ObtenerProyectosUsuario_Result">
+    <Property Type="Int32" Name="idProyecto" Nullable="false" />
+    <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+  </ComplexType>
 </Schema>

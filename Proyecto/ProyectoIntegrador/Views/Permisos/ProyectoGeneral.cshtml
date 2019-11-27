@@ -321,7 +321,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th  scope="row"> Editar   <a  href="/Permisos/ProyectoEditar" class="btn btn-outline-secondary text-center">Permisos por campo</a> </th>
+                            <th  scope="row"> <a href="/Permisos/ProyectoEditar" style="color:black">Editar Permisos Por Campo</a> </th>
                             <td>
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ES">
                                     @switch (tipo[ViewBag.permisos[2, 0] - 1])
@@ -615,12 +615,12 @@
                     </tbody>
                 </table>
 
-                <div class="row justify-content-center" style="max-width:1150px">
+                <div class="row justify-content-center">
                     <div class="col-2  text-center">
                         <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Permisos/Index"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
                     </div>
 
-                    <div class="col-5 text-right">
+                    <div class="col-5 text-center">
 
                         <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
                             <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
@@ -628,7 +628,7 @@
                         </button>
                     </div>
 
-                    <div class="col-5  text-center">
+                    <div class="col-5 text-left">
 
                         <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
                             <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
