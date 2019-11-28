@@ -33,7 +33,7 @@ namespace ProyectoIntegrador.Controllers
             public ActionResult Index(string id)
         {
             ViewBag.nombre = empleados.GetNombreEmpleado(id);
-            
+            ViewBag.empl = db.Empleado.Find(id);
             var hblandas = GetHabilidadUsuario(id);
             return View(hblandas.ToList());
         }
