@@ -33,7 +33,7 @@ namespace ProyectoIntegrador.Controllers
         //              rol = 3 Cliente
         //       string idUsuario (Es la cedula o identificador de un usuario) 
         //Devuelve una lista IEnumerable con los requerimientos. Null en caso de que no puede ver ninguno
-        public IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento> GetRequerimientosUsuario(int idProyecto,int rol, string idUsuario)
+        public IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento> GetRequerimientosUsuario(int idProyecto, int rol, string idUsuario)
         {
 
             if (rol < 0)//Si no tiene permisos
@@ -122,7 +122,7 @@ namespace ProyectoIntegrador.Controllers
 
             //Se buscan los permisos del usuario que hizo la consulta
             ViewBag.permisosAgregar = seguridad.RequerimientosAgregar(User);
-            
+
             //Se solicitan todos los testers asignables al requerimiento
             ViewBag.TestersDisponibles = db.TestersAsignables(idProyecto).ToList();
             ViewBag.idProyecto = idProyecto;
@@ -215,7 +215,7 @@ namespace ProyectoIntegrador.Controllers
         // Requiere: Todos los atributos de la entidad requerimiento. Aunque los únicos que no se editan, son el id del proyecto y del requerimiento.
         // Modifica: La instancia de requerimiento en la base de datos identificada por dichos id.
         [HttpPost]
-        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int? duracionEstimada, 
+        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int? duracionEstimada,
             int? duracionReal, DateTime fechai, DateTime? fechaf, string resultado, string estadoR, string detalleResultado, string idTesterViejo, string idTesterNuevo)
         {
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
@@ -255,7 +255,7 @@ namespace ProyectoIntegrador.Controllers
 
             if (resultado != "")
             {
-                if(resultado == "true")
+                if (resultado == "true")
                 {
                     requerimiento.resultado = true;
                 }
@@ -336,9 +336,15 @@ namespace ProyectoIntegrador.Controllers
                 }
             }
             else
+            {
                 return new JsonResult { Data = true };
-
+            }
         }
+
+    }
+}
+
+
         /*
         public void EditTransaction(ProyectoIntegrador.BaseDatos.Requerimiento r, string idTesterViejo) {
             using (Gr03Proy2Entities6 context = new Gr03Proy2Entities6()) {
@@ -419,3 +425,4 @@ namespace ProyectoIntegrador.Controllers
         }
     }
 }
+*/

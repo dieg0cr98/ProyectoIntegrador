@@ -354,6 +354,7 @@ namespace ProyectoIntegrador.Controllers
         }
 
         public ActionResult EliminarImagen(int idProyecto, int idReq, int idPrueba) {
+           
             Prueba prueba = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idReq && p.idPruebaPK == idPrueba).FirstOrDefault();
             prueba.imagen = null;
             db.Entry(prueba).State = EntityState.Modified;

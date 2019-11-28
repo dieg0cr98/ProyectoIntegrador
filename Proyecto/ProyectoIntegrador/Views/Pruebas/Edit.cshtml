@@ -12,9 +12,9 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 </head>
 
+<a href="@Url.Action("EliminarImagen", "Pruebas", new { idProyecto = 1 , idReq = 4, idPrueba = 9 })">adadadd</a>
 
-
-<body>
+<body onload="datosEliminar(@ViewBag.idProyecto,@ViewBag.idRequerimiento,@ViewBag.idPrueba)">
     <br />
     <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Prueba</p>
     <hr>
@@ -309,10 +309,47 @@
 
 
 
-    @Html.Partial("ModalEliminar")
-    @Html.Partial("Scripts")
+    <!-- Código del modal encargado de confirmar el deseo de eliminar una imagen -->
+    <div class="modal fade" id="modalEliminarImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Está seguro que desea elmininar la imagen de la prueba? Este proceso es irreversible.</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!--Cancelar-->
+                            <div class="col text-center">
+                                <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn d-inline-block"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                            </div>
+
+                            <!--Aceptar-->
+                            <div class="col text-center">
+                                <a id="pager" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Aceptar" href="/Pruebas/EliminarImagen" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </body>
+
+<script>
+
+    function datosEliminar(idProyecto, idReq, idPrueba) {
+
+        var a = document.getElementById('pager')
+        a.href += "?idProyecto=" + idProyecto + "&idReq=" + idReq + "&idPrueba=" + idPrueba;
+
+    }
+
+
+</script>
+
 
 <script>
     $(function () {

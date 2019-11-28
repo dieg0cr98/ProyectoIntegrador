@@ -1,8 +1,7 @@
 ﻿
 
 @{
-    string[] tipo = { "Ninguno", "Total" };
-
+    string[] tipo = { "No Autorizado", "Autorizado" }
 }
 
 <body onload="modalSaved(@ViewBag.saved)">
@@ -143,16 +142,16 @@
                                         case "Total":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
                                         case "Ninguno":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -168,16 +167,16 @@
                                         case "Total":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
                                         case "Ninguno":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -195,16 +194,16 @@
                                         case "Total":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
                                         case "Ninguno":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -221,16 +220,16 @@
                                         case "Total":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
                                         case "Ninguno":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -246,19 +245,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ES">
                                     @switch (tipo[ViewBag.permisos[2, 0]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -271,19 +270,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EL">
                                     @switch (tipo[ViewBag.permisos[2, 1]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -298,19 +297,19 @@
 
                                     @switch (tipo[ViewBag.permisos[2, 2]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -324,19 +323,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EC">
                                     @switch (tipo[ViewBag.permisos[2, 3]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -352,19 +351,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DES">
                                     @switch (tipo[ViewBag.permisos[3, 0]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -377,19 +376,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DEL">
                                     @switch (tipo[ViewBag.permisos[3, 1]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -404,19 +403,19 @@
 
                                     @switch (tipo[ViewBag.permisos[3, 2]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -430,19 +429,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DEC">
                                     @switch (tipo[ViewBag.permisos[3, 3]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -458,19 +457,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRS">
                                     @switch (tipo[ViewBag.permisos[4, 0]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -483,19 +482,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRL">
                                     @switch (tipo[ViewBag.permisos[4, 1]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -510,19 +509,19 @@
 
                                     @switch (tipo[ViewBag.permisos[4, 2]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                                <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
@@ -536,19 +535,19 @@
                                 <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRC">
                                     @switch (tipo[ViewBag.permisos[4, 3]])
                                     {
-                                        case "Total":
+                                        case "Autorizado":
                                             {
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                                    <option selected value="Autorizado">Autorizado</option>
+                                                <option value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
-                                        case "Ninguno":
+                                        case "No Autorizado":
                                             {
 
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
+                                                <option  value="Autorizado">Autorizado</option>
+                                                <option selected value="No Autorizado">No Autorizado</option>
 
                                                 break;
                                             }
