@@ -358,7 +358,7 @@ namespace ProyectoIntegrador.Controllers
             prueba.imagen = null;
             db.Entry(prueba).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba}); //Retorna a la vista
+            return RedirectToAction("Edit", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba}); //Retorna a la vista
         }
     }
 }

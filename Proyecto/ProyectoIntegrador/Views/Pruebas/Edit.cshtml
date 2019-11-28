@@ -19,8 +19,11 @@
     <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Prueba</p>
     <hr>
 
+    <a href="@Url.Action("Eliminar","")">  </a>
+
     <!-- Se crea el formulario con el que recibiremos los datos -->
-    <form class="cmxform" id="commentForm" method="post" action="Edit"><!--enctype="multipart/form-data"-->
+    <form class="cmxform" id="commentForm" method="post" action="Edit">
+        <!--enctype="multipart/form-data"-->
         <fieldset>
             <div class="container justify-content-center" style="width:2000px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91);  background-color: rgba(192,159,128, 0.7)">
                 <!--Se pasa el id del proyecto asociado, del requerimiento y de las pruebas de manera oculta ya que al usuario no le interesa esto-->
@@ -62,13 +65,13 @@
                         @*Atributo proposito de la prueba*@
                         <div class="input-group">
                             @*if (ViewBag.permisosEditar.Item3[3] == 1)
-                    {*@
+                                {*@
                             <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" />
                             @*}
-                    else
-                    {
-                        <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" readonly/>
-                    }*@
+                                else
+                                {
+                                    <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" readonly/>
+                                }*@
                         </div>
                     </div>
                 </div>
@@ -128,7 +131,7 @@
                         @*Atributo Estado*@
                         <div class="input-group">
                             @*if (ViewBag.permisosEditar.Item3[4] == 1)
-                    {*@
+                                {*@
                             <select class="custom-select" name="estado" required>
                                 @switch (Model.estado)
                                 {
@@ -161,10 +164,10 @@
                                 }
                             </select>
                             @*}
-                    else
-                    {
-                        <input id="estado" class="form-control" value="@Model.estado" style="text-align:center" name="estado" type="text" required readonly>
-                    }*@
+                                else
+                                {
+                                    <input id="estado" class="form-control" value="@Model.estado" style="text-align:center" name="estado" type="text" required readonly>
+                                }*@
                         </div>
                     </div>
                 </div>
@@ -184,7 +187,7 @@
                     <div class="col-4">
                         <div class="input-group">
                             @*if (ViewBag.permisosEditar.Item3[4] == 1)
-                    {*@
+                                {*@
                             <select class="custom-select" name="resultadoFinal" required>
                                 @switch (Model.resultadoFinal)
                                 {
@@ -208,10 +211,10 @@
                                 }
                             </select>
                             @*}
-                    else
-                    {
-                        <input id="resultadoFinal" class="form-control" value="@Model.resultadoFinal" style="text-align:center" name="resultadoFinals" type="text" required readonly>
-                    }*@
+                                else
+                                {
+                                    <input id="resultadoFinal" class="form-control" value="@Model.resultadoFinal" style="text-align:center" name="resultadoFinals" type="text" required readonly>
+                                }*@
                         </div>
                     </div>
                 </div>
@@ -237,9 +240,9 @@
                     </div>
                 </div>
 
-                
 
-                   
+
+
                 <!--Atributo imagen-->
                 @if (Model.imagen != null)
                 {
@@ -248,7 +251,7 @@
                         @{var base64 = Convert.ToBase64String(Model.imagen);}
                         @{var imgsrc = String.Format("data:image/gif;base64,{0}", base64); }
 
-                        <img src="@imgsrc"class="rounded mx-auto d-block">
+                        <img src="@imgsrc" class="rounded mx-auto d-block">
 
                     </div>
 
@@ -258,10 +261,10 @@
                         </div>
 
                         <div class="col">
-                            <a class="btn btn-primary" data-toggle="modal" data-target="#modalEliminarImagen" data-proyecto="@Model.idProyectoFK" data-requerimiento="@Model.idReqFK" data-prueba="@Model.idPruebaPK">Eliminar Imagen</a>
+                            <a class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#modalEliminarImagen" data-proyecto="@Model.idProyectoFK" data-requerimiento="@Model.idReqFK" data-prueba="@Model.idPruebaPK">Eliminar Imagen</a>
                         </div>
                     </div>
-                               
+
                 }
                 else
                 {
@@ -269,12 +272,12 @@
                         <a class="btn btn-primary" href="@Url.Action("AgregarImagen","Pruebas",new { proyecto = Model.idProyectoFK, requerimiento = Model.idReqFK , prueba = Model.idPruebaPK    })">Agregar Imagen</a>
                     </div>
                 }
-                    
 
 
-                
 
-               
+
+
+
                 <br />
                 <h5> * Campos requeridos</h5>
 
@@ -303,75 +306,81 @@
             </div>
         </fieldset>
     </form>
+
+
+
+    @Html.Partial("ModalEliminar")
+    @Html.Partial("Scripts")
+
 </body>
 
 <script>
     $(function () {
         $("#commentForm").validate(
-        {
-            rules:
             {
-                nombre:
+                rules:
                 {
-                    required: true,
-                    minlength: 1,
-                    remote:
+                    nombre:
                     {
-                        url: "/Pruebas/ReviseNombrePrueba",
-                        type: "post",
-                        delay: 1000,
-                        data:
+                        required: true,
+                        minlength: 1,
+                        remote:
                         {
-                            name: function () {
-                                return $("#nomN").val();
-                            },
-                            oldName: function () {
-                                return $("#nomV").val();
-                            },
-                            idProyecto: function () {
-                                return $("#idProy").val();
-                            },
-                            idRequerimiento: function () {
-                                return $("#idReq").val();
+                            url: "/Pruebas/ReviseNombrePrueba",
+                            type: "post",
+                            delay: 1000,
+                            data:
+                            {
+                                name: function () {
+                                    return $("#nomN").val();
+                                },
+                                oldName: function () {
+                                    return $("#nomV").val();
+                                },
+                                idProyecto: function () {
+                                    return $("#idProy").val();
+                                },
+                                idRequerimiento: function () {
+                                    return $("#idReq").val();
+                                }
                             }
+
                         }
 
+                    },
+                    resultadoEsperado:
+                    {
+                        required: true,
+                        minlength: 1
+
+                    },
+                },
+                messages:
+                {
+                    nombre:
+                    {
+                        required: "Inserte al menos 1 caractér",
+                        remote: "Ya existe una prueba con ese nombre",
+                    },
+                    resultadoEsperado: "Debe proporcionar un resultado esperado"
+
+                },
+
+                errorPlacement: function (error, element) {
+                    if ((element.attr('name') === 'nombre')) {
+                        error.insertAfter($('#errorNombre'));
                     }
+                    if ((element.attr('name') === 'resultadoEsperado')) {
+                        error.insertAfter($('#errorResultadoEsperado'));
+                    }
+                },
+                invalidHandler: function (form, validator) {
+
+                    $('#loading').hide('fast');
+                    $('#acceptar').show('fast');
 
                 },
-                resultadoEsperado:
-                {
-                    required: true,
-                    minlength: 1
-
-                },
-            },
-            messages:
-            {
-                nombre:
-                {
-                    required: "Inserte al menos 1 caractér",
-                    remote: "Ya existe una prueba con ese nombre",
-                },
-                resultadoEsperado: "Debe proporcionar un resultado esperado"
-
-            },
-
-            errorPlacement: function (error, element) {
-                if ((element.attr('name') === 'nombre')) {
-                    error.insertAfter($('#errorNombre'));
-                }
-                if ((element.attr('name') === 'resultadoEsperado')) {
-                    error.insertAfter($('#errorResultadoEsperado'));
-                }
-            },
-            invalidHandler: function (form, validator) {
-
-                $('#loading').hide('fast');
-                $('#acceptar').show('fast');
-
-            },
-        });
+            });
     });
 
 
@@ -397,4 +406,5 @@
     });
 
 </script>
+
 
