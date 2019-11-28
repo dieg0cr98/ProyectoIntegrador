@@ -5,17 +5,18 @@
     ViewBag.Title = "Index";
 }
 @{ }
-<!--Se crean variables con el fin de identificar las clases, para poder activar un tab dependiendo del id-->
-
-
-
-    <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Habilidades Blandas</p>
+ <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Habilidades Blandas</p>
 
     
       
             <div class="container justify-content-center">
                 <div class="container justify-content-center" style="padding:30px 30px ;width:500px; border-radius:25px; box-shadow: 1px 9px 22px 12px  rgba(128,128,128,0.91); background-color:#c09f80">
-                    @ViewBag.nombre
+                    <div class="input-group">
+
+                        <input id="input4" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="  @ViewBag.nombre " placeholder="  @ViewBag.nombre" name="nombre" readonly>
+
+                    </div>
+                  
                     @foreach (var item in Model)
                     {
 
@@ -27,7 +28,8 @@
 
                     <!--Boton Regresar-->
                     <div class="col-4  text-center">
-                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+
+                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Empleados/Index/@ViewBag.empl.idEmpleadoPK"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
                     </div>
 
                 </div>
