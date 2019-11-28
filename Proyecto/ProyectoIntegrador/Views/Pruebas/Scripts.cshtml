@@ -19,10 +19,9 @@
 <script>
     $('#modalEliminarImagen').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // El botón que llamó al modal
-        var requerimiento = button.data('requerimiento') // Dato del requerimiento enviado por el modal
-        var proyecto = button.data('proyecto') // Dato del proyecto enviado por el modal
-        var prueba = button.data('prueba') // Dato de la prueba enviado por el modal
-        alert('Hello');
+        var requerimiento = button.data('whatever') // Dato del requerimiento enviado por el modal
+        var proyecto = button.data('whatever2') // Dato del proyecto enviado por el modal
+        var prueba = button.data('whatever3') // Dato de la prueba enviado por el modal
         var modal = $(this)
 
         //Se contstruye el URL con el que se llama al POST de eliminar.

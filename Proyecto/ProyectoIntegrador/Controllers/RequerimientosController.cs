@@ -259,10 +259,8 @@ namespace ProyectoIntegrador.Controllers
                 {
                     requerimiento.resultado = true;
                 }
-                else
-                {
-                    requerimiento.resultado = false;
-                }
+
+                requerimiento.resultado = false;
             }
 
             if (estadoR != "")
@@ -270,7 +268,7 @@ namespace ProyectoIntegrador.Controllers
                 requerimiento.estadoResultado = estadoR;
             }
             //System.Diagnostics.Debug.WriteLine("Los datos son diferentes: " + idTesterViejo + ", " + requerimiento.cedulaTesterFK);
-            EditTransaction(requerimiento, idTesterViejo);
+            //EditTransaction(requerimiento, idTesterViejo);
 
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = requerimiento.idReqPK });
         }
@@ -341,16 +339,37 @@ namespace ProyectoIntegrador.Controllers
                 return new JsonResult { Data = true };
 
         }
-
+        /*
         public void EditTransaction(ProyectoIntegrador.BaseDatos.Requerimiento r, string idTesterViejo) {
-            using (db) {
-                using (var transaction = db.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
+            using (Gr03Proy2Entities6 context = new Gr03Proy2Entities6()) {
+                using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
                 {
                     try
                     {
                         //Si se realizó un cambio de tester asociado
                         if (idTesterViejo != r.cedulaTesterFK) {
-                            
+
+                            //Si se agregó un tester nuevo en vez de no asignar ninguno
+                            if (r.cedulaTesterFK != null)
+                            {
+
+                                //Se refleja que tiene un nuevo requerimiento asignado
+                                Tester nuevo = db.Tester.Where(t => t.idEmpleadoFK == r.cedulaTesterFK).FirstOrDefault();
+                                nuevo.cantidadRequerimientos++;
+                                db.Entry(nuevo).State = EntityState.Modified;
+                                db.SaveChanges();
+
+                                //Se agrega al historial la información de el trabajando en este requerimiento.
+                                HistorialReqTester historialN = new HistorialReqTester();
+                                historialN.idEmpleadoFK = r.cedulaTesterFK;
+                                historialN.idProyectoFK = r.idProyectoFK;
+                                historialN.idReqFK = r.idReqPK;
+                                historialN.estado = "Activo";
+                                historialN.fechaInicio = DateTime.Now;
+                                db.HistorialReqTester.Add(historialN);
+                                db.SaveChanges();
+                            }
+
                             //Si existía un tester viejo
                             if (idTesterViejo != "") {
 
@@ -361,56 +380,37 @@ namespace ProyectoIntegrador.Controllers
                                 db.SaveChanges();
 
                                 //Inactive su trabajo en este requerimiento desde ahora y obtenga el tiempo real 
-                                HistorialReqTester historial = db.HistorialReqTester.Where(h => h.idProyectoFK == r.idProyectoFK && h.idReqFK == r.idReqPK
+                                HistorialReqTester historialV = db.HistorialReqTester.Where(h => h.idProyectoFK == r.idProyectoFK && h.idReqFK == r.idReqPK
                                 && h.idEmpleadoFK == idTesterViejo && h.estado == "Activo").FirstOrDefault();
-                                historial.estado = "Inactivo";
-                                historial.fechaFin = DateTime.Now;
-                                db.Entry(historial).State = EntityState.Modified;
-                                db.SaveChanges();
+                                historialV.estado = "Inactivo";
+                                historialV.fechaFin = DateTime.Now;
 
                                 //Si escribió cual fue el tiempo real que el trabajó, se obtiene y se guarda. De lo contrario se le asigna 0
                                 //al tiempo dedicado por ese tester a ese requerimiento
                                 if (r.tiempoReal.HasValue) {
-                                    historial.horas = r.tiempoReal;
+                                    historialV.horas = r.tiempoReal;
                                 }
                                 else
                                 {
-                                    historial.horas = 0;
+                                    historialV.horas = 0;
                                 }
+
+                                db.Entry(historialV).State = EntityState.Modified;
+                                db.SaveChanges();
 
                                 //Se asigna nulo al valor del tiempo real ya que se calculará cuando se termine el requerimiento.
                                 r.tiempoReal = null;
-                                db.Entry(historial).State = EntityState.Modified;
-                                db.SaveChanges();
-                            }
-
-                            //Si se agregó un tester nuevo en vez de no asignar ninguno
-                            if (r.cedulaTesterFK != null) {
-
-                                //Se refleja que tiene un nuevo requerimiento asignado
-                                Tester nuevo = db.Tester.Where(t => t.idEmpleadoFK == r.cedulaTesterFK).FirstOrDefault();
-                                nuevo.cantidadRequerimientos++;
-                                db.Entry(nuevo).State = EntityState.Modified;
-                                db.SaveChanges();
-
-                                //Se agrega al historial la información de el trabajando en este requerimiento.
-                                HistorialReqTester historial = new HistorialReqTester();
-                                historial.idEmpleadoFK = r.cedulaTesterFK;
-                                historial.idProyectoFK = r.idProyectoFK;
-                                historial.idReqFK = r.idReqPK;
-                                historial.estado = "Activo";
-                                historial.fechaInicio = DateTime.Now;
-                                db.HistorialReqTester.Add(historial);
-                                db.SaveChanges();
                             }
                         }
                         //Agrego los cambios del requerimiento si se hicieron
                         db.Entry(r).State = EntityState.Modified;
                         db.SaveChanges();
+                        System.Diagnostics.Debug.WriteLine("Lo logramoos");
                         transaction.Commit();
                     }
                     catch (Exception e) {
                         //En caso de fallar, haga rollback y omita todos los cambios
+                        System.Diagnostics.Debug.WriteLine("Fashamooos por "+e.ToString());
                         transaction.Rollback();
                     }
                     
