@@ -44,6 +44,7 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<SeguridadEquipoGeneral> SeguridadEquipoGeneral { get; set; }
         public virtual DbSet<SeguridadPruebasGeneral> SeguridadPruebasGeneral { get; set; }
         public virtual DbSet<SeguridadProyectoEditar> SeguridadProyectoEditar { get; set; }
+        public virtual DbSet<SeguridadProyectoAgregar> SeguridadProyectoAgregar { get; set; }
     
         public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
         {

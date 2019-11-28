@@ -225,7 +225,7 @@ namespace ProyectoIntegrador.Controllers
 
 
         /*
-         * Efecto: Metodo Set para modificar datos de la tabla SeguridadProyectoGeneral
+         * Efecto: Metodo Set para modificar datos de la tabla SeguridadProyectoEditar
          * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
          * Modifica: datos de la tabla SeguridadProyectoGeneral 
          * Retorna:  
@@ -251,7 +251,7 @@ namespace ProyectoIntegrador.Controllers
         }
 
         /*
-        * Efecto: Metodo Get para obtner la tabla SeguridadProyectoGeneral
+        * Efecto: Metodo Get para obtner la tabla SeguridadProyectoEditar
         * Requiere: 
         * Modifica:
         * Retorna:  matriz int 4x4 con los permisos
@@ -302,6 +302,69 @@ namespace ProyectoIntegrador.Controllers
           /*cedulaCliente*/                                 {1,0,0,0},
           /*cedulaLider*/                                   {1,0,0,0}
           };
+
+
+
+        /*
+     * Efecto: Metodo Set para modificar datos de la tabla SeguridadProyectoEditar
+     * Requiere: int rol. 0 = Jefe Calidad/Soporte, 1 = Lider, 2 = Tester , 3 = Cliente
+     * Modifica: datos de la tabla SeguridadProyectoGeneral 
+     * Retorna:  
+     */
+        public void setTablaSeguridadProyectoAgregar(int rol, List<int> permisos)
+        {
+            SeguridadProyectoAgregar tabla = db.SeguridadProyectoAgregar.Find(rol);
+            tabla.Rol = rol;
+            tabla.Nombre = permisos[0];
+            tabla.Objetivo = permisos[1];
+            tabla.Estado = permisos[2];
+            tabla.DuracionEstimada = permisos[3];
+            tabla.DuracionReal = permisos[4];
+            tabla.FechaInicio = permisos[5];
+            tabla.FechaFin = permisos[6];
+            tabla.CedulaCliente = permisos[7];
+            tabla.CedulaLider = permisos[8];
+
+
+            db.Entry(tabla).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+
+
+        /*
+        * Efecto: Metodo Get para obtner la tabla SeguridadProyectoAgregar
+        * Requiere: 
+        * Modifica:
+        * Retorna:  matriz int 4x4 con los permisos
+        */
+        public int[,] getTablaSeguridadProyectoAgregar()
+                {
+
+                    int[,] permisos = new int[9, 4];
+
+
+
+                    for (int x = 0; x < 4; x++)
+                    {
+                        SeguridadProyectoAgregar tabla = db.SeguridadProyectoAgregar.Find(x);
+                        permisos[0, x] = tabla.Nombre;
+                        permisos[1, x] = tabla.Objetivo;
+                        permisos[2, x] = tabla.Estado;
+                        permisos[3, x] = tabla.DuracionEstimada;
+                        permisos[4, x] = tabla.DuracionReal;
+                        permisos[5, x] = tabla.FechaInicio;
+                        permisos[6, x] = tabla.FechaFin;
+                        permisos[7, x] = tabla.CedulaCliente;
+                        permisos[8, x] = tabla.CedulaLider;
+
+                    }
+
+                    return permisos;
+
+
+                }
+
 
 
         /* 0 No puede editar el atributo
@@ -377,13 +440,14 @@ namespace ProyectoIntegrador.Controllers
         {
             int rol = GetRoleUsuario(user);
             var tabla = getTablaSeguridadProyectoGeneral();
+            var tabla2 = getTablaSeguridadProyectoEditar();
             if (rol >= 0)
             {
 
                 List<int> permisos = new List<int>();
-                for (int i = 0; i < 11; i++)
+                for (int i = 0; i < 9; i++)
                 {
-                    permisos.Add(tablaSeguridadProyectoAgregar[i, rol]);
+                    permisos.Add(tabla2[i, rol]);
                 }
 
                 return Tuple.Create(rol, tabla[1, rol], permisos);
