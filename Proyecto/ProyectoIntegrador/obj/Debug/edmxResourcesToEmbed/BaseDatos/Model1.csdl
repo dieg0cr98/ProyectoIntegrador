@@ -399,6 +399,7 @@
       <Parameter Name="rol" Mode="In" Type="Int32" />
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -743,4 +744,19 @@
     <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
   </ComplexType>
+  <EntityType Name="SeguridadProyectoAgregar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="Int32" Nullable="false" />
+    <Property Name="Objetivo" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+    <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+    <Property Name="FechaFin" Type="Int32" Nullable="false" />
+    <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+    <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

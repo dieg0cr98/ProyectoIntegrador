@@ -122,7 +122,7 @@ namespace ProyectoIntegrador.Controllers
 
 
         /*
-* Efecto: Carga la vista de permisos generales para Proyecto
+* Efecto: Carga la vista de permisos para editar un Proyecto
 * Requiere: 
 * Modifica: Agrega permisos al ViewBag
 * Retorna:  La vista de permisos generales para Proyecto
@@ -139,22 +139,43 @@ namespace ProyectoIntegrador.Controllers
 
         /*
         * Efecto: Modificar permisos generales para Proyecto
-        * Requiere: CS = Permiso Consultar Soporte/Calidad
-        *           CL = Permiso Consultar Lider
-        *           CT = Permiso Consultar Tester
-        *           CC = Permiso Consultar Cliente
-        *           AS = Permiso Agregar Soporte/Calidad
-        *           AL = Permiso Agregar Lider
-        *           AT = Permiso Agregar Tester
-        *           AC = Permiso Agregar Cliente
-        *           ES = Permiso Editar Soporte/Calidad
-        *           EL = Permiso Editar Lider
-        *           ET = Permiso Editar Tester
-        *           EC = Permiso Editar Cliente
-        *           BS = Permiso Eliminar Soporte/Calidad
-        *           BL = Permiso Eliminar Lider
-        *           BT = Permiso Eliminar Tester
-        *           BC = Permiso Eliminar Cliente
+        * Requiere: NS = Permiso Nombre Soporte/Calidad
+        *           NL = Permiso Nombre Lider
+        *           NT = Permiso Nombre Tester
+        *           NC = Permiso Nombre Cliente
+        *           OS = Permiso Objetivo Soporte/Calidad
+        *           OL = Permiso Objetivo Lider
+        *           OT = Permiso Objetivo Tester
+        *           OC = Permiso Objetivo Cliente
+        *           ES = Permiso Estado Soporte/Calidad
+        *           EL = Permiso Estado Lider
+        *           ET = Permiso Estado Tester
+        *           EC = Permiso Estado Cliente
+        *           DES = Permiso Duracion Estimada Soporte/Calidad
+        *           DEL = Permiso Duracion Estimada Lider
+        *           DET = Permiso Duracion Estimada Tester
+        *           DEC = Permiso Duracion Estimada Cliente
+        *           DRS = Permiso Duracion Real Soporte/Calidad
+        *           DRL = Permiso Duracion Real Lider
+        *           DRT = Permiso Duracion Real Tester
+        *           DRC = Permiso Duracion Real Cliente
+        *           FIS = Permiso Fecha Inicio Soporte/Calidad
+        *           FIL = Permiso Fecha Inicio Lider
+        *           FIT = Permiso Fecha Inicio Tester
+        *           FIC = Permiso Fecha Inicio Cliente
+        *           FFS = Permiso Fecha Fin Soporte/Calidad
+        *           FFL = Permiso Fecha Fin Lider
+        *           FFT = Permiso Fecha Fin Tester
+        *           FFC = Permiso Fecha Fin Cliente        
+        *           CCS = Permiso Cedula Cliente Soporte/Calidad
+        *           CCL = Permiso Cedula Cliente Lider
+        *           CCT = Permiso Cedula Cliente Tester
+        *           CCC = Permiso Cedula Cliente Cliente            
+        *           CLS = Permiso Cedula Lider Soporte/Calidad
+        *           CLL = Permiso Cedula Lider Lider
+        *           CLT = Permiso Cedula Lider Tester
+        *           CLC = Permiso Cedula Lider Cliente             
+        *           
         * Modifica: Permisos generales para Proyecto
         * Retorna:  La vista de permisos generales post para Proyecto
         */
@@ -206,6 +227,117 @@ namespace ProyectoIntegrador.Controllers
             ViewBag.saved = 1;
             return View("ProyectoEditar");
         }
+
+
+
+        /*
+        * Efecto: Carga la vista de permisos para agregar un Proyecto
+        * Requiere: 
+        * Modifica: Agrega permisos al ViewBag
+        * Retorna:  La vista de permisos generales para Proyecto
+        */
+        public ActionResult ProyectoAgregar()
+        {
+            ViewBag.permisos = seguridad.getTablaSeguridadProyectoAgregar();
+            ViewBag.saved = 0;
+            return View("ProyectoAgregar");
+        }
+
+
+
+
+        /*
+        * Efecto: Modificar permisos generales para Proyecto
+        * Requiere: NS = Permiso Nombre Soporte/Calidad
+        *           NL = Permiso Nombre Lider
+        *           NT = Permiso Nombre Tester
+        *           NC = Permiso Nombre Cliente
+        *           OS = Permiso Objetivo Soporte/Calidad
+        *           OL = Permiso Objetivo Lider
+        *           OT = Permiso Objetivo Tester
+        *           OC = Permiso Objetivo Cliente
+        *           ES = Permiso Estado Soporte/Calidad
+        *           EL = Permiso Estado Lider
+        *           ET = Permiso Estado Tester
+        *           EC = Permiso Estado Cliente
+        *           DES = Permiso Duracion Estimada Soporte/Calidad
+        *           DEL = Permiso Duracion Estimada Lider
+        *           DET = Permiso Duracion Estimada Tester
+        *           DEC = Permiso Duracion Estimada Cliente
+        *           DRS = Permiso Duracion Real Soporte/Calidad
+        *           DRL = Permiso Duracion Real Lider
+        *           DRT = Permiso Duracion Real Tester
+        *           DRC = Permiso Duracion Real Cliente
+        *           FIS = Permiso Fecha Inicio Soporte/Calidad
+        *           FIL = Permiso Fecha Inicio Lider
+        *           FIT = Permiso Fecha Inicio Tester
+        *           FIC = Permiso Fecha Inicio Cliente
+        *           FFS = Permiso Fecha Fin Soporte/Calidad
+        *           FFL = Permiso Fecha Fin Lider
+        *           FFT = Permiso Fecha Fin Tester
+        *           FFC = Permiso Fecha Fin Cliente        
+        *           CCS = Permiso Cedula Cliente Soporte/Calidad
+        *           CCL = Permiso Cedula Cliente Lider
+        *           CCT = Permiso Cedula Cliente Tester
+        *           CCC = Permiso Cedula Cliente Cliente            
+        *           CLS = Permiso Cedula Lider Soporte/Calidad
+        *           CLL = Permiso Cedula Lider Lider
+        *           CLT = Permiso Cedula Lider Tester
+        *           CLC = Permiso Cedula Lider Cliente             
+        *           
+        * Modifica: Permisos de agregar para un Proyecto
+        * Retorna:  La vista de permisos generales post para Proyecto
+        */
+        [HttpPost]
+        public ActionResult ProyectoAgregar(string NS, string NL, string NT, string NC,
+            string OS, string OL, string OT, string OC,
+            string ES, string EL, string ET, string EC,
+            string DES, string DEL, string DET, string DEC,
+            string DRS, string DRL, string DRT, string DRC,
+            string FIS, string FIL, string FIT, string FIC,
+            string FFS, string FFL, string FFT, string FFC,
+            string CCS, string CCL, string CCT, string CCC,
+            string CLS, string CLL, string CLT, string CLC)
+        {
+
+
+            //Cambia los permisos para los Jefe de Calidad / Soporte
+            seguridad.setTablaSeguridadProyectoAgregar(0, new List<int>() { Array.IndexOf(tipo2, NS), Array.IndexOf(tipo2, OS) ,
+                Array.IndexOf(tipo2, ES) , Array.IndexOf(tipo2, DES), Array.IndexOf(tipo2, DRS) ,
+                Array.IndexOf(tipo2, FIS) , Array.IndexOf(tipo2, FFS), Array.IndexOf(tipo2, CCS) , Array.IndexOf(tipo2, CLS) });
+
+            //Cambia los permisos para los Liders
+            seguridad.setTablaSeguridadProyectoAgregar(1, new List<int>() { Array.IndexOf(tipo2, NL), Array.IndexOf(tipo2, OL) ,
+                Array.IndexOf(tipo2, EL) , Array.IndexOf(tipo2, DEL), Array.IndexOf(tipo2, DRL) ,
+                Array.IndexOf(tipo2, FIL) , Array.IndexOf(tipo2, FFL), Array.IndexOf(tipo2, CCL) , Array.IndexOf(tipo2, CLL) });
+
+            //////Cambia los permisos para los Tester
+            seguridad.setTablaSeguridadProyectoAgregar(2, new List<int>() { Array.IndexOf(tipo2, NT), Array.IndexOf(tipo2, OT) ,
+                Array.IndexOf(tipo2, ET) , Array.IndexOf(tipo2, DET), Array.IndexOf(tipo2, DRT) ,
+                Array.IndexOf(tipo2, FIT) , Array.IndexOf(tipo2, FFT), Array.IndexOf(tipo2, CCT) , Array.IndexOf(tipo2, CLT) });
+
+            //////Cambia los permisos para los Clientes
+            seguridad.setTablaSeguridadProyectoAgregar(3, new List<int>() { Array.IndexOf(tipo2, NC), Array.IndexOf(tipo2, OC) ,
+                Array.IndexOf(tipo2, EC) , Array.IndexOf(tipo2, DEC), Array.IndexOf(tipo2, DRC) ,
+                Array.IndexOf(tipo2, FIC) , Array.IndexOf(tipo2, FFC), Array.IndexOf(tipo2, CCC) , Array.IndexOf(tipo2, CLC) });
+            return RedirectToAction("ProyectoAgregarPost");
+
+        }
+
+        /*
+        * Efecto: Carga la vista de permisos generales para agregar un Proyecto con un mensaje de confirmacion
+        * Requiere: 
+        * Modifica: Agrega permisos al ViewBag
+        * Retorna:  La vista de permisos generales para Proyecto
+        */
+        public ActionResult ProyectoAgregarPost()
+        {
+            ViewBag.permisos = seguridad.getTablaSeguridadProyectoAgregar();
+            ViewBag.saved = 1;
+            return View("ProyectoAgregar");
+        }
+
+
 
 
 

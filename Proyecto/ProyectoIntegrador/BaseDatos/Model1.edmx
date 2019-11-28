@@ -155,6 +155,21 @@
           <Property Name="Editar" Type="int" Nullable="false" />
           <Property Name="Eliminar" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SeguridadProyectoAgregar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="int" Nullable="false" />
+          <Property Name="Objetivo" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+          <Property Name="DuracionReal" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="int" Nullable="false" />
+          <Property Name="FechaFin" Type="int" Nullable="false" />
+          <Property Name="CedulaCliente" Type="int" Nullable="false" />
+          <Property Name="CedulaLider" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SeguridadProyectoEditar">
           <Key>
             <PropertyRef Name="Rol" />
@@ -479,6 +494,7 @@
           <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadProyectoAgregar" EntityType="Self.SeguridadProyectoAgregar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadProyectoEditar" EntityType="Self.SeguridadProyectoEditar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
@@ -933,6 +949,7 @@
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1277,6 +1294,21 @@
           <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
         </ComplexType>
+        <EntityType Name="SeguridadProyectoAgregar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="Int32" Nullable="false" />
+          <Property Name="Objetivo" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+          <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+          <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+          <Property Name="FechaFin" Type="Int32" Nullable="false" />
+          <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+          <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1700,6 +1732,22 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SeguridadProyectoAgregar">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoAgregar">
+              <MappingFragment StoreEntitySet="SeguridadProyectoAgregar">
+                <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+                <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+                <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
