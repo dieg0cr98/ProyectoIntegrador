@@ -1121,6 +1121,136 @@ namespace ProyectoIntegrador.Controllers
             }
 
 
+ public int[,] getTablaSeguridadHabilidadBlandasGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadHabilidadBlandasGeneral tabla = db.SeguridadHabilidadBlandasGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
+
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarClientes
+      * Retorna un Tuple<int,string,int,int,int>, con los valores:
+      *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+      *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              cedulaUsuario
+      *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+     */
+        public Tuple<int, string, int, int, int, int> HabilidadBlandasConsultar(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede editar
+            int permisoBorrar = 3;   //Por defecto no puede editar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+
+                var tabla = getTablaSeguridadHabilidadesBlandasGeneral();
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol]; ;
+                permisoEditar = tabla[2, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+
+            }
+
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
+        
+        
+         public int[,] getTablaSeguridadHabilidadTecnicasGeneral()
+        {
+
+            int[,] permisos = new int[4, 4];
+
+
+
+            for (int x = 0; x < 4; x++)
+            {
+                SeguridadHabilidadTecnicasGeneral tabla = db.SeguridadHabilidadTecnicasGeneral.Find(x);
+                permisos[0, x] = tabla.Consultar;
+                permisos[1, x] = tabla.Agregar;
+                permisos[2, x] = tabla.Editar;
+                permisos[3, x] = tabla.Eliminar;
+            }
+
+            return permisos;
+
+
+        }
+
+
+        /*Metodo para acceder a los permisos del usuario en la vista de consultarhabilidades
+      * Retorna un Tuple<int,string,int,int,int>, con los valores:
+      *              rol (0 Soporte/Calidad , 1 Lider , 2 Tester , 3 Cliente)
+      *              permisoConsultar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              cedulaUsuario
+      *              permisoEditar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              permisoAgregar (valor recuperado en la tabla de tablaSeguridadClientes)
+      *              permisoBorrar (valor recuperado en la tabla de tablaSeguridadClientes)
+     */
+        public Tuple<int, string, int, int, int, int> HabilidadTecnicaConsultar(System.Security.Principal.IPrincipal user)
+        {
+
+            int permisoConsultar = 3; //Por defecto no puede consultar
+            string cedulaUsuario = "";
+            int permisoEditar = 3;   //Por defecto no puede editar
+            int permisoAgregar = 3;   //Por defecto no puede editar
+            int permisoBorrar = 3;   //Por defecto no puede editar
+
+
+            //Obtiene el rol del usuario
+            int rol = GetRoleUsuario(user);
+
+            if (rol >= 0)// Si el usuario tiene un rol asignado
+            {
+
+                var tabla = getTablaSeguridadHabilidadTecnicaGeneral();
+                //Obtine los permisos de la tabla de Seguridad
+                permisoConsultar = tabla[0, rol];
+                permisoAgregar = tabla[1, rol]; ;
+                permisoEditar = tabla[2, rol]; ;
+                permisoBorrar = tabla[3, rol]; ;
+
+                if (permisoConsultar == 2)//Solo puede ver los proyectos a los cuales pertenece
+                {
+                    //Para que el controlador haga un filtro se ocupa pasar la cedula del usuario
+                    cedulaUsuario = IdUsuario(user);
+                }
+
+            }
+
+            return Tuple.Create(rol, cedulaUsuario, permisoConsultar, permisoEditar, permisoAgregar, permisoBorrar);
+        }
 
 
 
