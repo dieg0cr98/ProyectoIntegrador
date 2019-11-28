@@ -10,6 +10,7 @@ using ProyectoIntegrador.BaseDatos;
 using ProyectoIntegrador.Models;
 using System.Data.SqlClient;
 
+
 namespace ProyectoIntegrador.Controllers
 {
     public class EmpleadosController : Controller
@@ -17,8 +18,9 @@ namespace ProyectoIntegrador.Controllers
         private Gr03Proy2Entities6 db = new Gr03Proy2Entities6();
          private HabilidadBlanda habilidadBlanda = new HabilidadBlanda();
         private HabilidadTecnica habilidadTecnica = new HabilidadTecnica();
+        //private HabilidadTecnicasController tecnica = new HabilidadTecnicasController();
+        //private HabilidadBlandasController blanda = new HabilidadBlandasController();
 
-       
 
         internal dynamic GetNombreEmpleado(string id)
         {
@@ -175,15 +177,7 @@ namespace ProyectoIntegrador.Controllers
 
                 }
                 //El tester solo se puede ver su informacion
-                else
-                {
-                    var innerJoin =
-                    from e in db.Empleado //Selecciona la tabla de Empleado
-                    where e.idEmpleadoPK == "Despedido" //Solo los empleados que no estan despedidos
-                    select e; //Selecciona todo los atributos del empleado
-                    return innerJoin.ToList();
-                }
-
+                else return null;
 
             }
         }
@@ -192,11 +186,10 @@ namespace ProyectoIntegrador.Controllers
         // GET: Empleados
         public ActionResult Index(string id)
         {
-            ViewBag.empleadoSelec = id;
             var permisosGenerales = seguridad.EmpleadoConsultar(User);
             ViewBag.permisosEspecificos = permisosGenerales;
             ViewBag.cedEmpleado = permisosGenerales.Item2;
-
+            ViewBag.empleadoSelec = id;
             //Verifica que el usuario este registrado
             if (permisosGenerales.Item1 >= 0)
             {
