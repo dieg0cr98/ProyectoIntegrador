@@ -1168,7 +1168,7 @@ namespace ProyectoIntegrador.Controllers
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
 
-                var tabla = getTablaSeguridadHabilidadesBlandasGeneral();
+                var tabla = getTablaSeguridadHabilidadBlandasGeneral();
                 //Obtine los permisos de la tabla de Seguridad
                 permisoConsultar = tabla[0, rol];
                 permisoAgregar = tabla[1, rol]; ;
@@ -1234,7 +1234,7 @@ namespace ProyectoIntegrador.Controllers
             if (rol >= 0)// Si el usuario tiene un rol asignado
             {
 
-                var tabla = getTablaSeguridadHabilidadTecnicaGeneral();
+                var tabla = getTablaSeguridadHabilidadTecnicasGeneral();
                 //Obtine los permisos de la tabla de Seguridad
                 permisoConsultar = tabla[0, rol];
                 permisoAgregar = tabla[1, rol]; ;
