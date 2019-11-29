@@ -6,7 +6,6 @@
         var proyecto = button.data('whatever2') // Dato del proyecto enviado por el modal
         var prueba = button.data('whatever3') // Dato de la prueba enviado por el modal
         var modal = $(this)
-
         //Se contstruye el URL con el que se llama al POST de eliminar.
         var a = document.getElementById('pager')
         var format_href = '@Url.Action("Eliminar", "Pruebas")';
@@ -17,7 +16,7 @@
 
 <!-- Despliega el modal utilizado para eliminar la imagen de una prueba -->
 <script>
-    $('#modalEliminarImagen').on('show.bs.modal', function (event) {
+    $('#EliminarImagen').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // El botón que llamó al modal
         var requerimiento = button.data('whatever') // Dato del requerimiento enviado por el modal
         var proyecto = button.data('whatever2') // Dato del proyecto enviado por el modal
@@ -25,9 +24,9 @@
         var modal = $(this)
 
         //Se contstruye el URL con el que se llama al POST de eliminar.
-        var a = document.getElementById('pager')
+        var a = document.getElementById('aceptar')
         var format_href = '@Url.Action("EliminarImagen", "Pruebas")';
-        format_href += '?idProyecto=' + proyecto  + '&idRequerimiento='+ requerimiento + '&idPrueba='+ prueba;
+        format_href += '?idProyecto=16&idRequerimiento=2&idPrueba=1';
         a.href = format_href;
     })
 </script>

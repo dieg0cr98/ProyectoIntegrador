@@ -251,7 +251,7 @@
                         @{var base64 = Convert.ToBase64String(Model.imagen);}
                         @{var imgsrc = String.Format("data:image/gif;base64,{0}", base64); }
 
-                        <img src="@imgsrc" class="rounded mx-auto d-block">
+                        <img src="@imgsrc" class="rounded mx-auto d-block" style="max-height:400px; max-width:400px">
 
                     </div>
 
@@ -261,7 +261,7 @@
                         </div>
 
                         <div class="col">
-                            <a class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#modalEliminarImagen" data-proyecto="@Model.idProyectoFK" data-requerimiento="@Model.idReqFK" data-prueba="@Model.idPruebaPK">Eliminar Imagen</a>
+                            <a class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#EliminarImagen" data-whatever2="@Model.idProyectoFK" data-whatever="@Model.idReqFK" data-whatever3="@Model.idPruebaPK">Eliminar Imagen</a>
                         </div>
                     </div>
 
@@ -272,11 +272,6 @@
                         <a class="btn btn-primary" href="@Url.Action("AgregarImagen","Pruebas",new { proyecto = Model.idProyectoFK, requerimiento = Model.idReqFK , prueba = Model.idPruebaPK    })">Agregar Imagen</a>
                     </div>
                 }
-
-
-
-
-
 
                 <br />
                 <h5> * Campos requeridos</h5>
