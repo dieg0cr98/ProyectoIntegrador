@@ -235,15 +235,8 @@
 <script>
     function datosEliminar(idProyecto, idReq, idPrueba) {
         
-        alert('Proy' + idProyecto+' Req '+idReq+' Prueba '+idPrueba)
-       /* alert(a.href)
-
-        var a = document.getElementById('pager')
-        a.href += "?idProyecto=" + idProyecto + "&idReq=" + idReq + "&idPrueba=" + idPrueba;
-        alert(a.href)
-        */
-        alert('Entré')
-        location.href('/Pruebas/EliminarImagen?idProyecto=' + idProyecto + '&idReq=' + idReq + '&idPrueba=' + idPrueba);
+        var a = document.getElementById('pager');
+        a.href = "@Url.Action("EliminarImagen", "Pruebas")"+ "?idProyecto=" + idProyecto + "&idReq=" + idReq + "&idPrueba=" + idPrueba;
     }
 </script>
 

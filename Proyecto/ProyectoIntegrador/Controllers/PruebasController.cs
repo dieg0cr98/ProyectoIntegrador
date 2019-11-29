@@ -128,7 +128,7 @@ namespace ProyectoIntegrador.Controllers
         // POST: Pruebas/Create
         [HttpPost]
         public ActionResult Create(int idProyecto, int idReq, string resultadoFinal, string propositoPrueba,
-            string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre)
+            string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string descripcionError, string nombre)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
             string mensaje = "";
@@ -137,10 +137,6 @@ namespace ProyectoIntegrador.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
-                    string dirImage = "C:\\Users\\dieg0\\Documents\\Consulta4.png";
-                    Image imagen2 = Image.FromFile(dirImage);
-                    var t = imageToByteArray(imagen2);
 
                     Prueba prueba = new Prueba();
                     prueba.idProyectoFK = idProyecto;
@@ -152,7 +148,6 @@ namespace ProyectoIntegrador.Controllers
                     prueba.resultadoEsperado = resultadoEsperado;
                     prueba.flujoPrueba = flujoPrueba;
                     prueba.estado = estado;
-                    prueba.imagen = t;
                     prueba.descripcionError = descripcionError;
                     db.Prueba.Add(prueba);
                     db.SaveChanges();
@@ -178,7 +173,7 @@ namespace ProyectoIntegrador.Controllers
         // Metodo para guardar los cambios realizados a una prueba.
         [HttpPost]
         public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
-        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string imagen, string descripcionError, string nombre, HttpPostedFileBase pic)
+        string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string descripcionError, string nombre, HttpPostedFileBase pic)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
             string mensaje = "";
@@ -260,9 +255,6 @@ namespace ProyectoIntegrador.Controllers
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    //string path = Path.Combine(Server.MapPath("~/Images"),
-                    //                           Path.GetFileName(file.FileName));
-                    //file.SaveAs(path);
                     MemoryStream target = new MemoryStream();
                     file.InputStream.CopyTo(target);
                     byte[] data = target.ToArray();
@@ -276,7 +268,7 @@ namespace ProyectoIntegrador.Controllers
                     ViewBag.Message = "Imagen guardada exitosamente";
                     ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
 
-                    return RedirectToAction("Index", new { idProyecto = proyectoID, idRequerimiento = requerimientoID, idPrueba = pruebaID }); //Retorna a la vista
+                    return RedirectToAction("Index", new { idProyecto = proyectoID, idRequerimiento = requerimientoID, idPrueba = pruebaID}); //Retorna a la vista
                 }
                 catch (Exception ex)
                 {
