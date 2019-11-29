@@ -520,7 +520,6 @@
     <Content Include="Views\Empleados\Scripts.cshtml" />
     <Content Include="Views\Requerimientos\FormularioIndex.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
-    <Content Include="Views\ConsultasAvanzadas\Index2.cshtml" />
     <Content Include="Views\HabilidadBlandas\Create.cshtml" />
     <Content Include="Views\HabilidadBlandas\Delete.cshtml" />
     <Content Include="Views\HabilidadBlandas\Details.cshtml" />
@@ -538,6 +537,8 @@
     <Content Include="Views\ConsultasAvanzadas\Consulta5.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta6.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\consulta6Index.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta7.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta10.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

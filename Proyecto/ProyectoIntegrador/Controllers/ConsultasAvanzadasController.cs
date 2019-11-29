@@ -146,5 +146,10 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult consulta7()
+        {
+            return null;
+        }
+
     }
 }
