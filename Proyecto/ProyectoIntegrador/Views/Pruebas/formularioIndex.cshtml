@@ -1,4 +1,5 @@
-﻿<div class="row mx-4 mt-0 md-0 " style="height:48px">
+﻿
+<div class="row mx-4 mt-0 md-0 " style="height:48px">
 
     <div class="col-10 " style="max-height:48px">
         <!--Nombre de la prueba, se puede agregar el estado-->
@@ -150,24 +151,99 @@
     <div class="form-row">
         @*Título de Atributo imagen *@
         <div class="col-4">
-            <h3> Imagen del error: </h3>
+            <h3> Imagen del error</h3>
         </div>
     </div>
+    <br />
     <div class="form-row">
         <div class="input-group" style="display:inline-block">
+            @*
+                <!--Atributo imagen-->
+                @if (Model.imagen != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.imagen);
+                    var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgsrc" style="max-height:390px" class="rounded mx-auto d-block" alt="Responsive image">
+                }
+                else
+                {
+                    <p><h5>No hay imagen disponible</h5></p>
+                }
+            *@
+
             <!--Atributo imagen-->
             @if (Model.imagen != null)
             {
-                var base64 = Convert.ToBase64String(Model.imagen);
-                var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
-                <img src="@imgsrc" style="max-height:390px" class="rounded mx-auto d-block" alt="Responsive image">
+                <div class="row">
+
+                    @{var base64 = Convert.ToBase64String(Model.imagen);}
+                    @{var imgsrc = String.Format("data:image/gif;base64,{0}", base64); }
+
+                    <img src="@imgsrc" style="width:650px; height:450px;" class="rounded mx-auto d-block">
+
+                </div>
+
+                <div class="row" style="padding-top:50px;">
+                    <div class="col-6 text-right">
+                        <a class="btn btn-primary" href="@Url.Action("ModificarImagen","Pruebas", new { proyecto = Model.idProyectoFK, requerimiento = Model.idReqFK , prueba = Model.idPruebaPK    })">Modificar Imagen</a>
+                    </div>
+
+                    <div class="col-6 text-left">
+                        <button class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#modalEliminarImagen">Eliminar Imagen</button>
+                    </div>
+                </div>
+
             }
             else
             {
-                @*<img src="@Model.imagen" class="img-fluid" alt="Responsive image">*@
-                <p><h5>No hay imagen disponible</h5></p>
+                <div class="row" style="padding-left:20px;">
+                    <a class="btn btn-primary" href="@Url.Action("AgregarImagen","Pruebas", new { proyecto = Model.idProyectoFK, requerimiento = Model.idReqFK , prueba = Model.idPruebaPK})">Agregar Imagen</a>
+                </div>
             }
         </div>
     </div>
-
+    <br />
 </div>
+
+<!-- Código del modal encargado de confirmar el deseo de eliminar una imagen -->
+<div class="modal fade" id="modalEliminarImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Está seguro que desea elmininar la imagen de la prueba? Este proceso es irreversible.</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Cancelar-->
+                        <div class="col text-center">
+                            <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn d-inline-block"><img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+
+                        <!--Aceptar-->
+                        <div class="col text-center">
+                            <a id="pager" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Aceptar" onclick="datosEliminar(@Model.idProyectoFK, @Model.idReqFK, @Model.idPruebaPK)" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function datosEliminar(idProyecto, idReq, idPrueba) {
+        
+        alert('Proy' + idProyecto+' Req '+idReq+' Prueba '+idPrueba)
+       /* alert(a.href)
+
+        var a = document.getElementById('pager')
+        a.href += "?idProyecto=" + idProyecto + "&idReq=" + idReq + "&idPrueba=" + idPrueba;
+        alert(a.href)
+        */
+        alert('Entré')
+        location.href('/Pruebas/EliminarImagen?idProyecto=' + idProyecto + '&idReq=' + idReq + '&idPrueba=' + idPrueba);
+    }
+</script>
+

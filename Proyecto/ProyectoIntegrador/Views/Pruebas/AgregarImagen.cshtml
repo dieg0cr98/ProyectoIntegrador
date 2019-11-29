@@ -1,4 +1,4 @@
-﻿
+﻿@model ProyectoIntegrador.BaseDatos.Prueba
 
 @using (Html.BeginForm("AgregarImagen",
                         "Pruebas",
@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col text-center">
 
-            
+
 
             <input type='file' name="file" id="file" onchange="readURL(this);" />
 
@@ -51,7 +51,7 @@
     <input hidden type="number" value="@ViewBag.proyecto" name="proyectoID" />
     <input hidden type="number" value="@ViewBag.requerimiento" name="requerimientoID" />
     <input hidden type="number" value="@ViewBag.prueba" name="pruebaID" />
-
+    <input hidden value="@Model" name="model" />
 
     <div class="row text-center">
         <div class="col">
