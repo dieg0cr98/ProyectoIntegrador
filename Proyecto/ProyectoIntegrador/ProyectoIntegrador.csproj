@@ -356,6 +356,7 @@
     <Content Include="Content\cancelar.svg" />
     <Content Include="Content\folder.svg" />
     <Content Include="Content\imagenFondo.jpg" />
+    <Content Include="Content\information.svg" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\Paleta.css" />
     <Content Include="Content\edit.svg" />

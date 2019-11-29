@@ -1,1042 +1,1047 @@
 ﻿
 
 @{
-    string[] tipo = { "No Autorizado", "Autorizado" }
+    string[] tipo = { "No Autorizado", "Autorizado" };
 }
 
-<body onload="modalSaved(@ViewBag.saved)">
-
-    @if (Request.IsAuthenticated)
-    {
-
-        <br />
-
-        <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Modificar Permisos Proyecto Editar</p>
-
-        <form class="cmxform" id="proyectoEditarForm" name="proyectoEditarForm" method="post" action="ProyectoEditar">
-            <fieldset>
-                <table class="table table-bordered table-striped table-secondary">
-                    <thead>
-                        <tr>
-                            <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
-                            <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
-                            <th class="align-text-top" scope="col">Lider</th>
-                            <th class="align-text-top" scope="col">Tester</th>
-                            <th class="align-text-top" scope="col">Cliente</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!---Nomnbre-->
-                        <tr>
-                            <th scope="row">Nombre</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NS">
-                                    @switch (tipo[ViewBag.permisos[0, 0]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NL">
-                                    @switch (tipo[ViewBag.permisos[0, 1]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NT">
-
-                                    @switch (tipo[ViewBag.permisos[0, 2]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
+    <body onload="modalSaved(@ViewBag.saved)">
+
+        @if (Request.IsAuthenticated)
+        {
+
+            <br />
+
+            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Modificar Permisos Proyecto Editar</p>
+           
+            <h5 class="text-center"><strong>Autorizado:</strong> Puede modificar el dato. <strong>No Autorizado:</strong> No puede modificar el dato</h5>
+
+
+            <hr>
+
+            <form class="cmxform" id="proyectoEditarForm" name="proyectoEditarForm" method="post" action="ProyectoEditar">
+                <fieldset>
+                    <table class="table table-bordered table-striped table-secondary">
+                        <thead>
+                            <tr>
+                                <th class="align-text-top" scope="col"><h6 class="text-right font-weight-bold">Rol</h6> <br /> Permiso</th>
+                                <th class="align-text-top" scope="col">Jefe Calidad/Soporte</th>
+                                <th class="align-text-top" scope="col">Lider</th>
+                                <th class="align-text-top" scope="col">Tester</th>
+                                <th class="align-text-top" scope="col">Cliente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!---Nomnbre-->
+                            <tr>
+                                <th scope="row">Nombre</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NS">
+                                        @switch (tipo[ViewBag.permisos[0, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NL">
+                                        @switch (tipo[ViewBag.permisos[0, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NT">
+
+                                        @switch (tipo[ViewBag.permisos[0, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NC">
+                                        @switch (tipo[ViewBag.permisos[0, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
 
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="NC">
-                                    @switch (tipo[ViewBag.permisos[0, 3]])
-                                    {
-                                        case "Total":
-                                            {
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
 
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
+                            <!---Objetivo-->
+                            <tr>
+                                <th scope="row">Objetivo</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OS">
+                                        @switch (tipo[ViewBag.permisos[1, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OL">
+                                        @switch (tipo[ViewBag.permisos[1, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OT">
+
+                                        @switch (tipo[ViewBag.permisos[1, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OC">
+                                        @switch (tipo[ViewBag.permisos[1, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
 
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---Objetivo-->
-                        <tr>
-                            <th scope="row">Objetivo</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OS">
-                                    @switch (tipo[ViewBag.permisos[1, 0]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OL">
-                                    @switch (tipo[ViewBag.permisos[1, 1]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OT">
-
-                                    @switch (tipo[ViewBag.permisos[1, 2]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="OC">
-                                    @switch (tipo[ViewBag.permisos[1, 3]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---Estado-->
-                        <tr>
-                            <th scope="row">Estado</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ES">
-                                    @switch (tipo[ViewBag.permisos[2, 0]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EL">
-                                    @switch (tipo[ViewBag.permisos[2, 1]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ET">
-
-                                    @switch (tipo[ViewBag.permisos[2, 2]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EC">
-                                    @switch (tipo[ViewBag.permisos[2, 3]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---DuracionEstimada-->
-                        <tr>
-                            <th scope="row">Duración Estimada</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DES">
-                                    @switch (tipo[ViewBag.permisos[3, 0]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DEL">
-                                    @switch (tipo[ViewBag.permisos[3, 1]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DET">
-
-                                    @switch (tipo[ViewBag.permisos[3, 2]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DEC">
-                                    @switch (tipo[ViewBag.permisos[3, 3]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---DuracionReal-->
-                        <tr>
-                            <th scope="row">Duración Real</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRS">
-                                    @switch (tipo[ViewBag.permisos[4, 0]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRL">
-                                    @switch (tipo[ViewBag.permisos[4, 1]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRT">
-
-                                    @switch (tipo[ViewBag.permisos[4, 2]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                                <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRC">
-                                    @switch (tipo[ViewBag.permisos[4, 3]])
-                                    {
-                                        case "Autorizado":
-                                            {
-
-                                    <option selected value="Autorizado">Autorizado</option>
-                                                <option value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                        case "No Autorizado":
-                                            {
-
-                                                <option  value="Autorizado">Autorizado</option>
-                                                <option selected value="No Autorizado">No Autorizado</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---FechaInicio-->
-                        <tr>
-                            <th scope="row">Fecha Inicio</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIS">
-                                    @switch (tipo[ViewBag.permisos[5, 0]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIL">
-                                    @switch (tipo[ViewBag.permisos[5, 1]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIT">
-
-                                    @switch (tipo[ViewBag.permisos[5, 2]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIC">
-                                    @switch (tipo[ViewBag.permisos[5, 3]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---FechaFin-->
-                        <tr>
-                            <th scope="row">Fecha Fin</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFS">
-                                    @switch (tipo[ViewBag.permisos[6, 0]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFL">
-                                    @switch (tipo[ViewBag.permisos[6, 1]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFT">
-
-                                    @switch (tipo[ViewBag.permisos[6, 2]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFC">
-                                    @switch (tipo[ViewBag.permisos[6, 3]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---Cedula Cliente-->
-                        <tr>
-                            <th scope="row">Cédula Cliente</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCS">
-                                    @switch (tipo[ViewBag.permisos[7, 0]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCL">
-                                    @switch (tipo[ViewBag.permisos[7, 1]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCT">
-
-                                    @switch (tipo[ViewBag.permisos[7, 2]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCC">
-                                    @switch (tipo[ViewBag.permisos[7, 3]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                        <!---Cedula Lider-->
-                        <tr>
-                            <th scope="row">Cédula Lider</th>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLS">
-                                    @switch (tipo[ViewBag.permisos[8, 0]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLL">
-                                    @switch (tipo[ViewBag.permisos[8, 1]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-
-
-                            </td>
-                            <td>
-
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLT">
-
-                                    @switch (tipo[ViewBag.permisos[8, 2]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLC">
-                                    @switch (tipo[ViewBag.permisos[8, 3]])
-                                    {
-                                        case "Total":
-                                            {
-
-                                                <option selected value="Total">Total</option>
-                                                <option value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                        case "Ninguno":
-                                            {
-
-                                                <option  value="Total">Total</option>
-                                                <option selected value="Ninguno">Ninguno</option>
-
-                                                break;
-                                            }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                <div class="row justify-content-center" style="max-width:1150px">
-                    <div class="col-2  text-center">
-                        <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Permisos/ProyectoGeneral"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---Estado-->
+                            <tr>
+                                <th scope="row">Estado</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ES">
+                                        @switch (tipo[ViewBag.permisos[2, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EL">
+                                        @switch (tipo[ViewBag.permisos[2, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="ET">
+
+                                        @switch (tipo[ViewBag.permisos[2, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="EC">
+                                        @switch (tipo[ViewBag.permisos[2, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---DuracionEstimada-->
+                            <tr>
+                                <th scope="row">Duración Estimada</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DES">
+                                        @switch (tipo[ViewBag.permisos[3, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DEL">
+                                        @switch (tipo[ViewBag.permisos[3, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DET">
+
+                                        @switch (tipo[ViewBag.permisos[3, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DEC">
+                                        @switch (tipo[ViewBag.permisos[3, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---DuracionReal-->
+                            <tr>
+                                <th scope="row">Duración Real</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRS">
+                                        @switch (tipo[ViewBag.permisos[4, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRL">
+                                        @switch (tipo[ViewBag.permisos[4, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRT">
+
+                                        @switch (tipo[ViewBag.permisos[4, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="DRC">
+                                        @switch (tipo[ViewBag.permisos[4, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---FechaInicio-->
+                            <tr>
+                                <th scope="row">Fecha Inicio</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIS">
+                                        @switch (tipo[ViewBag.permisos[5, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIL">
+                                        @switch (tipo[ViewBag.permisos[5, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIT">
+
+                                        @switch (tipo[ViewBag.permisos[5, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FIC">
+                                        @switch (tipo[ViewBag.permisos[5, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---FechaFin-->
+                            <tr>
+                                <th scope="row">Fecha Fin</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFS">
+                                        @switch (tipo[ViewBag.permisos[6, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFL">
+                                        @switch (tipo[ViewBag.permisos[6, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFT">
+
+                                        @switch (tipo[ViewBag.permisos[6, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="FFC">
+                                        @switch (tipo[ViewBag.permisos[6, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---Cedula Cliente-->
+                            <tr>
+                                <th scope="row">Cédula Cliente</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCS">
+                                        @switch (tipo[ViewBag.permisos[7, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCL">
+                                        @switch (tipo[ViewBag.permisos[7, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCT">
+
+                                        @switch (tipo[ViewBag.permisos[7, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CCC">
+                                        @switch (tipo[ViewBag.permisos[7, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!---Cedula Lider-->
+                            <tr>
+                                <th scope="row">Cédula Lider</th>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLS">
+                                        @switch (tipo[ViewBag.permisos[8, 0]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLL">
+                                        @switch (tipo[ViewBag.permisos[8, 1]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+
+
+                                </td>
+                                <td>
+
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLT">
+
+                                        @switch (tipo[ViewBag.permisos[8, 2]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="Autorizado">Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+
+                                    </select>
+
+
+                                </td>
+                                <td>
+                                    <select class="custom-select" style="text-align:center; background-color:white; border-color:transparent" name="CLC">
+                                        @switch (tipo[ViewBag.permisos[8, 3]])
+                                        {
+                                            case "Autorizado":
+                                                {
+
+                                                    <option selected value="Autorizado">Autorizado</option>
+                                                    <option value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                            case "No Autorizado":
+                                                {
+
+                                                    <option value="No Autorizado">No Autorizado</option>
+                                                    <option selected value="No Autorizado">No Autorizado</option>
+
+                                                    break;
+                                                }
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row justify-content-center" style="max-width:1150px">
+                        <div class="col-2  text-center">
+                            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Permisos/ProyectoGeneral"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+                        </div>
+
+                        <div class="col-5 text-right">
+
+                            <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
+                                <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+
+                            </button>
+                        </div>
+
+                        <div class="col-5  text-center">
+
+                            <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
+                                <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                            </button>
+
+                        </div>
                     </div>
 
-                    <div class="col-5 text-right">
 
-                        <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Cancelar">
-                            <img src="~/Content/cancelar.svg" class="rounded float-right" style="height:80px ; width:80px">
+                </fieldset>
+            </form>
 
-                        </button>
+        }
+        else
+        {
+            <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para acceder al sistema</div>
+        }
+
+        <!-- Modal -->
+        <div class="modal fade" id="saved" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="text-center">Los cambios fueron guardados con exito.</h5>
                     </div>
+                    <div class="modal-footer">
+                        <div class="col text-center">
+                            <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Aceptar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+                        </div>
 
-                    <div class="col-5  text-center">
-
-                        <button type="submit" id="btnsubmit" class="btn btn-default" value="Submit" data-toggle="tooltip" data-placement="right" title="Aceptar">
-                            <img id="acceptar" src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px">
-                        </button>
-
-                    </div>
-                </div>
-
-
-            </fieldset>
-        </form>
-
-    }
-    else
-    {
-        <div class="alert alert-primary text-center" style="color:white ; background-color:red"> Necesita hacer login para acceder al sistema</div>
-    }
-
-    <!-- Modal -->
-    <div class="modal fade" id="saved" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h5 class="text-center">Los cambios fueron guardados con exito.</h5>
-                </div>
-                <div class="modal-footer">
-                    <div class="col text-center">
-                        <a href="#" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Aceptar" class="btn d-inline-block"><img src="~/Content/aceptar.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
                     </div>
 
                 </div>
 
             </div>
-
         </div>
-    </div>
 
 
 
-    <script>
+        <script>
             function modalSaved(saved) {
 
                 if (saved == 1) {
@@ -1046,8 +1051,8 @@
 
             }
 
-    </script>
+        </script>
 
-</body>
+    </body>
 
 
