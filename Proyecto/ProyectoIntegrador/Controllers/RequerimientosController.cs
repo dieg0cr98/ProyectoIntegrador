@@ -336,11 +336,13 @@ namespace ProyectoIntegrador.Controllers
                 }
             }
             else
+            {
                 return new JsonResult { Data = true };
-
+            }
         }
     }
 }
+
         /*
         public void EditTransaction(ProyectoIntegrador.BaseDatos.Requerimiento r, string idTesterViejo) {
             using (Gr03Proy2Entities6 context = new Gr03Proy2Entities6()) {

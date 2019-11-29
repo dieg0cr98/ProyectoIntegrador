@@ -11,7 +11,7 @@ namespace ProyectoIntegrador.Controllers
     public class PermisosController : Controller
     {
         private string[] tipo = { "Total", "Parcial", "Ninguno" };
-        private string[] tipo2 = {"Ninguno", "Total" };
+        private string[] tipo2 = { "No Autorizado", "Autorizado" };
         private SeguridadController seguridad = new SeguridadController();
 
 

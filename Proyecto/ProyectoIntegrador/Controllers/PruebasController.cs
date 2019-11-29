@@ -64,10 +64,12 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // Metodo que se llama al ingresar a la vista de editar prueba
-        public ActionResult Edit(int idProyecto, int idRequerimiento, int idPrueba)
+        public ActionResult Edit(int idProyecto, int idRequerimiento, int idPrueba, string mensaje = null)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
-            
+
+            ViewBag.mensaje = mensaje;
+
             //Verifica que el usuario este registrado y que tenga permiso de editar = 1
             if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item4 == 1)
             {
@@ -274,7 +276,7 @@ namespace ProyectoIntegrador.Controllers
                     ViewBag.Message = "Imagen guardada exitosamente";
                     ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
 
-                    
+                    return RedirectToAction("Index", new { idProyecto = proyectoID, idRequerimiento = requerimientoID, idPrueba = pruebaID }); //Retorna a la vista
                 }
                 catch (Exception ex)
                 {
@@ -308,6 +310,7 @@ namespace ProyectoIntegrador.Controllers
         [HttpPost]
         public ActionResult ModificarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
         {
+            Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
 
             if (file != null && file.ContentLength > 0)
                 try
@@ -319,7 +322,6 @@ namespace ProyectoIntegrador.Controllers
                     file.InputStream.CopyTo(target);
                     byte[] data = target.ToArray();
 
-                    Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
                     prueba.imagen = data;
 
                     db.Entry(prueba).State = EntityState.Modified;
@@ -336,29 +338,25 @@ namespace ProyectoIntegrador.Controllers
                 }
             else
             {
-
-                Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
-                prueba.imagen = null;
-
-                db.Entry(prueba).State = EntityState.Modified;
-                db.SaveChanges();
-                ViewBag.Message = "Se ha eliminado de forma exitosa la imagen";
+                ViewBag.Message = "Debe escoger una imagen primero.";
             }
 
 
             ViewBag.proyecto = proyectoID;
             ViewBag.requerimiento = requerimientoID;
             ViewBag.prueba = pruebaID;
+            ViewBag.oldPic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(prueba.imagen));
 
             return View("CambiarImagen");
         }
 
-        public ActionResult EliminarImagen(int idProyecto, int idReq, int idPrueba) {
+        public ActionResult EliminarImagen(int? idProyecto, int? idReq, int? idPrueba) {
+           
             Prueba prueba = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idReq && p.idPruebaPK == idPrueba).FirstOrDefault();
             prueba.imagen = null;
             db.Entry(prueba).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Edit", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba}); //Retorna a la vista
+            return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba }); //Retorna a la vista
         }
     }
 }

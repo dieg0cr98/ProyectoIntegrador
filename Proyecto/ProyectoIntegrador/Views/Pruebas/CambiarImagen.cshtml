@@ -3,59 +3,35 @@
                         FormMethod.Post,
                         new { enctype = "multipart/form-data" }))
 {
-
-
     <br>
     <br>
-
 
     <div class="row text-center">
-
         <div class="col">
-            <h1 class="font-weight-bold"> @ViewBag.Message</h1>
-            <h2>Modificar Imagen:</h2>
+            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Modificar Imagen</p>
+            <h2 class="font-weight-bold" style="color:red"> @ViewBag.Message</h2>
         </div>
     </div>
-
-
-
-    <div class="row">
-
-        <div class="col">
-            <h2 class="font-weight-bold">Imagen Actual</h2>
-            <img style="max-height:600px; max-width:1800px"src=@ViewBag.oldPic />
-
-        </div>
-
-        <div class="col">
-
-            <div class="col text-center">
-                <h2 class="font-weight-bold">Seleccione una nueva imagen</h2>
-                <input type='file' name="file" id="file" onchange="readURL(this);" />
-
-
-            </div>
-
-        </div>
-
-    </div>
-
-
+    <hr />
     <div class="row ">
-        
         <div class="col text-center">
+            <h2 class="font-weight-bold">Seleccione una nueva imagen</h2>
 
-            <h5>Imagen Seleccionada</h5>
-
-            <img style="max-height:600px; max-width:1800px" id="blah" src="#" />
-
-
-
+            <input type='file' name="file" id="file" onchange="readURL(this);" />
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-6 text-center">
+            <h2 class="font-weight-bold">Imagen Actual</h2>
+            <img style="max-width:650px; max-height:450px;" src=@ViewBag.oldPic />
+        </div>
+        <div class="col-6 text-center">
+            <h2 class="font-weight-bold">Imagen Seleccionada</h2>
+            <img style="max-width:650px; max-height:450px;" id="blah" src="#" />
         </div>
 
     </div>
-
-
 
 
     <input hidden type="number" value="@ViewBag.proyecto" name="proyectoID" />
@@ -64,9 +40,8 @@
 
 
     <div class="row text-center">
-        <div class="col">
-            <input type="submit" value="Guardar Imagen" />
-
+        <div class="col" style="padding-top:50px;">
+            <input data-toggle="tooltip" class="btn btn-primary" title="Guardar" type="submit" value="Guardar Imagen" />
         </div>
     </div>
 
@@ -74,14 +49,11 @@
     <div class="row">
 
         <div class="col">
-            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Edit","Pruebas",new {idProyecto = ViewBag.proyecto, idRequerimiento = ViewBag.requerimiento , idPrueba = ViewBag.prueba })"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Index","Pruebas",new {idProyecto = ViewBag.proyecto, idRequerimiento = ViewBag.requerimiento , idPrueba = ViewBag.prueba })"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
         </div>
 
 
     </div>
-
-
-
 
     <br>
     <br>
