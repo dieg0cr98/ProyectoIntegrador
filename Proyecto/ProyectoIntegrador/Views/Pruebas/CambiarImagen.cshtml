@@ -1,0 +1,76 @@
+﻿@using (Html.BeginForm("ModificarImagen",
+                        "Pruebas",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    <br>
+    <br>
+
+    <div class="row text-center">
+        <div class="col">
+            <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Modificar Imagen</p>
+            <h2 class="font-weight-bold" style="color:red"> @ViewBag.Message</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="row ">
+        <div class="col text-center">
+            <h2 class="font-weight-bold">Seleccione una nueva imagen</h2>
+
+            <input type='file' name="file" id="file" onchange="readURL(this);" />
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-6 text-center">
+            <h2 class="font-weight-bold">Imagen Actual</h2>
+            <img style="max-width:650px; max-height:450px;" src=@ViewBag.oldPic />
+        </div>
+        <div class="col-6 text-center">
+            <h2 class="font-weight-bold">Imagen Seleccionada</h2>
+            <img style="max-width:650px; max-height:450px;" id="blah" src="#" />
+        </div>
+
+    </div>
+
+
+    <input hidden type="number" value="@ViewBag.proyecto" name="proyectoID" />
+    <input hidden type="number" value="@ViewBag.requerimiento" name="requerimientoID" />
+    <input hidden type="number" value="@ViewBag.prueba" name="pruebaID" />
+
+
+    <div class="row text-center">
+        <div class="col" style="padding-top:50px;">
+            <input data-toggle="tooltip" class="btn btn-primary" title="Guardar" type="submit" value="Guardar Imagen" />
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Index","Pruebas",new {idProyecto = ViewBag.proyecto, idRequerimiento = ViewBag.requerimiento , idPrueba = ViewBag.prueba })"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+        </div>
+
+
+    </div>
+    <br>
+
+    <script>
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+
+}

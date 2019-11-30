@@ -32,11 +32,19 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<HabilidadBlanda> HabilidadBlanda { get; set; }
         public virtual DbSet<HabilidadTecnica> HabilidadTecnica { get; set; }
         public virtual DbSet<Proyecto> Proyecto { get; set; }
-        public virtual DbSet<Prueba> Prueba { get; set; }
         public virtual DbSet<Requerimiento> Requerimiento { get; set; }
         public virtual DbSet<Tester> Tester { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
+        public virtual DbSet<Prueba> Prueba { get; set; }
+        public virtual DbSet<SeguridadProyectoGeneral> SeguridadProyectoGeneral { get; set; }
+        public virtual DbSet<SeguridadClientesGeneral> SeguridadClientesGeneral { get; set; }
+        public virtual DbSet<SeguridadEmpleadosGeneral> SeguridadEmpleadosGeneral { get; set; }
+        public virtual DbSet<SeguridadRequerimientosGeneral> SeguridadRequerimientosGeneral { get; set; }
+        public virtual DbSet<SeguridadEquipoGeneral> SeguridadEquipoGeneral { get; set; }
+        public virtual DbSet<SeguridadPruebasGeneral> SeguridadPruebasGeneral { get; set; }
+        public virtual DbSet<SeguridadProyectoEditar> SeguridadProyectoEditar { get; set; }
+        public virtual DbSet<SeguridadProyectoAgregar> SeguridadProyectoAgregar { get; set; }
     
         public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
         {
@@ -349,6 +357,15 @@ namespace ProyectoIntegrador.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CambiarCedulaCliente", cedulaViejaParameter, cedulaNuevaParameter);
         }
     
+        public virtual ObjectResult<USP_FechaInioFinTesterProyecto_Result> USP_FechaInioFinTesterProyecto(string idEmpleadoFK)
+        {
+            var idEmpleadoFKParameter = idEmpleadoFK != null ?
+                new ObjectParameter("idEmpleadoFK", idEmpleadoFK) :
+                new ObjectParameter("idEmpleadoFK", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_FechaInioFinTesterProyecto_Result>("USP_FechaInioFinTesterProyecto", idEmpleadoFKParameter);
+        }
+    
         public virtual ObjectResult<USP_FechaInicioFinRequerimiento_Result> USP_FechaInicioFinRequerimiento(Nullable<int> idProyecto, string idEmpleado)
         {
             var idProyectoParameter = idProyecto.HasValue ?
@@ -362,13 +379,21 @@ namespace ProyectoIntegrador.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_FechaInicioFinRequerimiento_Result>("USP_FechaInicioFinRequerimiento", idProyectoParameter, idEmpleadoParameter);
         }
     
-        public virtual ObjectResult<USP_FechaInioFinTesterProyecto_Result> USP_FechaInioFinTesterProyecto(string idEmpleadoFK)
+        public virtual ObjectResult<USP_ObtenerProyectosUsuario_Result> USP_ObtenerProyectosUsuario(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
         {
-            var idEmpleadoFKParameter = idEmpleadoFK != null ?
-                new ObjectParameter("idEmpleadoFK", idEmpleadoFK) :
-                new ObjectParameter("idEmpleadoFK", typeof(string));
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_FechaInioFinTesterProyecto_Result>("USP_FechaInioFinTesterProyecto", idEmpleadoFKParameter);
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
         }
     
         public virtual ObjectResult<string> HabilidadesBlandasEmpleado(string id)

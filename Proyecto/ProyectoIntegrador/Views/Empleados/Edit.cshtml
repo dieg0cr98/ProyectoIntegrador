@@ -40,7 +40,14 @@
                     @*Primera fila*@
                     <div class="form-row mb-2">
                         <div class="col-3">
-                            <!--Campo Nombre-->
+                            <!--Campo Cedula-->
+                            <h5 for="idEmpleadoPK" style="width:200px">Cédula *</h5>
+                            @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
+                            <div id="errorID"></div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                           <!--Campo Nombre-->
                             <h5 for="nombre" style="width:200px">Nombre *</h5>
                             @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                             <div id="errorNombre"></div>
@@ -50,13 +57,7 @@
                             <!--Campo Primer Apellido-->
                             <h5 for="apellido1" style="width:200px">Primer Apellido *</h5>
                             @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
-                        </div>
-                        <div class="col-1"></div>
-                        <div class="col-3">
-                            <!--Campo Segundo Apellido-->
-                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                            @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
-                        </div>
+                       </div>
                     </div>
                     <br>
 
@@ -64,10 +65,9 @@
                     <div class="form-row mb-2">
                         <div class="col-3">
                             <input hidden class="form-control" value="@Model.idEmpleadoPK" id="cedulaOld" type="text">
-                            <!--Campo Cedula-->
-                            <h5 for="idEmpleadoPK" style="width:200px">Cédula *</h5>
-                            @Html.EditorFor(model => model.idEmpleadoPK, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
-                            <div id="errorID"></div>
+                            <!--Campo Segundo Apellido-->
+                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
+                            @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @style = "background-color:#F9F9F9; border-color:transparent; max-width:none" }, maxlength="20" })
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">

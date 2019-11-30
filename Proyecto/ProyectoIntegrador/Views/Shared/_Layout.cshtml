@@ -62,6 +62,13 @@
                 <li class="nav-item">
                     <a class="nav-link  text-light" draggable="false" href="@Url.Action("Index", "ConsultasAvanzadas")"><h5 id="ConsultasAvanzadas">Consultas Avanzadas</h5></a>
                 </li>
+                @if (User.IsInRole("Soporte"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link  text-light" draggable="false" href="~/Permisos/Index"><h5 id="Permisos">Seguridad</h5></a>
+                    </li>
+                }
+
             </ul>
             @Html.Partial("_LoginPartial")
         </div>

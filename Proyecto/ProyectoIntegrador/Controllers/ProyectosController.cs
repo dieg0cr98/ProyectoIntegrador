@@ -26,19 +26,6 @@ namespace ProyectoIntegrador.Controllers
         {
             return db.Proyecto.Find(idProyecto).nombre;
         }
-        //Método que se encarga de buscar cual es la cantidad de requerimientos actual para asignar el id al nuevo requerimiento.
-        public int GetCantidadRequerimientos(int idProyecto)
-        {
-            return db.Proyecto.Find(idProyecto).cantidadReq;
-        }
-        //Método que cambia el atributo de cantidad de requerimientos en la base de datos
-        public void SetCantidadRequerimientos(int idProyecto, int nuevaCantidad)
-        {
-            Proyecto proyecto = db.Proyecto.Find(idProyecto);
-            proyecto.cantidadReq = nuevaCantidad;
-            db.Entry(proyecto).State = EntityState.Modified;
-            db.SaveChanges();
-        }
 
         //Metodo que regresa el contexto de la tabla proyectos, para poder realizar joins
         //Retorna el contexto de la base de datos
@@ -517,7 +504,16 @@ namespace ProyectoIntegrador.Controllers
             //Verifica que el usuario este registrado
             if(permisosGenerales.Item1 >= 0 )
             {
-                return View(GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3).Reverse());
+                var temp = GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3);
+                if(temp != null)
+                {
+                    return View(temp.Reverse());
+                }
+                else
+                {
+                    return View();
+                }
+              
             }
             else
             {
@@ -795,32 +791,70 @@ namespace ProyectoIntegrador.Controllers
 
         public ActionResult Eliminar(int id)
         {
-            int p = seguridad.ProyectoEliminar(User);
-            if (p == 1)
+            var permisos = seguridad.getTablaSeguridadProyectoGeneral();
+            int rol = seguridad.GetRoleUsuario(User);
+
+            if(permisos[3,rol] != 3)
             {
 
-
-
-                //Busca el proyecto
-                Proyecto proyecto = GetProyecto(id);
-
-
-
-                //Verifica si el proyecto existe
-                if (proyecto != null)
+                //Puede editar solo en los que el participa
+                if (permisos[3, rol] == 2)
                 {
-                    //Elimina el proyecto
-                    SetProyecto(proyecto, 2);
+
+                    //Regresa una lista de los proyectos en los que participa el usuario
+                    var proyectosList = GetProyectosUsuario(2, rol, seguridad.IdUsuario(User));
+
+                    //Busca si el proyecto que se quiere borrar pertenece a esta persona
+                    if (proyectosList.Where(proyecto => proyecto.idProyectoAID == id).Any())
+                    {
+                        //Si no pertenece devuelve a la vista un null
+                        return RedirectToAction("Index", new { id = 0 });
+                    }
+                    else
+                    {
+                        //Busca el proyecto
+                        Proyecto proyecto = GetProyecto(id);
+
+
+
+                        //Verifica si el proyecto existe
+                        if (proyecto != null)
+                        {
+                            //Elimina el proyecto
+                            SetProyecto(proyecto, 2);
+
+                        }
+
+                        return RedirectToAction("Index", new { id = 0 });
+
+                    }
 
                 }
+                else
+                {
+                    //Busca el proyecto
+                    Proyecto proyecto = GetProyecto(id);
 
-                return RedirectToAction("Index", new { id = 0 });
 
+
+                    //Verifica si el proyecto existe
+                    if (proyecto != null)
+                    {
+                        //Elimina el proyecto
+                        SetProyecto(proyecto, 2);
+
+                    }
+                    return RedirectToAction("Index", new { id = 0 });
+
+                }
             }
             else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", new { id = 0 });
+
             }
+
+            
 
         }
 

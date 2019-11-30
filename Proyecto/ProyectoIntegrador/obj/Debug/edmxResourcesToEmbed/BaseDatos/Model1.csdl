@@ -76,26 +76,6 @@
     <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Proyecto" ToRole="Requerimiento" />
     <NavigationProperty Name="TrabajaEn" Relationship="Self.FK_TrabajaEn_proy" FromRole="Proyecto" ToRole="TrabajaEn" />
   </EntityType>
-  <EntityType Name="Prueba">
-    <Key>
-      <PropertyRef Name="idProyectoFK" />
-      <PropertyRef Name="idReqFK" />
-      <PropertyRef Name="idPruebaPK" />
-    </Key>
-    <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
-    <Property Name="idReqFK" Type="Int32" Nullable="false" />
-    <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
-    <Property Name="resultadoFinal" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-    <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="estado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
-    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="Requerimiento">
     <Key>
       <PropertyRef Name="idReqPK" />
@@ -118,8 +98,8 @@
     <Property Name="cantidadDePruebas" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Empleado" Relationship="Self.FK_Req_CedulaTester" FromRole="Requerimiento" ToRole="Empleado" />
     <NavigationProperty Name="Proyecto" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Requerimiento" ToRole="Proyecto" />
-    <NavigationProperty Name="Prueba" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
     <NavigationProperty Name="HistorialReqTester" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" FromRole="Requerimiento" ToRole="HistorialReqTester" />
+    <NavigationProperty Name="Prueba" Relationship="Gr03Proy2Model.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
   </EntityType>
   <EntityType Name="Tester">
     <Key>
@@ -248,29 +228,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Prueba_Requerimiento">
-    <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Requerimiento">
-        <PropertyRef Name="idReqPK" />
-        <PropertyRef Name="idProyectoFK" />
-      </Principal>
-      <Dependent Role="Prueba">
-        <PropertyRef Name="idReqFK" />
-        <PropertyRef Name="idProyectoFK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="Gr03Proy2Entities6" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cliente" EntityType="Self.Cliente" />
     <EntitySet Name="Empleado" EntityType="Self.Empleado" />
     <EntitySet Name="HabilidadBlanda" EntityType="Self.HabilidadBlanda" />
     <EntitySet Name="HabilidadTecnica" EntityType="Self.HabilidadTecnica" />
     <EntitySet Name="Proyecto" EntityType="Self.Proyecto" />
-    <EntitySet Name="Prueba" EntityType="Self.Prueba" />
     <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" />
     <EntitySet Name="Tester" EntityType="Self.Tester" />
     <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" />
@@ -305,10 +268,6 @@
     <AssociationSet Name="FK_TrabajaEn_proy" Association="Self.FK_TrabajaEn_proy">
       <End Role="Proyecto" EntitySet="Proyecto" />
       <End Role="TrabajaEn" EntitySet="TrabajaEn" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Prueba_Requerimiento" Association="Self.FK_Prueba_Requerimiento">
-      <End Role="Requerimiento" EntitySet="Requerimiento" />
-      <End Role="Prueba" EntitySet="Prueba" />
     </AssociationSet>
     <FunctionImport Name="CA_TestersAsignadosDisponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignadosDisponibles_Result)" />
     <FunctionImport Name="CA_TestersAsignados_Y_Disponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result)" />
@@ -416,24 +375,31 @@
       <Parameter Name="cedulaVieja" Mode="In" Type="String" />
       <Parameter Name="cedulaNueva" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
+      <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="USP_FechaInicioFinRequerimiento" ReturnType="Collection(Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result)">
       <Parameter Name="idProyecto" Mode="In" Type="Int32" />
       <Parameter Name="idEmpleado" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
-      <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="HabilidadesBlandasEmpleado" ReturnType="Collection(String)">
-      <Parameter Name="id" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="HabilidadesTecnicasEmpleado" ReturnType="Collection(String)">
-      <Parameter Name="id" Mode="In" Type="String" />
-    </FunctionImport>
+    <EntitySet Name="Prueba" EntityType="Gr03Proy2Model.Prueba" />
+    <AssociationSet Name="FK_Prueba_Requerimiento" Association="Gr03Proy2Model.FK_Prueba_Requerimiento">
+      <End Role="Requerimiento" EntitySet="Requerimiento" />
+      <End Role="Prueba" EntitySet="Prueba" />
+    </AssociationSet>
+    <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
+    <EntitySet Name="SeguridadClientesGeneral" EntityType="Gr03Proy2Model.SeguridadClientesGeneral" />
+    <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Gr03Proy2Model.SeguridadEmpleadosGeneral" />
+    <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
+    <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
+    <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
+    <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
     <FunctionImport Name="USP_ObtenerProyectosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result)">
       <Parameter Name="permiso" Mode="In" Type="Int32" />
       <Parameter Name="rol" Mode="In" Type="Int32" />
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -647,12 +613,6 @@
     <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
     <Property Type="Int32" Name="duracionReal" Nullable="false" />
   </ComplexType>
-  <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
-    <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
-    <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="horas" Nullable="true" />
-  </ComplexType>
   <ComplexType Name="USP_FechaInioFinTesterProyecto_Result">
     <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
     <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
@@ -660,9 +620,143 @@
     <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="horas" Nullable="true" />
   </ComplexType>
+  <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="complejidad" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="horas" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Prueba">
+    <Key>
+      <PropertyRef Name="idProyectoFK" />
+      <PropertyRef Name="idReqFK" />
+      <PropertyRef Name="idPruebaPK" />
+    </Key>
+    <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
+    <Property Name="idReqFK" Type="Int32" Nullable="false" />
+    <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="resultadoFinal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requerimiento" Relationship="Gr03Proy2Model.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
+  </EntityType>
+  <Association Name="FK_Prueba_Requerimiento">
+    <End Type="Gr03Proy2Model.Requerimiento" Role="Requerimiento" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Gr03Proy2Model.Prueba" Role="Prueba" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requerimiento">
+        <PropertyRef Name="idReqPK" />
+        <PropertyRef Name="idProyectoFK" />
+      </Principal>
+      <Dependent Role="Prueba">
+        <PropertyRef Name="idReqFK" />
+        <PropertyRef Name="idProyectoFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SeguridadProyectoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadClientesGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEmpleadosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadRequerimientosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEquipoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadPruebasGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoEditar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="Int32" Nullable="false" />
+    <Property Name="Objetivo" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+    <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+    <Property Name="FechaFin" Type="Int32" Nullable="false" />
+    <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+    <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+  </EntityType>
   <ComplexType Name="USP_ObtenerProyectosUsuario_Result">
     <Property Type="Int32" Name="idProyecto" Nullable="false" />
     <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
   </ComplexType>
+  <EntityType Name="SeguridadProyectoAgregar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="Int32" Nullable="false" />
+    <Property Name="Objetivo" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+    <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+    <Property Name="FechaFin" Type="Int32" Nullable="false" />
+    <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+    <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>
