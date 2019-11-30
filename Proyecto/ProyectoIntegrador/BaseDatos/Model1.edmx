@@ -125,96 +125,6 @@
           <Property Name="estadoResultado" Type="varchar" MaxLength="30" />
           <Property Name="cantidadDePruebas" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="SeguridadClientesGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Consultar" Type="int" Nullable="false" />
-          <Property Name="Agregar" Type="int" Nullable="false" />
-          <Property Name="Editar" Type="int" Nullable="false" />
-          <Property Name="Eliminar" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadEmpleadosGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Consultar" Type="int" Nullable="false" />
-          <Property Name="Agregar" Type="int" Nullable="false" />
-          <Property Name="Editar" Type="int" Nullable="false" />
-          <Property Name="Eliminar" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadEquipoGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Consultar" Type="int" Nullable="false" />
-          <Property Name="Agregar" Type="int" Nullable="false" />
-          <Property Name="Editar" Type="int" Nullable="false" />
-          <Property Name="Eliminar" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadProyectoAgregar">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="int" Nullable="false" />
-          <Property Name="Objetivo" Type="int" Nullable="false" />
-          <Property Name="Estado" Type="int" Nullable="false" />
-          <Property Name="DuracionEstimada" Type="int" Nullable="false" />
-          <Property Name="DuracionReal" Type="int" Nullable="false" />
-          <Property Name="FechaInicio" Type="int" Nullable="false" />
-          <Property Name="FechaFin" Type="int" Nullable="false" />
-          <Property Name="CedulaCliente" Type="int" Nullable="false" />
-          <Property Name="CedulaLider" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadProyectoEditar">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="int" Nullable="false" />
-          <Property Name="Objetivo" Type="int" Nullable="false" />
-          <Property Name="Estado" Type="int" Nullable="false" />
-          <Property Name="DuracionEstimada" Type="int" Nullable="false" />
-          <Property Name="DuracionReal" Type="int" Nullable="false" />
-          <Property Name="FechaInicio" Type="int" Nullable="false" />
-          <Property Name="FechaFin" Type="int" Nullable="false" />
-          <Property Name="CedulaCliente" Type="int" Nullable="false" />
-          <Property Name="CedulaLider" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadProyectoGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Consultar" Type="int" Nullable="false" />
-          <Property Name="Agregar" Type="int" Nullable="false" />
-          <Property Name="Editar" Type="int" Nullable="false" />
-          <Property Name="Eliminar" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadPruebasGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Consultar" Type="int" Nullable="false" />
-          <Property Name="Agregar" Type="int" Nullable="false" />
-          <Property Name="Editar" Type="int" Nullable="false" />
-          <Property Name="Eliminar" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadRequerimientosGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Consultar" Type="int" Nullable="false" />
-          <Property Name="Agregar" Type="int" Nullable="false" />
-          <Property Name="Editar" Type="int" Nullable="false" />
-          <Property Name="Eliminar" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Tester">
           <Key>
             <PropertyRef Name="idEmpleadoFK" />
@@ -383,6 +293,12 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="HabilidadesBlandasEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="HabilidadesTecnicasEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="nombreTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
@@ -491,14 +407,6 @@
           <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadProyectoAgregar" EntityType="Self.SeguridadProyectoAgregar" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadProyectoEditar" EntityType="Self.SeguridadProyectoEditar" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Self.SeguridadRequerimientosGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_HabilidadBlanda_idEmpleadoFK" Association="Self.FK_HabilidadBlanda_idEmpleadoFK">
@@ -626,6 +534,26 @@
           <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Proyecto" ToRole="Requerimiento" />
           <NavigationProperty Name="TrabajaEn" Relationship="Self.FK_TrabajaEn_proy" FromRole="Proyecto" ToRole="TrabajaEn" />
         </EntityType>
+        <EntityType Name="Prueba">
+          <Key>
+            <PropertyRef Name="idProyectoFK" />
+            <PropertyRef Name="idReqFK" />
+            <PropertyRef Name="idPruebaPK" />
+          </Key>
+          <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
+          <Property Name="idReqFK" Type="Int32" Nullable="false" />
+          <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
+          <Property Name="resultadoFinal" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
             <PropertyRef Name="idReqPK" />
@@ -648,8 +576,8 @@
           <Property Name="cantidadDePruebas" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Req_CedulaTester" FromRole="Requerimiento" ToRole="Empleado" />
           <NavigationProperty Name="Proyecto" Relationship="Self.FK_Requerimiento_IdProy" FromRole="Requerimiento" ToRole="Proyecto" />
+          <NavigationProperty Name="Prueba" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
           <NavigationProperty Name="HistorialReqTester" Relationship="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" FromRole="Requerimiento" ToRole="HistorialReqTester" />
-          <NavigationProperty Name="Prueba" Relationship="Gr03Proy2Model.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
         </EntityType>
         <EntityType Name="Tester">
           <Key>
@@ -778,12 +706,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Prueba_Requerimiento">
+          <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requerimiento">
+              <PropertyRef Name="idReqPK" />
+              <PropertyRef Name="idProyectoFK" />
+            </Principal>
+            <Dependent Role="Prueba">
+              <PropertyRef Name="idReqFK" />
+              <PropertyRef Name="idProyectoFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Gr03Proy2Entities6" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" />
           <EntitySet Name="HabilidadBlanda" EntityType="Self.HabilidadBlanda" />
           <EntitySet Name="HabilidadTecnica" EntityType="Self.HabilidadTecnica" />
           <EntitySet Name="Proyecto" EntityType="Self.Proyecto" />
+          <EntitySet Name="Prueba" EntityType="Self.Prueba" />
           <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" />
           <EntitySet Name="Tester" EntityType="Self.Tester" />
           <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" />
@@ -818,6 +763,10 @@
           <AssociationSet Name="FK_TrabajaEn_proy" Association="Self.FK_TrabajaEn_proy">
             <End Role="Proyecto" EntitySet="Proyecto" />
             <End Role="TrabajaEn" EntitySet="TrabajaEn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prueba_Requerimiento" Association="Self.FK_Prueba_Requerimiento">
+            <End Role="Requerimiento" EntitySet="Requerimiento" />
+            <End Role="Prueba" EntitySet="Prueba" />
           </AssociationSet>
           <FunctionImport Name="CA_TestersAsignadosDisponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignadosDisponibles_Result)" />
           <FunctionImport Name="CA_TestersAsignados_Y_Disponibles" ReturnType="Collection(Gr03Proy2Model.CA_TestersAsignados_Y_Disponibles_Result)" />
@@ -925,31 +874,24 @@
             <Parameter Name="cedulaVieja" Mode="In" Type="String" />
             <Parameter Name="cedulaNueva" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
-          <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="USP_FechaInicioFinRequerimiento" ReturnType="Collection(Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result)">
             <Parameter Name="idProyecto" Mode="In" Type="Int32" />
             <Parameter Name="idEmpleado" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Prueba" EntityType="Gr03Proy2Model.Prueba" />
-          <AssociationSet Name="FK_Prueba_Requerimiento" Association="Gr03Proy2Model.FK_Prueba_Requerimiento">
-            <End Role="Requerimiento" EntitySet="Requerimiento" />
-            <End Role="Prueba" EntitySet="Prueba" />
-          </AssociationSet>
-          <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
-          <EntitySet Name="SeguridadClientesGeneral" EntityType="Gr03Proy2Model.SeguridadClientesGeneral" />
-          <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Gr03Proy2Model.SeguridadEmpleadosGeneral" />
-          <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
-          <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
-          <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
-          <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
+          <FunctionImport Name="USP_FechaInioFinTesterProyecto" ReturnType="Collection(Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result)">
+          <Parameter Name="idEmpleadoFK" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HabilidadesBlandasEmpleado" ReturnType="Collection(String)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HabilidadesTecnicasEmpleado" ReturnType="Collection(String)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="USP_ObtenerProyectosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result)">
             <Parameter Name="permiso" Mode="In" Type="Int32" />
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1163,6 +1105,12 @@
           <Property Type="Int32" Name="duracionEstimada" Nullable="false" />
           <Property Type="Int32" Name="duracionReal" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+          <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="horas" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="USP_FechaInioFinTesterProyecto_Result">
           <Property Type="Int32" Name="idProyectoAID" Nullable="false" />
           <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
@@ -1170,145 +1118,11 @@
           <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="horas" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="USP_FechaInicioFinRequerimiento_Result">
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
-          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="complejidad" Nullable="false" MaxLength="20" />
-          <Property Type="DateTime" Name="fechaInicio" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="fechaFin" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="horas" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="Prueba">
-          <Key>
-            <PropertyRef Name="idProyectoFK" />
-            <PropertyRef Name="idReqFK" />
-            <PropertyRef Name="idPruebaPK" />
-          </Key>
-          <Property Name="idProyectoFK" Type="Int32" Nullable="false" />
-          <Property Name="idReqFK" Type="Int32" Nullable="false" />
-          <Property Name="idPruebaPK" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoFinal" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="propositoPrueba" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="entradaDatos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoEsperado" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="flujoPrueba" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="descripcionError" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Requerimiento" Relationship="Gr03Proy2Model.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
-        </EntityType>
-        <Association Name="FK_Prueba_Requerimiento">
-          <End Type="Gr03Proy2Model.Requerimiento" Role="Requerimiento" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Gr03Proy2Model.Prueba" Role="Prueba" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requerimiento">
-              <PropertyRef Name="idReqPK" />
-              <PropertyRef Name="idProyectoFK" />
-            </Principal>
-            <Dependent Role="Prueba">
-              <PropertyRef Name="idReqFK" />
-              <PropertyRef Name="idProyectoFK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="SeguridadProyectoGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Consultar" Type="Int32" Nullable="false" />
-          <Property Name="Agregar" Type="Int32" Nullable="false" />
-          <Property Name="Editar" Type="Int32" Nullable="false" />
-          <Property Name="Eliminar" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadClientesGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Consultar" Type="Int32" Nullable="false" />
-          <Property Name="Agregar" Type="Int32" Nullable="false" />
-          <Property Name="Editar" Type="Int32" Nullable="false" />
-          <Property Name="Eliminar" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadEmpleadosGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Consultar" Type="Int32" Nullable="false" />
-          <Property Name="Agregar" Type="Int32" Nullable="false" />
-          <Property Name="Editar" Type="Int32" Nullable="false" />
-          <Property Name="Eliminar" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadRequerimientosGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Consultar" Type="Int32" Nullable="false" />
-          <Property Name="Agregar" Type="Int32" Nullable="false" />
-          <Property Name="Editar" Type="Int32" Nullable="false" />
-          <Property Name="Eliminar" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadEquipoGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Consultar" Type="Int32" Nullable="false" />
-          <Property Name="Agregar" Type="Int32" Nullable="false" />
-          <Property Name="Editar" Type="Int32" Nullable="false" />
-          <Property Name="Eliminar" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadPruebasGeneral">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Consultar" Type="Int32" Nullable="false" />
-          <Property Name="Agregar" Type="Int32" Nullable="false" />
-          <Property Name="Editar" Type="Int32" Nullable="false" />
-          <Property Name="Eliminar" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SeguridadProyectoEditar">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="Int32" Nullable="false" />
-          <Property Name="Objetivo" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Int32" Nullable="false" />
-          <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
-          <Property Name="DuracionReal" Type="Int32" Nullable="false" />
-          <Property Name="FechaInicio" Type="Int32" Nullable="false" />
-          <Property Name="FechaFin" Type="Int32" Nullable="false" />
-          <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
-          <Property Name="CedulaLider" Type="Int32" Nullable="false" />
-        </EntityType>
         <ComplexType Name="USP_ObtenerProyectosUsuario_Result">
           <Property Type="Int32" Name="idProyecto" Nullable="false" />
           <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
         </ComplexType>
-        <EntityType Name="SeguridadProyectoAgregar">
-          <Key>
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="Int32" Nullable="false" />
-          <Property Name="Objetivo" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Int32" Nullable="false" />
-          <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
-          <Property Name="DuracionReal" Type="Int32" Nullable="false" />
-          <Property Name="FechaInicio" Type="Int32" Nullable="false" />
-          <Property Name="FechaFin" Type="Int32" Nullable="false" />
-          <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
-          <Property Name="CedulaLider" Type="Int32" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1380,6 +1194,24 @@
                 <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
                 <ScalarProperty Name="cedulaClienteFK" ColumnName="cedulaClienteFK" />
                 <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prueba">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
+              <MappingFragment StoreEntitySet="Prueba">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
+                <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
+                <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
+                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+                <ScalarProperty Name="propositoPrueba" ColumnName="propositoPrueba" />
+                <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
+                <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
+                <ScalarProperty Name="flujoPrueba" ColumnName="flujoPrueba" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="descripcionError" ColumnName="descripcionError" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1600,6 +1432,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_CambiarCedulaCliente" FunctionName="Gr03Proy2Model.Store.USP_CambiarCedulaCliente" />
+          <FunctionImportMapping FunctionImportName="USP_FechaInicioFinRequerimiento" FunctionName="Gr03Proy2Model.Store.USP_FechaInicioFinRequerimiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+                <ScalarProperty Name="horas" ColumnName="horas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_FechaInioFinTesterProyecto" FunctionName="Gr03Proy2Model.Store.USP_FechaInioFinTesterProyecto">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInioFinTesterProyecto_Result">
@@ -1611,118 +1453,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_FechaInicioFinRequerimiento" FunctionName="Gr03Proy2Model.Store.USP_FechaInicioFinRequerimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_FechaInicioFinRequerimiento_Result">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
-                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
-                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
-                <ScalarProperty Name="horas" ColumnName="horas" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="Prueba">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.Prueba">
-              <MappingFragment StoreEntitySet="Prueba">
-                <ScalarProperty Name="descripcionError" ColumnName="descripcionError" />
-                <ScalarProperty Name="imagen" ColumnName="imagen" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="flujoPrueba" ColumnName="flujoPrueba" />
-                <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
-                <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
-                <ScalarProperty Name="propositoPrueba" ColumnName="propositoPrueba" />
-                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idPruebaPK" ColumnName="idPruebaPK" />
-                <ScalarProperty Name="idReqFK" ColumnName="idReqFK" />
-                <ScalarProperty Name="idProyectoFK" ColumnName="idProyectoFK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadProyectoGeneral">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoGeneral">
-              <MappingFragment StoreEntitySet="SeguridadProyectoGeneral">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Editar" ColumnName="Editar" />
-                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
-                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadClientesGeneral">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadClientesGeneral">
-              <MappingFragment StoreEntitySet="SeguridadClientesGeneral">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Editar" ColumnName="Editar" />
-                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
-                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadEmpleadosGeneral">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadEmpleadosGeneral">
-              <MappingFragment StoreEntitySet="SeguridadEmpleadosGeneral">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Editar" ColumnName="Editar" />
-                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
-                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadRequerimientosGeneral">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadRequerimientosGeneral">
-              <MappingFragment StoreEntitySet="SeguridadRequerimientosGeneral">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Editar" ColumnName="Editar" />
-                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
-                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadEquipoGeneral">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadEquipoGeneral">
-              <MappingFragment StoreEntitySet="SeguridadEquipoGeneral">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Editar" ColumnName="Editar" />
-                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
-                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadPruebasGeneral">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadPruebasGeneral">
-              <MappingFragment StoreEntitySet="SeguridadPruebasGeneral">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Editar" ColumnName="Editar" />
-                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
-                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SeguridadProyectoEditar">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoEditar">
-              <MappingFragment StoreEntitySet="SeguridadProyectoEditar">
-                <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
-                <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
-                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
-                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
-                <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
-                <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="HabilidadesBlandasEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesBlandasEmpleado" />
+          <FunctionImportMapping FunctionImportName="HabilidadesTecnicasEmpleado" FunctionName="Gr03Proy2Model.Store.HabilidadesTecnicasEmpleado" />
           <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosUsuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosUsuario_Result">
@@ -1732,22 +1464,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="SeguridadProyectoAgregar">
-            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoAgregar">
-              <MappingFragment StoreEntitySet="SeguridadProyectoAgregar">
-                <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
-                <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
-                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
-                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
-                <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
-                <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

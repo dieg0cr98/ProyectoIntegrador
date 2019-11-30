@@ -19,12 +19,8 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos en la vista de Consultas Avanzadas y los añade al viewbag.
-        * Requiere: 
-        * Modifica: Agrega permisos al ViewBag
-        * Retorna:  La vista Index de Consultas Avanzadas
-        */
+
+        // GET: ConsultasAvanzadas
         public ActionResult Index()
         {
 
@@ -35,12 +31,7 @@ namespace ProyectoIntegrador.Controllers
 
 
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos en la primera consulta avanzada  y los devuelve en un Json.
-        * Requiere: int permiso. 1= total , 2 = parcial , 3 = Ninguno
-        * Modifica: 
-        * Retorna:  JsonResult con los testers disponibles y asignados
-        */
+
         public JsonResult consulta1(int permiso)
         {
 
@@ -58,14 +49,6 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos en la tercera consulta avanzada  y los devuelve en un Json.
-        * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
-        *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
-        *           string idUsuario. Identificacion del usuario
-        * Modifica: 
-        * Retorna:  JsonResult con los proyectos en los que participa un usuario
-        */
         public JsonResult consulta3(int rol, int permiso, string idUsuario)
         {
 
@@ -82,14 +65,6 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
 
         }
-
-
-        /*
-        * Efecto: Obtiene todos los valores requeridos para cargar el grafico en la tercera consulta avanzada  y los devuelve en un Json.
-        * Requiere: int id. Identificador del proyecto
-        * Modifica: 
-        * Retorna:  JsonResult con la cantidad de requerimientos asignados a cada tester en un proyecto especifico
-        */
         public JsonResult consulta3LoadChart(int id)
         {
 
@@ -100,15 +75,6 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-
-        /*
-        * Efecto: Obtiene todos los valores requeridos en la cuarta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
-        *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
-        *           string idUsuario. Identificacion del usuario
-        * Modifica: 
-        * Retorna:  JsonResult con los proyectos en los que participa un usuario
-        */
         public JsonResult consulta4(int rol, int permiso,string idUsuario)
         {
             //var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
@@ -124,13 +90,6 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-
-        /*
-        * Efecto: Obtiene todos los valores requeridos para cargar la tabla de testers en la cuarta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int id. Identificador del proyecto
-        * Modifica: 
-        * Retorna:  JsonResult con los tester asignados a un proyecto especifico
-        */
         public JsonResult consulta4LoadTableTesters(int id)
         {
 
@@ -141,12 +100,6 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos para cargar el grafico con las duraciones de testers en la cuarta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int id. Identificador del proyecto
-        * Modifica: 
-        * Retorna:  JsonResult con las duraciones de los tester asignados a un proyecto especifico
-        */
         public JsonResult consulta4LoadGraphTester(int id, string idTester)
         {
 
@@ -157,14 +110,6 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos en la quinta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
-        *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
-        *           string idUsuario. Identificacion del usuario
-        * Modifica: 
-        * Retorna:  JsonResult con las duraciones de los proyectos
-        */
         public JsonResult consulta5(int rol, int permiso, string idUsuario)
         {
             var t = db.USP_DuracionesProyecto(permiso, rol, idUsuario);
@@ -174,14 +119,6 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos en la sexta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
-        *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
-        *           string idUsuario. Identificacion del usuario
-        * Modifica: 
-        * Retorna:  JsonResult con los testers
-        */
         public JsonResult consulta6()
         {
             var t = (from row in db.Empleado where row.tipoTrabajo == "Tester"  select new {row.idEmpleadoPK,row.nombre,row.apellido1,row.apellido2, row.estado });
@@ -190,12 +127,7 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos para cargar las fechas de inicio y fin de testers en la cuarta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int id. Identificador del proyecto
-        * Modifica: 
-        * Retorna:  JsonResult con las fechas de inicio y fin de testers asignados a un proyecto especifico
-        */
+
         public ActionResult consulta6Index(string cedulaTester,string nombre)
         {
             ViewBag.datosTester = Tuple.Create(cedulaTester, nombre);
@@ -206,12 +138,6 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
-        /*
-        * Efecto: Obtiene todos los valores requeridos para cargar las fechas de inicio y fin de los requerimiento asignados a un testers en un proyecto especifico en la cuarta consulta avanzada  y los devuelve en un Json.
-        * Requiere: int id. Identificador del proyecto
-        * Modifica: 
-        * Retorna:  JsonResult con las fechas de inicio y fin de los requerimiento asignados a un testers en un proyecto especifico
-        */
         public JsonResult consulta6Requerimiento(int idProyecto,string cedulaTester)
         {
             var t = db.USP_FechaInicioFinRequerimiento(idProyecto,cedulaTester);

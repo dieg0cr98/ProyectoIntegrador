@@ -226,30 +226,6 @@
     <Compile Include="BaseDatos\Requerimiento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaseDatos\SeguridadClientesGeneral.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadEmpleadosGeneral.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadEquipoGeneral.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadProyectoAgregar.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadProyectoEditar.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadProyectoGeneral.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadPruebasGeneral.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\SeguridadRequerimientosGeneral.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="BaseDatos\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -312,9 +288,7 @@
     <Compile Include="Controllers\HabilidadTecnicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
-    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\RequerimientosController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Controllers\TrabajaEnController.cs" />
@@ -356,7 +330,6 @@
     <Content Include="Content\cancelar.svg" />
     <Content Include="Content\folder.svg" />
     <Content Include="Content\imagenFondo.jpg" />
-    <Content Include="Content\information.svg" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\Paleta.css" />
     <Content Include="Content\edit.svg" />
@@ -547,7 +520,6 @@
     <Content Include="Views\Empleados\Scripts.cshtml" />
     <Content Include="Views\Requerimientos\FormularioIndex.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
-    <Content Include="Views\ConsultasAvanzadas\Index2.cshtml" />
     <Content Include="Views\HabilidadBlandas\Create.cshtml" />
     <Content Include="Views\HabilidadBlandas\Delete.cshtml" />
     <Content Include="Views\HabilidadBlandas\Details.cshtml" />
@@ -565,32 +537,13 @@
     <Content Include="Views\ConsultasAvanzadas\Consulta5.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Consulta6.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\consulta6Index.cshtml" />
-    <Content Include="Views\Seguridad\Index.cshtml" />
-    <Content Include="Views\Seguridad\ProyectoGeneral.cshtml" />
-    <Content Include="Views\Permisos\Index.cshtml" />
-    <Content Include="Views\Permisos\ProyectoGeneral.cshtml" />
-    <Content Include="Views\Permisos\EquipoGeneral.cshtml" />
-    <Content Include="Views\Permisos\RequerimientoGeneral.cshtml" />
-    <Content Include="Views\Permisos\PruebaGeneral.cshtml" />
-    <Content Include="Views\Permisos\ClienteGeneral.cshtml" />
-    <Content Include="Views\Permisos\EmpleadoGeneral.cshtml" />
-    <Content Include="Views\Permisos\ProyectoEditar.cshtml" />
-    <Content Include="Views\Pruebas\Create.cshtml" />
-    <Content Include="Views\Pruebas\Details.cshtml" />
-    <Content Include="Views\Pruebas\Edit.cshtml" />
-    <Content Include="Views\Pruebas\Index.cshtml" />
-    <Content Include="Views\Pruebas\formularioIndex.cshtml" />
-    <Content Include="Views\Pruebas\Scripts.cshtml" />
-    <Content Include="Views\Pruebas\ModalEliminar.cshtml" />
-    <Content Include="Views\Pruebas\Edit2.cshtml" />
-    <Content Include="Views\Pruebas\AgregarImagen.cshtml" />
-    <Content Include="Views\Pruebas\CambiarImagen.cshtml" />
-    <Content Include="Views\Permisos\ProyectoAgregar.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta7.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta10.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomAttribute\" />
-    <Folder Include="Permisos\" />
+    <Folder Include="Views\Seguridad\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

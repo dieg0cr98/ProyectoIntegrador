@@ -14,8 +14,6 @@ namespace ProyectoIntegrador.BaseDatos
     public partial class USP_FechaInicioFinRequerimiento_Result
     {
         public string nombre { get; set; }
-        public string estado { get; set; }
-        public string complejidad { get; set; }
         public Nullable<System.DateTime> fechaInicio { get; set; }
         public Nullable<System.DateTime> fechaFin { get; set; }
         public Nullable<int> horas { get; set; }

@@ -1,11 +1,12 @@
 ﻿<!-- Despliega el modal utilizado para eliminar -->
 <script>
-    $('#modalElim').on('show.bs.modal', function (event) {
+    $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var requerimiento = button.data('whatever') // Dato del requerimiento enviado por el modal
         var proyecto = button.data('whatever2') // Dato del proyecto enviado por el modal
 
         var modal = $(this)
+
         //Se contstruye el URL con el que se llama al POST de eliminar.
         var a = document.getElementById('pager')
         var format_href = '@Url.Action("Eliminar", "Requerimientos")';

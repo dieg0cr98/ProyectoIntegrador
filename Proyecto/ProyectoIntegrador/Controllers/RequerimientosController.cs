@@ -33,7 +33,7 @@ namespace ProyectoIntegrador.Controllers
         //              rol = 3 Cliente
         //       string idUsuario (Es la cedula o identificador de un usuario) 
         //Devuelve una lista IEnumerable con los requerimientos. Null en caso de que no puede ver ninguno
-        public IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento> GetRequerimientosUsuario(int idProyecto, int rol, string idUsuario)
+        public IEnumerable<ProyectoIntegrador.BaseDatos.Requerimiento> GetRequerimientosUsuario(int idProyecto,int rol, string idUsuario)
         {
 
             if (rol < 0)//Si no tiene permisos
@@ -122,7 +122,7 @@ namespace ProyectoIntegrador.Controllers
 
             //Se buscan los permisos del usuario que hizo la consulta
             ViewBag.permisosAgregar = seguridad.RequerimientosAgregar(User);
-
+            
             //Se solicitan todos los testers asignables al requerimiento
             ViewBag.TestersDisponibles = db.TestersAsignables(idProyecto).ToList();
             ViewBag.idProyecto = idProyecto;
@@ -179,7 +179,7 @@ namespace ProyectoIntegrador.Controllers
             db.Requerimiento.Add(requerimiento);
             db.SaveChanges();
 
-            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre && R.idProyectoFK == idProyecto).FirstOrDefault();
+            var idReq = db.Requerimiento.Where(R => R.nombre == requerimiento.nombre).FirstOrDefault();
 
             //Vuelve a la vista de consultar.
             return RedirectToAction("Index", new { idProyecto, idRequerimiento = idReq.idReqPK });
@@ -215,8 +215,8 @@ namespace ProyectoIntegrador.Controllers
         // Requiere: Todos los atributos de la entidad requerimiento. Aunque los únicos que no se editan, son el id del proyecto y del requerimiento.
         // Modifica: La instancia de requerimiento en la base de datos identificada por dichos id.
         [HttpPost]
-        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int? duracionEstimada,
-            int? duracionReal, DateTime fechai, DateTime? fechaf, string resultado, string estadoR, string detalleResultado, string idTesterViejo, string idTesterNuevo)
+        public ActionResult Edit(int idProyecto, int idRequerimiento, string nombre, string complejidad, string descripcion, string estado, int? duracionEstimada, 
+            int? duracionReal, DateTime fechai, DateTime? fechaf, string resultado, string estadoR, string detalleResultado, string idTester)
         {
             Requerimiento requerimiento = db.Requerimiento.Find(idRequerimiento, idProyecto);
             requerimiento.nombre = nombre;
@@ -224,11 +224,9 @@ namespace ProyectoIntegrador.Controllers
             requerimiento.descripcion = descripcion;
             requerimiento.fechaDeFinalizacion = fechaf;
             requerimiento.idProyectoFK = idProyecto;
+            requerimiento.tiempoReal = duracionReal;
             requerimiento.detallesResultado = detalleResultado;
 
-            if (duracionReal.HasValue) {
-                requerimiento.tiempoReal = duracionReal;
-            }
             if (estado != "")
             {
                 requerimiento.estado = estado;
@@ -244,9 +242,9 @@ namespace ProyectoIntegrador.Controllers
                 requerimiento.fechaDeInicio = (DateTime)fechai;
             }
 
-            if (idTesterNuevo != "")
+            if (idTester != "")
             {
-                requerimiento.cedulaTesterFK = idTesterNuevo;
+                requerimiento.cedulaTesterFK = idTester;
             }
             else
             {
@@ -255,20 +253,23 @@ namespace ProyectoIntegrador.Controllers
 
             if (resultado != "")
             {
-                if (resultado == "true")
+                if(resultado == "true")
                 {
                     requerimiento.resultado = true;
                 }
-
-                requerimiento.resultado = false;
+                else
+                {
+                    requerimiento.resultado = false;
+                }
             }
 
             if (estadoR != "")
             {
                 requerimiento.estadoResultado = estadoR;
             }
-            //System.Diagnostics.Debug.WriteLine("Los datos son diferentes: " + idTesterViejo + ", " + requerimiento.cedulaTesterFK);
-            //EditTransaction(requerimiento, idTesterViejo);
+
+            db.Entry(requerimiento).State = EntityState.Modified;
+            db.SaveChanges();
 
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = requerimiento.idReqPK });
         }
@@ -302,10 +303,10 @@ namespace ProyectoIntegrador.Controllers
         // Recibe string name. Contiene el nombre que se quiere verificar
         //        string oldName. Contiene el nombre actual del reqeurimiento (Se utiliza en caso de editar un requerimiento)
         // Devuelve un JsonResult con un True si ya existe un requerimiento y un false si no
-        public JsonResult ReviseNombreRequerimiento(string name, string oldName, int idProyecto)
+        public JsonResult ReviseNombreRequerimiento(string name, string oldName)
         {
             //Hay que verificar si el nuevo nombre ya existe en la base de datos
-            if ((name != oldName) && (db.Requerimiento.Where(r => r.nombre == name && r.idProyectoFK == idProyecto).FirstOrDefault() != null))
+            if ((name != oldName) && (db.Requerimiento.Where(r => r.nombre == name).FirstOrDefault() != null))
             {
                 //Existe un proyecto con ese nombre
                 return new JsonResult { Data = false };
@@ -314,113 +315,5 @@ namespace ProyectoIntegrador.Controllers
                 return new JsonResult { Data = true };
 
         }
-
-        public JsonResult CantidadPruebasTerminadas(string estado, int idProyecto, int idRequerimiento)
-        {
-            if (estado == "Terminado")
-            {
-
-                //int cantidadPruebas = db.Requerimiento.Where(r => r.idProyectoFK == idProyecto && r.idReqPK == idRequerimiento).Select(r => r.cantidadDePruebas).FirstOrDefault();
-                int cantidadPruebas = db.Prueba.Count(r => r.idProyectoFK == idProyecto && r.idReqFK == idRequerimiento);
-                int cantidadPuebasTerminadas = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idRequerimiento && (p.estado == "Terminada" || p.estado == "Cancelada")).Count();
-
-                if (cantidadPruebas == cantidadPuebasTerminadas)
-                {
-                    return new JsonResult { Data = true };
-                }
-
-                else
-                {
-
-                    return new JsonResult { Data = false };
-                }
-            }
-            else
-            {
-                return new JsonResult { Data = true };
-            }
-        }
     }
 }
-
-        /*
-        public void EditTransaction(ProyectoIntegrador.BaseDatos.Requerimiento r, string idTesterViejo) {
-            using (Gr03Proy2Entities6 context = new Gr03Proy2Entities6()) {
-                using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
-                {
-                    try
-                    {
-                        //Si se realizó un cambio de tester asociado
-                        if (idTesterViejo != r.cedulaTesterFK) {
-
-                            //Si se agregó un tester nuevo en vez de no asignar ninguno
-                            if (r.cedulaTesterFK != null)
-                            {
-
-                                //Se refleja que tiene un nuevo requerimiento asignado
-                                Tester nuevo = db.Tester.Where(t => t.idEmpleadoFK == r.cedulaTesterFK).FirstOrDefault();
-                                nuevo.cantidadRequerimientos++;
-                                db.Entry(nuevo).State = EntityState.Modified;
-                                db.SaveChanges();
-
-                                //Se agrega al historial la información de el trabajando en este requerimiento.
-                                HistorialReqTester historialN = new HistorialReqTester();
-                                historialN.idEmpleadoFK = r.cedulaTesterFK;
-                                historialN.idProyectoFK = r.idProyectoFK;
-                                historialN.idReqFK = r.idReqPK;
-                                historialN.estado = "Activo";
-                                historialN.fechaInicio = DateTime.Now;
-                                db.HistorialReqTester.Add(historialN);
-                                db.SaveChanges();
-                            }
-
-                            //Si existía un tester viejo
-                            if (idTesterViejo != "") {
-
-                                //Restele un requerimiento asignado
-                                Tester viejo = db.Tester.Where(t => t.idEmpleadoFK == idTesterViejo).FirstOrDefault();
-                                viejo.cantidadRequerimientos--;
-                                db.Entry(viejo).State = EntityState.Modified;
-                                db.SaveChanges();
-
-                                //Inactive su trabajo en este requerimiento desde ahora y obtenga el tiempo real 
-                                HistorialReqTester historialV = db.HistorialReqTester.Where(h => h.idProyectoFK == r.idProyectoFK && h.idReqFK == r.idReqPK
-                                && h.idEmpleadoFK == idTesterViejo && h.estado == "Activo").FirstOrDefault();
-                                historialV.estado = "Inactivo";
-                                historialV.fechaFin = DateTime.Now;
-
-                                //Si escribió cual fue el tiempo real que el trabajó, se obtiene y se guarda. De lo contrario se le asigna 0
-                                //al tiempo dedicado por ese tester a ese requerimiento
-                                if (r.tiempoReal.HasValue) {
-                                    historialV.horas = r.tiempoReal;
-                                }
-                                else
-                                {
-                                    historialV.horas = 0;
-                                }
-
-                                db.Entry(historialV).State = EntityState.Modified;
-                                db.SaveChanges();
-
-                                //Se asigna nulo al valor del tiempo real ya que se calculará cuando se termine el requerimiento.
-                                r.tiempoReal = null;
-                            }
-                        }
-                        //Agrego los cambios del requerimiento si se hicieron
-                        db.Entry(r).State = EntityState.Modified;
-                        db.SaveChanges();
-                        System.Diagnostics.Debug.WriteLine("Lo logramoos");
-                        transaction.Commit();
-                    }
-                    catch (Exception e) {
-                        //En caso de fallar, haga rollback y omita todos los cambios
-                        System.Diagnostics.Debug.WriteLine("Fashamooos por "+e.ToString());
-                        transaction.Rollback();
-                    }
-                    
-                }
-            }
-        }
-    }
-}
-*/

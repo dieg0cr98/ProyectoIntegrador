@@ -33,7 +33,7 @@
     <style>
         
         .bootstrap-tagsinput {
-            background-color: #F9F9F9;
+            background-color: #D7CEC7;
             border: 1px solid #ccc;
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
             display: inline-block;
@@ -163,18 +163,10 @@
                     @*Primera fila*@
                     <div class="form-row mb-2">
                         <div class="col-3">
-                            <!--Campo Cedula-->
-                           <h5 for="idEmpleadoPK" style="width:200px">Cédula*:</h5>
-                            <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent; max-width:none" placeholder="000000000" />
-                            <div id="errorCedula"></div>
-                        </div>
-                        <div class="col-1"></div>
-                        <div class="col-3">
                             <!--Campo Nombre-->
-                           <h5 for="nombre" style="width:200px">Nombre *</h5>
+                            <h5 for="nombre" style="width:200px">Nombre *</h5>
                             <input class="form-control" id="nombre" name="nombre" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent;max-width:none" />
                             <div id="errorNombre"></div>
-							
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
@@ -183,16 +175,23 @@
                             <input class="form-control" id="apellido1" name="apellido1" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent; max-width:none" />
                             <div id="errorApellido"></div>
                         </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <!--Campo Segundo Apellido-->
+                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
+                            <input class="form-control" id="apellido2" name="apellido2" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent;max-width:none" />
+                            <div id="errorApellido2"></div>
+                        </div>
                     </div>
                     <br>
 
                     @*Segunda fila*@
                     <div class="form-row mb-2">
                         <div class="col-3">
-                           <!--Campo Segundo Apellido-->
-                            <h5 for="apellido2" style="width:200px">Segundo Apellido</h5>
-                            <input class="form-control" id="apellido2" name="apellido2" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent;max-width:none" />
-                            <div id="errorApellido2"></div>
+                            <!--Campo Cedula-->
+                            <h5 for="idEmpleadoPK" style="width:200px">Cédula*:</h5>
+                            <input class="form-control" id="idEmpleadoPK" name="idEmpleadoPK" type="text" maxlength="20" style="background-color:#F9F9F9; border-color:transparent; max-width:none" placeholder="000000000" />
+                            <div id="errorCedula"></div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">

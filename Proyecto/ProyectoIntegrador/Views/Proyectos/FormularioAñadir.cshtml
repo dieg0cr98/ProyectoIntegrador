@@ -55,22 +55,22 @@
                         @*Atributo Nombre*@
 
                         <div class="input-group">
-
+                            `
 
 
                             <!-- <span class="input-group-text" style="width:200px" id="basic-addon1">Nombre *</span>-->
 
+                            <input id="input2" class="form-control bg-" style=" max-width:none; background-color:#D7CEC7; border-color:transparent" name="nombre" maxlength="30" type="text">
 
+                            @*@if (ViewBag.permisos.Item3[1] == 1)
+                                {
+                                    <input id="input2" class="form-control" style=" max-width:none" name="nombreP " maxlength="30" type="text">
 
-                            @if (ViewBag.permisos.Item3[0] == 1)
-                            {
-                                <input id="input2" class="form-control bg-" style=" max-width:none; background-color:white; border-color:transparent" name="nombre" maxlength="30" type="text">
-
-                            }
-                            else
-                            {
-                                <input id="input2" class="form-control bg-" style=" max-width:none; background-color:white; border-color:transparent" name="nombre" maxlength="30" type="text" readonly>
-                            }
+                                }
+                                else
+                                {
+                                    <input id="input2" class="form-control" style=" max-width:none" name="nombreP" minlength="1" maxlength="30" type="text" readonly>
+                                }*@
 
                         </div>
                         <div id="errorNombre"></div>
@@ -89,8 +89,8 @@
                         <div class="input-group">
 
 
-                            <select class="custom-select" style="text-align:center; max-width:200px; background-color:white; border-color:transparent" name="estado">
-                                @if (ViewBag.permisos.Item3[2] == 1)
+                            <select class="custom-select" style="text-align:center; max-width:200px; background-color:#D7CEC7; border-color:transparent" name="estado">
+                                @if (ViewBag.permisos.Item3[3] == 1)
                                 {
 
 
@@ -124,14 +124,14 @@
 
                 @*Atributo Objetivo*@
                 <div class="input-group mb-4 ">
-                    @if (ViewBag.permisos.Item3[1] == 1)
+                    @if (ViewBag.permisos.Item3[2] == 1)
                     {
-                        <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:white" id="comment"></textarea>
+                        <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:#D7CEC7" id="comment"></textarea>
 
                     }
                     else
                     {
-                        <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:white" id="comment" readonly></textarea>
+                        <textarea class="form-control" name="objetivo" placeholder="Max 200 caracteres" maxlength="200" aria-label="With textarea" style="max-width:none; background-color:#D7CEC7" id="comment" readonly></textarea>
                     }
 
 
@@ -161,13 +161,13 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[5] == 1)
+                            @if (ViewBag.permisos.Item3[6] == 1)
                             {
-                                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:white" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaInicio" required>
+                                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="date" value="@DateTime.Now.ToShortDateString()" name="fechaInicio" required>
                             }
                             else
                             {
-                                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:white" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
+                                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="text" name="date" placeholder="@DateTime.Now.ToShortDateString()" disabled>
                             }
 
                         </div>
@@ -186,13 +186,13 @@
                         <div class="input-group">
 
 
-                            @if (ViewBag.permisos.Item3[6] == 1)
+                            @if (ViewBag.permisos.Item3[7] == 1)
                             {
-                                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:white" type="date" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaFinalizacion" required>
+                                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:#D7CEC7" type="date" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaFinalizacion" required>
                             }
                             else
                             {
-                                <input id="cfecha" class="form-control text-center" style=" width:200px; background-color:white" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
+                                <input id="cfecha" class="form-control text-center" style=" width:200px; background-color:#D7CEC7" type="text" name="fin" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" disabled>
                             }
                         </div>
 
@@ -227,14 +227,14 @@
 
                         <div class="input-group">
 
-                            @if (ViewBag.permisos.Item3[3] == 1)
+                            @if (ViewBag.permisos.Item3[4] == 1)
                             {
-                                <input id="input4" class="form-control" type="number" value="0" style="text-align:center; width:200px; background-color:white" name="duracionEstimada">
+                                <input id="input4" class="form-control" type="number" value="0" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionEstimada">
 
                             }
                             else
                             {
-                                <input id="input4" class="form-control" type="number" value="0" style="text-align:center; width:200px; background-color:white" name="duracionEstimada" readonly>
+                                <input id="input4" class="form-control" type="number" value="0" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionEstimada" readonly>
                             }
 
                         </div>
@@ -255,14 +255,14 @@
                         <div class="input-group">
 
 
-                            @if (ViewBag.permisos.Item3[4] == 1)
+                            @if (ViewBag.permisos.Item3[5] == 1)
                             {
-                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:white" name="duracionReal" required>
+                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionReal" required>
 
                             }
                             else
                             {
-                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:white" name="duracionReal" readonly>
+                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7" name="duracionReal" readonly>
                             }
                         </div>
 
@@ -287,10 +287,10 @@
 
                 @*Atributo cedulaCliente*@
                 <div class="input-group mb-4">
-                    <select class="custom-select" name="cedulaCliente" style="max-width:none; background-color:white" id="inputGroupSelect03">
+                    <select class="custom-select" name="cedulaCliente" style="max-width:none; background-color:#D7CEC7" id="inputGroupSelect03">
 
 
-                        @if (ViewBag.permisos.Item3[7] == 1)
+                        @if (ViewBag.permisos.Item3[9] == 1)
                         {
 
 
@@ -305,10 +305,6 @@
                             }
 
 
-                        }
-                        else
-                        {
-                            <option value="">Seleccione un Cliente </option>
                         }
 
                     </select>
@@ -333,10 +329,10 @@
 
 
 
-                    <select class="custom-select" id="inputGroupSelect01" style="max-width:none; background-color:white" name="cedulaLider">
+                    <select class="custom-select" id="inputGroupSelect01" style="max-width:none; background-color:#D7CEC7" name="cedulaLider">
 
 
-                        @if (ViewBag.permisos.Item3[8] == 1)
+                        @if (ViewBag.permisos.Item3[10] == 1)
                         {
 
                             <option selected value="">Seleccione un Lider</option>
@@ -345,11 +341,6 @@
                             {
                                 <option value="@item.idEmpleadoPK"> @item.nombre @item.apellido1 </option>
                             }
-                        }
-                        else
-                        {
-
-                            <option selected value="">Seleccione un Lider</option>
                         }
 
                     </select>
@@ -495,9 +486,11 @@
                     },
 
                     errorPlacement: function (error, element) {
-
                         if ((element.attr('name') === 'nombre')) {
                             error.insertAfter($('#errorNombre'));
+                        }
+                        if ((element.attr('name') === 'duracionEstimada')) {
+                            error.insertAfter($('#errorDuracionEstimada'));
                         }
                         if ((element.attr('name') === 'cedulaCliente')) {
                             error.insertAfter($('#errorCedulaCliente'));

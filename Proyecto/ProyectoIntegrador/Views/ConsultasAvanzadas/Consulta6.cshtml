@@ -43,10 +43,13 @@
                     nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
                     var datosDelScript = "consulta6Tester('" + cedulaTester + "','" + nombreCompleto + "')";
 
+
+
                     table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
 
                     table += ' <th scope="row">' + nombreCompleto + '</th>';
                         
+
                     var estado = data2[tupla].estado;
 
                     table += '<td>' + estado + '</td>';
