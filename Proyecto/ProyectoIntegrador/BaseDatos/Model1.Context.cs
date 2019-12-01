@@ -422,5 +422,22 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_EstadoRequerimientosProyecto_Result>("USP_EstadoRequerimientosProyecto", idProyectoParameter);
         }
+    
+        public virtual ObjectResult<USP_ObtenerProyectosActivosTerminadosUsuario_Result> USP_ObtenerProyectosActivosTerminadosUsuario(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
+        {
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosActivosTerminadosUsuario_Result>("USP_ObtenerProyectosActivosTerminadosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
+        }
     }
 }

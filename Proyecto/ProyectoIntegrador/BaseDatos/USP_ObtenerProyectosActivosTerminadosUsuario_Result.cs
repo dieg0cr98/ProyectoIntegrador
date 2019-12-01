@@ -11,9 +11,10 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     
-    public partial class USP_EstadoRequerimientosProyecto_Result
+    public partial class USP_ObtenerProyectosActivosTerminadosUsuario_Result
     {
-        public string estadoReq { get; set; }
-        public Nullable<int> cantidadReq { get; set; }
+        public int idProyecto { get; set; }
+        public string nombreProyecto { get; set; }
+        public string nombreEmpleado { get; set; }
     }
 }

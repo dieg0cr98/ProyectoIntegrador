@@ -437,8 +437,17 @@
     <FunctionImportMapping FunctionImportName="USP_EstadoRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_EstadoRequerimientosProyecto">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="estadoReq" ColumnName="estadoReq" />
+          <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosActivosTerminadosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosActivosTerminadosUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result">
+          <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+          <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

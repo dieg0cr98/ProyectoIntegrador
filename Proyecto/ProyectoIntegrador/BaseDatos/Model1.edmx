@@ -489,6 +489,11 @@
         <Function Name="USP_obtenerEdad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="USP_ObtenerProyectosActivosTerminadosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="permiso" Type="int" Mode="In" />
+          <Parameter Name="rol" Type="int" Mode="In" />
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_ObtenerProyectosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="permiso" Type="int" Mode="In" />
           <Parameter Name="rol" Type="int" Mode="In" />
@@ -1006,7 +1011,12 @@
           <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
           <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
           <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_ObtenerProyectosActivosTerminadosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result)">
+            <Parameter Name="permiso" Mode="In" Type="Int32" />
+            <Parameter Name="rol" Mode="In" Type="Int32" />
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -1330,8 +1340,13 @@
           <Property Name="Eliminar" Type="Int32" Nullable="false" />
         </EntityType>
         <ComplexType Name="USP_EstadoRequerimientosProyecto_Result">
-          <Property Type="String" Name="Estado" Nullable="false" MaxLength="30" />
-          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="String" Name="estadoReq" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="cantidadReq" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_ObtenerProyectosActivosTerminadosUsuario_Result">
+          <Property Type="Int32" Name="idProyecto" Nullable="false" />
+          <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1775,8 +1790,17 @@
           <FunctionImportMapping FunctionImportName="USP_EstadoRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_EstadoRequerimientosProyecto">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="estadoReq" ColumnName="estadoReq" />
+                <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosActivosTerminadosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosActivosTerminadosUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result">
+                <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+                <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
+                <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

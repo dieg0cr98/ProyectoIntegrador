@@ -624,7 +624,7 @@ namespace ProyectoIntegrador.Controllers
              /*Consulta7*/                   {1,2,3,3},
              /*Consulta8*/                   {1,3,3,2},
              /*Consulta9*/                   {1,3,3,2},
-             /*Consulta10*/                  {1,3,3,2}
+             /*Consulta10*/                  {1,2,2,2}
              };
 
 

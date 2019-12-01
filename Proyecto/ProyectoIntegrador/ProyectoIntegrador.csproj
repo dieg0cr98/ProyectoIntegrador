@@ -301,6 +301,9 @@
     <Compile Include="BaseDatos\USP_GetTestersDisponibles_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\USP_ObtenerProyectosActivosTerminadosUsuario_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\USP_ObtenerProyectosUsuario_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

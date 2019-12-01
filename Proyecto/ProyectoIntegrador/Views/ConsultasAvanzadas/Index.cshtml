@@ -117,7 +117,7 @@
         <!--Verifica permisos para ver la consulta 10-->
         @if (ViewBag.permisosConsultas.Item2[9] != 3)
         {
-            <a href="#" onclick="consulta10()"><h5>Estado de los requerimientos de un proyecto</h5></a>
+            <a href="#" onclick="consulta10(@ViewBag.permisosConsultas.Item2[9],@ViewBag.permisosConsultas.Item3)"><h5>Estado de los requerimientos de un proyecto</h5></a>
         }
 
 

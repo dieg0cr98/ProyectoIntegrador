@@ -445,6 +445,11 @@
     <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
       <Parameter Name="idProyecto" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="USP_ObtenerProyectosActivosTerminadosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result)">
+      <Parameter Name="permiso" Mode="In" Type="Int32" />
+      <Parameter Name="rol" Mode="In" Type="Int32" />
+      <Parameter Name="idUsuario" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -767,7 +772,12 @@
     <Property Name="Eliminar" Type="Int32" Nullable="false" />
   </EntityType>
   <ComplexType Name="USP_EstadoRequerimientosProyecto_Result">
-    <Property Type="String" Name="Estado" Nullable="false" MaxLength="30" />
-    <Property Type="Int32" Name="Cantidad" Nullable="true" />
+    <Property Type="String" Name="estadoReq" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="cantidadReq" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="USP_ObtenerProyectosActivosTerminadosUsuario_Result">
+    <Property Type="Int32" Name="idProyecto" Nullable="false" />
+    <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
   </ComplexType>
 </Schema>

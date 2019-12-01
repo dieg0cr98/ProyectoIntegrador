@@ -13,9 +13,71 @@
         //Se crea el html de loading
         document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
 
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta7",
+            method: "GET",
+            data: {
+                rol: function () {
+                    return document.getElementById("rol").value;
+                },
+                permiso: function () {
+                    return permiso;
+                },
+                idUsuario: function () {
+                    return idUsuario;
+                },
+            },
+
+            success: function (data) {
+                jsonData = JSON.parse(data);
+                //alert("Received data successfully");
+
+                //Crea el html
+                var html = '<div class="row"><div class="col">';
+
+                //Genera el grupo de botones
+                html += '<h2 class="text-primary text-center font-weight-bold">Complejidad</h2>';
+                html += '<div class="btn-group justify-content: center" role="group" aria-label="BotonesComplejidades"> \
+                        <button type="button" class="btn btn-secondary">Simple</button> \
+                        <button type="button" class="btn btn-secondary">Medio</button> \
+                        <button type="button" class="btn btn-secondary">Complejo</button> \
+                        <button type="button" class="btn btn-secondary">Muy Complejo</button> \
+                        </div><br>';
+
+                //Se crea el html para la tabla
+                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr> \
+                    <th scope="col">Nombre del Proyecto</th><th scope="col">Líder del Proyecto</th></tr ></thead > <tbody>';
+
+                //Recorre las tuplas para insertar los datos a la tabla
+                for (tupla in jsonData) {
+
+                    var idProyecto = jsonData[tupla].idProyecto;
+                    var nombreProyecto = jsonData[tupla].nombreProyecto;
+                    //var datosDelScript = "consulta7LoadTesters(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
 
 
 
+                    //table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                    table += ' <th scope="row">' + nombreProyecto + '</th>';
+
+                    var nombreEmpleado = jsonData[tupla].nombreEmpleado;
+
+                    table += '<td>' + nombreEmpleado + '</td>';
+                    table += '</tr>';
+
+                }
+
+                table += '</tbody></table>';
+
+                html += table;
+                html += '</div > <div class="col"><div id="tableTesters"></div>';
+                html += '</div>';
+
+                document.getElementById("datosC1").innerHTML = html;
+            }
+
+        });
     }
 
 </script>
