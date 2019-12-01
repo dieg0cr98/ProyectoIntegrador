@@ -336,5 +336,111 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="SeguridadClientesGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadClientesGeneral">
+        <MappingFragment StoreEntitySet="SeguridadClientesGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadEmpleadosGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadEmpleadosGeneral">
+        <MappingFragment StoreEntitySet="SeguridadEmpleadosGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadEquipoGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadEquipoGeneral">
+        <MappingFragment StoreEntitySet="SeguridadEquipoGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadProyectoAgregar">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoAgregar">
+        <MappingFragment StoreEntitySet="SeguridadProyectoAgregar">
+          <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+          <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+          <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadProyectoEditar">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoEditar">
+        <MappingFragment StoreEntitySet="SeguridadProyectoEditar">
+          <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+          <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+          <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadProyectoGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoGeneral">
+        <MappingFragment StoreEntitySet="SeguridadProyectoGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadPruebasGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadPruebasGeneral">
+        <MappingFragment StoreEntitySet="SeguridadPruebasGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadRequerimientosGeneral">
+      <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadRequerimientosGeneral">
+        <MappingFragment StoreEntitySet="SeguridadRequerimientosGeneral">
+          <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+          <ScalarProperty Name="Editar" ColumnName="Editar" />
+          <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+          <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="USP_EstadoRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_EstadoRequerimientosProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

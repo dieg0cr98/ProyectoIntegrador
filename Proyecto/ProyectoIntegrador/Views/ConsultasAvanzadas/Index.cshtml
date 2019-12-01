@@ -78,7 +78,7 @@
             <a href="#" onclick="consulta3(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Total requerimientos por tester</h5></a>
         }
 
-        <!--Verifica permisos para ver la consulta-->
+        <!--Verifica permisos para ver la consulta 4 -->
         @if (ViewBag.permisosConsultas.Item2[3] != 3)
         {
             <a href="#" onclick="consulta4(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
@@ -96,10 +96,10 @@
             <a href="#" onclick="consulta6(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Historial de participación por tester </h5></a>
         }
 
-        <!--Verifica permisos para ver la consulta-->
+        <!--Verifica permisos para ver la consulta 7-->
         @if (ViewBag.permisosConsultas.Item2[6] != 3)
         {
-            <a href="#" onclick="consulta7()"><h5>Comparación de duración por complejidad</h5></a>
+            <a href="#" onclick="consulta7(@ViewBag.permisosConsultas.Item2[6],@ViewBag.permisosConsultas.Item3)"><h5>Comparación de duración por complejidad</h5></a>
         }
 
         <!--Verifica permisos para ver la consulta-->
@@ -114,10 +114,10 @@
             <a href="#" onclick="consulta9()"><h5>Estado de pruebas para un proyecto</h5></a>
         }
 
-        <!--Verifica permisos para ver la consulta-->
+        <!--Verifica permisos para ver la consulta 10-->
         @if (ViewBag.permisosConsultas.Item2[9] != 3)
         {
-            <a href="#" onclick="consulta10()"><h5>Requerimientos terminados y en ejecución</h5></a>
+            <a href="#" onclick="consulta10()"><h5>Estado de los requerimientos de un proyecto</h5></a>
         }
 
 

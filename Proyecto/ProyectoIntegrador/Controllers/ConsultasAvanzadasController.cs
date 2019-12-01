@@ -146,9 +146,41 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult consulta7()
+
+        /*
+         * Comparación de horas estimadas vs reales para una complejidad específica en los requerimientos.
+         * Efecto:
+         * Requiere:
+         * Modifica:
+         * Retorna:
+         */
+        public JsonResult consulta7(int rol,int permiso,string idUsuario)
         {
-            return null;
+            System.Diagnostics.Debug.WriteLine(rol + " " + permiso + " " + idUsuario);
+            var t = db.USP_ObtenerProyectosUsuario(permiso, rol, idUsuario);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult consulta7LoadTesters(int id)
+        {
+            var t = db.USP_CantidadReqATester(id);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult consulta10(int rol, int permiso, string idUsuario)
+        {
+            var t = db.USP_EstadoRequerimientosProyecto(permiso);
+            var json = JsonConvert.SerializeObject(t);
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
     }

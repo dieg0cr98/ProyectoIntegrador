@@ -434,6 +434,17 @@
       <Parameter Name="rol" Mode="In" Type="Int32" />
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="SeguridadClientesGeneral" EntityType="Gr03Proy2Model.SeguridadClientesGeneral" />
+    <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Gr03Proy2Model.SeguridadEmpleadosGeneral" />
+    <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
+    <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
+    <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
+    <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
+    <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
+    <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
+    <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -664,5 +675,99 @@
     <Property Type="Int32" Name="idProyecto" Nullable="false" />
     <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+  </ComplexType>
+  <EntityType Name="SeguridadClientesGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEmpleadosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEquipoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoAgregar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="Int32" Nullable="false" />
+    <Property Name="Objetivo" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+    <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+    <Property Name="FechaFin" Type="Int32" Nullable="false" />
+    <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+    <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoEditar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="Int32" Nullable="false" />
+    <Property Name="Objetivo" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+    <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+    <Property Name="FechaFin" Type="Int32" Nullable="false" />
+    <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+    <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadPruebasGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadRequerimientosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="Int32" Nullable="false" />
+    <Property Name="Consultar" Type="Int32" Nullable="false" />
+    <Property Name="Agregar" Type="Int32" Nullable="false" />
+    <Property Name="Editar" Type="Int32" Nullable="false" />
+    <Property Name="Eliminar" Type="Int32" Nullable="false" />
+  </EntityType>
+  <ComplexType Name="USP_EstadoRequerimientosProyecto_Result">
+    <Property Type="String" Name="Estado" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Cantidad" Nullable="true" />
   </ComplexType>
 </Schema>

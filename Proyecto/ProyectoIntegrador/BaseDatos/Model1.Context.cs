@@ -37,6 +37,14 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual DbSet<Tester> Tester { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEn { get; set; }
         public virtual DbSet<HistorialReqTester> HistorialReqTester { get; set; }
+        public virtual DbSet<SeguridadClientesGeneral> SeguridadClientesGeneral { get; set; }
+        public virtual DbSet<SeguridadEmpleadosGeneral> SeguridadEmpleadosGeneral { get; set; }
+        public virtual DbSet<SeguridadEquipoGeneral> SeguridadEquipoGeneral { get; set; }
+        public virtual DbSet<SeguridadProyectoAgregar> SeguridadProyectoAgregar { get; set; }
+        public virtual DbSet<SeguridadProyectoEditar> SeguridadProyectoEditar { get; set; }
+        public virtual DbSet<SeguridadProyectoGeneral> SeguridadProyectoGeneral { get; set; }
+        public virtual DbSet<SeguridadPruebasGeneral> SeguridadPruebasGeneral { get; set; }
+        public virtual DbSet<SeguridadRequerimientosGeneral> SeguridadRequerimientosGeneral { get; set; }
     
         public virtual ObjectResult<CA_TestersAsignadosDisponibles_Result> CA_TestersAsignadosDisponibles()
         {
@@ -404,6 +412,15 @@ namespace ProyectoIntegrador.BaseDatos
                 new ObjectParameter("idUsuario", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<USP_EstadoRequerimientosProyecto_Result> USP_EstadoRequerimientosProyecto(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_EstadoRequerimientosProyecto_Result>("USP_EstadoRequerimientosProyecto", idProyectoParameter);
         }
     }
 }

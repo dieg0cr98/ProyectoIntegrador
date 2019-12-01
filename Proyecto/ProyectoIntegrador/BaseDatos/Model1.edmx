@@ -125,6 +125,96 @@
           <Property Name="estadoResultado" Type="varchar" MaxLength="30" />
           <Property Name="cantidadDePruebas" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SeguridadClientesGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadEmpleadosGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadEquipoGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoAgregar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="int" Nullable="false" />
+          <Property Name="Objetivo" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+          <Property Name="DuracionReal" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="int" Nullable="false" />
+          <Property Name="FechaFin" Type="int" Nullable="false" />
+          <Property Name="CedulaCliente" Type="int" Nullable="false" />
+          <Property Name="CedulaLider" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoEditar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="int" Nullable="false" />
+          <Property Name="Objetivo" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+          <Property Name="DuracionReal" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="int" Nullable="false" />
+          <Property Name="FechaFin" Type="int" Nullable="false" />
+          <Property Name="CedulaCliente" Type="int" Nullable="false" />
+          <Property Name="CedulaLider" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadPruebasGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadRequerimientosGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Consultar" Type="int" Nullable="false" />
+          <Property Name="Agregar" Type="int" Nullable="false" />
+          <Property Name="Editar" Type="int" Nullable="false" />
+          <Property Name="Eliminar" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Tester">
           <Key>
             <PropertyRef Name="idEmpleadoFK" />
@@ -305,6 +395,10 @@
         <Function Name="ObtenerProyectoActualDelEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="ObtengaHorasReales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="idProyectoFK" Type="int" Mode="In" />
+          <Parameter Name="idReqFK" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -371,6 +465,9 @@
           <Parameter Name="idProyecto" Type="int" Mode="In" />
           <Parameter Name="testers" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_EstadoRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_FechaInicioFinRequerimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
           <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
@@ -407,6 +504,14 @@
           <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadProyectoAgregar" EntityType="Self.SeguridadProyectoAgregar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadProyectoEditar" EntityType="Self.SeguridadProyectoEditar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Self.SeguridadRequerimientosGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_HabilidadBlanda_idEmpleadoFK" Association="Self.FK_HabilidadBlanda_idEmpleadoFK">
@@ -892,6 +997,17 @@
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SeguridadClientesGeneral" EntityType="Gr03Proy2Model.SeguridadClientesGeneral" />
+          <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Gr03Proy2Model.SeguridadEmpleadosGeneral" />
+          <EntitySet Name="SeguridadEquipoGeneral" EntityType="Gr03Proy2Model.SeguridadEquipoGeneral" />
+          <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
+          <EntitySet Name="SeguridadProyectoEditar" EntityType="Gr03Proy2Model.SeguridadProyectoEditar" />
+          <EntitySet Name="SeguridadProyectoGeneral" EntityType="Gr03Proy2Model.SeguridadProyectoGeneral" />
+          <EntitySet Name="SeguridadPruebasGeneral" EntityType="Gr03Proy2Model.SeguridadPruebasGeneral" />
+          <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Gr03Proy2Model.SeguridadRequerimientosGeneral" />
+          <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
+            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1122,6 +1238,100 @@
           <Property Type="Int32" Name="idProyecto" Nullable="false" />
           <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+        </ComplexType>
+        <EntityType Name="SeguridadClientesGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadEmpleadosGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadEquipoGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoAgregar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="Int32" Nullable="false" />
+          <Property Name="Objetivo" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+          <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+          <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+          <Property Name="FechaFin" Type="Int32" Nullable="false" />
+          <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+          <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoEditar">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="Int32" Nullable="false" />
+          <Property Name="Objetivo" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="DuracionEstimada" Type="Int32" Nullable="false" />
+          <Property Name="DuracionReal" Type="Int32" Nullable="false" />
+          <Property Name="FechaInicio" Type="Int32" Nullable="false" />
+          <Property Name="FechaFin" Type="Int32" Nullable="false" />
+          <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
+          <Property Name="CedulaLider" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadProyectoGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadPruebasGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguridadRequerimientosGeneral">
+          <Key>
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Consultar" Type="Int32" Nullable="false" />
+          <Property Name="Agregar" Type="Int32" Nullable="false" />
+          <Property Name="Editar" Type="Int32" Nullable="false" />
+          <Property Name="Eliminar" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="USP_EstadoRequerimientosProyecto_Result">
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1461,6 +1671,112 @@
                 <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
                 <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
                 <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="SeguridadClientesGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadClientesGeneral">
+              <MappingFragment StoreEntitySet="SeguridadClientesGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadEmpleadosGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadEmpleadosGeneral">
+              <MappingFragment StoreEntitySet="SeguridadEmpleadosGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadEquipoGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadEquipoGeneral">
+              <MappingFragment StoreEntitySet="SeguridadEquipoGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadProyectoAgregar">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoAgregar">
+              <MappingFragment StoreEntitySet="SeguridadProyectoAgregar">
+                <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+                <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+                <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadProyectoEditar">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoEditar">
+              <MappingFragment StoreEntitySet="SeguridadProyectoEditar">
+                <ScalarProperty Name="CedulaLider" ColumnName="CedulaLider" />
+                <ScalarProperty Name="CedulaCliente" ColumnName="CedulaCliente" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="DuracionReal" ColumnName="DuracionReal" />
+                <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadProyectoGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadProyectoGeneral">
+              <MappingFragment StoreEntitySet="SeguridadProyectoGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadPruebasGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadPruebasGeneral">
+              <MappingFragment StoreEntitySet="SeguridadPruebasGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguridadRequerimientosGeneral">
+            <EntityTypeMapping TypeName="Gr03Proy2Model.SeguridadRequerimientosGeneral">
+              <MappingFragment StoreEntitySet="SeguridadRequerimientosGeneral">
+                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
+                <ScalarProperty Name="Editar" ColumnName="Editar" />
+                <ScalarProperty Name="Agregar" ColumnName="Agregar" />
+                <ScalarProperty Name="Consultar" ColumnName="Consultar" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_EstadoRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_EstadoRequerimientosProyecto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

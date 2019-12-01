@@ -120,6 +120,96 @@
     <Property Name="estadoResultado" Type="varchar" MaxLength="30" />
     <Property Name="cantidadDePruebas" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="SeguridadClientesGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEmpleadosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadEquipoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoAgregar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="int" Nullable="false" />
+    <Property Name="Objetivo" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+    <Property Name="DuracionReal" Type="int" Nullable="false" />
+    <Property Name="FechaInicio" Type="int" Nullable="false" />
+    <Property Name="FechaFin" Type="int" Nullable="false" />
+    <Property Name="CedulaCliente" Type="int" Nullable="false" />
+    <Property Name="CedulaLider" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoEditar">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="int" Nullable="false" />
+    <Property Name="Objetivo" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="DuracionEstimada" Type="int" Nullable="false" />
+    <Property Name="DuracionReal" Type="int" Nullable="false" />
+    <Property Name="FechaInicio" Type="int" Nullable="false" />
+    <Property Name="FechaFin" Type="int" Nullable="false" />
+    <Property Name="CedulaCliente" Type="int" Nullable="false" />
+    <Property Name="CedulaLider" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadProyectoGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadPruebasGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadRequerimientosGeneral">
+    <Key>
+      <PropertyRef Name="Rol" />
+    </Key>
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Consultar" Type="int" Nullable="false" />
+    <Property Name="Agregar" Type="int" Nullable="false" />
+    <Property Name="Editar" Type="int" Nullable="false" />
+    <Property Name="Eliminar" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Tester">
     <Key>
       <PropertyRef Name="idEmpleadoFK" />
@@ -300,6 +390,10 @@
   <Function Name="ObtenerProyectoActualDelEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
     <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="ObtengaHorasReales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="idProyectoFK" Type="int" Mode="In" />
+    <Parameter Name="idReqFK" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -366,6 +460,9 @@
     <Parameter Name="idProyecto" Type="int" Mode="In" />
     <Parameter Name="testers" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="USP_EstadoRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idProyecto" Type="int" Mode="In" />
+  </Function>
   <Function Name="USP_FechaInicioFinRequerimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
     <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
@@ -402,6 +499,14 @@
     <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Requerimiento" EntityType="Self.Requerimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadClientesGeneral" EntityType="Self.SeguridadClientesGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadEmpleadosGeneral" EntityType="Self.SeguridadEmpleadosGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadEquipoGeneral" EntityType="Self.SeguridadEquipoGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadProyectoAgregar" EntityType="Self.SeguridadProyectoAgregar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadProyectoEditar" EntityType="Self.SeguridadProyectoEditar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadProyectoGeneral" EntityType="Self.SeguridadProyectoGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadPruebasGeneral" EntityType="Self.SeguridadPruebasGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadRequerimientosGeneral" EntityType="Self.SeguridadRequerimientosGeneral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tester" EntityType="Self.Tester" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrabajaEn" EntityType="Self.TrabajaEn" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_HabilidadBlanda_idEmpleadoFK" Association="Self.FK_HabilidadBlanda_idEmpleadoFK">
