@@ -24,7 +24,8 @@
             Consultar Pruebas: @ViewBag.nombreRequerimiento<br>
         </p>
         <div style="margin-left:25%">
-            @if(ViewBag.error != null){<div class="alert alert-primary text-center" style="color:white ; background-color:red; width:67%;"> @ViewBag.error </div>}
+            @if (ViewBag.error != null)
+            {<div class="alert alert-primary text-center" style="color:white ; background-color:red; width:67%;"> @ViewBag.error </div>}
         </div>
         <hr>
         <div class="container " style="max-width: 1800px">
@@ -92,6 +93,12 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col">
+                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="@Url.Action("Index","Requerimientos",new {idProyecto = ViewBag.idProyecto, idRequerimiento = ViewBag.idRequerimiento})"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+            </div>
+        </div>
+        <br>
         @Html.Partial("ModalEliminar")
     }
     else

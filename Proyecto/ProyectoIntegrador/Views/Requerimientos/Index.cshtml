@@ -124,13 +124,18 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col">
+                <a data-toggle="tooltip" data-placement="right" title="Regresar" class="btn d-inline-block" href="/Proyectos/Index/@ViewBag.idProyecto"><img src="~/Content/back.svg" class="rounded float-right" style="height:50px ; width:50px"></a>
+            </div>
+        </div>
+        <br>
         @Html.Partial("ModalEliminar")
-     }
-     else
-     {
+    }
+    else
+    {
         <div class="alert alert-primary text-center" style="color:white ; background-color:red">Usted no posee los permisos requeridos para realizar esta acción</div>
-     }
+    }
 
     @Html.Partial("Scripts")
 </body>

@@ -267,9 +267,8 @@ namespace ProyectoIntegrador.Controllers
             {
                 requerimiento.estadoResultado = estadoR;
             }
-            //System.Diagnostics.Debug.WriteLine("Los datos son diferentes: " + idTesterViejo + ", " + requerimiento.cedulaTesterFK);
-            //EditTransaction(requerimiento, idTesterViejo);
-
+            db.Entry(requerimiento).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = requerimiento.idReqPK });
         }
 
@@ -407,8 +406,7 @@ namespace ProyectoIntegrador.Controllers
                             }
                         }
                         //Agrego los cambios del requerimiento si se hicieron
-                        db.Entry(r).State = EntityState.Modified;
-                        db.SaveChanges();
+                        
                         System.Diagnostics.Debug.WriteLine("Lo logramoos");
                         transaction.Commit();
                     }
