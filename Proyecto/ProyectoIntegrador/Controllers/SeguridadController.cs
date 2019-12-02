@@ -440,7 +440,7 @@ namespace ProyectoIntegrador.Controllers
         {
             int rol = GetRoleUsuario(user);
             var tabla = getTablaSeguridadProyectoGeneral();
-            var tabla2 = getTablaSeguridadProyectoEditar();
+            var tabla2 = getTablaSeguridadProyectoAgregar();
             if (rol >= 0)
             {
 
