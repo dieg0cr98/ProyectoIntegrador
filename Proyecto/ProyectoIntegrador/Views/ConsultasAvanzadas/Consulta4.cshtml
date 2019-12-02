@@ -63,7 +63,7 @@
             url: "/ConsultasAvanzadas/consulta4LoadTableTesters",
             method: "GET",
             data: {
-                id: function () {
+                idProyecto: function () {
                     return idProyecto;
                 },
             },
@@ -75,18 +75,14 @@
                 var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Tester</th><th scope="col">Cantidad Requerimientos</th></tr></thead><tbody>';
                 //Recorre las tuplas para insertar los datos a la tabla
                 for (tupla in data2) {
-                    var idEmpleado = data2[tupla].idEmpleadoPK;
-                    var nombreCompleto = "";
-                    var nombre = data2[tupla].nombre;
-                    var apellido1 = data2[tupla].apellido1;
-                    var apellido2 = data2[tupla].apellido2;
-                    nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
-                    var cantidad = data2[tupla].Cantidad;
+                    var idEmpleado = data2[tupla].idEmpleado;
+                    var nombreEmpleado = data2[tupla].nombreEmpleado;
+                    var numReqs = data2[tupla].numReqs;
                     var datosDelScript = "consulta4LoadGraphTester(" + idProyecto + ",'" + idEmpleado + "'" + ")";
                     table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
-                    table += ' <th scope="row">' + nombreCompleto + '</th>';
+                    table += ' <th scope="row">' + nombreEmpleado + '</th>';
 
-                    table += '<td>' + cantidad + '</td>';
+                    table += '<td>' + numReqs + '</td>';
                     table += '</tr>';
                 }
                 table += '</tbody></table>';
@@ -108,7 +104,7 @@
             url: "/ConsultasAvanzadas/consulta4LoadGraphTester",
             method: "GET",
             data: {
-                id: function () {
+                idProyecto: function () {
                     return idProyecto;
                 },
                 idTester: function () {

@@ -416,6 +416,9 @@
     <FunctionImport Name="USP_ObtenerRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result)">
       <Parameter Name="idProyecto" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="USP_GetTestersHistorial" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersHistorial_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -796,5 +799,10 @@
     <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
     <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="USP_GetTestersHistorial_Result">
+    <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+    <Property Type="Int32" Name="numReqs" Nullable="true" />
   </ComplexType>
 </Schema>

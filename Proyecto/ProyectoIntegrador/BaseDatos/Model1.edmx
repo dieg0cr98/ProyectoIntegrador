@@ -478,6 +478,9 @@
         </Function>
         <Function Name="USP_GetLideresDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_GetTestersDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_GetTestersHistorial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_GetTestersPorHabilidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="habilidades" Type="varchar" Mode="In" />
         </Function>
@@ -972,7 +975,7 @@
             <Parameter Name="comp" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_ObtenerProyectosActivosTerminadosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result)">
             <Parameter Name="permiso" Mode="In" Type="Int32" />
@@ -980,6 +983,9 @@
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_ObtenerRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result)">
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_GetTestersHistorial" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersHistorial_Result)">
             <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1362,6 +1368,11 @@
           <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
           <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="USP_GetTestersHistorial_Result">
+          <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+          <Property Type="Int32" Name="numReqs" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1837,6 +1848,15 @@
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetTestersHistorial" FunctionName="Gr03Proy2Model.Store.USP_GetTestersHistorial">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_GetTestersHistorial_Result">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+                <ScalarProperty Name="numReqs" ColumnName="numReqs" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

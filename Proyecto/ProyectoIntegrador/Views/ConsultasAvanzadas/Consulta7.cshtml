@@ -61,53 +61,55 @@
         });
     }
     function consulta7CargarTesters(idProyecto) {
+        //Eliminar el Chart Anterior
+        if (document.contains(document.getElementById("tablaEstimaciones"))) {
+            document.getElementById("tablaEstimaciones").remove();
+        }
         //Pide los datos al controlador
         $.ajax({
             url: "/ConsultasAvanzadas/consulta7CargarTesters",
             method: "GET",
             data: {
-                id: function () {
+                idProyecto: function () {
                     return idProyecto;
                 },
             },
             success: function (data) {
-                jsonData = JSON.parse(data);
-
+                data2 = JSON.parse(data);
                 //Crea el html
                 var html = '<div class="row"><div class="col">';
                 //Se crea el html para la tabla
-                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2> \
-                    <table class="table table-bordered table-hover table-light" > <thead class="thead-dark"><tr><th scope="col">Nombre Tester</th><th scope="col">Cantidad Requerimientos</th></tr></thead> <tbody>';
+                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Tester</th><th scope="col">Cantidad Requerimientos</th></tr></thead><tbody>';
                 //Recorre las tuplas para insertar los datos a la tabla
-                for (tupla in jsonData) {
-                    var idTester = jsonData[tupla].idEmpleadoPK;
-                    var nombreCompleto = "";
-                    var nombre = jsonData[tupla].nombre;
-                    var apellido1 = jsonData[tupla].apellido1;
-                    var apellido2 = jsonData[tupla].apellido2;
-                    nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
-                    var cantidad = jsonData[tupla].Cantidad;
-                    var comp = "Muy Complejo";
-                    var datosDelScript = "consulta7CompararEstimaciones(" + idProyecto + ",'" + idTester + "' " + comp + ")";
+                for (tupla in data2) {
+                    var idEmpleado = data2[tupla].idEmpleado;
+                    var nombreEmpleado = data2[tupla].nombreEmpleado;
+                    var numReqs = data2[tupla].numReqs;
+                    var datosDelScript = "consulta4LoadGraphTester(" + idProyecto + ",'" + idEmpleado + "'" + ")";
                     table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
-                    table += ' <th scope="row">' + nombreCompleto + '</th>';
-                    table += '<td>' + cantidad + '</td>';
+                    table += ' <th scope="row">' + nombreEmpleado + '</th>';
+
+                    table += '<td>' + numReqs + '</td>';
                     table += '</tr>';
                 }
                 table += '</tbody></table>';
                 html += table;
+                // html += '</div > <div class="col"><div id="chartInterno"></div>';
                 document.getElementById("tablaTesters").innerHTML = html;
-                //Crea la otra fila para desplegar la tabla con estimaciones
+                //Crea la otra fila para desplejar el graph
                 document.getElementById("datosC1").innerHTML += '<div class="row" id="tablaEstimaciones"></div>';
-            },
+            }
+            ,
             error: function (err) {
                 alert("Por favor refrescar el navegador");
             }
         });
     }
-    function consulta7CompararEstimaciones(idProyecto, idTester, comp) {
+
+        function consulta4LoadGraphTester(idProyecto, idTester) {
+        //Pide los datos al controlador
         $.ajax({
-            url: "/ConsultasAvanzadas/consulta7CompararReqsProyecto",
+            url: "/ConsultasAvanzadas/consulta4LoadGraphTester",
             method: "GET",
             data: {
                 idProyecto: function () {
@@ -116,17 +118,43 @@
                 idTester: function () {
                     return idTester;
                 },
-                comp: function () {
-                    return comp;
-                },
             },
             success: function (data) {
-                jsonData = JSON.parse(data);
-                alert("Datos leídos con éxito.");
-            },
+                data2 = JSON.parse(data);
+
+                //Carga los datos del chart
+                google.charts.load("visualization", "1", { packages: ["corechart"] }
+                ).then(function () {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Requerimiento');
+                    data.addColumn('number', 'Estimada');
+                    data.addColumn('number', 'Real');
+
+                    for (tupla in data2) {
+                        var nombreCompleto = "";
+                        var nombre = data2[tupla].nombre;
+
+                        var tiempoEstimado = data2[tupla].tiempoEstimado;
+                        var tiempoReal = data2[tupla].tiempoReal;
+                        data.addRow([nombre, tiempoEstimado, tiempoReal]);
+                    }
+                    var options = {
+                        'backgroundColor': 'transparent',
+                        title: "Duraciones por Requerimiento (horas)",
+                        titleTextStyle: { fontSize: 25, },
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById('columnChart'));
+                    chart.draw(data, options);
+                });
+                //Se crea el html para el columnChart
+                var chart = '<div id="columnChart" align="center" style="width: 900px; height: 500px;margin: 0 auto"></div>';
+                document.getElementById("tablaEstimaciones").innerHTML = chart;
+            }
+            ,
             error: function (err) {
                 alert("Por favor refrescar el navegador");
             }
         });
     }
+
 </script>

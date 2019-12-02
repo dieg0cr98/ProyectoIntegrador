@@ -131,10 +131,10 @@ namespace ProyectoIntegrador.Controllers
         * Modifica: 
         * Retorna:  JsonResult con los tester asignados a un proyecto especifico
         */
-        public JsonResult consulta4LoadTableTesters(int id)
+        public JsonResult consulta4LoadTableTesters(int idProyecto)
         {
 
-            var t = db.USP_CantidadReqATester(id);
+            var t = db.USP_GetTestersHistorial(idProyecto);
             var json = JsonConvert.SerializeObject(t);
 
             return Json(json, JsonRequestBehavior.AllowGet);
@@ -148,10 +148,10 @@ namespace ProyectoIntegrador.Controllers
         * Modifica: 
         * Retorna:  JsonResult con las duraciones de los tester asignados a un proyecto especifico
         */
-        public JsonResult consulta4LoadGraphTester(int id, string idTester)
+        public JsonResult consulta4LoadGraphTester(int idProyecto, string idTester)
         {
 
-            var t = db.USP_DuracionReqTester(id, idTester);
+            var t = db.USP_DuracionReqTester(idProyecto, idTester);
             var json = JsonConvert.SerializeObject(t);
 
             return Json(json, JsonRequestBehavior.AllowGet);
@@ -222,12 +222,12 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-        /*
-        * Efecto:
-        * Requiere:
-        * Modifica:
-        * Retorna:
-        */
+        /**
+          * Efecto: Obtiene los proyectos relacionados al usuario para la consulta 7.   
+          * Requiere: El rol, permiso y id del usuario que realiza la consulta.
+          * Modifica: N/A
+          * Retorna: JSON con los proyectos asociados y sus líderes respectivos.
+          */
         public JsonResult consulta7(int rol, int permiso, string idUsuario)
         {
             //System.Diagnostics.Debug.WriteLine(rol + " " + permiso + " " + idUsuario);
@@ -243,23 +243,23 @@ namespace ProyectoIntegrador.Controllers
         }
 
         /**
-      * Efecto:
-      * Requiere:
-      * Modifica:
-      * Retorna:
+      * Efecto: Carga los testers asociados al proyecto(temrinado) enviado como parametro
+      * Requiere: id de proyecto valido
+      * Modifica: N/A
+      * Retorna: JSON con el id y nombre del tester.
       */
-        public JsonResult consulta7CargarTesters(int id)
+        public JsonResult consulta7CargarTesters(int idProyecto)
         {
-            var t = db.USP_CantidadReqATester(id);
+            var t = db.USP_GetTestersHistorial(idProyecto);
             var json = JsonConvert.SerializeObject(t);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         /**
-         * Efecto:
-         * Requiere:
-         * Modifica:
-         * Retorna:
+         * Efecto: Compara las estimaciones en los requerimientos para un proyecto terminado.
+         * Requiere: id del proyecto, id del tester y la complejidad específica.
+         * Modifica: N/A
+         * Retorna: JSON con el nombre del requerimiento y sus tiempos respectivos(estimado vs real)
          */
         public JsonResult consulta7CompararReqsProyecto(int idProyecto, string idTester, string comp)
         {
@@ -304,6 +304,7 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
 
         }
+
         /**
          * Efecto: Obtiene los proyectos relacionados al usuario.   
          * Requiere: El rol, permiso y id del usuario que realiza la consulta.
