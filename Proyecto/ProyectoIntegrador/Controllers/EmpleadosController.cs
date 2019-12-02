@@ -182,12 +182,12 @@ namespace ProyectoIntegrador.Controllers
 
 
         // GET: Empleados
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             var permisosGenerales = seguridad.EmpleadoConsultar(User);
             ViewBag.permisosEspecificos = permisosGenerales;
             ViewBag.cedEmpleado = permisosGenerales.Item2;
-
+             ViewBag.empleadoSelec = id;
             //Verifica que el usuario este registrado
             if (permisosGenerales.Item1 >= 0)
             {
