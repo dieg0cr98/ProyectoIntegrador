@@ -440,6 +440,11 @@
         <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_CompararReqsProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProyecto" Type="int" Mode="In" />
+          <Parameter Name="idTester" Type="varchar" Mode="In" />
+          <Parameter Name="comp" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_ContarRequerimientosTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idTester" Type="char" Mode="In" />
           <Parameter Name="reqs" Type="int" Mode="InOut" />
@@ -1018,6 +1023,11 @@
             <Parameter Name="rol" Mode="In" Type="Int32" />
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="USP_CompararReqsProyecto" ReturnType="Collection(Gr03Proy2Model.USP_CompararReqsProyecto_Result)">
+            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+            <Parameter Name="idTester" Mode="In" Type="String" />
+            <Parameter Name="comp" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
           <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -1347,6 +1357,13 @@
           <Property Type="Int32" Name="idProyecto" Nullable="false" />
           <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+        </ComplexType>
+        <ComplexType Name="USP_CompararReqsProyecto_Result">
+          <Property Type="Int32" Name="idRequerimiento" Nullable="false" />
+          <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="tiempoEstimado" Nullable="false" />
+          <Property Type="Int32" Name="tiempoReal" Nullable="true" />
+          <Property Type="Int32" Name="diferencia" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1801,6 +1818,17 @@
                 <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
                 <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
                 <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_CompararReqsProyecto" FunctionName="Gr03Proy2Model.Store.USP_CompararReqsProyecto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CompararReqsProyecto_Result">
+                <ScalarProperty Name="idRequerimiento" ColumnName="idRequerimiento" />
+                <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+                <ScalarProperty Name="tiempoEstimado" ColumnName="tiempoEstimado" />
+                <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
+                <ScalarProperty Name="diferencia" ColumnName="diferencia" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

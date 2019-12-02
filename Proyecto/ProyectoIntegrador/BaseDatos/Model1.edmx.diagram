@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="067c0969efd146b1818d961baceef8b7" Name="Diagram1" ZoomLevel="93">
+      <Diagram DiagramId="067c0969efd146b1818d961baceef8b7" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="Gr03Proy2Model.Cliente" Width="1.5" PointX="1.5" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.Empleado" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Gr03Proy2Model.HabilidadBlanda" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
@@ -23,7 +23,7 @@
         <AssociationConnector Association="Gr03Proy2Model.FK_Requerimiento_IdProy" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_TrabajaEn_proy" ManuallyRouted="false" />
         <AssociationConnector Association="Gr03Proy2Model.FK_Prueba_Requerimiento" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Gr03Proy2Model.HistorialReqTester" Width="1.5" PointX="8.25" PointY="13" />
+        <EntityTypeShape EntityType="Gr03Proy2Model.HistorialReqTester" Width="1.875" PointX="8.25" PointY="13" />
         <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idEmpleadoFK" />
         <AssociationConnector Association="Gr03Proy2Model.FK_HistorialReqTester_idReqFK" />
         <EntityTypeShape EntityType="Gr03Proy2Model.SeguridadClientesGeneral" Width="1.5" PointX="4.375" PointY="0.75" />

@@ -451,5 +451,16 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_CompararReqsProyecto" FunctionName="Gr03Proy2Model.Store.USP_CompararReqsProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CompararReqsProyecto_Result">
+          <ScalarProperty Name="idRequerimiento" ColumnName="idRequerimiento" />
+          <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+          <ScalarProperty Name="tiempoEstimado" ColumnName="tiempoEstimado" />
+          <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
+          <ScalarProperty Name="diferencia" ColumnName="diferencia" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

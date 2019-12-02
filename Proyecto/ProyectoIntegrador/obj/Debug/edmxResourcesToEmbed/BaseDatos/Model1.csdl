@@ -450,6 +450,11 @@
       <Parameter Name="rol" Mode="In" Type="Int32" />
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="USP_CompararReqsProyecto" ReturnType="Collection(Gr03Proy2Model.USP_CompararReqsProyecto_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+      <Parameter Name="idTester" Mode="In" Type="String" />
+      <Parameter Name="comp" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -779,5 +784,12 @@
     <Property Type="Int32" Name="idProyecto" Nullable="false" />
     <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+  </ComplexType>
+  <ComplexType Name="USP_CompararReqsProyecto_Result">
+    <Property Type="Int32" Name="idRequerimiento" Nullable="false" />
+    <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="40" />
+    <Property Type="Int32" Name="tiempoEstimado" Nullable="false" />
+    <Property Type="Int32" Name="tiempoReal" Nullable="true" />
+    <Property Type="Int32" Name="diferencia" Nullable="true" />
   </ComplexType>
 </Schema>

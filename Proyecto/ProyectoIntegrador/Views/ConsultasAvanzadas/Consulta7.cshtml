@@ -1,4 +1,5 @@
-﻿<script>
+﻿/
+<script>
     function consulta7(permiso, idUsuario) {
         //Cierra la lista de consultas
         opencloseNav();
@@ -53,12 +54,9 @@
 
                     var idProyecto = jsonData[tupla].idProyecto;
                     var nombreProyecto = jsonData[tupla].nombreProyecto;
-                    //var datosDelScript = "consulta7LoadTesters(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
+                    var datosDelScript = "consulta7CargarTesters(" + idProyecto + ")";
 
-
-
-                    //table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
-
+                    table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
                     table += ' <th scope="row">' + nombreProyecto + '</th>';
 
                     var nombreEmpleado = jsonData[tupla].nombreEmpleado;
@@ -71,13 +69,117 @@
                 table += '</tbody></table>';
 
                 html += table;
-                html += '</div > <div class="col"><div id="tableTesters"></div>';
+                html += '</div > <div class="col"><div id="tablaTesters"></div>';
                 html += '</div>';
 
                 document.getElementById("datosC1").innerHTML = html;
+            },
+
+            error: function (err) {
+                alert("Por favor refrescar el navegador");
             }
 
         });
+
+    }
+
+    function consulta7CargarTesters(idProyecto) {
+
+
+        //Pide los datos al controlador
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta7CargarTesters",
+            method: "GET",
+            data: {
+                id: function () {
+                    return idProyecto;
+                },
+
+            },
+            success: function (data) {
+                jsonData = JSON.parse(data);
+
+               
+                //Crea el html
+                var html = '<div class="row"><div class="col">';
+
+
+                //Se crea el html para la tabla
+                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Testers</h2> \
+                    <table class="table table-bordered table-hover table-light" > <thead class="thead-dark"><tr><th scope="col">Nombre Tester</th><th scope="col">Cantidad Requerimientos</th></tr></thead> <tbody>';
+
+                //Recorre las tuplas para insertar los datos a la tabla
+                for (tupla in jsonData) {
+
+                    var idTester = jsonData[tupla].idEmpleadoPK;
+                    var nombreCompleto = "";
+                    var nombre = jsonData[tupla].nombre;
+                    var apellido1 = jsonData[tupla].apellido1;
+                    var apellido2 = jsonData[tupla].apellido2;
+                    nombreCompleto = nombre + " " + apellido1 + " " + apellido2;
+                    var cantidad = jsonData[tupla].Cantidad;
+
+                    var comp = "Muy Complejo";
+                    var datosDelScript = "consulta7CompararEstimaciones(" + idProyecto + ",'" + idTester + "' " + comp + ")";
+
+
+                    table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+                    table += ' <th scope="row">' + nombreCompleto + '</th>';
+                    table += '<td>' + cantidad + '</td>';
+                    table += '</tr>';
+
+                }
+
+
+                table += '</tbody></table>';
+
+                html += table;
+
+                document.getElementById("tablaTesters").innerHTML = html;
+
+
+                //Crea la otra fila para desplegar la tabla con estimaciones
+                document.getElementById("datosC1").innerHTML += '<div class="row" id="tablaEstimaciones"></div>';
+            },
+
+            error: function (err) {
+                alert("Por favor refrescar el navegador");
+            }
+
+        });
+
+    }
+
+    function consulta7CompararEstimaciones(idProyecto, idTester, comp) {
+
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta7CompararReqsProyecto",
+            method: "GET",
+            data: {
+                idProyecto: function () {
+                    return idProyecto;
+                },
+
+                idTester: function () {
+                    return idTester;
+                },
+
+                comp: function () {
+                    return comp;
+                },
+            },
+
+            success: function (data) {
+                jsonData = JSON.parse(data);
+                alert("Datos leídos con éxito.");
+            },
+
+            error: function (err) {
+                alert("Por favor refrescar el navegador");
+            }
+
+        });
+
     }
 
 </script>

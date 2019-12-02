@@ -439,5 +439,22 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosActivosTerminadosUsuario_Result>("USP_ObtenerProyectosActivosTerminadosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
         }
+    
+        public virtual ObjectResult<USP_CompararReqsProyecto_Result> USP_CompararReqsProyecto(Nullable<int> idProyecto, string idTester, string comp)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            var idTesterParameter = idTester != null ?
+                new ObjectParameter("idTester", idTester) :
+                new ObjectParameter("idTester", typeof(string));
+    
+            var compParameter = comp != null ?
+                new ObjectParameter("comp", comp) :
+                new ObjectParameter("comp", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CompararReqsProyecto_Result>("USP_CompararReqsProyecto", idProyectoParameter, idTesterParameter, compParameter);
+        }
     }
 }
