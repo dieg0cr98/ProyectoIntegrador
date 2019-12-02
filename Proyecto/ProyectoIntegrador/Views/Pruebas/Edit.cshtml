@@ -12,8 +12,9 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 </head>
 
-<body onload="datosEliminar(@ViewBag.idProyecto,@ViewBag.idRequerimiento,@ViewBag.idPrueba)">
+<body>
     <br />
+    <!-- Nombre de la página -->
     <p class="font-weight-bold text-center" style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px">Editar Prueba</p>
     <h2 class="font-weight-bold text-center" style="color:red"> @ViewBag.mensaje</h2>
     <hr>
@@ -63,14 +64,7 @@
                     <div class="col-5">
                         @*Atributo proposito de la prueba*@
                         <div class="input-group">
-                            @*if (ViewBag.permisosEditar.Item3[3] == 1)
-                                {*@
                             <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" />
-                            @*}
-                                else
-                                {
-                                    <input class="form-control" value="@Model.propositoPrueba" id="propositoPrueba" name="propositoPrueba" minlength="1" maxlength="60" type="text" style="text-align:center" readonly/>
-                                }*@
                         </div>
                     </div>
                 </div>
@@ -129,8 +123,6 @@
                     <div class="col-4">
                         @*Atributo Estado*@
                         <div class="input-group">
-                            @*if (ViewBag.permisosEditar.Item3[4] == 1)
-                                {*@
                             <select class="custom-select" name="estado" required>
                                 @switch (Model.estado)
                                 {
@@ -162,11 +154,6 @@
                                         break;
                                 }
                             </select>
-                            @*}
-                                else
-                                {
-                                    <input id="estado" class="form-control" value="@Model.estado" style="text-align:center" name="estado" type="text" required readonly>
-                                }*@
                         </div>
                     </div>
                 </div>
@@ -185,8 +172,6 @@
                 <div class="form-row mb-4">
                     <div class="col-4">
                         <div class="input-group">
-                            @*if (ViewBag.permisosEditar.Item3[4] == 1)
-                                {*@
                             <select class="custom-select" name="resultadoFinal" required>
                                 @switch (Model.resultadoFinal)
                                 {
@@ -209,11 +194,6 @@
                                         break;
                                 }
                             </select>
-                            @*}
-                                else
-                                {
-                                    <input id="resultadoFinal" class="form-control" value="@Model.resultadoFinal" style="text-align:center" name="resultadoFinals" type="text" required readonly>
-                                }*@
                         </div>
                     </div>
                 </div>

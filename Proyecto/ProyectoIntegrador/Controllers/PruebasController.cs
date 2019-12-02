@@ -20,7 +20,9 @@ namespace ProyectoIntegrador.Controllers
         private SeguridadController seguridad = new SeguridadController();
 
 
-        // convert image to byte array
+        //Efecto: Recibe una imagen en formato Image y la convierte a formato byte array
+        //Requiere: imageIn --> Una imagen en formato System.Drawing.Image
+        //Modifica: Esta variable para covertirla en un arreglo de bytes.
         public byte[] imageToByteArray(System.Drawing.Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
@@ -28,8 +30,12 @@ namespace ProyectoIntegrador.Controllers
             return ms.ToArray();
         }
 
-        // GET: Pruebas
-        //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros
+        //Metodo que devuelve las pruebas asociadas al requerimiento del proyecto que entran como parametros-
+        //Requiere: int idProyecto -> identificador del proyecto al que estan asociadas las pruebas.
+        //          int idRequerimiento -> identificador del requerimiento al que estan asociadas las pruebas.
+        //          int idPrueba -> identificador de la prueba que deseamos ver seleccionada.
+        //          string mensaje -> mensaje de error en caso de ocurrir alguno.
+        //Modifica: La vista actual del usuario.
         public ActionResult Index(int idProyecto, int idRequerimiento, int idPrueba = 0 , string mensaje = null)
         {
             //Sacamos permisos generales de la vista.
@@ -64,6 +70,11 @@ namespace ProyectoIntegrador.Controllers
         }
 
         // Metodo que se llama al ingresar a la vista de editar prueba
+        //Requiere: int idProyecto -> identificador del proyecto al que estan asociadas las pruebas.
+        //          int idRequerimiento -> identificador del requerimiento al que estan asociadas las pruebas.
+        //          int idPrueba -> identificador de la prueba que deseamos ver seleccionada.
+        //          string mensaje -> mensaje de error en caso de ocurrir alguno.
+        //Modifica: La vista actual del usuario.
         public ActionResult Edit(int idProyecto, int idRequerimiento, int idPrueba, string mensaje = null)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
@@ -99,8 +110,12 @@ namespace ProyectoIntegrador.Controllers
             }
         }
 
-        // GET: Pruebas/Create
         //Metodo que se llama al ingresar a la vista de crear prueba
+        //Requiere: int idProyecto -> identificador del proyecto al que estan asociadas las pruebas.
+        //          int idRequerimiento -> identificador del requerimiento al que estan asociadas las pruebas.
+        //          int idPrueba -> identificador de la prueba que deseamos ver seleccionada.
+        //          string mensaje -> mensaje de error en caso de ocurrir alguno.
+        //Modifica: La vista actual del usuario.
         public ActionResult Create(int idProyecto, int idRequerimiento)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
@@ -125,7 +140,7 @@ namespace ProyectoIntegrador.Controllers
             }
         }
 
-        // POST: Pruebas/Create
+        
         [HttpPost]
         public ActionResult Create(int idProyecto, int idReq, string resultadoFinal, string propositoPrueba,
             string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string descripcionError, string nombre)
@@ -169,10 +184,11 @@ namespace ProyectoIntegrador.Controllers
             
         }
 
-        // POST: Pruebas/Edit/5
         // Metodo para guardar los cambios realizados a una prueba.
+        // Requiere: Todos los atributos de una prueba excepto la imagen, que se guarda por aparte.
+        // Modifica: La instancia identificada por el idProyecto, idReq y idPrueba de la tabla prueba.
         [HttpPost]
-        public ActionResult Edit(int idProyecto, int idReq, int idPrueba,string resultadoFinal, string propositoPrueba,
+        public ActionResult Edit(int idProyecto, int idReq, int idPrueba, string resultadoFinal, string propositoPrueba,
         string entradaDatos, string resultadoEsperado, string flujoPrueba, string estado, string descripcionError, string nombre, HttpPostedFileBase pic)
         {
             var permisosGenerales = seguridad.PruebasPermisos(User);
@@ -224,6 +240,12 @@ namespace ProyectoIntegrador.Controllers
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idRequerimiento, idPrueba = 0, mensaje = mensaje }); //Retorna a la vista
         }
 
+        // Efecto: Retorna verdadero si hay un nombre de prueba como el que deseamos asignar en este requerimiento.
+        // Requiere: string name -> Nombre que deseamos poner a la prueba.
+        //           string oldname -> Nombre que tenía el requerimiento.
+        //           int idProyecto -> Proyecto al que está asociado la prueba que estamos deseando nombrar.
+        //           int idRequerimiento -> Requerimiento al que está asociado esta prueba que deseamos mostrar.
+        // Modifica: Nada
         public JsonResult ReviseNombrePrueba(string name, string oldName, int idProyecto, int idRequerimiento)
         {
             //Hay que verificar si el nuevo nombre ya existe en la base de datos
@@ -238,116 +260,160 @@ namespace ProyectoIntegrador.Controllers
         }
 
 
+        //Efecto: Retorna la vista utilizada para agregar la imagen.
+        //Requiere: La llave primaria de las pruebas, para encontrar la que se desea utilizar para asignar la imagen
+        //Modifica: La vista actual del usuario.
         public ActionResult AgregarImagen(int proyecto, int requerimiento, int prueba)
         {
-            ViewBag.proyecto = proyecto;
-            ViewBag.requerimiento = requerimiento;
-            ViewBag.prueba = prueba;
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            ViewBag.permisosGenerales = permisosGenerales; //asignamos los permisos al viewbag
+            //Verifica que el usuario este registrado y que tenga permisos de consultar pruebas.
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
+            {
+                ViewBag.proyecto = proyecto;
+                ViewBag.requerimiento = requerimiento;
+                ViewBag.prueba = prueba;
 
-            return View();
+                return View();
+            }
+            return RedirectToAction("Index", new { idProyecto = proyecto, idRequerimiento = requerimiento, idPrueba = prueba, mensaje = "Usted no posee permisos para agregar la imagen" }); //Retorna a la vista
         }
 
 
-
+        //Efecto: Guarda la imagen ingresada por el usuario en la prueba seleccionada en la consulta.
+        //Requiere: La llave primaria de las pruebas y la imagen que se desea asignar.
+        //Modifica: La tabla de pruebas para agregar la imagen a la prueba solicitada.
         [HttpPost]
         public ActionResult AgregarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength > 0)
-                try
-                {
-                    MemoryStream target = new MemoryStream();
-                    file.InputStream.CopyTo(target);
-                    byte[] data = target.ToArray();
-
-                    Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
-                    prueba.imagen = data;
-
-                    db.Entry(prueba).State = EntityState.Modified;
-                    db.SaveChanges();
-
-                    ViewBag.Message = "Imagen guardada exitosamente";
-                    ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
-
-                    return RedirectToAction("Index", new { idProyecto = proyectoID, idRequerimiento = requerimientoID, idPrueba = pruebaID}); //Retorna a la vista
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
-                }
-            else
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            ViewBag.permisosGenerales = permisosGenerales; //asignamos los permisos al viewbag
+            //Verifica que el usuario este registrado y que tenga permisos de consultar pruebas.
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
             {
-                ViewBag.Message = "Ninguna Imagen seleccionada";
+                if (file != null && file.ContentLength > 0)
+                    try
+                    {
+                        MemoryStream target = new MemoryStream();
+                        file.InputStream.CopyTo(target);
+                        byte[] data = target.ToArray();
+
+                        Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
+                        prueba.imagen = data;
+
+                        db.Entry(prueba).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        ViewBag.Message = "Imagen guardada exitosamente";
+                        ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
+
+                        return RedirectToAction("Index", new { idProyecto = proyectoID, idRequerimiento = requerimientoID, idPrueba = pruebaID }); //Retorna a la vista
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    }
+                else
+                {
+                    ViewBag.Message = "Ninguna Imagen seleccionada";
+                }
+
+                ViewBag.proyecto = proyectoID;
+                ViewBag.requerimiento = requerimientoID;
+                ViewBag.prueba = pruebaID;
             }
-
-            ViewBag.proyecto = proyectoID;
-            ViewBag.requerimiento = requerimientoID;
-            ViewBag.prueba = pruebaID;
-
             return View();
         }
 
 
-
+        // Efecto: Muestra la vista utilizada para modificar la imagen
+        // Requiere: La llave primaria de las pruebas para determinar a cual prueba se le desea cambiar la imagen.
+        // Modifica: La vista actual del sistema.
         public ActionResult ModificarImagen(int proyecto, int requerimiento, int prueba)
         {
-            Prueba p = db.Prueba.Find(proyecto, requerimiento, prueba);
-            ViewBag.oldPic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(p.imagen))  ;
-            ViewBag.proyecto = proyecto;
-            ViewBag.requerimiento = requerimiento;
-            ViewBag.prueba = prueba;
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            ViewBag.permisosGenerales = permisosGenerales; //asignamos los permisos al viewbag
+            //Verifica que el usuario este registrado y que tenga permisos de consultar pruebas.
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
+            {
+                Prueba p = db.Prueba.Find(proyecto, requerimiento, prueba);
+                ViewBag.oldPic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(p.imagen));
+                ViewBag.proyecto = proyecto;
+                ViewBag.requerimiento = requerimiento;
+                ViewBag.prueba = prueba;
 
-            return View("CambiarImagen");
+                return View("CambiarImagen");
+            }
+
+            return RedirectToAction("Index", new { idProyecto = proyecto, idRequerimiento = requerimiento, idPrueba = prueba, mensaje = "Usted no posee permisos para modificar la imagen" }); //Retorna a la vista
         }
 
+        // Efecto: Modifica la imagen que el usuario tenía asignada en la BD para esta prueba
+        // Requiere: La llave primaria de las pruebas y la imagen para determinar en que prueba asignar la imagen.
+        // Modifica: La tabla pruebas.
         [HttpPost]
         public ActionResult ModificarImagen(int proyectoID, int requerimientoID, int pruebaID, HttpPostedFileBase file)
         {
-            Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
-
-            if (file != null && file.ContentLength > 0)
-                try
-                {
-                    //string path = Path.Combine(Server.MapPath("~/Images"),
-                    //                           Path.GetFileName(file.FileName));
-                    //file.SaveAs(path);
-                    MemoryStream target = new MemoryStream();
-                    file.InputStream.CopyTo(target);
-                    byte[] data = target.ToArray();
-
-                    prueba.imagen = data;
-
-                    db.Entry(prueba).State = EntityState.Modified;
-                    db.SaveChanges();
-
-                    ViewBag.Message = "Imagen guardada exitosamente";
-                    ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
-
-
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
-                }
-            else
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            ViewBag.permisosGenerales = permisosGenerales; //asignamos los permisos al viewbag
+            //Verifica que el usuario este registrado y que tenga permisos de consultar pruebas.
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
             {
-                ViewBag.Message = "Debe escoger una imagen primero.";
+                Prueba prueba = db.Prueba.Find(proyectoID, requerimientoID, pruebaID);
+
+                if (file != null && file.ContentLength > 0)
+                    try
+                    {
+                        MemoryStream target = new MemoryStream();
+                        file.InputStream.CopyTo(target);
+                        byte[] data = target.ToArray();
+
+                        prueba.imagen = data;
+
+                        db.Entry(prueba).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        ViewBag.Message = "Imagen guardada exitosamente";
+                        ViewBag.pic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(data));
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    }
+                else
+                {
+                    ViewBag.Message = "Debe escoger una imagen primero.";
+                }
+
+
+                ViewBag.proyecto = proyectoID;
+                ViewBag.requerimiento = requerimientoID;
+                ViewBag.prueba = pruebaID;
+                ViewBag.oldPic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(prueba.imagen));
+
             }
-
-
-            ViewBag.proyecto = proyectoID;
-            ViewBag.requerimiento = requerimientoID;
-            ViewBag.prueba = pruebaID;
-            ViewBag.oldPic = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(prueba.imagen));
-
             return View("CambiarImagen");
         }
 
+        // Efecto: Elimina la imagen que de la prueba que el usuario desea.
+        // Requiere: La llave primaria para identificar cual imagen se desea eliminar.
+        // Modifica: La tabla de pruebas.
         public ActionResult EliminarImagen(int? idProyecto, int? idReq, int? idPrueba) {
-           
-            Prueba prueba = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idReq && p.idPruebaPK == idPrueba).FirstOrDefault();
-            prueba.imagen = null;
-            db.Entry(prueba).State = EntityState.Modified;
-            db.SaveChanges();
+
+            var permisosGenerales = seguridad.PruebasPermisos(User);
+            ViewBag.permisosGenerales = permisosGenerales; //asignamos los permisos al viewbag
+
+            //Verifica que el usuario este registrado y que tenga los permisos necesarios.
+            if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item3 <= 2)
+            {
+                Prueba prueba = db.Prueba.Where(p => p.idProyectoFK == idProyecto && p.idReqFK == idReq && p.idPruebaPK == idPrueba).FirstOrDefault();
+                prueba.imagen = null;
+                db.Entry(prueba).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index", new { idProyecto = idProyecto, idRequerimiento = idReq, idPrueba = idPrueba }); //Retorna a la vista
         }
     }
