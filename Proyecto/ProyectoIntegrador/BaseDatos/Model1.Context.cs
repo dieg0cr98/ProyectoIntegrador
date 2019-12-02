@@ -456,5 +456,14 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetTestersHistorial_Result>("USP_GetTestersHistorial", idProyectoParameter);
         }
+    
+        public virtual ObjectResult<USP_ObtenerPruebasRequerimient_Result> USP_ObtenerPruebasRequerimient(Nullable<int> idProy)
+        {
+            var idProyParameter = idProy.HasValue ?
+                new ObjectParameter("idProy", idProy) :
+                new ObjectParameter("idProy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerPruebasRequerimient_Result>("USP_ObtenerPruebasRequerimient", idProyParameter);
+        }
     }
 }
