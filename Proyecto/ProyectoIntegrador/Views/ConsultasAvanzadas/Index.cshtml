@@ -78,7 +78,7 @@
             <a href="#" onclick="consulta3(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Total requerimientos por tester</h5></a>
         }
 
-        <!--Verifica permisos para ver la consulta-->
+        <!--Verifica permisos para ver la consulta 4 -->
         @if (ViewBag.permisosConsultas.Item2[3] != 3)
         {
             <a href="#" onclick="consulta4(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Duración estimada vs real por requerimientos de un tester</h5></a>
@@ -96,10 +96,10 @@
             <a href="#" onclick="consulta6(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Historial de participación por tester </h5></a>
         }
 
-        <!--Verifica permisos para ver la consulta-->
+        <!--Verifica permisos para ver la consulta 7 -->
         @if (ViewBag.permisosConsultas.Item2[6] != 3)
         {
-            <a href="#" onclick="consulta7()"><h5>Comparación de duración por complejidad</h5></a>
+            <a href="#" onclick="consulta7(@ViewBag.permisosConsultas.Item2[6],@ViewBag.permisosConsultas.Item3)"><h5>Comparación de duración por complejidad</h5></a>
         }
 
         <!--Verifica permisos para ver la consulta-->
@@ -114,10 +114,10 @@
             <a href="#" onclick="consulta9()"><h5>Estado de pruebas para un proyecto</h5></a>
         }
 
-        <!--Verifica permisos para ver la consulta-->
+        <!--Verifica permisos para ver la consulta 10 -->
         @if (ViewBag.permisosConsultas.Item2[9] != 3)
         {
-            <a href="#" onclick="consulta10()"><h5>Requerimientos terminados y en ejecución</h5></a>
+            <a href="#" onclick="consulta10(@ViewBag.permisosConsultas.Item2[9],@ViewBag.permisosConsultas.Item3)"><h5>Estado de los requerimientos de un proyecto</h5></a>
         }
 
 
@@ -135,7 +135,7 @@
         </div>
 
         <div class="col">
-          
+
 
             <p class="font-weight-bold " style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-left:350px">Consultas Avanzadas</p>
 
@@ -204,9 +204,11 @@
     </script>
     @Html.Partial("Consulta1")
     @Html.Partial("Consulta3")
-    @Html.Partial("Consulta4")
+    @Html.Partial("Consulta4") <!--Duración estimada vs real(Comparación)-->
     @Html.Partial("Consulta5")
     @Html.Partial("Consulta6")
+    @Html.Partial("Consulta7") <!--Duración de reqs por complejidad(Comparación)-->
+    @Html.Partial("Consulta10") <!--Estado de los requerimientos de un proyecto-->
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

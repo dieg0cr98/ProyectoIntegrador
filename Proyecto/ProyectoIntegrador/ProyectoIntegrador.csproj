@@ -274,10 +274,16 @@
     <Compile Include="BaseDatos\USP_CantidadReqATester_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\USP_CompararReqsProyecto_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\USP_DuracionesProyecto_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\USP_DuracionReqTester_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\USP_EstadoRequerimientosProyecto_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\USP_FechaInicioFinRequerimiento_Result.cs">
@@ -298,7 +304,13 @@
     <Compile Include="BaseDatos\USP_GetTestersDisponibles_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\USP_ObtenerProyectosActivosTerminadosUsuario_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\USP_ObtenerProyectosUsuario_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\USP_ObtenerRequerimientosProyecto_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\USP_TestersDisponibleAsignado_Result.cs">
@@ -547,7 +559,6 @@
     <Content Include="Views\Empleados\Scripts.cshtml" />
     <Content Include="Views\Requerimientos\FormularioIndex.cshtml" />
     <Content Include="Views\ConsultasAvanzadas\Index.cshtml" />
-    <Content Include="Views\ConsultasAvanzadas\Index2.cshtml" />
     <Content Include="Views\HabilidadBlandas\Create.cshtml" />
     <Content Include="Views\HabilidadBlandas\Delete.cshtml" />
     <Content Include="Views\HabilidadBlandas\Details.cshtml" />
@@ -586,6 +597,8 @@
     <Content Include="Views\Pruebas\AgregarImagen.cshtml" />
     <Content Include="Views\Pruebas\CambiarImagen.cshtml" />
     <Content Include="Views\Permisos\ProyectoAgregar.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta7.cshtml" />
+    <Content Include="Views\ConsultasAvanzadas\Consulta10.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

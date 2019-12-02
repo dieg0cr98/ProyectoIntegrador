@@ -425,6 +425,11 @@
   <Function Name="USP_CantidadReqATester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>
+  <Function Name="USP_CompararReqsProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idProyecto" Type="int" Mode="In" />
+    <Parameter Name="idTester" Type="varchar" Mode="In" />
+    <Parameter Name="comp" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="USP_ContarRequerimientosTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idTester" Type="char" Mode="In" />
     <Parameter Name="reqs" Type="int" Mode="InOut" />
@@ -450,6 +455,9 @@
     <Parameter Name="idProyecto" Type="int" Mode="In" />
     <Parameter Name="testers" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="USP_EstadoRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idProyecto" Type="int" Mode="In" />
+  </Function>
   <Function Name="USP_FechaInicioFinRequerimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
     <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
@@ -471,10 +479,18 @@
   <Function Name="USP_obtenerEdad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="USP_ObtenerProyectosActivosTerminadosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="permiso" Type="int" Mode="In" />
+    <Parameter Name="rol" Type="int" Mode="In" />
+    <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="USP_ObtenerProyectosUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="permiso" Type="int" Mode="In" />
     <Parameter Name="rol" Type="int" Mode="In" />
     <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USP_ObtenerRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>
   <Function Name="USP_TestersDisponibleAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="Gr03Proy2ModelStoreContainer">

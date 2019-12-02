@@ -434,5 +434,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="USP_CompararReqsProyecto" FunctionName="Gr03Proy2Model.Store.USP_CompararReqsProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_CompararReqsProyecto_Result">
+          <ScalarProperty Name="idRequerimiento" ColumnName="idRequerimiento" />
+          <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+          <ScalarProperty Name="tiempoEstimado" ColumnName="tiempoEstimado" />
+          <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
+          <ScalarProperty Name="diferencia" ColumnName="diferencia" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_EstadoRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_EstadoRequerimientosProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result">
+          <ScalarProperty Name="estadoReq" ColumnName="estadoReq" />
+          <ScalarProperty Name="cantidadReq" ColumnName="cantidadReq" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerProyectosActivosTerminadosUsuario" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectosActivosTerminadosUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result">
+          <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+          <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_ObtenerRequerimientosProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result">
+          <ScalarProperty Name="nombreRequerimiento" ColumnName="nombreRequerimiento" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+          <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

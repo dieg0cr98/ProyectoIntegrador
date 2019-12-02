@@ -109,7 +109,7 @@ namespace ProyectoIntegrador.Controllers
         * Modifica: 
         * Retorna:  JsonResult con los proyectos en los que participa un usuario
         */
-        public JsonResult consulta4(int rol, int permiso,string idUsuario)
+        public JsonResult consulta4(int rol, int permiso, string idUsuario)
         {
             //var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
 
@@ -141,6 +141,7 @@ namespace ProyectoIntegrador.Controllers
 
         }
 
+
         /*
         * Efecto: Obtiene todos los valores requeridos para cargar el grafico con las duraciones de testers en la cuarta consulta avanzada  y los devuelve en un Json.
         * Requiere: int id. Identificador del proyecto
@@ -156,6 +157,7 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
 
         }
+
 
         /*
         * Efecto: Obtiene todos los valores requeridos en la quinta consulta avanzada  y los devuelve en un Json.
@@ -217,6 +219,86 @@ namespace ProyectoIntegrador.Controllers
             var t = db.USP_FechaInicioFinRequerimiento(idProyecto,cedulaTester);
             var json = JsonConvert.SerializeObject(t);
 
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /*
+        * Efecto:
+        * Requiere:
+        * Modifica:
+        * Retorna:
+        */
+        public JsonResult consulta7(int rol, int permiso, string idUsuario)
+        {
+            //System.Diagnostics.Debug.WriteLine(rol + " " + permiso + " " + idUsuario);
+            var t = db.USP_ObtenerProyectosUsuario(permiso, rol, idUsuario);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /**
+      * Efecto:
+      * Requiere:
+      * Modifica:
+      * Retorna:
+      */
+        public JsonResult consulta7CargarTesters(int id)
+        {
+            var t = db.USP_CantidadReqATester(id);
+            var json = JsonConvert.SerializeObject(t);
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /**
+         * Efecto:
+         * Requiere:
+         * Modifica:
+         * Retorna:
+         */
+        public JsonResult consulta7CompararReqsProyecto(int idProyecto, string idTester, string comp)
+        {
+            System.Diagnostics.Debug.WriteLine("\nSe entró al controlador para comparar estimaciones\n");
+            System.Diagnostics.Debug.WriteLine(idProyecto + " " + idTester + " " + comp);
+            var t = db.USP_CompararReqsProyecto(idProyecto, idTester, comp);
+            var json = JsonConvert.SerializeObject(t);
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /**
+         * Efecto: Obtiene los proyectos relacionados al usuario.   
+         * Requiere: El rol, permiso y id del usuario que realiza la consulta.
+         * Modifica: N/A
+         * Retorna: JSON con los proyectos asociados y sus líderes respectivos.
+         */
+        public JsonResult consulta10(int rol, int permiso, string idUsuario)
+        {
+            var t = db.USP_ObtenerProyectosActivosTerminadosUsuario(permiso, rol, idUsuario);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /**
+         * Efecto: Obtiene el estado de los requerimientos de un proyecto específico que esté activo o finalizado.
+         * Requiere: ID del proyecto a consultar.
+         * Modifica: N/A
+         * Retorna: JSON con el conteo de requerimientos de acuerdo a su estado.
+         */
+        public JsonResult consulta10EstadoReqs(int idProyecto)
+        {
+            System.Diagnostics.Debug.WriteLine(idProyecto);
+            var t = db.USP_EstadoRequerimientosProyecto(idProyecto);
+            var json = JsonConvert.SerializeObject(t);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 

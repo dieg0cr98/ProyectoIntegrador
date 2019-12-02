@@ -1,0 +1,83 @@
+﻿<script>
+    function consulta10(permiso, idUsuario) {
+        //Cierra la lista de consultas
+        opencloseNav();
+        //Limpia los datos
+        document.getElementById("datosC1").innerHTML = " ";
+        //Agrega el titulo de la consulta
+        document.getElementById("nombreConsulta").innerText = "Estado de los requerimientos de un proyecto";
+        document.getElementById("datosC1").innerHTML = '</br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta10",
+            method: "GET",
+            data: {
+                rol: function () {
+                    return document.getElementById("rol").value;
+                },
+                permiso: function () {
+                    return permiso;
+                },
+                idUsuario: function () {
+                    return idUsuario;
+                },
+            },
+            success: function (data) {
+                jsonData = JSON.parse(data);
+                //alert("Received data successfully");
+                //Crea el html
+                var html = '<div class="row"><div class="col">';
+                //Se crea el html para la tabla
+                var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre del Proyecto</th><th scope="col">Líder del Proyecto</th></tr></thead><tbody>';
+                //Recorre las tuplas para insertar los datos a la tabla
+                for (tupla in jsonData) {
+                    var idProyecto = jsonData[tupla].idProyecto;
+                    var nombreProyecto = jsonData[tupla].nombreProyecto;
+                    var datosDelScript = "consulta10EstadoReqs(" + idProyecto + ")";
+                    table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+                    table += ' <th scope="row">' + nombreProyecto + '</th>';
+                    var nombreEmpleado = jsonData[tupla].nombreEmpleado;
+                    table += '<td>' + nombreEmpleado + '</td>';
+                    table += '</tr>';
+                }
+                table += '</tbody></table>';
+                html += table;
+                html += '</div > <div class="col"><div id="tablaEstados"></div>';
+                html += '</div>';
+                document.getElementById("datosC1").innerHTML = html;
+            }
+        });
+    }
+    function consulta10EstadoReqs(idProyecto) {
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta10EstadoReqs",
+            method: "GET",
+            data: {
+                idProyecto: function () {
+                    return idProyecto;
+                },
+            },
+            success: function (data) {
+                jsonData = JSON.parse(data);
+                //alert("Datos leídos exitosamente");
+                //Crea el html
+                var html = '<div class="row"><div class="col">';
+                //Se crea el html para la tabla
+                var table = '<h2 class="text-primary text-center font-weight-bold">Requerimientos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr> \
+                    <th scope="col">Estado</th><th scope="col">Cantidad</th></tr ></thead > <tbody>';
+                for (tupla in jsonData) {
+                    var estadoReq = jsonData[tupla].estadoReq;
+                    var cantidadReq = jsonData[tupla].cantidadReq;
+                    table += ' <th scope="row">' + estadoReq + '</th>';
+                    table += '<td>' + cantidadReq + '</td>';
+                    table += '</tr>';
+                }
+                table += '</tbody></table>';
+                html += table;
+                document.getElementById("tablaEstados").innerHTML = html;
+            },
+            error: function (err) {
+                alert("Por favor refrescar el navegador");
+            }
+        });
+    }
+</script>

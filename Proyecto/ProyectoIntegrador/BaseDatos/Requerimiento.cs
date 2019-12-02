@@ -17,8 +17,8 @@ namespace ProyectoIntegrador.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Requerimiento()
         {
-            this.Prueba = new HashSet<Prueba>();
             this.HistorialReqTester = new HashSet<HistorialReqTester>();
+            this.Prueba = new HashSet<Prueba>();
         }
     
         public int idReqPK { get; set; }
@@ -40,8 +40,8 @@ namespace ProyectoIntegrador.BaseDatos
         public virtual Empleado Empleado { get; set; }
         public virtual Proyecto Proyecto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prueba> Prueba { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistorialReqTester> HistorialReqTester { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Prueba> Prueba { get; set; }
     }
 }

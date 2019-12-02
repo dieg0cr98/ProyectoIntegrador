@@ -395,5 +395,57 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
         }
+    
+        public virtual ObjectResult<USP_CompararReqsProyecto_Result> USP_CompararReqsProyecto(Nullable<int> idProyecto, string idTester, string comp)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            var idTesterParameter = idTester != null ?
+                new ObjectParameter("idTester", idTester) :
+                new ObjectParameter("idTester", typeof(string));
+    
+            var compParameter = comp != null ?
+                new ObjectParameter("comp", comp) :
+                new ObjectParameter("comp", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CompararReqsProyecto_Result>("USP_CompararReqsProyecto", idProyectoParameter, idTesterParameter, compParameter);
+        }
+    
+        public virtual ObjectResult<USP_EstadoRequerimientosProyecto_Result> USP_EstadoRequerimientosProyecto(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_EstadoRequerimientosProyecto_Result>("USP_EstadoRequerimientosProyecto", idProyectoParameter);
+        }
+    
+        public virtual ObjectResult<USP_ObtenerProyectosActivosTerminadosUsuario_Result> USP_ObtenerProyectosActivosTerminadosUsuario(Nullable<int> permiso, Nullable<int> rol, string idUsuario)
+        {
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosActivosTerminadosUsuario_Result>("USP_ObtenerProyectosActivosTerminadosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<USP_ObtenerRequerimientosProyecto_Result> USP_ObtenerRequerimientosProyecto(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerRequerimientosProyecto_Result>("USP_ObtenerRequerimientosProyecto", idProyectoParameter);
+        }
     }
 }

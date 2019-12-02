@@ -400,6 +400,22 @@
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
+    <FunctionImport Name="USP_CompararReqsProyecto" ReturnType="Collection(Gr03Proy2Model.USP_CompararReqsProyecto_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+      <Parameter Name="idTester" Mode="In" Type="String" />
+      <Parameter Name="comp" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_ObtenerProyectosActivosTerminadosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result)">
+      <Parameter Name="permiso" Mode="In" Type="Int32" />
+      <Parameter Name="rol" Mode="In" Type="Int32" />
+      <Parameter Name="idUsuario" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_ObtenerRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -759,4 +775,26 @@
     <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
     <Property Name="CedulaLider" Type="Int32" Nullable="false" />
   </EntityType>
+  <ComplexType Name="USP_CompararReqsProyecto_Result">
+    <Property Type="Int32" Name="idRequerimiento" Nullable="false" />
+    <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="40" />
+    <Property Type="Int32" Name="tiempoEstimado" Nullable="false" />
+    <Property Type="Int32" Name="tiempoReal" Nullable="true" />
+    <Property Type="Int32" Name="diferencia" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="USP_EstadoRequerimientosProyecto_Result">
+    <Property Type="String" Name="estadoReq" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="cantidadReq" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="USP_ObtenerProyectosActivosTerminadosUsuario_Result">
+    <Property Type="Int32" Name="idProyecto" Nullable="false" />
+    <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+  </ComplexType>
+  <ComplexType Name="USP_ObtenerRequerimientosProyecto_Result">
+    <Property Type="String" Name="nombreRequerimiento" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+    <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+  </ComplexType>
 </Schema>
