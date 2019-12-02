@@ -63,8 +63,18 @@ namespace ProyectoIntegrador.Controllers
                 {
                     int id = idProyecto ?? default(int);
                     GetDatosVistaEquipo(id);
+                    string idUsuario = seguridad.IdUsuario(User);
                     var trabajaEn = db.TrabajaEn.Where(t => t.idProyectoFK == idProyecto);
-                    return View(trabajaEn.ToList());
+                    var pertenece = (from trabaja in db.TrabajaEn where (trabaja.idProyectoFK == id && trabaja.idEmpleadoFK == idUsuario)
+                                     select trabaja).Count();
+                    if (pertenece > 0)
+                    {
+                        return View(trabajaEn.ToList());
+                    } else
+                    {
+                        //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Acceso inválido al sistema");
+                        return View("~/Views/Home/Index.cshtml");
+                    }
                 }
                 else
                 {
