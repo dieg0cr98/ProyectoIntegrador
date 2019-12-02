@@ -32,6 +32,7 @@ namespace ProyectoIntegrador.Controllers
         // GET: HabilidadTecnicas
         public ActionResult Index(string id)
         {
+            ViewBag.empl = db.Empleado.Find(id);
             ViewBag.nombre = empleados.GetNombreEmpleado(id);
             var habilidadTecnica = db.HabilidadTecnica.Where(h => h.idEmpleadoFK == id);
             return View(habilidadTecnica.ToList());
