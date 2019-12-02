@@ -1,6 +1,4 @@
-﻿
-<div class="row mx-4 mt-0 md-0 " style="height:48px">
-
+﻿<div class="row mx-4 mt-0 md-0 " style="height:48px">
     <div class="col-10 " style="max-height:48px">
         <!--Nombre de la prueba, se puede agregar el estado-->
         <p class="font-weight-bold text-left overflow-auto" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@Model.nombre</p>
@@ -157,20 +155,6 @@
     <br />
     <div class="form-row">
         <div class="input-group" style="display:inline-block">
-            @*
-                <!--Atributo imagen-->
-                @if (Model.imagen != null)
-                {
-                    var base64 = Convert.ToBase64String(Model.imagen);
-                    var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
-                    <img src="@imgsrc" style="max-height:390px" class="rounded mx-auto d-block" alt="Responsive image">
-                }
-                else
-                {
-                    <p><h5>No hay imagen disponible</h5></p>
-                }
-            *@
-
             <!--Atributo imagen-->
             @if (Model.imagen != null)
             {
@@ -231,7 +215,7 @@
     </div>
 </div>
 
-
+<!-- Función encargada de editar el link del botón que para eliminar una prueba -->
 <script>
     function datosEliminar(idProyecto, idReq, idPrueba) {
         
