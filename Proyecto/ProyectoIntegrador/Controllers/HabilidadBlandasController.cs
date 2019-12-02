@@ -32,6 +32,7 @@ namespace ProyectoIntegrador.Controllers
             }
             public ActionResult Index(string id)
         {
+             ViewBag.empl = db.Empleado.Find(id);
             ViewBag.nombre = empleados.GetNombreEmpleado(id);
             
             var hblandas = GetHabilidadUsuario(id);
