@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -182,12 +182,12 @@ namespace ProyectoIntegrador.Controllers
 
 
         // GET: Empleados
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
             var permisosGenerales = seguridad.EmpleadoConsultar(User);
             ViewBag.permisosEspecificos = permisosGenerales;
             ViewBag.cedEmpleado = permisosGenerales.Item2;
-             ViewBag.empleadoSelec = id;
+
             //Verifica que el usuario este registrado
             if (permisosGenerales.Item1 >= 0)
             {
@@ -330,11 +330,40 @@ namespace ProyectoIntegrador.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
 
-        public ActionResult Edit(string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2,
+        public ActionResult Edit(string habilidadesTecnicas, string habilidadesBlandas, string cedulaVieja, string idEmpleadoPK, string nombre, string apellido1, string apellido2,
       string correo, DateTime? fechaNacimiento, string provincia, string canton, string distrito, string direccion, string telefono, string estado, string tipoTrabajo)
         {
             var permisosGenerales = seguridad.EmpleadoConsultar(User);
+            //if (habilidadesTecnicas != null)
+            //{
+            //    HabilidadTecnica hab = db.HabilidadTecnica.Find(idEmpleadoPK);
+                
+            //    db.HabilidadTecnica.Remove(hab);
+            //    //db.SaveChanges(); 
+            //    List<string> TagIds = habilidadesTecnicas.Split(',').ToList();
+            //    foreach (string v in TagIds)
+            //    {
+            //        HabilidadTecnica habilidadT = new HabilidadTecnica();
+            //        habilidadT.idEmpleadoFK = idEmpleadoPK;
+            //        habilidadT.habilidad = v;
+            //        db.HabilidadTecnica.Add(habilidadT);
+            //    }
+            //}
+            //if (habilidadesBlandas != null)
+            //{
+            //    HabilidadBlanda hab = db.HabilidadBlanda.Find(idEmpleadoPK);
 
+            //    db.HabilidadBlanda.Remove(hab);
+            //    //db.SaveChanges();
+            //    List<string> TagBlanda = habilidadesBlandas.Split(',').ToList();
+            //    foreach (string v in TagBlanda)
+            //    {
+            //        HabilidadBlanda habilidadBl = new HabilidadBlanda();
+            //        habilidadBl.idEmpleadoFK = idEmpleadoPK;
+            //        habilidadBl.habilidad = v;
+            //        db.HabilidadBlanda.Add(habilidadBl);
+            //    }
+            //}
             if (permisosGenerales.Item1 >= 0 && permisosGenerales.Item4 == 1)
             {
                 Empleado empleado = db.Empleado.Find(cedulaVieja);
