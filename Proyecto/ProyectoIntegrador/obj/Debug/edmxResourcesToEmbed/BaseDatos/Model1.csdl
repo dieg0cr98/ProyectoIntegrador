@@ -400,6 +400,14 @@
       <Parameter Name="idUsuario" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="SeguridadProyectoAgregar" EntityType="Gr03Proy2Model.SeguridadProyectoAgregar" />
+    <FunctionImport Name="USP_ObtenerRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result)">
+      <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_ObtenerProyectos" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectos_Result)">
+      <Parameter Name="rol" Mode="In" Type="Int32" />
+      <Parameter Name="permiso" Mode="In" Type="Int32" />
+      <Parameter Name="idUsuario" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -759,4 +767,15 @@
     <Property Name="CedulaCliente" Type="Int32" Nullable="false" />
     <Property Name="CedulaLider" Type="Int32" Nullable="false" />
   </EntityType>
+  <ComplexType Name="USP_ObtenerRequerimientosProyecto_Result">
+    <Property Type="String" Name="Nombre_del_Requerimiento" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Tester_Responsable" Nullable="false" MaxLength="61" />
+    <Property Type="String" Name="Cedula" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="USP_ObtenerProyectos_Result">
+    <Property Type="Int32" Name="idProyecto" Nullable="false" />
+    <Property Type="String" Name="nombreProyecto" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
+  </ComplexType>
 </Schema>

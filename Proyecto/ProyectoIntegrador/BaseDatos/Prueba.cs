@@ -11,23 +11,19 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Prueba
     {
-        [Key]
         public int idProyectoFK { get; set; }
-        [Key]
         public int idReqFK { get; set; }
-        [Key]
         public int idPruebaPK { get; set; }
         public string nombre { get; set; }
-        public string resultadoFinal { get; set; } = "Incompleto";
+        public string resultadoFinal { get; set; }
         public string propositoPrueba { get; set; }
         public string entradaDatos { get; set; }
-        public string resultadoEsperado { get; set; } = "Incompleto";
+        public string resultadoEsperado { get; set; }
         public string flujoPrueba { get; set; }
-        public string estado { get; set; } = "No iniciado";
+        public string estado { get; set; }
         public byte[] imagen { get; set; }
         public string descripcionError { get; set; }
     

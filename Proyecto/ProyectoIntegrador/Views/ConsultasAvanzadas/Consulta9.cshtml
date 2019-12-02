@@ -1,0 +1,127 @@
+﻿<script>
+
+           function consulta9(permiso, idUsuario) {
+
+            //Cierra la lista de consultas
+            opencloseNav();
+
+            //Limpia los datos
+            document.getElementById("datosC1").innerHTML = " ";
+
+            //Agrega el titulo de la consulta
+               document.getElementById("nombreConsulta").innerText = "Estado y responsable de un requerimiento en un proyecto";
+
+            //Se crea el html de loading
+            document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta9",
+                method: "GET",
+                data: {
+                    rol: function () {
+                        return document.getElementById("rol").value;
+                    },
+                    permiso: function () {
+                        return permiso;
+                    },
+                    idUsuario: function () {
+                        return idUsuario;
+                    },
+
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+
+                    //Crea el html
+                    var html = '<div class="row"><div class="col">';
+
+
+                    //Se crea el html para la tabla
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Proyectos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Proyecto</th><th scope="col">Nombre del Lider</th></tr></thead><tbody>';
+
+                    //Recorre las tuplas para insertar los datos a la tabla
+                    for (tupla in data2) {
+
+                        var idProyecto = data2[tupla].idProyecto;
+                        var nombreProyecto = data2[tupla].nombreProyecto;
+                        var datosDelScript = "consulta9SegundaTabla(" + idProyecto + ")";
+
+                        table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+
+                        table += ' <th scope="row">' + nombreProyecto + '</th>';
+
+
+                        var nombreEmpleado = data2[tupla].nombreEmpleado;
+
+                        table += '<td>' + nombreEmpleado + '</td>';
+
+                        table += '</tr>';
+
+                    }
+
+                    table += '</tbody></table>';
+                    html += table;
+                    html += '</div > <div class="col"><div id="chartInterno"></div>';      
+                    html += '</div></div>';
+                    document.getElementById("datosC1").innerHTML = html;
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+            });
+        }
+
+    function consulta9SegundaTabla(idProyecto) {
+          
+
+            //Se crea el html de loading
+            document.getElementById("chartInterno").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+
+            //Pide los datos al controlador
+            $.ajax({
+                url: "/ConsultasAvanzadas/consulta9SegundaTabla",
+                method: "GET",
+                data: {
+                    id: function () {
+                        return idProyecto;
+                    }
+                },
+                success: function (data) {
+
+                    data2 = JSON.parse(data);
+                    console.log(data2);
+
+                    //Se crea el html para la tabla
+                    var table = '<h2 class="text-primary text-center font-weight-bold">Lista de Requerimientos</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre Del Requerimiento</th><th scope="col">Estado del Requerimiento</th><th scope="col">Nombre Del Responsable</th></tr></thead><tbody>';
+                    //Recorre las tuplas para insertar los datos a la tabla
+                    for (tupla in data2) {
+
+                        var nombreRequerimiento = data2[tupla].nombreRequerimiento;
+                        var estado = data2[tupla].estado;
+                        var nombreEmpleado = data2[tupla].nombreEmpleado;
+  
+                        table += ' <th scope="row">' + nombreRequerimiento + '</th>';
+                        table += '<td>' + estado + '</td>';
+                        table += '<td>' + nombreEmpleado + '</td>';
+                        table += '</tr>';
+
+                    }
+
+                    table += '</tbody></table>';
+                    html += table;
+                    html += '</div > <div class="col"><div id="chartInterno"></div>';
+                    html += '</div></div>';
+                    document.getElementById("datosC1").innerHTML = html;
+                }
+                ,
+                error: function (err) {
+                    alert("Por favor refrescar el navegador");
+                }
+            });
+
+        }
+
+</script>

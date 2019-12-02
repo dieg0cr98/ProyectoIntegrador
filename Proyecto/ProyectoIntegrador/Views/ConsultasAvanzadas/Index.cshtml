@@ -111,7 +111,7 @@
         <!--Verifica permisos para ver la consulta-->
         @if (ViewBag.permisosConsultas.Item2[8] != 3)
         {
-            <a href="#" onclick="consulta9()"><h5>Estado de pruebas para un proyecto</h5></a>
+            <a href="#" onclick="consulta9(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Estado y responsable de un requerimiento en un proyecto</h5></a>
         }
 
         <!--Verifica permisos para ver la consulta-->
@@ -135,7 +135,7 @@
         </div>
 
         <div class="col">
-          
+
 
             <p class="font-weight-bold " style="font-family:PlayfairDisplay-Bold; font-size:50px ; letter-spacing: 5px; margin-bottom:0px; margin-left:350px">Consultas Avanzadas</p>
 
@@ -207,6 +207,7 @@
     @Html.Partial("Consulta4")
     @Html.Partial("Consulta5")
     @Html.Partial("Consulta6")
+    @Html.Partial("Consulta9")
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

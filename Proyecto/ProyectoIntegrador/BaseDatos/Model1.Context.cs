@@ -395,5 +395,31 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectosUsuario_Result>("USP_ObtenerProyectosUsuario", permisoParameter, rolParameter, idUsuarioParameter);
         }
+    
+        public virtual ObjectResult<USP_ObtenerRequerimientosProyecto_Result> USP_ObtenerRequerimientosProyecto(Nullable<int> idProyecto)
+        {
+            var idProyectoParameter = idProyecto.HasValue ?
+                new ObjectParameter("idProyecto", idProyecto) :
+                new ObjectParameter("idProyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerRequerimientosProyecto_Result>("USP_ObtenerRequerimientosProyecto", idProyectoParameter);
+        }
+    
+        public virtual ObjectResult<USP_ObtenerProyectos_Result> USP_ObtenerProyectos(Nullable<int> rol, Nullable<int> permiso, string idUsuario)
+        {
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("rol", rol) :
+                new ObjectParameter("rol", typeof(int));
+    
+            var permisoParameter = permiso.HasValue ?
+                new ObjectParameter("permiso", permiso) :
+                new ObjectParameter("permiso", typeof(int));
+    
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerProyectos_Result>("USP_ObtenerProyectos", rolParameter, permisoParameter, idUsuarioParameter);
+        }
     }
 }

@@ -434,5 +434,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerRequerimientosProyecto" FunctionName="Gr03Proy2Model.Store.USP_ObtenerRequerimientosProyecto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result">
+          <ScalarProperty Name="Nombre_del_Requerimiento" ColumnName="Nombre del Requerimiento" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="Tester_Responsable" ColumnName="Tester Responsable" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerProyectos" FunctionName="Gr03Proy2Model.Store.USP_ObtenerProyectos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerProyectos_Result">
+          <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+          <ScalarProperty Name="nombreProyecto" ColumnName="nombreProyecto" />
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

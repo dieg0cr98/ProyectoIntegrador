@@ -220,5 +220,45 @@ namespace ProyectoIntegrador.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
+        /*
+       * Efecto: Obtiene todos los valores requeridos en la tercera consulta avanzada  y los devuelve en un Json.
+       * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
+       *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
+       *           string idUsuario. Identificacion del usuario
+       * Modifica: 
+       * Retorna:  JsonResult con los proyectos en los que participa un usuario
+       */
+        public JsonResult consulta9(int rol, int permiso, string idUsuario)
+        {
+
+            //var t = proyecto.GetProyectosUsuario(permiso, rol, idUsuario);
+
+            var t = db.USP_ObtenerProyectos(permiso, rol, idUsuario);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult consulta9SegundaTabla(int idProyecto)
+        {
+
+            var t = db.USP_ObtenerRequerimientosProyecto(idProyecto);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }
