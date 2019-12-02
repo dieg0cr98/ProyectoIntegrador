@@ -494,6 +494,12 @@
           <Parameter Name="rol" Type="int" Mode="In" />
           <Parameter Name="idUsuario" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="USP_ObtenerPruebasRequerimient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_obtenerRanking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="max" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_ObtenerRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
@@ -972,7 +978,7 @@
             <Parameter Name="comp" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_EstadoRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_EstadoRequerimientosProyecto_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_ObtenerProyectosActivosTerminadosUsuario" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerProyectosActivosTerminadosUsuario_Result)">
             <Parameter Name="permiso" Mode="In" Type="Int32" />
@@ -980,7 +986,13 @@
             <Parameter Name="idUsuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_ObtenerRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_obtenerRanking" ReturnType="Collection(Gr03Proy2Model.USP_obtenerRanking_Result)">
+          <Parameter Name="max" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_ObtenerPruebasRequerimient" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result)">
+            <Parameter Name="idProy" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -1362,6 +1374,18 @@
           <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
           <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="USP_obtenerRanking_Result">
+          <Property Type="String" Name="Cedula_del_Empleado" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Nombre_del_Empleado" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="Tiempo_empleado" Nullable="true" />
+          <Property Type="Int64" Name="Ranking" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_ObtenerPruebasRequerimient_Result">
+          <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="nombrePrueba" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="estadoPrueba" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="testerResponsable" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1837,6 +1861,26 @@
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_obtenerRanking" FunctionName="Gr03Proy2Model.Store.USP_obtenerRanking">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_obtenerRanking_Result">
+                <ScalarProperty Name="Cedula_del_Empleado" ColumnName="Cedula del Empleado" />
+                <ScalarProperty Name="Nombre_del_Empleado" ColumnName="Nombre del Empleado" />
+                <ScalarProperty Name="Tiempo_empleado" ColumnName="Tiempo empleado" />
+                <ScalarProperty Name="Ranking" ColumnName="Ranking" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_ObtenerPruebasRequerimient" FunctionName="Gr03Proy2Model.Store.USP_ObtenerPruebasRequerimient">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result">
+                <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+                <ScalarProperty Name="nombrePrueba" ColumnName="nombrePrueba" />
+                <ScalarProperty Name="estadoPrueba" ColumnName="estadoPrueba" />
+                <ScalarProperty Name="testerResponsable" ColumnName="testerResponsable" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

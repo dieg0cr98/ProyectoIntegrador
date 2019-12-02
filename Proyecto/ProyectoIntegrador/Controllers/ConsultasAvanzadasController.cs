@@ -269,8 +269,7 @@ namespace ProyectoIntegrador.Controllers
             var json = JsonConvert.SerializeObject(t);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
-
- /*
+        /*
         * Efecto: Obtiene todos los valores requeridos en la cuarta consulta avanzada  y los devuelve en un Json.
         * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
         *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
@@ -278,13 +277,51 @@ namespace ProyectoIntegrador.Controllers
         * Modifica: 
         * Retorna:  JsonResult con los proyectos en los que participa un usuario
         */
-        public JsonResult consulta9(int rol, int permiso, string idUsuario)
+        public JsonResult consulta8(int rol, int permiso, string idUsuario)
         {
-            var t = db.USP_ObtenerProyectosUsuario(permiso, rol, idUsuario);
+            var t = db.USP_ObtenerProyectosActivosTerminadosUsuario(permiso, rol, idUsuario);
+
             var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /*
+        * Efecto: Obtiene todos los valores requeridos para cargar la tabla de testers en la cuarta consulta avanzada  y los devuelve en un Json.
+        * Requiere: int id. Identificador del proyecto
+        * Modifica: 
+        * Retorna:  JsonResult con los tester asignados a un proyecto especifico
+        */
+        public JsonResult consulta8LoadTablePruebas(int id)
+        {
+
+            var t = db.USP_ObtenerPruebasRequerimient(id);
+            var json = JsonConvert.SerializeObject(t);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+
+        }
+        /*
+               * Efecto: Obtiene todos los valores requeridos en la cuarta consulta avanzada  y los devuelve en un Json.
+               * Requiere: int rol. 0 = Calidad/Soporte, 1= Lider, 2 = Tester, 3 = Cliente
+               *           int permiso. 1= total , 2 = parcial , 3 = Ninguno
+               *           string idUsuario. Identificacion del usuario
+               * Modifica: 
+               * Retorna:  JsonResult con los proyectos en los que participa un usuario
+               */
+        public JsonResult consulta9(int rol, int permiso, string idUsuario)
+        {
+            var t = db.USP_ObtenerProyectosActivosTerminadosUsuario(permiso, rol, idUsuario);
+
+            var json = JsonConvert.SerializeObject(t, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
@@ -334,6 +371,29 @@ namespace ProyectoIntegrador.Controllers
             var t = db.USP_EstadoRequerimientosProyecto(idProyecto);
             var json = JsonConvert.SerializeObject(t);
             return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        /*
+        * Efecto: Obtiene todos los valores requeridos en la primera consulta avanzada  y los devuelve en un Json.
+        * Requiere: int permiso. 1= total , 2 = parcial , 3 = Ninguno
+        * Modifica: 
+        * Retorna:  JsonResult con los testers disponibles y asignados
+        */
+        public JsonResult consulta11(int permiso)
+        {
+
+
+            if (permiso != 3)
+            {
+                var t = db.USP_obtenerRanking(5);
+                var json = JsonConvert.SerializeObject(t);
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
     }

@@ -105,7 +105,7 @@
         <!--Verifica permisos para ver la consulta-->
         @if (ViewBag.permisosConsultas.Item2[7] != 3)
         {
-            <a href="#" onclick="consulta8()"><h5>Resultado de pruebas para un proyecto</h5></a>
+            <a href="#" onclick="consulta8(@ViewBag.permisosConsultas.Item2[2],@ViewBag.permisosConsultas.Item3)"><h5>Estado y responsables de las pruebas de un proyecto</h5></a>
         }
 
         <!--Verifica permisos para ver la consulta-->
@@ -118,6 +118,12 @@
         @if (ViewBag.permisosConsultas.Item2[9] != 3)
         {
             <a href="#" onclick="consulta10(@ViewBag.permisosConsultas.Item2[9],@ViewBag.permisosConsultas.Item3)"><h5>Estado de los requerimientos de un proyecto</h5></a>
+        }
+
+        <!--Verifica permisos para ver la consulta-->
+        @if (ViewBag.permisosConsultas.Item2[0] != 3)
+        {
+            <a href="#" onclick="consulta11(@ViewBag.permisosConsultas.Item2[0])"><h5>Ranking</h5></a>
         }
 
 
@@ -208,8 +214,10 @@
     @Html.Partial("Consulta5")
     @Html.Partial("Consulta6")
     @Html.Partial("Consulta7") <!--Duración de reqs por complejidad(Comparación)-->
+    @Html.Partial("Consulta8")
     @Html.Partial("Consulta9")
     @Html.Partial("Consulta10") <!--Estado de los requerimientos de un proyecto-->
+    @Html.Partial("Consulta11") <!--Ranking-->
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

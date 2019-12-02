@@ -25,18 +25,18 @@ namespace ProyectoIntegrador.BaseDatos
         public int idProyectoFK { get; set; }
         public string cedulaTesterFK { get; set; }
         public string nombre { get; set; }
-        public string complejidad { get; set; } = "Medio";
-        public int tiempoEstimado { get; set; } = 0;
+        public string complejidad { get; set; }
+        public int tiempoEstimado { get; set; }
         public Nullable<int> tiempoReal { get; set; }
         public string descripcion { get; set; }
-        public System.DateTime fechaDeInicio { get; set; } = DateTime.Today;
+        public System.DateTime fechaDeInicio { get; set; }
         public Nullable<System.DateTime> fechaDeFinalizacion { get; set; }
-        public string estado { get; set; } = "Preparacion";
+        public string estado { get; set; }
         public Nullable<bool> resultado { get; set; }
         public string detallesResultado { get; set; }
         public string estadoResultado { get; set; }
-        public int cantidadDePruebas { get; set; } = 0;
-
+        public int cantidadDePruebas { get; set; }
+    
         public virtual Empleado Empleado { get; set; }
         public virtual Proyecto Proyecto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -416,6 +416,12 @@
     <FunctionImport Name="USP_ObtenerRequerimientosProyecto" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerRequerimientosProyecto_Result)">
       <Parameter Name="idProyecto" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="USP_obtenerRanking" ReturnType="Collection(Gr03Proy2Model.USP_obtenerRanking_Result)">
+      <Parameter Name="max" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USP_ObtenerPruebasRequerimient" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result)">
+      <Parameter Name="idProy" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
     <Property Type="String" Name="idEmpleadoPK" Nullable="false" MaxLength="20" />
@@ -796,5 +802,17 @@
     <Property Type="String" Name="estado" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
     <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="USP_obtenerRanking_Result">
+    <Property Type="String" Name="Cedula_del_Empleado" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Nombre_del_Empleado" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Tiempo_empleado" Nullable="true" />
+    <Property Type="Int64" Name="Ranking" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="USP_ObtenerPruebasRequerimient_Result">
+    <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="nombrePrueba" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="estadoPrueba" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="testerResponsable" Nullable="false" MaxLength="30" />
   </ComplexType>
 </Schema>

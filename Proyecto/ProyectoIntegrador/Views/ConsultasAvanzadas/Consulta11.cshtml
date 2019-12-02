@@ -1,0 +1,55 @@
+﻿<script>
+    function consulta11(permiso) {
+        //Cierra la lista de consultas
+        opencloseNav();
+        //Limpia los datos
+        document.getElementById("datosC1").innerHTML = " ";
+        //Agrega el titulo de la consulta
+        document.getElementById("nombreConsulta").innerText = "Ranking";
+        //Se crea el html de loading
+        document.getElementById("datosC1").innerHTML = ' </br>  </br> <div class="text-center"><h1>Cargando Datos</h1> </div><div class="text-center"><div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div></div></div>';
+        //Pide los datos al controlador
+        $.ajax({
+            url: "/ConsultasAvanzadas/consulta11",
+            method: "GET",
+            data: {
+                
+                permiso: function () {
+                    return permiso;
+                },
+                
+            },
+            success: function (data) {
+                data2 = JSON.parse(data);
+                //Crea el html
+                var html = '<div class="row"><div class="col">';
+                //Se crea el html para la tabla
+                var table = '<h2 class="text-primary text-center font-weight-bold">Testers destacados</h2><table class="table table-bordered table-hover table-light"><thead class="thead-dark"><tr><th scope="col">Nombre del Proyecto</th><th scope="col">Líder del Proyecto</th></tr></thead><tbody>';
+                //Recorre las tuplas para insertar los datos a la tabla
+                for (tupla in data2) {
+                    var Ranking = data2[tupla].Ranking;
+                    var nombreEmpleado = data2[tupla].nombreEmpleado;
+                    //var datosDelScript = "consulta9LoadTableRequerimientos(" + idProyecto + ",'" + nombreProyecto + "'" + ")";
+                    //table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
+                    table += ' <th scope="row">' + Ranking + '</th>';
+
+                    //var cedulaEmpleado = data2[tupla].cedulaEmpleado;
+                    table += '<td>' + nombreEmpleado + '</td>';
+                    //table += '<td>' + cedulaEmpleado + '</td>';
+                    table += '</tr>';
+                }
+                table += '</tbody></table>';
+                html += table;
+                html += '</div > <div class="col"><div id="tableTesters"></div>';
+                html += '</div>';
+                document.getElementById("datosC1").innerHTML = html;
+            }
+            ,
+            error: function (err) {
+                alert("Por favor refrescar el navegador");
+            }
+        });
+    }
+
+</script>
+

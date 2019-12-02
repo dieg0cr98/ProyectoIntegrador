@@ -472,5 +472,25 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_obtenerRanking" FunctionName="Gr03Proy2Model.Store.USP_obtenerRanking">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_obtenerRanking_Result">
+          <ScalarProperty Name="Cedula_del_Empleado" ColumnName="Cedula del Empleado" />
+          <ScalarProperty Name="Nombre_del_Empleado" ColumnName="Nombre del Empleado" />
+          <ScalarProperty Name="Tiempo_empleado" ColumnName="Tiempo empleado" />
+          <ScalarProperty Name="Ranking" ColumnName="Ranking" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerPruebasRequerimient" FunctionName="Gr03Proy2Model.Store.USP_ObtenerPruebasRequerimient">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result">
+          <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+          <ScalarProperty Name="nombrePrueba" ColumnName="nombrePrueba" />
+          <ScalarProperty Name="estadoPrueba" ColumnName="estadoPrueba" />
+          <ScalarProperty Name="testerResponsable" ColumnName="testerResponsable" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

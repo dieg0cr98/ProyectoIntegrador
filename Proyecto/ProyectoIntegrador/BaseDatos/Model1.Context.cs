@@ -447,5 +447,23 @@ namespace ProyectoIntegrador.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerRequerimientosProyecto_Result>("USP_ObtenerRequerimientosProyecto", idProyectoParameter);
         }
+    
+        public virtual ObjectResult<USP_obtenerRanking_Result> USP_obtenerRanking(Nullable<int> max)
+        {
+            var maxParameter = max.HasValue ?
+                new ObjectParameter("max", max) :
+                new ObjectParameter("max", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerRanking_Result>("USP_obtenerRanking", maxParameter);
+        }
+    
+        public virtual ObjectResult<USP_ObtenerPruebasRequerimient_Result> USP_ObtenerPruebasRequerimient(Nullable<int> idProy)
+        {
+            var idProyParameter = idProy.HasValue ?
+                new ObjectParameter("idProy", idProy) :
+                new ObjectParameter("idProy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_ObtenerPruebasRequerimient_Result>("USP_ObtenerPruebasRequerimient", idProyParameter);
+        }
     }
 }

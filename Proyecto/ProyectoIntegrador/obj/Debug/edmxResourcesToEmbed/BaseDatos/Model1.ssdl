@@ -489,6 +489,12 @@
     <Parameter Name="rol" Type="int" Mode="In" />
     <Parameter Name="idUsuario" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="USP_ObtenerPruebasRequerimient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idProy" Type="int" Mode="In" />
+  </Function>
+  <Function Name="USP_obtenerRanking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="max" Type="int" Mode="In" />
+  </Function>
   <Function Name="USP_ObtenerRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idProyecto" Type="int" Mode="In" />
   </Function>
