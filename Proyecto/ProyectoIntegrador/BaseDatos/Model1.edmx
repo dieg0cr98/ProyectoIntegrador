@@ -497,6 +497,9 @@
           <Parameter Name="rol" Type="int" Mode="In" />
           <Parameter Name="idUsuario" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="USP_ObtenerPruebasRequerimient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProy" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_ObtenerRequerimientosProyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProyecto" Type="int" Mode="In" />
         </Function>
@@ -986,7 +989,10 @@
           <Parameter Name="idProyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_GetTestersHistorial" ReturnType="Collection(Gr03Proy2Model.USP_GetTestersHistorial_Result)">
-            <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          <Parameter Name="idProyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_ObtenerPruebasRequerimient" ReturnType="Collection(Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result)">
+            <Parameter Name="idProy" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CA_TestersAsignadosDisponibles_Result">
@@ -1373,6 +1379,12 @@
           <Property Type="String" Name="idEmpleado" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="nombreEmpleado" Nullable="false" MaxLength="61" />
           <Property Type="Int32" Name="numReqs" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_ObtenerPruebasRequerimient_Result">
+          <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="nombrePrueba" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="estadoPrueba" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="testerResponsable" Nullable="false" MaxLength="30" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1857,6 +1869,16 @@
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
                 <ScalarProperty Name="numReqs" ColumnName="numReqs" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_ObtenerPruebasRequerimient" FunctionName="Gr03Proy2Model.Store.USP_ObtenerPruebasRequerimient">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result">
+                <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+                <ScalarProperty Name="nombrePrueba" ColumnName="nombrePrueba" />
+                <ScalarProperty Name="estadoPrueba" ColumnName="estadoPrueba" />
+                <ScalarProperty Name="testerResponsable" ColumnName="testerResponsable" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

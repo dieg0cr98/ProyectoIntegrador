@@ -481,5 +481,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_ObtenerPruebasRequerimient" FunctionName="Gr03Proy2Model.Store.USP_ObtenerPruebasRequerimient">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Gr03Proy2Model.USP_ObtenerPruebasRequerimient_Result">
+          <ScalarProperty Name="nombreReq" ColumnName="nombreReq" />
+          <ScalarProperty Name="nombrePrueba" ColumnName="nombrePrueba" />
+          <ScalarProperty Name="estadoPrueba" ColumnName="estadoPrueba" />
+          <ScalarProperty Name="testerResponsable" ColumnName="testerResponsable" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
