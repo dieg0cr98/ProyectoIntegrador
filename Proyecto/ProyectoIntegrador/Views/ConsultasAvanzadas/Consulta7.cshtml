@@ -85,7 +85,7 @@
                     var idEmpleado = data2[tupla].idEmpleado;
                     var nombreEmpleado = data2[tupla].nombreEmpleado;
                     var numReqs = data2[tupla].numReqs;
-                    var datosDelScript = "consulta4LoadGraphTester(" + idProyecto + ",'" + idEmpleado + "'" + ")";
+                    var datosDelScript = "consulta7LoadGraphTester(" + idProyecto + ",'" + idEmpleado + "'" + ")";
                     table += '<tr onclick="' + datosDelScript + '"  class="table-row" >';
                     table += ' <th scope="row">' + nombreEmpleado + '</th>';
 
@@ -106,7 +106,7 @@
         });
     }
 
-        function consulta4LoadGraphTester(idProyecto, idTester) {
+        function consulta7LoadGraphTester(idProyecto, idTester) {
         //Pide los datos al controlador
         $.ajax({
             url: "/ConsultasAvanzadas/consulta4LoadGraphTester",
