@@ -1,207 +1,303 @@
 ﻿
 
+@{
+    var Cliente = "";
+    var Lider = "";
+    foreach (var t in ViewBag.datos)
+    {
 
-    <div class="row mx-4 mt-0 md-0 " style="height:48px">
+        if (t.Item1 == Model.idProyectoAID)
+        {
+            Cliente = t.Item3;
+            Lider = t.Item2;
+        }
 
-        <div class="col-10" style="max-height:48px">
-            <p class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@Model.nombre</p>
-        </div>
+    }
 
-        <!-- Botones de Editar y Borrar  -->
-        <div class="col">
+}
 
-            @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
+<div class="row mx-4 mt-0 md-0 " style="height:48px">
+
+    <div class="col-10" style="max-height:48px">
+        <p class="font-weight-bold text-left" style="font-family:PlayfairDisplay-Bold; font-size:40px;">@Model.nombre</p>
+    </div>
+
+    <!-- Botones de Editar y Borrar  -->
+    <div class="col">
+
+        @if (ViewBag.permisosEspecificos.Item4 == 1 || ViewBag.permisosEspecificos.Item4 == 2)
+        {
+            <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@Model.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+
+        }
+        else
+        {
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="No tiene permisos para Editar"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
+        }
+    </div>
+
+    <div class="col">
+
+        <!-- Puede Eliminar un Proyecto  -->
+        @if ((ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2))
+        {
+
+            if (Model.estado != "Activo")
             {
-                <a data-toggle="tooltip" onclick="my_loading(this,'30px','30px')" data-placement="left" title="Editar" href="/Proyectos/Edit/@Model.idProyectoAID" class="btn"><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
+                <!-- Button trigger modal -->
+                <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idProyectoAID" data-whatever2=""><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
             }
             else
             {
-                <a class="btn" data-toggle="tooltip" data-placement="top" title="No tiene permisos para Editar" ><img src="~/Content/edit.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-            }
-        </div>
 
-        <div class="col">
-
-            <!-- Puede Eliminar un Proyecto  -->
-            @if ((ViewBag.permisosEspecificos.Item6 == 1 || ViewBag.permisosEspecificos.Item6 == 2))
-            {
-
-                if (Model.estado != "Activo")
-                {
-
-                    <!-- Button trigger modal -->
-                    <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@Model.idProyectoAID" data-whatever2=""><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                }
-                else
-                {
-
-                    <a href="#" class="btn" data-toggle="modal" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-                }
-
-            }
-            else
-            {
-                <a class="btn" data-toggle="tooltip" data-placement="top" title="No tiene permisos para Eliminar"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
-               
+                <a href="#" class="btn" data-toggle="modal" data-target="#ModalEliminarActivo"><img data-toggle="tooltip" title="Eliminar" data-placement="top" src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
             }
 
+        }
+        else
+        {
+            <a class="btn" data-toggle="tooltip" data-placement="top" title="No tiene permisos para Eliminar"><img src="~/Content/delete.svg" class="rounded float-right" style="max-height:30px ; max-width:30px"></a>
 
+        }
 
-
-        </div>
 
 
 
     </div>
 
-    <hr />
-
-    <div class="container justify-content-center overflow-auto" style="max-height:390px; height:390px">
 
 
+</div>
 
-        @*Fila con la etiqueta de Objetivo*@
-        <div class="form-row">
-            <div class="col">
-                <h5> Objetivo</h5>
-            </div>
+<hr />
+
+<div class="container justify-content-center overflow-auto" style="max-height:390px; height:390px">
+
+
+
+    @*Fila con la etiqueta de Objetivo*@
+    <div class="form-row">
+        <div class="col">
+            <h5> Objetivo</h5>
+        </div>
+    </div>
+
+
+    @*Atributo Objetivo*@
+
+    <div class="input-group mb-4  mx-6">
+        <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none;background-color:#D7CEC7; border-color:transparent " id="comment" readonly></textarea>
+    </div>
+
+
+    @*Filas con las etiquetas de Fechas *@
+
+    <div class="form-row">
+        <div class="col-5 ">
+            <h5> Fecha Inicio </h5>
         </div>
 
-
-        @*Atributo Objetivo*@
-
-        <div class="input-group mb-4  mx-6">
-            <textarea class="form-control" name="objetivo" value="@Model.objetivo" placeholder="@Model.objetivo" maxlength="200" aria-label="With textarea" style="max-width:none;background-color:#D7CEC7; border-color:transparent " id="comment" readonly></textarea>
-        </div>
-
-
-        @*Filas con las etiquetas de Fechas *@
-
-        <div class="form-row">
-            <div class="col-5 ">
-                <h5> Fecha Inicio </h5>
-            </div>
-
-            <div class="col-2 ">
-
-            </div>
-
-            <div class="col-5">
-                <h5> Fecha Finalización </h5>
-            </div>
-        </div>
-
-
-        @* Fechas   *@
-        <div class="form-row mb-4">
-            <div class="col-5">
-                @* Fecha Inicio   *@
-                <div class="input-group">
-
-                    <input id="cfecha" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
-
-
-                </div>
-                <small class="form-text text-left" style="color:black">Por defecto Fecha del dia creado </small>
-
-            </div>
-
-            <div class="col-2">
-
-            </div>
-
-            <div class="col-5">
-
-                @* Fecha Fin   *@
-                <div class="input-group">
-                    <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
-                </div>
-
-
-                <small class="form-text text-left" style="color:black">Por defecto 01-01-1800  </small>
-
-            </div>
-        </div>
-
-
-        @*Filas con las etiquetas de Duraciones *@
-        <div class="form-row">
-            <div class="col-5">
-                <h5> Duración Estimada</h5>
-            </div>
-
-            <div class="col-2">
-
-            </div>
-
-            <div class="col-5">
-                <h5> Duración Real </h5>
-            </div>
-        </div>
-
-
-        @* Duraciones  *@
-        <div class="form-row mb-4">
-            <div class="col-5">
-
-                @* Duraciones Estimada *@
-                <div class="input-group">
-
-                    <input id="input4" class="form-control text-center" type="number" style=" width:200px; text-align:center; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionEstimada" name="duracionEstimada" readonly>
-
-
-                </div>
-
-                <small class="form-text text-left" style="color:black">Formato en horas</small>
-
-            </div>
-            <div class="col-2">
-
-            </div>
-
-            <div class="col-5">
-
-                @* Duracione Real *@
-                <div class="input-group">
-
-
-                    <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionReal" name="duracionReal" readonly>
-
-                </div>
-
-                <small class="form-text text-left" style="color:black">Formato en horas </small>
-
-            </div>
-        </div>
-
-
-        @*Fila con la etiqueta de Estado*@
-        <div class="form-row">
-            <div class="col">
-                <h5> Estado</h5>
-            </div>
-        </div>
-
-
-        @* Estado*@
-        <div class="input-group">
-            <input class="input-group-text" style="width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.estado" name="estado" type="text" readonly>
-        </div>
-
-
-
+        <div class="col-2 ">
 
         </div>
 
-        <hr />
-        <div class="row justify-content-center" style="width:1150px ; height:100px">
-            <div class="col-4  text-center">
-                <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = @Model.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
-            </div>
-            <div class="col-4  text-center">
-                <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="right" title="Administrar Equipo" class="btn d-inline-block" href="@Url.Action("IndexTrabajaEn", "Proyectos", new { idProyecto = @Model.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+        <div class="col-5">
+            <h5> Fecha Finalización </h5>
+        </div>
+    </div>
+
+
+    @* Fechas   *@
+    <div class="form-row mb-4">
+        <div class="col-5">
+            @* Fecha Inicio   *@
+            <div class="input-group">
+
+                <input id="cfecha" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaInicio.ToString("yyyy-MM-dd")" name="fechaInicio" readonly>
+
 
             </div>
+            <small class="form-text text-left" style="color:black">Por defecto Fecha del dia creado </small>
+
         </div>
+
+        <div class="col-2">
+
+        </div>
+
+        <div class="col-5">
+
+            @* Fecha Fin   *@
+            <div class="input-group">
+                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:#D7CEC7; border-color:transparent" type="date" value="@Model.fechaFinalizacion.ToString("yyyy-MM-dd")" name="fechaFinalizacion" readonly>
+            </div>
+
+
+            <small class="form-text text-left" style="color:black">Por defecto 01-01-1800  </small>
+
+        </div>
+    </div>
+
+
+    @*Filas con las etiquetas de Duraciones *@
+    <div class="form-row">
+        <div class="col-5">
+            <h5> Duración Estimada</h5>
+        </div>
+
+        <div class="col-2">
+
+        </div>
+
+        <div class="col-5">
+            <h5> Duración Real </h5>
+        </div>
+    </div>
+
+
+    @* Duraciones  *@
+    <div class="form-row mb-4">
+        <div class="col-5">
+
+            @* Duraciones Estimada *@
+            <div class="input-group">
+
+                <input id="input4" class="form-control text-center" type="number" style=" width:200px; text-align:center; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionEstimada" name="duracionEstimada" readonly>
+
+
+            </div>
+
+            <small class="form-text text-left" style="color:black">Formato en horas</small>
+
+        </div>
+        <div class="col-2">
+
+        </div>
+
+        <div class="col-5">
+
+            @* Duracione Real *@
+            <div class="input-group">
+
+
+                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.duracionReal" name="duracionReal" readonly>
+
+            </div>
+
+            <small class="form-text text-left" style="color:black">Formato en horas </small>
+
+        </div>
+    </div>
+
+
+    @*Filas con las etiquetas de datos *@
+    <div class="form-row">
+        <div class="col-5">
+            <h5> Lider </h5>
+        </div>
+
+        <div class="col-2">
+
+        </div>
+
+        <div class="col-5">
+            <h5> Cliente </h5>
+        </div>
+    </div>
+
+
+    @* Datos  *@
+    <div class="form-row mb-4">
+        <div class="col-5">
+
+            @* Lider *@
+            <div class="input-group">
+
+                <input class="input-group-text" style="width:400px; background-color:#D7CEC7; border-color:transparent" value="@Lider" name="cliente" type="text" readonly>
+
+
+            </div>
+
+
+        </div>
+        <div class="col-2">
+
+        </div>
+
+        <div class="col-5">
+
+            @* Cliente *@
+            <div class="input-group">
+
+                <input class="input-group-text" style="width:400px; background-color:#D7CEC7; border-color:transparent" value="@Cliente" name="cliente" type="text" readonly>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    @*Fila con la etiqueta de Estado*@
+    <div class="form-row">
+        <div class="col">
+            <h5> Estado</h5>
+        </div>
+    </div>
+
+
+    @* Estado*@
+    <div class="input-group">
+        <input class="input-group-text" style="width:200px; background-color:#D7CEC7; border-color:transparent" value="@Model.estado" name="estado" type="text" readonly>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<hr />
+<div class="row justify-content-center" style="width:1150px ; height:100px">
+    <div class="col-4  text-center">
+        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="left" title="Administrar Requerimientos" class="btn d-inline-block" href="@Url.Action("IndexRequerimientos", "Proyectos", new { idProyecto = @Model.idProyectoAID })"><img src="~/Content/clipboard.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+    </div>
+    <div class="col-4  text-center">
+        <a onclick="my_loading(this,'80px','80px')" data-toggle="tooltip" data-placement="right" title="Administrar Equipo" class="btn d-inline-block" href="@Url.Action("IndexTrabajaEn", "Proyectos", new { idProyecto = @Model.idProyectoAID })"><img src="~/Content/team.svg" class="rounded float-right" style="height:80px ; width:80px"></a>
+
+    </div>
+</div>
+
+
+<script>
+    function test(idProyecto, cedulaCliente) {
+        alert('Proyecto ' + idProyecto + ' Cliente ' + cedulaCliente);
+        var t = document.getElementById(idProyecto);
+        alert(t.nodeValue);
+        alert(t.getAttribute('value'));
+
+
+
+    }
+
+</script>
 
