@@ -95,6 +95,12 @@
         </div>
 
 
+
+
+
+
+ </div>
+
     </div>
 
     </br>
@@ -166,7 +172,11 @@
 
                             var date2 = new Date(fechaFin.substring(0, 4), fechaFin.substring(5, 7), fechaFin.substring(8, 10));
            
-                            data.addRow([nombre, null, '<div style="width:200px"><h7> <strong>Tipo de Complejidad:  </strong>' + data2[tupla].complejidad + '</h7></br><h7><strong>Total días Trabajados:  </strong>'+(date2.getTime() - date.getTime() ) / (1000 * 3600 * 24)+'</h7></div>', new Date(fechaInicio.substring(0, 4), fechaInicio.substring(5, 7), fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4), fechaFin.substring(5, 7), fechaFin.substring(8, 10))]);
+                            data.addRow([nombre, null, '<div style="width:500px"><h7> <strong>Tipo de Complejidad:  </strong>' + data2[tupla].complejidad + '</h7></br><h7> <strong>Estado: </strong>' + data2[tupla].estado +'</br></h7>   <h7><strong>Total días Trabajados:  </strong>'+(date2.getTime() - date.getTime() ) / (1000 * 3600 * 24)+'</h7></div>', new Date(fechaInicio.substring(0, 4), fechaInicio.substring(5, 7), fechaInicio.substring(8, 10)), new Date(fechaFin.substring(0, 4), fechaFin.substring(5, 7), fechaFin.substring(8, 10))]);
+
+
+                           
+
 
                         }
 

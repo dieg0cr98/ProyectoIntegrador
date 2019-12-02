@@ -188,7 +188,7 @@
 
                             @if (ViewBag.permisos.Item3[6] == 1)
                             {
-                                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:white" type="date" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaFinalizacion" required>
+                                <input id="cfecha2" class="form-control text-center" style="width:200px; background-color:white" type="date" placeholder="@DateTime.Parse("1800-01-01").ToShortDateString()" name="fechaFinalizacion">
                             }
                             else
                             {
@@ -257,7 +257,7 @@
 
                             @if (ViewBag.permisos.Item3[4] == 1)
                             {
-                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:white" name="duracionReal" required>
+                                <input id="input5" class="form-control" type="number" style="text-align:center; width:200px; background-color:white" name="duracionReal" />
 
                             }
                             else

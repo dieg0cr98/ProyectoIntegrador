@@ -507,7 +507,38 @@ namespace ProyectoIntegrador.Controllers
                 var temp = GetProyectosUsuario(permisosGenerales.Item2, permisosGenerales.Item1, permisosGenerales.Item3);
                 if(temp != null)
                 {
+                    List< Tuple<int,string,string> > lista = new List< Tuple<int,string,string>  >();
+
+
+                    foreach(Proyecto p in temp)
+                    {
+
+                        var y = p.TrabajaEn.Where(t=>t.idProyectoFK == p.idProyectoAID && t.rol == "Lider").FirstOrDefault();
+                        string nombreLider = "";
+                        if (y != null)
+                        {
+
+                            nombreLider = y.Empleado.nombre + " " + y.Empleado.apellido1;
+                        }
+
+
+                        string nombreCliente = "";
+                        if(p.Cliente != null)
+                        {
+                            nombreCliente = p.Cliente.nombre + " " + p.Cliente.apellido1;
+                        }
+
+                        lista.Add(Tuple.Create(p.idProyectoAID, nombreLider, nombreCliente));
+
+                    }
+
+
+                    ViewBag.datos = lista;
+       
+                    
                     return View(temp.Reverse());
+
+
                 }
                 else
                 {
