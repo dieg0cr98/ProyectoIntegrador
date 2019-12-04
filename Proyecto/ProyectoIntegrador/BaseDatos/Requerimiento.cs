@@ -11,7 +11,8 @@ namespace ProyectoIntegrador.BaseDatos
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Requerimiento
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,18 +21,20 @@ namespace ProyectoIntegrador.BaseDatos
             this.HistorialReqTester = new HashSet<HistorialReqTester>();
             this.Prueba = new HashSet<Prueba>();
         }
-    
+        
+        [Key]
         public int idReqPK { get; set; }
+        [Key]
         public int idProyectoFK { get; set; }
         public string cedulaTesterFK { get; set; }
         public string nombre { get; set; }
-        public string complejidad { get; set; }
-        public int tiempoEstimado { get; set; }
+        public string complejidad { get; set; } = "Medio";
+        public int tiempoEstimado { get; set; } = 0;
         public Nullable<int> tiempoReal { get; set; }
         public string descripcion { get; set; }
         public System.DateTime fechaDeInicio { get; set; }
-        public Nullable<System.DateTime> fechaDeFinalizacion { get; set; }
-        public string estado { get; set; }
+        public Nullable<System.DateTime> fechaDeFinalizacion { get; set; } = DateTime.Now;
+        public string estado { get; set; } = "Preparacion";
         public Nullable<bool> resultado { get; set; }
         public string detallesResultado { get; set; }
         public string estadoResultado { get; set; }
